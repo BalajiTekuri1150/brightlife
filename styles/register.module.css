@@ -1,0 +1,40 @@
+
+.register
+{
+    width:400px;
+    height: 600px;
+    /* background-color: white; */
+    /* border: 2px solid black; */
+    margin-top:27px;
+    margin-left: 440px;
+    /* border-radius: 10px; */
+    box-shadow: 0 8px 6px 3px rgba(0,0,0,0.5);
+    transition: 1s;
+    border-radius: 10px; 
+    position: absolute;
+    top:0;
+    background-color: white;
+}
+.image1
+{
+    position: absolute;
+    /* top:10; */
+
+}
+.total
+{
+    height:1000px;
+    width: 1000px;
+}
+.condition
+{
+   text-size-adjust: 0.58;
+   font-size:11px;
+   margin-left:50px;
+   color: gray;
+}
+.footertext
+{
+    margin-left: 100px;
+    color:gray;
+}
