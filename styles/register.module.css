@@ -5,8 +5,8 @@
     height: 600px;
     /* background-color: white; */
     /* border: 2px solid black; */
-    margin-top:27px;
-    margin-left: 440px;
+    margin-top:200px;
+    margin-left:670px;
     /* border-radius: 10px; */
     box-shadow: 0 8px 6px 3px rgba(0,0,0,0.5);
     transition: 1s;
@@ -37,4 +37,49 @@
 {
     margin-left: 100px;
     color:gray;
+}
+.forming
+{
+    margin-left:680px;
+    margin-top:300px;
+    background-color:white;
+    height:100%;
+    width:450px;
+    box-shadow: 0 8px 6px 3px rgba(0,0,0,0.5);
+    transition: 1s;
+    border-radius: 10px; 
+}
+.inputbox
+{
+    margin-left: 45px;
+    border:1px solid black;
+    width:350px;
+    height:30px;
+    font-size: 15px;
+    box-shadow: 0 1px 2px 2px rgba(0,0,0,0.5);
+    border-radius: 0px;
+    margin-bottom: 20px;
+    padding:5px;
+}
+.otpBox
+{
+    margin-left: 45px;
+    border:0px solid black;
+    width:30px;
+    height:30px;
+    font-size: 15px;
+    box-shadow: 0 1px 2px 2px rgba(0,0,0,0.5);
+    border-radius: 5px;
+    /* background-color:gray; */
+}
+.forming1
+{
+    margin-left:700px;
+    margin-top:250px;
+    background-color:white;
+    height:100%;
+    width:350px;
+    box-shadow: 0 1px 1px 1px rgba(0,0,0,0.5);
+    transition: 1s;
+    border-radius: 10px; 
 }

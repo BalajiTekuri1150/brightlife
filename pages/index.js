@@ -14,6 +14,7 @@ export default function Home({users}) {
         <meta name="keywords" content="mypage,first next app,next app" />
         <meta name="description" content="I created my first next"/>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"></link>
+        <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
       </Head>
       <Register_Page/>
       {/* <h1 className={styles.title}>Hello World</h1> */}
@@ -24,7 +25,7 @@ export default function Home({users}) {
 
 
 // export async function getStaticProps(){
-//   const res=await fetch("https://jsonplaceholder.typicode.com/users");
+//   const res=await fetch("https://test-api.brightlife.org/brightlife/signup");
 //   const users=await res.json();
 //   return{
 //     props:{

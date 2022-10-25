@@ -8,6 +8,10 @@ import logo from '../assets/images/logo.jpeg';
 import {useState} from "react";
 import Register_child from './Register_child';
 import { AiFillEye,AiFillEyeInvisible } from "react-icons/ai";
+import axios from "axios";
+import Role from "../pages/Role";
+import Router from 'next/router';
+import {useEffect} from "react";
 
 const Register_Page=()=>
 {
@@ -19,6 +23,7 @@ const Register_Page=()=>
         pass:{value:"",isValid:false},
         gmail:{value:"",isValid:false},
     });
+    const [post,setPost]=useState("");
     const [passwordType, setPasswordType] = useState("password");
     const handleData=(name,value,error)=>
     {
@@ -31,6 +36,7 @@ const Register_Page=()=>
             },
         });
     }
+
     const arr=new Array(data.user.isValid,data.pass.isValid,data.gmail.isValid);
     const check=(item)=>
     {
@@ -38,29 +44,24 @@ const Register_Page=()=>
     }
     const handleSubmit=(e)=>
     {
-        e.preventDefault();
+        e.preventDefault(); 
         if(arr.every(check))
-        {
-            <Link href="#"></Link>
+        { 
+            Router.push({
+                pathname: '/Role',
+                query: {name:data.user.value,gmail:data.gmail.value,pass:data.pass.value},
+            })
+
         }
         else
         {
             alert("Enter Correct Details");
-            <Link href="/"></Link>
+            
         }
     }
-    // const togglePassword =()=>{
-    //     if(passwordType==="password")
-    //     {
-    //      setPasswordType("text")
-    //      return;
-    //     }
-    //     setPasswordType("password")
-    //   }
     return(
         <div>
-            {/* <Image src={logo} width="100px" height="40px" className={style.image1}/> */}
-            <h1 style={{color:'purple',marginLeft:'600px',fontSize:'20px'}}>BRIGHT LIFE</h1>
+            <br/><h1 style={{color:'white',marginLeft:'800px',marginTop:'140px',fontSize:'20px'}}>BRIGHT LIFE</h1>
             <div className={style.register}>
                 <label style={{marginLeft:'150px',fontSize:'20px'}}>Sign Up</label>
                 <label style={{marginLeft:'80px',fontSize:'15px',color:'gray'}}>To Become A Bright Life Member</label>
@@ -99,9 +100,6 @@ const Register_Page=()=>
                                 reg={reg_pass}
                                 handleChange={handleData}
                                 placeholder='enter password'/>
-                                {/* <span className="btn btn-outline-primary" onClick={togglePassword}>
-                                { passwordType==="password"? <i className="bi bi-eye-slash"></i> :<i className="bi bi-eye"></i> }
-                                </span> */}
                     </div>
                     <button className='btn-success' 
                             style={{marginLeft:'110px',width:'180px',height:'40px',borderRadius:'5px',backgroundColor:'lightseagreen '}}
@@ -109,7 +107,7 @@ const Register_Page=()=>
                             CreateAccount
                     </button><br/>
                     <p className={style.condition}>By Click on the continue you are agree to the <b style={{color:'lightseagreen '}}>terms&conditions</b></p>
-                    <label style={{marginLeft:'180px',color:'gray'}}>OR</label>
+                    <label style={{marginLeft:'110px',color:'gray'}}>----------------OR-----------------</label>
                     <div>
                         <button className='btn-success' 
                                 style={{marginRight:'10px',
@@ -126,10 +124,8 @@ const Register_Page=()=>
                     <label className={style.footertext}>Already a member?<b style={{color:'lightseagreen '}}><Link href="#">Sign in</Link></b></label>
                 </form>
             </div>
-            <div>
-
-            </div>
         </div>
     )
 }
+    
 export default Register_Page;
