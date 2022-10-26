@@ -1,12 +1,6 @@
-import react from "react";
 import style from '../styles/register.module.css';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import axios from "axios";
-import {useEffect} from "react";
-//import Otp from './Otp';
-import {Link} from 'next/link';
-import Router from 'next/router';
 const Role=()=>
 {
     const router = useRouter()
@@ -83,29 +77,4 @@ const Role=()=>
         </div>
     );
 }
-
-
-// export async function getStaticProps(){
-//     const res=await fetch("https://test-api.brightlife.org/brightlife/signup");
-//     const users=await res.json();
-//     return{
-//       props:{
-//         users,
-//       },
-//     }
-//   }
-  
-
-
-// if(response.status==true)
-// {
-//     Router.push({
-//         pathname: '/GetOtp',
-//         query: {name:name,gmail:gmail,pass:pass,role:role},
-//     });
-// }
-// else
-// {
-//     console.log("gmail Already Registered");
-// }
 export default Role;
