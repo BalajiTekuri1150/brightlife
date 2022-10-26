@@ -1,18 +1,11 @@
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import style from '../styles/register.module.css';
 import {AiOutlineMail,FaUserTie} from "react-icons/ai";
 import { BsPersonFill,BsFileLock,BsGoogle,BsFacebook} from "react-icons/bs";
-import logo from '../assets/images/logo.jpeg';
 import {useState} from "react";
 import Register_child from './Register_child';
-import { AiFillEye,AiFillEyeInvisible } from "react-icons/ai";
-import axios from "axios";
-import Role from "../pages/Role";
 import Router from 'next/router';
-import {useEffect} from "react";
-
 const Register_Page=()=>
 {
     let reg_name=new RegExp('^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$');
@@ -121,7 +114,7 @@ const Register_Page=()=>
                                 &nbsp;Sign Up with Google
                         </button>
                     </div><p></p>
-                    <label className={style.footertext}>Already a member?<b style={{color:'lightseagreen '}}><Link href="#">Sign in</Link></b></label>
+                    <label className={style.footertext}>Already a member?<b style={{color:'lightseagreen '}}><Link href="/login/logins">Sign in</Link></b></label>
                 </form>
             </div>
         </div>
