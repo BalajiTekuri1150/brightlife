@@ -1,6 +1,8 @@
 import {AiOutlineEye,AiOutlineEyeInvisible} from "react-icons/ai";
 import { useRouter } from 'next/router';
 import { useState } from "react"
+import { postData } from "../../utils/data_manage_service";
+import { setSessionData } from "../../utils/storage_service";
 export default function Resetpsw()
 {
     const router = useRouter()
@@ -12,49 +14,53 @@ export default function Resetpsw()
     const handleSubmit=async(e)=>
     {
         e.preventDefault()
-        if(e.target[0].value==e.target[1].value)
+        if(e.target[0].value==e.target[1].value && e.target[0].value!="")
         {
             const data = {
                 email:user.email,
                 otp: user.otp,
                 password:e.target[0].value
             }   
-            fetch('https://test-api.brightlife.org/brightlife/update/password', 
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            })
-            .then((response)=>{
-                response.json()
-                .then((result)=>{
-                    if(result.status)
-                    { 
-                        setStatus(result.status)
-                        setMessage(result.response.message)
-                        router.push({
-                            pathname: '/login/pswsucess',
-                        })
+            const JSONdata=JSON.stringify(data)
+            postData('https://test-api.brightlife.org/brightlife/update/password',JSONdata)
+            .then((result)=>{
+                if(result?.data?.status){
+                    setStatus(result?.data?.status)
+                    setMessage(result?.data?.response.message) 
+                    setSessionData("password",e.target[0].value)
+                    router.push({ 
+                        pathname: '/login/pswsuccess',
+                        query: { email:user.email}
+                    })
+                }
+                else{  
+                    if(result?.data?.error?.message=="Invalid OTP or OTP expired") {
+                        router.push({ 
+                            pathname: '/login/forgotpsw',
+                        })  
                     }
                     else{
-                        setStatus(result.status)
-                        setMessage(result.error.message.password)
-                        setDisable(false)
+                        setStatus(result?.data?.status)
+                        setMessage(result?.data?.error.message?.password)  
+                        setDisable(false) 
                     }
-                })        
-
-            })
+                                  
+                }
+            })            
+        }
+        else{
+            setStatus(false)
+            setMessage("password didn't match")
+            setDisable(false)
+        }
     }
-    else{
-        setStatus(false)
-        setMessage("password didn't match")
-    }
-}
     const handlePassword = () => {
 		setPasswordShown(!passwordShown);
 	};
+    const handleChange=()=>{
+        setMessage("")
+        setStatus(true)
+    }
     return(
         <>
             <div>
@@ -68,7 +74,7 @@ export default function Resetpsw()
                                     <label className="col-form-label"> Password</label>
                                 </div>
                                 <div className="d-flex position-relative">
-                                    <input className="form-control" name="password" placeholder="enter password" disabled={disable} type={passwordShown ? "text" : "password"}/>
+                                    <input className="form-control" name="password" placeholder="enter password" disabled={disable} type={passwordShown ? "text" : "password"} onChange={handleChange}/>
                                     <span className="position-absolute flex end-0 p-2 bottom-0 m-2" onClick={handlePassword}>{passwordShown? <AiOutlineEye/>:<AiOutlineEyeInvisible/>}</span>
                                 </div>
                             </div>
@@ -77,7 +83,7 @@ export default function Resetpsw()
                                     <label className="col-form-label"> Reenter Password</label>
                                 </div>
                                 <div className="d-flex">
-                                    <input className="form-control" name="repassword" placeholder="Re enter password"  type="password" disabled={disable}/>
+                                    <input className="form-control" name="repassword" placeholder="Re enter password"  type="password" disabled={disable} onChange={handleChange}/>
                                 </div>
                             </div>
                             <div className="text-center">

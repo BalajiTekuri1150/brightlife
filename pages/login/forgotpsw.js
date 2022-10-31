@@ -1,6 +1,7 @@
 import {AiOutlineMail} from "react-icons/ai";
 import {useRouter} from "next/router";
 import { useState } from "react";
+import { postData } from "../../utils/data_manage_service";
 export default function Forgotpsw()
 {
     const router = useRouter();
@@ -9,8 +10,8 @@ export default function Forgotpsw()
     const [disable,setDisable]=useState(false)
     const handleSubmit=async(e)=>
     {
-        setDisable(true)
         e.preventDefault()
+        setDisable(true)
         if(e.target.email.value==""){
             setStatus(false)
             setMessage("Emails must be required")  
@@ -21,32 +22,28 @@ export default function Forgotpsw()
                 email: e.target.email.value,
                 context:"forgot_password"
             }
-            fetch('https://test-api.brightlife.org/brightlife/v2/get/otp', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-            })
-            .then((response)=>{
-                response.json()
-                .then((result)=>{
-                    if(result.status){
-                        setStatus(result.status)
-                        setMessage(result.response.message) 
-                        router.push({ 
-                            pathname: '/login/enterotp',
-                            query: { email:e.target.email.value,context:data.context,refid:result.response.referrence_id}
-                        })
-                    }
-                    else{
-                            setStatus(result.status)
-                            setMessage(result.error.message)  
-                            setDisable(false)                      
-                    }
-                })          
-            })
+            const JSONdata=JSON.stringify(data)
+            postData('https://test-api.brightlife.org/brightlife/v2/get/otp',JSONdata)
+            .then((result)=>{
+                if(result?.data?.status){
+                    setStatus(result?.data?.status)
+                    setMessage(result?.data?.response.message) 
+                    router.push({ 
+                        pathname: '/login/enterotp',
+                        query: { email:e.target.email.value,context:data.context,refid:result.data.response.referrence_id}
+                    })
+                }
+                else{
+                    setStatus(result?.data?.status)
+                    setMessage(result?.data?.error.message)  
+                    setDisable(false)                      
+                }
+            })          
         }
+    }
+    const handleChange=()=>{
+        setMessage("")
+        setStatus(true)
     }
     return(
         <>
@@ -62,11 +59,11 @@ export default function Forgotpsw()
                                         <label className="mb-3"> Email</label>
                                     </div>
                                     <div>
-                                        <input className="form-control" name="email" type="email" placeholder="enter e-mail address" disabled={disable}/>
+                                        <input className="form-control" name="email" type="email" placeholder="enter e-mail address" disabled={disable} onChange={handleChange}/>
                                     </div>
                                 </div>
                                 <div className="text-center">
-                                    {status?<p></p>:<p className="text-danger">{message}</p>}
+                                    {status?<p className="text-sucess">{message}</p>:<p className="text-danger">{message}</p>}
                                 </div>
                                 <div className="text-center mb-4">
                                     <button className="btn btn-success m-2 col-6" type="submit" disabled={disable}>continue</button>
