@@ -1,14 +1,35 @@
-import { useRouter } from "next/router"
 import { useState } from "react"
 import { getLocalData } from "../../utils/storage_service"
 import { postApplicationData } from "../../utils/data_manage_service"
+import Input from "./input_compent"
 export default function Bank_details(){
+    let value="",isvalid=false,validation=[]
     const [message,setMessage]=useState("")
     const [status,setStatus]=useState(true)
-    const [disable,setDisable]=useState(false)
-    const router=useRouter()
+    const [disable,setDisable]=useState(true)
     const id=getLocalData("id")
     const token=getLocalData("token")
+    const [formValues,setFormValues]=useState({
+        bank_name:{value,isvalid},
+        state:{value,isvalid},
+        postal_code:{value,isvalid},
+        account_holder:{value,isvalid},
+        account_number:{value,isvalid},
+        branch:{value,isvalid},
+        ifsc:{value,isvalid}
+    })
+    const handleChange=(name,values,valid)=>{
+        setStatus(true)
+        setMessage("")
+        setFormValues({...formValues,[name]:{value:values,isvalid:valid}})
+        for(let x in formValues){
+            validation.push(formValues[x].isvalid)
+        }
+        function check(x){
+            return x===true
+        }
+        setDisable(!validation.every(check))
+    }
     const handleSubmit=async(e)=>
     {
         setDisable(true)
@@ -23,7 +44,6 @@ export default function Bank_details(){
             branch:e.target.branch.value,
             ifsc: e.target.ifsc.value
         }
-        console.log(data)
         const JSONdata = JSON.stringify(data)
         postApplicationData('https://test-api.brightlife.org/brightlife/add/bank/details',JSONdata,token)
         .then((result) => {
@@ -46,21 +66,21 @@ export default function Bank_details(){
                     <div className="row">
                         <div className="col-5 mx-4">
                             <label>Bank name</label>
-                            <input type="text"  name="bank_name" className="form-control"/>
+                            <Input type="text"  name="bank_name" className="form-control" onChange={handleChange}/>
                         </div>
                         <div className="col-5 mx-4">
                             <label>Branch</label>
-                            <input type="text" name="branch" className="form-control"/>
+                            <Input type="text" name="branch" className="form-control"  onChange={handleChange}/>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-5 m-4">
                             <label>state</label>
-                            <input type="text" name="state" className="form-control"/>
+                            <Input type="text" name="state" className="form-control"  onChange={handleChange}/>
                         </div>
                         <div className="col-5 m-4">
                             <label>Postal code</label>
-                            <input type="number" name="postal_code" className="form-control"/>
+                            <Input type="number" name="postal_code" className="form-control"  onChange={handleChange}/>
                         </div>
                     </div>
                     <hr/>
@@ -68,21 +88,21 @@ export default function Bank_details(){
                     <div className="row">
                         <div className="col-5 m-4">
                             <label>Account Holder</label>
-                            <input type="text" name="account_holder" className="form-control"/>
+                            <Input type="text" name="account_holder" className="form-control"  onChange={handleChange}/>
                         </div>
                         <div className="col-5 m-4">
                             <label>Account Number</label>
-                            <input type="number" name="account_number" className="form-control"/>
+                            <Input type="number" name="account_number" className="form-control"  onChange={handleChange}/>
                         </div>
                     </div>
                     <div className="col-5 m-4">
                         <label>IFSC code</label>
-                        <input type="text" name="ifsc" className="form-control"/>
+                        <Input type="text" name="ifsc" className="form-control"  onChange={handleChange}/>
                     </div>
                     <span className="m-2">{status?<p className="text-sucess">{message}</p>:<p className="text-danger">{message}</p>}</span>
                     <div className="row">
                         <button type="submit" className="btn btn-primary mx-5 col-2 " disabled={disable}>Submit for verification</button>
-                        <button type="button" className="btn btn-secondary col-2 mx-5 " disabled={disable}>Exit</button>
+                        <button type="button" className="btn btn-secondary col-2 mx-5 " >Exit</button>
                     </div>
                 </form>
             </section>

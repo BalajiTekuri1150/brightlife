@@ -2,6 +2,9 @@ import {AiOutlineMail,AiOutlineLock,AiOutlineEye,AiOutlineEyeInvisible} from "re
 import Link from "next/link";
 import { useState } from "react"
 import { useRouter } from "next/router";
+import { setLocalData } from "../../utils/storage_service";
+import { postData } from "../../utils/data_manage_service"
+import Footers from "../footers"
 export default function Login()
 {
     const router = useRouter();
@@ -10,58 +13,73 @@ export default function Login()
     const [message,setMessage]=useState(true)
     const [disable,setDisable]=useState(false)
     const handleSubmit=async(e)=>
-    {
-        setDisable(true)
+    { 
         e.preventDefault()
+        setDisable(true)
         const data = {
             email: e.target.email.value,
             password: e.target.password.value,
         }
-        const JSONdata = JSON.stringify(data)
-        fetch('https://test-api.brightlife.org/brightlife/signin', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSONdata,
-        })
-        .then((response) => {
-            response.json()
-                .then((result)=>{
-                    if(result.status){ 
-                        setStatus(result.status)
+        if(data.email!="" && data.password!=""){
+            const JSONdata = JSON.stringify(data)
+            postData('https://test-api.brightlife.org/brightlife/signin',JSONdata)
+            .then((result)=>{
+                if(result?.status==200){
+                    if(result?.data?.status){ 
+                        setStatus(result?.data?.status)
                         setMessage("Login sucessful")
-                        console.log(result.token)
-                        router.push({ 
-                            pathname: '/aplication',
-                            query: {token:result.token}
-                        })
-                        
+                        setLocalData("token",result.data.token)
+                        setLocalData("user_id",result?.data?.response?.user?.id)
+                        if(result?.data?.response?.user?.role==="sponsor")
+                        {
+                            router.push({ 
+                                pathname: '/components/aplication',
+                            })
+                        }
+                        else if(result?.data?.response?.user?.role==="child")
+                        {
+                            router.push({ 
+                                pathname: '/components/child_dashboard',
+                            })  
+                        }
+                        else if(result?.data?.response?.user?.role==="gaurdian")
+                        {
+                            router.push({ 
+                                pathname: '/components/gaurdian_dashboard',
+                            })   
+                        }
+                        else if(result?.data?.response?.user?.role==="admin"){
+                            router.push({ 
+                                pathname: '/components/admin_dashboard',
+                            })  
+                        }
                     }
                     else{
-                        if(response.status==401){
-                            setStatus(result.status)
-                            setMessage(result.error.message)
-                            setDisable(false)
-                        }
-                        else if(response.status==400)
-                        {
-                            setStatus(result.status)
-                            setMessage("Both the fields are mandatory")
-                            setDisable(false)
-                        }
-                        else{
-                            setStatus(result.status)
-                            setMessage(result.message)
-                            setDisable(false)
-                        }
+                        setStatus(result.data.status)
+                        setMessage(result.data.message)
+                        setDisable(false)
                     }
-                })               
+                }
+                else{
+                    setStatus(result.data.status)
+                    setMessage(result.data.error.message)
+                    setDisable(false)
+                }
             })
+        }
+        else{
+            setStatus(false)
+            setMessage("Both the fields are mandatory")
+            setDisable(false)
+        }
     }
     const handlePassword = () => {
 		setPasswordShown(!passwordShown);
 	};
+    const handleChange=()=>{
+        setMessage("")
+        setStatus(true)
+    }
     return(
         <>
             {/* <div className="bg-image d-flex border justify-content-center p-5" style={{"backgroundImage":"url('/background_image.jpeg')","backgroundRepeat":"no-repeat","backgroundSize":"cover"}}> */}
@@ -77,7 +95,7 @@ export default function Login()
                                         <label className="col"> Email</label>
                                     </div>
                                     <div>
-                                        <input className="form-control" name="email" type="email" placeholder="enter e-mail address" disabled={disable}/>
+                                        <input className="form-control" name="email" type="email" placeholder="enter e-mail address" disabled={disable} onChange={handleChange}/>
                                     </div>
                                 </div>
                                 <div className="mb-3 row">
@@ -86,7 +104,7 @@ export default function Login()
                                         <label className="col-form-label"> Password</label>
                                     </div>
                                     <div className="d-flex position-relative ">
-                                        <input className="form-control" name="password" placeholder="enter password" type={passwordShown ? "text" : "password"} disabled={disable}/>
+                                        <input className="form-control" name="password" placeholder="enter password" type={passwordShown ? "text" : "password"} disabled={disable} onChange={handleChange}/>
                                         <span className="position-absolute flex end-0 p-2 bottom-0 m-2" onClick={handlePassword}>{passwordShown? <AiOutlineEye/>:<AiOutlineEyeInvisible/>}</span>
                                     </div>
                                 </div>
@@ -111,6 +129,7 @@ export default function Login()
                         </form>
                     </div>
                 </div>
+                <Footers/>
             {/* </div> */}
         </>
     )
