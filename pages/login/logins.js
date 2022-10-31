@@ -21,51 +21,45 @@ export default function Login()
             password: e.target.password.value,
         }
         if(data.email!="" && data.password!=""){
-            const JSONdata = JSON.stringify(data)
-            postData('https://test-api.brightlife.org/brightlife/signin',JSONdata)
-            .then((result)=>{
-                if(result?.status==200){
-                    if(result?.data?.status){ 
-                        setStatus(result?.data?.status)
-                        setMessage("Login sucessful")
-                        setLocalData("token",result.data.token)
-                        setLocalData("user_id",result?.data?.response?.user?.id)
-                        if(result?.data?.response?.user?.role==="sponsor")
-                        {
-                            router.push({ 
-                                pathname: '/components/aplication',
-                            })
-                        }
-                        else if(result?.data?.response?.user?.role==="child")
-                        {
-                            router.push({ 
-                                pathname: '/components/child_dashboard',
-                            })  
-                        }
-                        else if(result?.data?.response?.user?.role==="gaurdian")
-                        {
-                            router.push({ 
-                                pathname: '/components/gaurdian_dashboard',
-                            })   
-                        }
-                        else if(result?.data?.response?.user?.role==="admin"){
-                            router.push({ 
-                                pathname: '/components/admin_dashboard',
-                            })  
-                        }
-                    }
-                    else{
-                        setStatus(result.data.status)
-                        setMessage(result.data.message)
-                        setDisable(false)
-                    }
+            const result=await(postData('https://test-api.brightlife.org/brightlife/signin',data))
+            setStatus(result?.data?.status)
+            if(result?.data?.status){
+                setMessage("Login successful")
+                setLocalData("token",result.data.token)
+                setLocalData("user_id",result?.data?.response?.user?.id)
+                if(result?.data?.response?.user?.role==="sponsor")
+                {
+                    router.push({ 
+                        pathname: '/components/kids_Details',
+                    })
+                }
+                else if(result?.data?.response?.user?.role==="child")
+                {
+                    router.push({ 
+                        pathname: '/components/child_dashboard',
+                    })  
+                }
+                else if(result?.data?.response?.user?.role==="gaurdian")
+                {
+                    router.push({ 
+                        pathname: '/components/gaurdian_dashboard',
+                    })   
+                }
+                else if(result?.data?.response?.user?.role==="admin"){
+                    router.push({ 
+                        pathname: '/components/admin_dashboard',
+                    })  
+                }
+            }
+            else{
+                setDisable(false)
+                if(result?.status==401){
+                    setMessage(result?.data?.error?.message)
                 }
                 else{
-                    setStatus(result.data.status)
-                    setMessage(result.data.error.message)
-                    setDisable(false)
+                    setMessage(result?.data?.message)
                 }
-            })
+            }
         }
         else{
             setStatus(false)

@@ -14,7 +14,7 @@ export default function Forgotpsw()
         setDisable(true)
         if(e.target.email.value==""){
             setStatus(false)
-            setMessage("Emails must be required")  
+            setMessage("Email must be required")  
             setDisable(false) 
         }
         else{
@@ -22,23 +22,19 @@ export default function Forgotpsw()
                 email: e.target.email.value,
                 context:"forgot_password"
             }
-            const JSONdata=JSON.stringify(data)
-            postData('https://test-api.brightlife.org/brightlife/v2/get/otp',JSONdata)
-            .then((result)=>{
-                if(result?.data?.status){
-                    setStatus(result?.data?.status)
-                    setMessage(result?.data?.response.message) 
-                    router.push({ 
-                        pathname: '/login/enterotp',
-                        query: { email:e.target.email.value,context:data.context,refid:result.data.response.referrence_id}
-                    })
-                }
-                else{
-                    setStatus(result?.data?.status)
-                    setMessage(result?.data?.error.message)  
-                    setDisable(false)                      
-                }
-            })          
+            const result=await(postData('https://test-api.brightlife.org/brightlife/v2/get/otp',data))
+            setStatus(result?.data?.status)
+            if(result?.data?.status){
+                setMessage(result?.data?.response?.message) 
+                router.push({ 
+                    pathname: '/login/enterotp',
+                    query: { email:e.target.email.value,context:data.context,refid:result.data.response.referrence_id}
+                })
+            }
+            else{
+                setMessage(result?.data?.error.message)  
+                setDisable(false)                      
+            }       
         }
     }
     const handleChange=()=>{

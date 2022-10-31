@@ -21,32 +21,27 @@ export default function Resetpsw()
                 otp: user.otp,
                 password:e.target[0].value
             }   
-            const JSONdata=JSON.stringify(data)
-            postData('https://test-api.brightlife.org/brightlife/update/password',JSONdata)
-            .then((result)=>{
-                if(result?.data?.status){
-                    setStatus(result?.data?.status)
-                    setMessage(result?.data?.response.message) 
-                    setSessionData("password",e.target[0].value)
+            const result=await(postData('https://test-api.brightlife.org/brightlife/update/password',data))
+            setStatus(result?.data?.status)
+            if(result?.data?.status){
+                setMessage(result?.data?.response.message) 
+                setSessionData("password",e.target[0].value)
+                router.push({ 
+                    pathname: '/login/pswsuccess',
+                    query: { email:user.email}
+                })
+            }
+            else{  
+                if(result?.data?.error?.message=="Invalid OTP or OTP expired") {
                     router.push({ 
-                        pathname: '/login/pswsuccess',
-                        query: { email:user.email}
-                    })
+                        pathname: '/login/forgotpsw',
+                    })  
                 }
-                else{  
-                    if(result?.data?.error?.message=="Invalid OTP or OTP expired") {
-                        router.push({ 
-                            pathname: '/login/forgotpsw',
-                        })  
-                    }
-                    else{
-                        setStatus(result?.data?.status)
-                        setMessage(result?.data?.error.message?.password)  
-                        setDisable(false) 
-                    }
-                                  
-                }
-            })            
+                else{
+                    setMessage(result?.data?.error.message?.password)  
+                    setDisable(false) 
+                }                      
+            }            
         }
         else{
             setStatus(false)

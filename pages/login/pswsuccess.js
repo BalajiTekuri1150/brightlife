@@ -5,20 +5,17 @@ export default function Pswsucess(){
     const router=useRouter()
     const email=router.query.email
     const psw=getSessionData("password")
-    const handleSubmit=(e)=>{
+    const handleSubmit=async(e)=>{
         e.preventDefault()
         const data = {
             username:email,
             password:psw
         }   
-        const JSONdata=JSON.stringify(data)
-        postData('https://test-api.brightlife.org/brightlife/get/token',JSONdata)
-        .then((result)=>{
-            setLocalData("token",result.data.token) 
-            router.push({ 
-                pathname: '/components/aplication',
-            })   
-       })
+        const result=await(postData('https://test-api.brightlife.org/brightlife/get/token',data))
+        setLocalData("token",result?.data?.token) 
+        router.push({ 
+            pathname: '/components/kids_details',
+        })   
     }
     return(
         <>
