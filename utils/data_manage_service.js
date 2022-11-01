@@ -15,15 +15,16 @@ export const postData=async( url, data)=> {
     return response
 }
 
-// export const postApplicationData=async( url, data,token)=> {
-//     const response = await axios({
-//         method: "POST",
-//         url:  url,
-//         headers: {
-//             'Content-Type': 'application/json',
-//             'Authorization': "token "+token
-//         },
-//         data: data
-//     }).catch(e => {return e.response});
-//     return response
-// }
+export const getData=async( url)=> {
+    const token=getLocalData("token")
+    const response = await axios({
+        method: "GET",
+        url:  url,
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': "token "+token
+        },
+    }).catch(e => {return e.response});
+    return response
+}
+
