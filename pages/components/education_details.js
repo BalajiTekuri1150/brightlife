@@ -1,15 +1,13 @@
 import { useRouter } from "next/router"
 import { useState } from "react"
 import { getLocalData } from "../../utils/storage_service"
-import { postApplicationData } from "../../utils/data_manage_service"
+import { postData } from "../../utils/data_manage_service"
 import Input from "./input_compent"
 export default function Education_details(){
     let value="",isvalid=false,validation=[]
     const [message,setMessage]=useState("")
     const [status,setStatus]=useState(true)
-    const [disable,setDisable]=useState(true)
     const router=useRouter()
-    const token=getLocalData("token")
     const id=getLocalData("id")
     const [formValues,setFormValues]=useState({
         grade:{value,isvalid},
@@ -23,18 +21,9 @@ export default function Education_details(){
         setStatus(true)
         setMessage("")
         setFormValues({...formValues,[name]:{value:values,isvalid:valid}})
-        for(let x in formValues){
-            validation.push(formValues[x].isvalid)
-        }
-        function check(x){
-            return x===true
-        }
-        setDisable(!validation.every(check))
-        console.log(formValues)
     }
     const handleSubmit=async(e)=>
     {
-        setDisable(true)
         e.preventDefault()  
         const data = {
             application_id: id,
@@ -45,21 +34,21 @@ export default function Education_details(){
             aspirations:e.target.aspirations.value ,
             achievements: e.target.achievements.value 
         }
-        const JSONdata = JSON.stringify(data)
-        postApplicationData('https://test-api.brightlife.org/brightlife/update/education/details',JSONdata,token)
-        .then((result) => {
-            if(result?.data?.status){
-                router.push({ 
-                    pathname: '/components/required_documents',
-                })  
-            }
-            else{
-                setDisable(false)
-                setStatus(result?.data?.status)
-                setMessage(result?.data?.error?.message)
-            }
-        })            
+        const result=await(postData('https://test-api.brightlife.org/brightlife/update/education/details',data))
+        if(result?.data?.status){
+            router.push({ 
+                pathname: '/components/required_documents',
+            })  
+        }
+        else{
+            setDisable(false)
+            setStatus(result?.data?.status)
+            setMessage(result?.data?.error?.message)
+        }            
     }
+    const isFormValid=Object.keys(formValues).every((key)=>{
+        return formValues[key].isvalid
+    })
     return(
         <>
             <section className="form">
@@ -105,7 +94,7 @@ export default function Education_details(){
                     </div>
                     <span className="m-2">{status?<p className="text-sucess">{message}</p>:<p className="text-danger">{message}</p>}</span>
                     <div className="row">
-                        <button type="submit" className="btn btn-primary mx-5 col-2 " disabled={disable}>Save&Continue</button>
+                        <button type="submit" className="btn btn-primary mx-5 col-2 " disabled={!isFormValid}>Save&Continue</button>
                         <button type="button" className="btn btn-secondary col-2 mx-5 ">Exit</button>
                     </div>
                 </form>

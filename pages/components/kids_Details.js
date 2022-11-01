@@ -1,15 +1,13 @@
 import { useRouter } from "next/router"
 import { useState } from "react"
-import { getLocalData,setLocalData } from "../../utils/storage_service"
-import { postApplicationData } from "../../utils/data_manage_service"
+import { setLocalData } from "../../utils/storage_service"
+import { postData} from "../../utils/data_manage_service"
 import Input from "./input_compent"
 export default function Kids_details(){
     let value="",isvalid=false,validation=[]
     const [message,setMessage]=useState("")
     const [status,setStatus]=useState(true)
-    const [disable,setDisable]=useState(true)
     const router=useRouter()
-    const token=getLocalData("token")
     const [formValues,setFormValues]=useState({
         profile:{value,isvalid},
         username:{value,isvalid},
@@ -31,44 +29,25 @@ export default function Kids_details(){
             mobile: formValues.mobile.value,
             child_type_id: formValues.child.value
         }
-        console.log(data)
-        const JSONdata = JSON.stringify(data)
-        postApplicationData('https://test-api.brightlife.org/brightlife/add/application/profile',JSONdata,token)
-        .then((result) => {
-            if(result?.data?.status){
-                setLocalData("id",result?.data?.response.data.id)
-                router.push({ 
-                    pathname: '/components/gaurdian_details',
-                })  
-            }
-            else{
-                setStatus(result?.data?.status)
-                setMessage(result?.data?.error?.message)
-            }
-        })            
+        const result=await(postData('https://test-api.brightlife.org/brightlife/add/application/profile',data))
+        if(result?.data?.status){
+            setLocalData("id",result?.data?.response.data.id)
+            router.push({ 
+                pathname: '/components/gaurdian_details',
+            })  
+        }
+        else{
+            setStatus(result?.data?.status)
+            setMessage(result?.data?.error?.message)
+        }           
     }
     const handleChange=(name,values,valid)=>{
         setStatus(true)
         setMessage("")
         setFormValues({...formValues,[name]:{value:values,isvalid:valid}})
-        // for(let x in formValues){
-        //     validation.push(formValues[x].isvalid)
-        // }
-        // function check(x){
-        //     return x===true
-        // }
-        // setDisable(!validation.every(check))
-
     }
     const handleRadio=(e)=>{
         setFormValues({...formValues,[e.target.name]:{value:e.target.value,isvalid:true}})
-        // for(let x in formValues){
-        //     validation.push(formValues[x].isvalid)
-        // }
-        // function check(x){
-        //     return x===true
-        // }
-        // setDisable(!validation.every(check))
     }
     const isFormValid=Object.keys(formValues).every((key)=>{
         return formValues[key].isvalid

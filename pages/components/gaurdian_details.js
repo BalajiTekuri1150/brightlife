@@ -1,15 +1,13 @@
 import { useRouter } from "next/router"
 import { useState } from "react"
 import { getLocalData} from "../../utils/storage_service"
-import { postApplicationData } from "../../utils/data_manage_service"
+import { postData } from "../../utils/data_manage_service"
 import Input from "./input_compent"
 export default function Gaurdian_details(){
-    let value="",isvalid=false,validation=[]
+    let value="",isvalid=false
     const [message,setMessage]=useState("")
     const [status,setStatus]=useState(true)
-    const [disable,setDisable]=useState(true)
     const router=useRouter()
-    const token=getLocalData("token")
     const id=getLocalData("id")
     const [formValues,setFormValues]=useState({
         profession:{value,isvalid},
@@ -20,7 +18,6 @@ export default function Gaurdian_details(){
     const handleSubmit=async(e)=>
     {
         e.preventDefault()  
-        setDisable(true)
         const data = {
             application_id: id,
             profession: formValues.profession.value,
@@ -28,34 +25,25 @@ export default function Gaurdian_details(){
             family_members: formValues.family_members.value,
             extra_allowance: formValues.extra_allowance.value
         }
-        const JSONdata = JSON.stringify(data)
-        postApplicationData('https://test-api.brightlife.org/brightlife/update/guardian/details',JSONdata,token)
-        .then((result) => {
-            if(result?.data?.status){
-                router.push({ 
-                    pathname: '/components/Education_details',
-                })  
-            }
-            else{
-                setDisable(false)
-                setStatus(result?.data?.status)
-                setMessage(result?.data?.error?.message)
-            }
-        })            
+        const result=await(postData('https://test-api.brightlife.org/brightlife/update/guardian/details',data))
+        if(result?.data?.status){
+            router.push({ 
+                pathname: '/components/education_details',
+            })  
+        }
+        else{
+            setStatus(result?.data?.status)
+            setMessage(result?.data?.error?.message)
+        }            
     }
     const handleChange=(name,values,valid)=>{
         setMessage("")
         setStatus(true)
         setFormValues({...formValues,[name]:{value:values,isvalid:valid}})
-        for(let x in formValues){
-            validation.push(formValues[x].isvalid)
-        }
-        function check(x){
-            return x===true
-        }
-        console.log(formValues)
-        setDisable(!validation.every(check))
     }
+    const isFormValid=Object.keys(formValues).every((key)=>{
+        return formValues[key].isvalid
+    })
     return(
         <>
             <section className="form">
@@ -82,7 +70,7 @@ export default function Gaurdian_details(){
                     </div>
                     <span className="m-2">{status?<p className="text-sucess">{message}</p>:<p className="text-danger">{message}</p>}</span>
                     <div className="row">
-                        <button type="submit" className="btn btn-primary mx-5 col-2 " disabled={disable}>Save&Continue</button>
+                        <button type="submit" className="btn btn-primary mx-5 col-2 " disabled={!isFormValid}>Save&Continue</button>
                         <button type="button" className="btn btn-secondary col-2 mx-5 " >Exit</button>
                     </div>
                 </form>
