@@ -30,7 +30,7 @@ export default function Login()
                 if(result?.data?.response?.user?.role==="sponsor")
                 {
                     router.push({ 
-                        pathname: '/components/kids_Details',
+                        pathname: '/components/sponser_Dashboard',
                     })
                 }
                 else if(result?.data?.response?.user?.role==="child")
