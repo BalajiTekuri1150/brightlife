@@ -3,8 +3,9 @@ import { useState } from "react"
 import { getLocalData } from "../../utils/storage_service"
 import { postData } from "../../utils/data_manage_service"
 import Input from "./input_compent"
+import Link from "next/link"
 export default function Education_details(){
-    let value="",isvalid=false,validation=[]
+    let value="",isvalid=false
     const [message,setMessage]=useState("")
     const [status,setStatus]=useState(true)
     const router=useRouter()
@@ -95,7 +96,7 @@ export default function Education_details(){
                     <span className="m-2">{status?<p className="text-sucess">{message}</p>:<p className="text-danger">{message}</p>}</span>
                     <div className="row">
                         <button type="submit" className="btn btn-primary mx-5 col-2 " disabled={!isFormValid}>Save&Continue</button>
-                        <button type="button" className="btn btn-secondary col-2 mx-5 ">Exit</button>
+                        <Link href="/components/gaurdian_dashboard"><button type="button" className="btn btn-secondary col-2 mx-5 " >Exit</button></Link>
                     </div>
                 </form>
             </section>

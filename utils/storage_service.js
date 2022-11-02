@@ -6,7 +6,7 @@ export function setLocalData(id, value) {
 
 export function getLocalData(id) {
     let key =  id.toLowerCase();
-    let data=''
+    let data
     try {  
         data=localStorage?.getItem(key);
     } catch (error) {
