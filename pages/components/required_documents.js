@@ -2,6 +2,7 @@ import { getData,postData } from "../../utils/data_manage_service"
 import { useRouter } from "next/router"
 import { useState } from "react"
 import { getLocalData } from "../../utils/storage_service"
+import Link from "next/link"
 let number_of_documents=0
 export default function Required_documents(){
     const router=useRouter()
@@ -10,6 +11,7 @@ export default function Required_documents(){
     const [message,setMessage]=useState("")
     const id=getLocalData("id")
     const handleChange=async(e)=>{
+        console.log(e.target.value)
         seStatus(true)
         setMessage("")
         number_of_documents+=1
@@ -21,7 +23,7 @@ export default function Required_documents(){
         const data={
             "application":id,
             "seq_no":number_of_documents,
-            "url":encodeURI(e.target.value),
+            "url":e.target.value,
             "file_type":file_type[file_type.length-1]
         }
         const result=await(getData("https://test-api.brightlife.org/brightlife/list/document/types")) 
@@ -92,7 +94,7 @@ export default function Required_documents(){
                     {status?<p></p>:<p className="text-danger">{message}</p>}
                     <div className="row">
                         <button type="submit" className="btn btn-primary mx-5 col-2 " disabled={disable}>Save&Continue</button>
-                        <button type="button" className="btn btn-secondary col-2 mx-5">Exit</button>
+                        <Link href="/components/gaurdian_dashboard"><button type="button" className="btn btn-secondary col-2 mx-5 " >Exit</button></Link>
                     </div>
                 </form>
             </section>
