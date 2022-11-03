@@ -27,15 +27,15 @@ export default function Required_documents(){
             "file_type":file_type[file_type.length-1]
         }
         const result=await(getData("https://test-api.brightlife.org/brightlife/list/document/types")) 
-        for (let i = 0; i < result.data.response.data.length; i++) {
+        for (let i = 0; i < result?.data?.response?.data?.length; i++) {
             if(result?.data?.response?.data[i].name==e.target.name){
                 document_type=result?.data?.response?.data[i]?.id
             }
         }
         data["document_type"]=document_type
-        console.log(data)
         const response=await(postData("https://test-api.brightlife.org/brightlife/add/application/documents",data)) 
-        if(response?.data?.status){
+        console.log(response)
+        if(!response?.data?.status){
             seStatus(response?.data?.status)
             setMessage(response?.data?.error?.url) 
         }
@@ -43,7 +43,7 @@ export default function Required_documents(){
     const handleSubmit=(e)=>{
         e.preventDefault()
         router.push({ 
-            pathname: '/components/bank_details',
+            pathname: '/gaurdian/bank_details',
         })          
     }
     return(

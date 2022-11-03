@@ -37,7 +37,7 @@ const Role=()=>
                         console.log(response.status)
                         if(response.status==true){
                             Router.push({
-                                pathname: '/Otp',
+                                pathname: '/otp',
                                 query: {name:name,email:gmail,pass:pass,role:role},
                             });
                         }

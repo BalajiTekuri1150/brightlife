@@ -29,7 +29,7 @@ export default function Gaurdian_details(){
         const result=await(postData('https://test-api.brightlife.org/brightlife/update/guardian/details',data))
         if(result?.data?.status){
             router.push({ 
-                pathname: '/components/education_details',
+                pathname: '/gaurdian/education_details',
             })  
         }
         else{

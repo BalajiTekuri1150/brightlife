@@ -30,7 +30,7 @@ const GetOtp=()=>
                         //console.log(gmail)
                         //console.log(data.email)
                         Router.push({
-                            pathname: '/Otp',
+                            pathname: '/otp',
                             query: {name:name,email:gmail,pass:pass,role:role},
                         });
                     }

@@ -65,14 +65,16 @@ export default function Enterotp()
     }
     const resendOTP=async()=>
     {
+        setFormValues({otp1:"",otp2:"",otp3:"",otp4:""})
+        setTimeLeft(30)
         const data ={
             referrence_id:user.refid
         } 
         const result=await(postData('https://test-api.brightlife.org/brightlife/v2/resend/otp',data))
-        setStatus(result.data.status)
         setDisable(false)
+        setStatus(result?.data?.status)
         if(result?.data?.status){         
-            setMessage(result?.data?.response?.message)    
+            setMessage(result?.data?.response?.message)   
         }
         else{
             setMessage(result?.data?.error?.message)
@@ -81,6 +83,9 @@ export default function Enterotp()
     const handleChange=(e)=>{
         setMessage("")
         setStatus(true)
+        if (formValues[e.target.name].length > 0) {
+            return;
+        }
         const{name ,value}=e.target;
         setFormValues({...formValues,[name]:value});
         if(e.target.name==="otp1" && e.target.value.length==1){
@@ -102,10 +107,10 @@ export default function Enterotp()
                         <h1 className="h4 font-monospace text-center ">Enter OTP</h1>
                         <h6 className="h6 text-center  mb-3 "><small><AiOutlineMail/>Enter OTP sent to {user.email}</small></h6>
                         <div className="mt-2">
-                            <input type="number" name="otp1" onChange={handleChange} ref={otp1Ref} style={color} className="col-1 mx-1 " />
-                            <input type="number" name="otp2" onChange={handleChange} ref={otp2Ref} style={color} className="col-1 mx-1 " />
-                            <input type="number" name="otp3" onChange={handleChange} ref={otp3Ref} style={color} className="col-1 mx-1 " />
-                            <input type="number" name="otp4" onChange={handleChange} ref={otp4Ref} style={color} className="col-1 mx-1 " />                            
+                            <input type="number" name="otp1" onChange={handleChange} ref={otp1Ref} value={formValues.otp1} style={color} className="col-1 mx-1 " />
+                            <input type="number" name="otp2" onChange={handleChange} ref={otp2Ref} value={formValues.otp2} style={color} className="col-1 mx-1 " />
+                            <input type="number" name="otp3" onChange={handleChange} ref={otp3Ref} value={formValues.otp3} style={color} className="col-1 mx-1 " />
+                            <input type="number" name="otp4" onChange={handleChange} ref={otp4Ref} value={formValues.otp4} style={color} className="col-1 mx-1 " />                            
                         </div>
                         <div className="text-center m-2">
                             {status?<p className="text-success">{message}</p>:<p className="text-danger">{message}</p>}

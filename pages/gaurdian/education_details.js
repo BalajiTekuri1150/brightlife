@@ -38,7 +38,7 @@ export default function Education_details(){
         const result=await(postData('https://test-api.brightlife.org/brightlife/update/education/details',data))
         if(result?.data?.status){
             router.push({ 
-                pathname: '/components/required_documents',
+                pathname: '/gaurdian/required_documents',
             })  
         }
         else{
