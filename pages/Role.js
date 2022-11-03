@@ -1,24 +1,38 @@
-import react from "react";
+
 import style from '../styles/register.module.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import axios from "axios";
-import {useEffect} from "react";
 //import Otp from './Otp';
-import {Link} from 'next/link';
 import Router from 'next/router';
 const Role=()=>
 {
     const router = useRouter()
     const{name,gmail,pass}=router.query;
     const [role,setRole]=useState(" ");
+    const [disable,setDisable]=useState(true);
+    const [post,setPosts]=useState([]);
     const handleRadio=(e)=>
     {
+        setDisable(false);
         setRole(e.target.value);
     }
+    
+    useEffect(()=>{
+        const getDetails=async()=>{
+            const res1=await fetch("https://test-api.brightlife.org/brightlife/list/roles",{headers:{"Authorization":"token 2d21e847092508ace5f534ac492bf03cd742145a"}});
+            const getdet=await res1.json();
+            console.log(getdet);
+            console.log(getdet.response.data);
+            setPosts(getdet.response.data);
+            console.log(post[3]);
+        }
+        getDetails();
+    },[]);
+
     const handleSubmit=(e)=>
     {
         e.preventDefault();
+        setDisable(true);
         if(role==" ")
         {
             alert("You should select one role");
@@ -48,7 +62,7 @@ const Role=()=>
                             });
                         }
                         else{
-                            alert("Gmail Registered Already");
+                            alert(response.error.message);
                         }
                     })
             })
@@ -61,13 +75,13 @@ const Role=()=>
                 <label style={{marginLeft:'60px',fontSize:'15px',color:'gray'}}>Please note that it is one time selection,you will</label><br/>
                 <label style={{marginLeft:'90px',fontSize:'15px',color:'gray'}}>be able to change your category later</label><br/><br/>
                 <div className="form-group">                    
-                    <div className={style.inputbox}><input type="radio" value="sponser" name="role" onChange={handleRadio} checked={role==='sponser'}/><label style={{marginLeft:'20px'}}>Sponser</label></div>
+                    <div className={style.inputbox}><input type="radio" value={post[1]?.role} name="role" onChange={handleRadio} checked={role===post[1]?.role}/><label style={{marginLeft:'20px'}}>Sponser</label></div>
                 </div>
                 <div>
-                    <div className={style.inputbox}><input type="radio" value="Guardian,Volunteer applying for scholarship" name="role" onChange={handleRadio} checked={role==='Guardian,Volunteer applying for scholarship'}/><label style={{marginLeft:'20px'}}>Guardian,Volunteer applying for scholarship</label></div>
+                    <div className={style.inputbox}><input type="radio" value={post[2]?.role} name="role" onChange={handleRadio} checked={role==='guardian'}/><label style={{marginLeft:'20px'}}>Guardian,Volunteer applying for scholarship</label></div>
                 </div>
                 <div>
-                    <div className={style.inputbox}><input type="radio" value="Kid Applying For Scholarship" name="role" onChange={handleRadio} checked={role==='Kid Applying For Scholarship'}/><label style={{marginLeft:'20px'}}>Kid Applying For Scholarship</label></div>
+                    <div className={style.inputbox}><input type="radio" value={post[3]?.role} name="role" onChange={handleRadio} checked={role==='child'}/><label style={{marginLeft:'20px'}}>Kid Applying For Scholarship</label></div>
                 </div>
                 <button className='btn-success' 
                             style={{marginLeft:'140px',
@@ -76,6 +90,7 @@ const Role=()=>
                             borderRadius:'5px',
                             backgroundColor:'lightseagreen '}}
                             onClick={handleSubmit}
+                            disabled={disable}
                             >
                             continue
                 </button><br/><br/>

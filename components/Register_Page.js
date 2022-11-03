@@ -1,17 +1,11 @@
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import style from '../styles/register.module.css';
 import {AiOutlineMail,FaUserTie} from "react-icons/ai";
 import { BsPersonFill,BsFileLock,BsGoogle,BsFacebook} from "react-icons/bs";
-import logo from '../assets/images/logo.jpeg';
 import {useState} from "react";
 import Register_child from './Register_child';
-import { AiFillEye,AiFillEyeInvisible } from "react-icons/ai";
-import axios from "axios";
-import Role from "../pages/Role";
 import Router from 'next/router';
-import {useEffect} from "react";
 
 const Register_Page=()=>
 {
@@ -23,18 +17,34 @@ const Register_Page=()=>
         pass:{value:"",isValid:false},
         gmail:{value:"",isValid:false},
     });
-    const [post,setPost]=useState("");
-    const [passwordType, setPasswordType] = useState("password");
-    const handleData=(name,value,error)=>
+    // const [usererr,setUserErr]=useState("");
+    const [finalerr,setFinalerr]=useState(false);
+    const handleData=(name,value,isval,error)=>
     {
+        console.log(error);
         setData({
             ...data,
             [name]:{
                 ...value.name,
                 value:value,
-                isValid:error,
+                isValid:isval,
             },
         });
+        setFinalerr(false);
+        // if(name==="user" && error==false){
+        //     console.log("Invalid User");
+        //     setUserErr("Invalid User");
+        // }
+        // if(name==="pass" && error==false)
+        // {
+        //     console.log("Invalid Password");
+        //     setUserErr("Invalid Password")
+        // }
+        // if(name==="gmail" && error==false)
+        // {
+        //     console.log("Invalid gmail");
+        //     setUserErr("Invalid gmail");
+        // }
     }
 
     const arr=new Array(data.user.isValid,data.pass.isValid,data.gmail.isValid);
@@ -55,8 +65,9 @@ const Register_Page=()=>
         }
         else
         {
-            alert("Enter Correct Details");
-            
+            // setFinalerr(usererr);
+            // console.log(finalerr);  
+            setFinalerr(true);
         }
     }
     return(
@@ -101,6 +112,14 @@ const Register_Page=()=>
                                 handleChange={handleData}
                                 placeholder='enter password'/>
                     </div>
+                    {finalerr ? 
+                                <div style={{color:'red',fontSize:'10px'}}>
+                                    <label>Username should consists of 6 characters</label><br/>
+                                    <label>Password should contain minimum 8 characters with one capital letter,special character and a number</label><br/>
+                                    <label>Gmail should be like  ****@gmail.com</label>
+                                </div>
+                                :<label> </label>
+                    }
                     <button className='btn-success' 
                             style={{marginLeft:'110px',width:'180px',height:'40px',borderRadius:'5px',backgroundColor:'lightseagreen '}}
                             onClick={handleSubmit}>
