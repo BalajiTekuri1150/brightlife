@@ -11,12 +11,17 @@ import Countries from './Countries.json';
 import { getLocalData } from "../utils/Data_Manager";
 import Avatar from 'react-avatar';
 import logo from '../assets/images/fb.png';
+import { setLocalData } from "../utils/storage_service";
 // import Profile from "./Profile";
 const Final=({users})=>
 {
     
     const router = useRouter()
     const{name,email,pass,role,id}=router.query;
+    if(id)
+    {
+        setLocalData("s_id",id);
+    }
     const [coun,setCoun]=useState([]);
     const [conid,setconId]=useState(' ');
     const [st,setSt]=useState([]);
@@ -27,6 +32,7 @@ const Final=({users})=>
     const[region,setRegion]=useState(" ");
     const[income,setIncome]=useState(" ");
     const [posts,setPosts]=useState([]);
+    
     useEffect(()=>{
         const getCountry=async()=>{
             const res=await fetch("https://test-api.brightlife.org/brightlife/list/countries",{headers:{"Authorization":"token 2d21e847092508ace5f534ac492bf03cd742145a"}});
@@ -167,7 +173,7 @@ const Final=({users})=>
                     <Button variant="secondary" type="submit" size="lg" active>Clear All</Button>
                 </Form.Group>
             </Form>
-            <Child_Card id={id}/>
+            <Child_Card/>
             </div>
         </div>
     )

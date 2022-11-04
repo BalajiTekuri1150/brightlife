@@ -6,7 +6,6 @@ import { BsPersonFill,BsFileLock,BsGoogle,BsFacebook} from "react-icons/bs";
 import {useState} from "react";
 import Register_child from './Register_child';
 import Router from 'next/router';
-
 const Register_Page=()=>
 {
     let reg_name=new RegExp('^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$');
@@ -17,8 +16,15 @@ const Register_Page=()=>
         pass:{value:"",isValid:false},
         gmail:{value:"",isValid:false},
     });
-    // const [usererr,setUserErr]=useState("");
-    const [finalerr,setFinalerr]=useState(false);
+    const [disable,setDisable]=useState(true);
+    // let ele1=true;
+    const [one,setOne]=useState(true);
+    const [ele1,setEle1]=useState(true);
+    const [two,setTwo]=useState(true);
+    const [ele2,setEle2]=useState(true);
+    const [three,setThree]=useState(true);
+    const [ele3,setEle3]=useState(true);
+    // const [finalerr,setFinalerr]=useState(false);
     const handleData=(name,value,isval,error)=>
     {
         console.log(error);
@@ -30,21 +36,35 @@ const Register_Page=()=>
                 isValid:isval,
             },
         });
-        setFinalerr(false);
-        // if(name==="user" && error==false){
-        //     console.log("Invalid User");
-        //     setUserErr("Invalid User");
-        // }
-        // if(name==="pass" && error==false)
-        // {
-        //     console.log("Invalid Password");
-        //     setUserErr("Invalid Password")
-        // }
-        // if(name==="gmail" && error==false)
-        // {
-        //     console.log("Invalid gmail");
-        //     setUserErr("Invalid gmail");
-        // }
+        //setFinalerr(false);
+        setDisable(false);
+        setOne(true);
+        setTwo(true);
+        setThree(true);
+        // console.log(error);
+        if(name==="user" && error==false){
+            setEle1(false)
+        }
+        if(name==="user" && error==true)
+        {
+            setEle1(true);
+        }
+        if(name==="gmail" && error==false)
+        {
+            setEle2(false);
+        }
+        if(name==="gmail" && error==true)
+        {
+            setEle2(true);
+        }
+        if(name==="pass" && error==false)
+        {
+            setEle3(false);
+        }
+        if(name==="pass" && error==true)
+        {
+            setEle3(true);
+        }
     }
 
     const arr=new Array(data.user.isValid,data.pass.isValid,data.gmail.isValid);
@@ -64,10 +84,12 @@ const Register_Page=()=>
 
         }
         else
-        {
-            // setFinalerr(usererr);
-            // console.log(finalerr);  
-            setFinalerr(true);
+        { 
+            //setFinalerr(true);
+            setOne(ele1);
+            setTwo(ele2);
+            setThree(ele3);
+
         }
     }
     return(
@@ -89,6 +111,7 @@ const Register_Page=()=>
                                 handleChange={handleData}
                         />
                     </div>
+                    {one ? <div></div>:<div style={{color:'red'}}>Username should consists minimum 8 characters</div>}
                     <div className="form-group">
                         <AiOutlineMail/>
                         <label>E-mail</label>
@@ -101,6 +124,7 @@ const Register_Page=()=>
                                 placeholder='enter email'
                         />
                     </div>
+                    {two ? <div></div>:<div style={{color:'red'}}>Gmail should be like  ****@gmail.com</div>}
                     <div className="form-group">
                         <BsFileLock/>
                         <label>Password</label>
@@ -112,19 +136,20 @@ const Register_Page=()=>
                                 handleChange={handleData}
                                 placeholder='enter password'/>
                     </div>
-                    {finalerr ? 
+                    {three ? <div></div>:<div style={{color:'red'}}>Invalid password</div>}
+                    <br/><br/>
+                    {/* {finalerr ? 
                                 <div style={{color:'red',fontSize:'10px'}}>
-                                    <label>Username should consists of 6 characters</label><br/>
-                                    <label>Password should contain minimum 8 characters with one capital letter,special character and a number</label><br/>
-                                    <label>Gmail should be like  ****@gmail.com</label>
+                                   All fields are Required
                                 </div>
                                 :<label> </label>
-                    }
+                    } */}
                     <button className='btn-success' 
                             style={{marginLeft:'110px',width:'180px',height:'40px',borderRadius:'5px',backgroundColor:'lightseagreen '}}
-                            onClick={handleSubmit}>
+                            onClick={handleSubmit}
+                            disabled={disable}>
                             CreateAccount
-                    </button><br/>
+                    </button><br/><br/>
                     <p className={style.condition}>By Click on the continue you are agree to the <b style={{color:'lightseagreen '}}>terms&conditions</b></p>
                     <label style={{marginLeft:'110px',color:'gray'}}>----------------OR-----------------</label>
                     <div>
@@ -140,7 +165,7 @@ const Register_Page=()=>
                                 &nbsp;Sign Up with Google
                         </button>
                     </div><p></p>
-                    <label className={style.footertext}>Already a member?<b style={{color:'lightseagreen '}}><Link href="#">Sign in</Link></b></label>
+                    <label className={style.footertext}>Already a member?<b style={{color:'lightseagreen '}}><Link href="/login/logins">Sign in</Link></b></label>
                 </form>
             </div>
         </div>

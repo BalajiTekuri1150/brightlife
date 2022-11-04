@@ -1,5 +1,5 @@
 import React from 'react';
-import { getLocalData } from '../utils/Data_Manager';
+import { getLocalData } from '../utils/storage_service';
 import Side from './side_bar';
 import homestyle from '../styles/Home.module.css';
 import { useState,useEffect } from 'react';
@@ -7,7 +7,7 @@ import logo from "../assets/images/fb.png"
 import Router from 'next/router';
 const sponser_list=()=>
 {
-    const id=getLocalData("sponser_id");
+    const id=getLocalData("s_id");
     console.log(id);
     const [posts,setPosts]=useState([]);
 

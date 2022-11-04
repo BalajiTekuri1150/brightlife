@@ -1,11 +1,11 @@
 import react from "react";
-import style from '../styles/register.module.css';
+import style from '../../styles/register.module.css';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import axios from "axios";
 import {Link} from 'next/link';
 import Router from 'next/router';
-import { postData1 } from "../utils/data_manage_service";
+import { postData1 } from "../../utils/data_manage_service";
 const Role=()=>
 {
     const router = useRouter()

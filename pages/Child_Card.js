@@ -19,11 +19,11 @@ const Child_Card=(props)=>
         getDetails();
     },[]);
 
-    const handleCard=()=>
-    {
-        setLocalData("id",props.id);
-        console.log(props.id);
-    }
+    // const handleCard=()=>
+    // {
+    //     setLocalData("id",props.id);
+    //     console.log(props.id);
+    // }
     return(
         <main className={homestyle.main}>
             <div className={homestyle.grid}>
@@ -50,8 +50,8 @@ const Child_Card=(props)=>
                             </div><br/>
                             <p style={{fontSize:'16px'}}>Vishwa Prasad is from India lives with parents,Enjoys playing with dolls ,playing with friends,Running</p><br/>
                             <div style={{display:'flex'}}>
-                                <a href={`/children/${item.id}`} className="btn btn-primary btn-sm" onClick={handleCard}>SPONSER CHILDREN</a>&nbsp;
-                                <a href={`/children/${item.id}`} className="btn btn-secondary btn-sm" onClick={handleCard}>More Details</a>
+                                <a href={`/children/${item.id}`} className="btn btn-primary btn-sm" >SPONSER CHILDREN</a>&nbsp;
+                                <a href={`/children/${item.id}`} className="btn btn-secondary btn-sm">More Details</a>
                             </div>
                         </div>
                     ))

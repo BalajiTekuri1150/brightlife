@@ -1,11 +1,13 @@
-import '../styles/globals.css'
-import Navbar from '../components/Navbar';
+import "bootstrap/dist/css/bootstrap.min.css";
+import "../styles/globals.css";
+import { useEffect } from "react";
 
 function MyApp({ Component, pageProps }) {
-  return <>
-    {/* <Navbar/> */}
-    <Component {...pageProps} />
-  </>
+  useEffect(() => {
+    require("bootstrap/dist/js/bootstrap.bundle.min.js");
+  }, []);
+
+  return <Component {...pageProps} />;
 }
 
-export default MyApp
+export default MyApp;
