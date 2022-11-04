@@ -50,14 +50,14 @@ export default function Enterotp()
             setStatus(result?.data?.status)
             if(result?.data?.status){ 
                 setColor({"border":"1px solid green"})
-                setMessage(result.data.response.message)
+                setMessage(result?.data?.response?.message)
                 router.push({
                     pathname: '/login/resetpsw',
                     query: { email:user.email,otp:total },
                 })
             }
             else{
-                setMessage(result.data.error.message)
+                setMessage(result?.data?.error?.message)
                 setColor({"border":"1px solid red"})
                 setDisable(false)
             }  
@@ -65,31 +65,59 @@ export default function Enterotp()
     }
     const resendOTP=async()=>
     {
+        setFormValues({otp1:"",otp2:"",otp3:"",otp4:""})
         const data ={
             referrence_id:user.refid
         } 
         const result=await(postData('https://test-api.brightlife.org/brightlife/v2/resend/otp',data))
-        setStatus(result.data.status)
         setDisable(false)
+        setStatus(result?.data?.status)
         if(result?.data?.status){         
-            setMessage(result?.data?.response?.message)    
+            setMessage(result?.data?.response?.message)   
         }
         else{
             setMessage(result?.data?.error?.message)
         }        
+        setTimeLeft(30)
     }
+    // 
+    const onHandleKeydown = (e) => {
+        const keyCode = e.keyCode;
+        if (keyCode !== 8 && (keyCode>47 && keyCode<=57) ) {
+          handleChange({ target: { name:e.target.name, value:e.key } });
+        } 
+        else {
+            if(formValues[e.target.name]===""){
+                if(e.target.name==="otp4"){
+                    otp3Ref.current.focus()
+                }
+                else if(e.target.name==="otp3"){
+                    otp2Ref.current.focus()
+                }
+                else if(e.target.name==="otp2"){
+                    otp1Ref.current.focus()
+                }
+            }
+            else{
+                setFormValues({...formValues,[e.target.name]:""});
+            }
+        }
+      };
     const handleChange=(e)=>{
         setMessage("")
         setStatus(true)
+        if (formValues[e.target.name].length > 0) {
+            return;
+        }
         const{name ,value}=e.target;
         setFormValues({...formValues,[name]:value});
-        if(e.target.name==="otp1" && e.target.value.length==1){
+        if(e.target.name==="otp1"){
             otp2Ref.current.focus()
         }
-        else if(e.target.name==="otp2" && e.target.value.length==1){
+        else if(e.target.name==="otp2"){
             otp3Ref.current.focus()
         }
-        else if(e.target.name==="otp3"&& e.target.value.length==1){
+        else if(e.target.name==="otp3"){
             otp4Ref.current.focus()
         }
     }
@@ -102,10 +130,10 @@ export default function Enterotp()
                         <h1 className="h4 font-monospace text-center ">Enter OTP</h1>
                         <h6 className="h6 text-center  mb-3 "><small><AiOutlineMail/>Enter OTP sent to {user.email}</small></h6>
                         <div className="mt-2">
-                            <input type="number" name="otp1" onChange={handleChange} ref={otp1Ref} style={color} className="col-1 mx-1 " />
-                            <input type="number" name="otp2" onChange={handleChange} ref={otp2Ref} style={color} className="col-1 mx-1 " />
-                            <input type="number" name="otp3" onChange={handleChange} ref={otp3Ref} style={color} className="col-1 mx-1 " />
-                            <input type="number" name="otp4" onChange={handleChange} ref={otp4Ref} style={color} className="col-1 mx-1 " />                            
+                            <input type="number" name="otp1" onKeyDown={onHandleKeydown} ref={otp1Ref} value={formValues.otp1} style={color} className="col-1 mx-1 " />
+                            <input type="number" name="otp2" onKeyDown={onHandleKeydown} ref={otp2Ref} value={formValues.otp2} style={color} className="col-1 mx-1 " />
+                            <input type="number" name="otp3" onKeyDown={onHandleKeydown} ref={otp3Ref} value={formValues.otp3} style={color} className="col-1 mx-1 " />
+                            <input type="number" name="otp4" onKeyDown={onHandleKeydown} ref={otp4Ref} value={formValues.otp4} style={color} className="col-1 mx-1 " />                            
                         </div>
                         <div className="text-center m-2">
                             {status?<p className="text-success">{message}</p>:<p className="text-danger">{message}</p>}

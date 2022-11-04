@@ -30,7 +30,7 @@ export default function Login()
                 if(result?.data?.response?.user?.role==="sponsor")
                 {
                     router.push({ 
-                        pathname: '/components/sponser_Dashboard',
+                        pathname: '/sponser/sponser_list',
                     })
                 }
                 else if(result?.data?.response?.user?.role==="child")
@@ -42,7 +42,7 @@ export default function Login()
                 else if(result?.data?.response?.user?.role==="gaurdian")
                 {
                     router.push({ 
-                        pathname: '/components/gaurdian_dashboard',
+                        pathname: '/gaurdian/gaurdian_dashboard',
                     })   
                 }
                 else if(result?.data?.response?.user?.role==="admin"){

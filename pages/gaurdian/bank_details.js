@@ -1,6 +1,6 @@
-import { useState } from "react"
+import { useState,useEffect } from "react"
 import { getLocalData } from "../../utils/storage_service"
-import { postData } from "../../utils/data_manage_service"
+import { postData ,getData} from "../../utils/data_manage_service"
 import Input from "./input_compent"
 import Link from "next/link"
 export default function Bank_details(){
@@ -8,6 +8,14 @@ export default function Bank_details(){
     const [message,setMessage]=useState("")
     const [status,setStatus]=useState(true)
     const id=getLocalData("id")
+    const[bankDetails,setBankDetails]=useState({})
+    // useEffect(()=>{
+    //     const getDetails=async()=>{
+    //         const result=await getData(`https://test-api.brightlife.org/brightlife/get/bank/details?application_id=${id}`);
+    //         setBankDetails(result.data);
+    //     }
+    //     getDetails();
+    // },{});
     const [formValues,setFormValues]=useState({
         bank_name:{value,isvalid},
         state:{value,isvalid},

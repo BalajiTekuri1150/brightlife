@@ -5,7 +5,7 @@ import { postData} from "../../utils/data_manage_service"
 import Input from "./input_compent"
 import Link from "next/link"
 export default function Kids_details(){
-    let value="",isvalid=false,validation=[]
+    let value="",isvalid=false
     const [message,setMessage]=useState("")
     const [status,setStatus]=useState(true)
     const router=useRouter()
@@ -34,7 +34,7 @@ export default function Kids_details(){
         if(result?.data?.status){
             setLocalData("id",result?.data?.response.data.id)
             router.push({ 
-                pathname: '/components/gaurdian_details',
+                pathname: '/gaurdian/gaurdian_details',
             })  
         }
         else{

@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import homestyle from '../../../styles/Home.module.css';
-import logo from "../../../assets/images/fb.png";
+import homestyle from "../../../styles/Home.module.css"
+import logo from "../../../public/fb.png";
 import { getLocalData } from '../../../utils/storage_service';
-import { postData } from '../../../utils/data_manage_service';
 const index=({user})=>
 {
     const [money,setMoney]=useState(0);
@@ -24,7 +23,7 @@ const index=({user})=>
     const handleAmount=(e)=>
     {
         e.preventDefault();
-        const id=getLocalData("s_id")
+        const id=getLocalData("sponser_id")
         console.log(id);
         console.log(money);
         console.log(span);

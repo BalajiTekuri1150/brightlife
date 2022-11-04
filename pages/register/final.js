@@ -1,6 +1,4 @@
 import React from "react";
-import Router from 'next/router';
-import { useState } from 'react';
 import { useRouter } from 'next/router';
 const Final=()=>
 {

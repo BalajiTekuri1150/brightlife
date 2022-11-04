@@ -1,5 +1,5 @@
 import React from "react";
-import style from '../styles/register.module.css';
+import style from '../../styles/register.module.css';
 import Link from 'next/link';
 import Router  from "next/router";
 const Side=()=>
@@ -7,13 +7,13 @@ const Side=()=>
     const sponserClick=()=>
     {
         Router.push({
-            pathname:'/sponser_list',
+            pathname:'/sponser/sponser_list',
         })
     }
     const profileClick=()=>
     {
         Router.push({
-            pathname:'/My_Profile',
+            pathname:'/sponser/My_Profile',
         })
     }
     return(

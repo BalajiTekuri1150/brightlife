@@ -1,10 +1,10 @@
 import Router from "next/router";
 import React, { useEffect } from "react";
-import style from '../styles/register.module.css';
+import style from '../../styles/register.module.css';
 import My_Profile_Child from "./My_Profile_Child";
 import { useState } from "react";
 import { useRouter } from 'next/router';
-import { setLocalData } from "../utils/Data_Manager";
+import { setLocalData } from "../../utils/storage_service";
 const My_Profile=()=>
 {
     const router = useRouter()

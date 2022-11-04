@@ -1,13 +1,13 @@
 import React from 'react';
-import { getLocalData } from '../utils/storage_service';
+import { getLocalData } from '../../utils/storage_service';
 import Side from './side_bar';
-import homestyle from '../styles/Home.module.css';
+import homestyle from '../../styles/Home.module.css';
 import { useState,useEffect } from 'react';
-import logo from "../assets/images/fb.png"
+import logo from "../../public/fb.png"
 import Router from 'next/router';
 const sponser_list=()=>
 {
-    const id=getLocalData("s_id");
+    const id=getLocalData("sponser_id");
     console.log(id);
     const [posts,setPosts]=useState([]);
 
@@ -25,7 +25,7 @@ const sponser_list=()=>
     const profileClick=()=>
     {
         Router.push({
-            pathname:'/My_Profile',
+            pathname:'/sponser/My_Profile',
         })
     }
 
@@ -82,15 +82,4 @@ const sponser_list=()=>
         </div>
     )
 } 
-
-// export async function getStaticProps(){
-//   const res=await fetch("https://test-api.brightlife.org/brightlife/get/sponsor/kids?sponsor_id=3");
-//   const users=await res.json();
-//   return{
-//     props:{
-//       users,
-//     },
-//   }
-// }
-
 export default sponser_list;
