@@ -40,6 +40,13 @@ const Otp=()=>
         {
             otp2Ref.current.focus();
         }
+        if(e.target.value==="")
+        {
+            if(e.target.name==="otp1")
+            {
+                otp1Ref.current.focus();
+            }
+        }
         setNum1(e.target.value);
     }
     const handleOTP2=(e)=>
@@ -49,6 +56,13 @@ const Otp=()=>
         if(e.target.name==="otp2")
         {
             otp3Ref.current.focus();
+        }
+        if(e.target.value==="")
+        {
+            if(e.target.name==="otp2")
+            {
+                otp1Ref.current.focus();
+            }
         }
         setNum2(e.target.value);
     }
@@ -60,12 +74,26 @@ const Otp=()=>
         {
             otp4Ref.current.focus();
         }
+        if(e.target.value==="")
+        {
+            if(e.target.name==="otp3")
+            {
+                otp2Ref.current.focus();
+            }
+        }
         setNum3(e.target.value);
     }
     const handleOTP4=(e)=>
     {
         setDisable(false);
         setMessage("");
+        if(e.target.value==="")
+        {
+            if(e.target.name==="otp4")
+            {
+                otp3Ref.current.focus();
+            }
+        }
         setNum4(e.target.value);
     }
     const resendOTP=async()=>
