@@ -43,7 +43,7 @@ const index=({user})=>
         fetch("https://test-api.brightlife.org/brightlife/sponsor/child",{
             method:'POST',
             headers:{
-                "Authorization":"token 2d21e847092508ace5f534ac492bf03cd742145a",
+                // "Authorization":"token 2d21e847092508ace5f534ac492bf03cd742145a",
                 'Content-Type':'application/json',
             },
             body:JSONdata,
@@ -56,13 +56,13 @@ const index=({user})=>
             <div style={{backgroundColor:'black',height:'60px'}}>
                 <hr style={{height:'60px',backgroundColor:'white',position:'absolute'}}/>
                     <div style={{display:'flex'}}>
-                        <p style={{position:'relative',color:'white',marginLeft:'1000px',marginTop:'10px'}}>Our Team</p>
+                        <p style={{position:'relative',color:'white',marginLeft:'800px',marginTop:'10px'}}>Our Team</p>
                         <p style={{position:'relative',color:'white',marginLeft:'100px',marginTop:'10px'}}>Our Team</p>
-                        <button style={{position:'relative',color:'green',marginLeft:'100px',marginTop:'10px',width:'200px',height:'50px'}}>Profile</button>
+                        <button style={{position:'relative',color:'green',marginLeft:'10px',marginTop:'10px',width:'200px',height:'50px'}}>Profile</button>
                     </div>
             </div>
             <br/>
-            <div className='container' style={{backgroundColor:'lightgray',marginTop:'60px',marginLeft:'400px',marginRight:'200px',width:'1000px'}}>
+            <div className='container' style={{backgroundColor:'lightgray',marginTop:'60px',marginLeft:'200px',marginRight:'200px',width:'1000px'}}>
                 <br/>
                 <div className='row' style={{marginLeft:'10px',display:'flex'}}>
                     <div className='col-sm-4'>
@@ -87,7 +87,7 @@ const index=({user})=>
                 </div>
             </div><br/><br/>
             <h4 style={{marginLeft:'400px'}}>More Info About Shalini Kumar</h4>
-            <div className='container' style={{backgroundColor:'white',marginTop:'30px',marginLeft:'400px',marginRight:'200px',width:'1000px',border:'1px solid lightgray'}}>  
+            <div className='container' style={{backgroundColor:'white',marginTop:'30px',marginLeft:'200px',marginRight:'200px',width:'1000px',border:'1px solid lightgray'}}>  
                 <div className='row' style={{marginLeft:'100px'}}>
                     <div style={{display:'flex'}}>
                         <p style={{marginRight:'250px'}}>Gender:{user.gender.name}</p>

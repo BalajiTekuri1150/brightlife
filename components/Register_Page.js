@@ -15,11 +15,17 @@ const Register_Page=()=>
         pass:{value:"",isValid:false},
         gmail:{value:"",isValid:false},
     });
-    // const [usererr,setUserErr]=useState("");
-    const [finalerr,setFinalerr]=useState(false);
+    // const [finalerr,setFinalerr]=useState(false);
+    const [one,setOne]=useState(true);
+    const [err1,setErr1]=useState(true);
+    const [two,setTwo]=useState(true);
+    const [err2,setErr2]=useState(true);
+    const [three,setThree]=useState(true);
+    const [err3,setErr3]=useState(true);
+    const [disable,setDisable]=useState(true);
     const handleData=(name,value,isval,error)=>
     {
-        console.log(error);
+        // console.log(error);
         setData({
             ...data,
             [name]:{
@@ -28,16 +34,28 @@ const Register_Page=()=>
                 isValid:isval,
             },
         });
-        setFinalerr(false);
-        // if(name==="user" && error==false){
-        //     console.log("Invalid User");
-        //     setUserErr("Invalid User");
-        // }
-        // if(name==="pass" && error==false)
-        // {
-        //     console.log("Invalid Password");
-        //     setUserErr("Invalid Password")
-        // }
+        setErr1(true);
+        setErr2(true);
+        setErr3(true);
+        setDisable(false);
+        if(name==="user" && error==false){
+           setOne(false);
+        }
+        if(name==="user" && error==true){
+            setOne(true);
+        }
+        if(name==="gmail" && error==false){
+            setTwo(false);
+         }
+        if(name==="gmail" && error==true){
+            setTwo(true);
+        }
+        if(name==="pass" && error==false){
+            setThree(false)  
+        }
+        if(name==="pass" && error==true){
+            setThree(true);
+        }
         // if(name==="gmail" && error==false)
         // {
         //     console.log("Invalid gmail");
@@ -56,21 +74,22 @@ const Register_Page=()=>
         if(arr.every(check))
         { 
             Router.push({
-                pathname: '/Role',
+                pathname: '/register/role',
                 query: {name:data.user.value,gmail:data.gmail.value,pass:data.pass.value},
             })
 
         }
         else
         {
-            // setFinalerr(usererr);
-            // console.log(finalerr);  
-            setFinalerr(true);
+            console.log(one);
+            setErr1(one);
+            setErr2(two);
+            setErr3(three);
         }
     }
     return(
         <div>
-            <br/><h1 style={{color:'white',marginLeft:'800px',marginTop:'140px',fontSize:'20px'}}>BRIGHT LIFE</h1>
+            <br/><h1 style={{color:'white',marginLeft:'600px',marginTop:'10px',fontSize:'20px'}}>BRIGHT LIFE</h1>
             <div className={style.register}>
                 <label style={{marginLeft:'150px',fontSize:'20px'}}>Sign Up</label>
                 <label style={{marginLeft:'80px',fontSize:'15px',color:'gray'}}>To Become A Bright Life Member</label>
@@ -87,6 +106,7 @@ const Register_Page=()=>
                                 handleChange={handleData}
                         />
                     </div>
+                    <div style={{color:'red',fontSize:'13px'}}>{err1 ? <div></div>:<div>Username should contain minimum 8 characters</div>}</div>
                     <div className="form-group">
                         <AiOutlineMail/>
                         <label>E-mail</label>
@@ -99,6 +119,7 @@ const Register_Page=()=>
                                 placeholder='enter email'
                         />
                     </div>
+                    <div style={{color:'red',fontSize:'13px'}}>{err2 ? <div></div>:<div>Gmail should be like ****@gmail.com</div>}</div>
                     <div className="form-group">
                         <BsFileLock/>
                         <label>Password</label>
@@ -110,17 +131,11 @@ const Register_Page=()=>
                                 handleChange={handleData}
                                 placeholder='enter password'/>
                     </div>
-                    {finalerr ? 
-                                <div style={{color:'red',fontSize:'10px'}}>
-                                    <label>Username should consists of 6 characters</label><br/>
-                                    <label>Password should contain minimum 8 characters with one capital letter,special character and a number</label><br/>
-                                    <label>Gmail should be like  ****@gmail.com</label>
-                                </div>
-                                :<label> </label>
-                    }
+                    <div style={{color:'red',fontSize:'13px'}}>{err3 ? <div></div>:<div>Password must be 8 characters with one Special character,One Capital letter and one Number</div>}</div>
                     <button className='btn-success' 
                             style={{marginLeft:'110px',width:'180px',height:'40px',borderRadius:'5px',backgroundColor:'lightseagreen '}}
-                            onClick={handleSubmit}>
+                            onClick={handleSubmit}
+                            disabled={disable}>
                             CreateAccount
                     </button><br/>
                     <p className={style.condition}>By Click on the continue you are agree to the <b style={{color:'lightseagreen '}}>terms&conditions</b></p>

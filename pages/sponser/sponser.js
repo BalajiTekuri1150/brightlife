@@ -6,9 +6,12 @@ import Form from 'react-bootstrap/Form';
 import style from '../../styles/register.module.css';
 import Button from 'react-bootstrap/Button';
 import Child_Card from "./Child_Card";
-import Avatar from 'react-avatar';
+import Router from "next/router";
+// import Avatar from 'react-avatar';
 import logo from '../../public/fb.png';
-const Final=({users})=>
+import { getLocalData } from "../../utils/storage_service";
+import { setLocalData } from "../../utils/storage_service";
+const Final=()=>
 {
     
     const router = useRouter()
@@ -32,6 +35,16 @@ const Final=({users})=>
             setCoun(getcon.response.data);
         }
         getCountry();
+    },[]);
+    
+    const id1=getLocalData("id");
+    useEffect(()=>{
+        const getprofile=async()=>{
+            const res2=await fetch(`https://test-api.brightlife.org/brightlife/get/sponsor/profile?user_id=${id1}`,{headers:{"Authorization":"token 2d21e847092508ace5f534ac492bf03cd742145a"}});
+            const getpofiledata=await res2.json();
+            setLocalData("sponser_id",getpofiledata.response?.sponsor?.id);
+        }
+        getprofile();
     },[]);
 
     const handleCountry=(e)=>
@@ -80,16 +93,21 @@ const Final=({users})=>
     const handleProfile=()=>
     {
         Router.push({
-            pathname:'/My_Profile',
+            pathname:'/sponser/My_Profile',
             query:{name:name,email:email,pass:pass,role:role,id:id},
         })
     }
     const handleSubmit=(e)=>
     {
         e.preventDefault();
+        console.log(state);
         console.log(coun);
         console.log(mon);
         console.log(gen);
+        Router.push({
+            pathname:'/sponser/search_filter',
+            query:{state:state,mon:mon,gen:gen,age:age,income:income},
+        })
     }
     return( 
         <div>
@@ -100,11 +118,11 @@ const Final=({users})=>
                     <div className="col-sm text-light">how it works</div>
                     <div className="col-sm text-light">donate</div>
                     <button className="col-sm btn btn-secondary" onClick={handleProfile}>My Profile</button>
-                    <Avatar size="100" facebook-id="invalidfacebookusername" src={logo}/>
+                    {/* <Avatar size="100" facebook-id="invalidfacebookusername" src={logo}/> */}
                     {/* <Profile/> */}
                 </div>
             </div>
-            <div style={{backgroundColor:'white',marginLeft:'400px',width:'1000px',height:'300px',marginTop:'100px',borderRadius:'10px'}}>
+            <div style={{backgroundColor:'white',marginLeft:'200px',width:'1000px',height:'300px',marginTop:'100px',borderRadius:'10px'}}>
             <Form>
                 <Form.Group><br/>
                     <h3 style={{marginLeft:'10px'}}>Search</h3>
@@ -150,7 +168,7 @@ const Final=({users})=>
                             {
                                 st.length>0 &&
                                 st.map((resst)=>{
-                                    return <option key={resst.id} value={resst.id}>{resst.name}</option>
+                                    return <option key={resst.name} value={resst.name}>{resst.name}</option>
                                 })
                             }
                         </Form.Control>
@@ -163,7 +181,7 @@ const Final=({users})=>
                     <Button variant="secondary" type="submit" size="lg" active>Clear All</Button>
                 </Form.Group>
             </Form>
-            <Child_Card id={id}/>
+            <Child_Card />
             </div>
         </div>
     )

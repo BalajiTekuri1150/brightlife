@@ -5,10 +5,11 @@ import My_Profile_Child from "./My_Profile_Child";
 import { useState } from "react";
 import { useRouter } from 'next/router';
 import { setLocalData } from "../../utils/storage_service";
+import { getLocalData } from "../../utils/storage_service";
 const My_Profile=()=>
 {
     const router = useRouter()
-    const{name,email,pass,role,id}=router.query;
+    const{name,email,pass,role}=router.query;
     const [info,setInfo]=useState([]);
     const [data,setData]=useState({
         fname:{value:name},
@@ -23,18 +24,19 @@ const My_Profile=()=>
         country:{value:info?.country},
         pin:{value:info?.postal_code},
     });
-
+    const id=getLocalData("id");
     useEffect(()=>{
         const getprofile=async()=>{
             const res2=await fetch(`https://test-api.brightlife.org/brightlife/get/sponsor/profile?user_id=${id}`,{headers:{"Authorization":"token 2d21e847092508ace5f534ac492bf03cd742145a"}});
             const getpofiledata=await res2.json();
             // console.log(getpofiledata.response.sponsor);
-            setInfo(getpofiledata.response.sponsor);
-            console.log(info.id);
+            console.log(getpofiledata);
+            setInfo(getpofiledata.response?.sponsor);
+            console.log(getpofiledata.response?.sponsor?.id);
+            setLocalData("sponser_id",getpofiledata.response?.sponsor?.id);
         }
         getprofile();
     },[]);
-    setLocalData("sponser_id",info.id);
     const handleData=(name,value)=>
     {
         setData({
@@ -79,13 +81,13 @@ const My_Profile=()=>
     const sponserChild=()=>
     {
         Router.push({
-            pathname:'/sponser_list',
+            pathname:'/sponser/sponser_list',
         })
     }
     const profileClick=()=>
     {
         Router.push({
-            pathname:'/My_Profile',
+            pathname:'/sponser/My_Profile',
         })
     }
     return(

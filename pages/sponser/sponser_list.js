@@ -5,12 +5,15 @@ import homestyle from '../../styles/Home.module.css';
 import { useState,useEffect } from 'react';
 import logo from "../../public/fb.png"
 import Router from 'next/router';
+import { getData } from '../../utils/data_manage_service';
 const sponser_list=()=>
 {
     const id=getLocalData("sponser_id");
     console.log(id);
     const [posts,setPosts]=useState([]);
 
+    // const result=await(getData("https://test-api.brightlife.org/brightlife/get/sponsor/kids?sponsor_id=${id}"));
+    // console.log(result);
     useEffect(()=>{
         const getDetails=async()=>{
             const res1=await fetch(`https://test-api.brightlife.org/brightlife/get/sponsor/kids?sponsor_id=${id}`,{headers:{"Authorization":"token 2d21e847092508ace5f534ac492bf03cd742145a"}});
@@ -43,7 +46,7 @@ const sponser_list=()=>
                 <div>
                     <Side/>
                 </div>
-                <div style={{marginTop:"100px",width:'1000px',height:'100%',backgroundColor:'white',borderRadius:'10px',boxShadow:'0 8px 6px 3px rgba(0,0,0,0.5)',transition:'3s'}}>
+                <div style={{marginTop:"100px",width:'800px',height:'100%',backgroundColor:'white',borderRadius:'10px',boxShadow:'0 8px 6px 3px rgba(0,0,0,0.5)',transition:'3s'}}>
                     <main className={homestyle.main}>
                         <div className={homestyle.grid}>
                             {posts.length>0 && posts.map((item)=>(
