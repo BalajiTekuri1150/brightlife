@@ -39,7 +39,7 @@ export default function Login()
                         pathname: '/components/child_dashboard',
                     })  
                 }
-                else if(result?.data?.response?.user?.role==="gaurdian")
+                else if(result?.data?.response?.user?.role==="guardian")
                 {
                     router.push({ 
                         pathname: '/gaurdian/gaurdian_dashboard',

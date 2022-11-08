@@ -3,12 +3,14 @@ import homestyle from '../../styles/Home.module.css';
 import { useState,useEffect } from "react";
 import Link from "next/link";
 import { getData } from "../../utils/data_manage_service";
+import { getLocalData } from "../../utils/storage_service";
 const Child_Card=()=>
 {
     const [posts,setPosts]=useState([]);
+    const user_id=getLocalData("user_id")
     useEffect(()=>{
         const getDetails=async()=>{
-            const result=await getData("https://test-api.brightlife.org/brightlife/get/application/details?page_size=50");
+            const result=await getData(`https://test-api.brightlife.org/brightlife/get/application/details?page=1&page_size=3&guardian_id=${user_id}`);
             setPosts(result.data.response.data);
         }
         getDetails();
@@ -23,7 +25,7 @@ const Child_Card=()=>
                 <div className="border border-dark bg-white mt-5" style={{"width":"350px","height":"1000px"}}>
                     <ul className=" col-2 sidebar-menu">
                         <Link href="/gaurdian/gaurdian_profile"><p className="text-dark m-5 pe-auto">Myprofile</p></Link>
-                        <Link href="/gaurdian/gaurdian_dashboard"><p className="text-dark m-5">Applications</p></Link>
+                        <Link href="/gaurdian/kids_Details"><p className="text-dark m-5">Applications</p></Link>
                     </ul>
                 </div>
                 <div className="bg-white mt-5" style={{"width":"1100px","height":"1000px"}}>
