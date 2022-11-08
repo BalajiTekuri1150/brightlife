@@ -3,7 +3,8 @@ import { getLocalData } from '../../utils/storage_service';
 import Side from './side_bar';
 import homestyle from '../../styles/Home.module.css';
 import { useState,useEffect } from 'react';
-import logo from "../../public/fb.png"
+import logo from "../../public/orphan-kids-.jpg"
+import Image from 'next/image'
 import Router from 'next/router';
 import { getData } from '../../utils/data_manage_service';
 const sponser_list=()=>
@@ -11,16 +12,23 @@ const sponser_list=()=>
     const id=getLocalData("sponser_id");
     console.log(id);
     const [posts,setPosts]=useState([]);
+    const [message,setMessage]=useState("");
 
-    // const result=await(getData("https://test-api.brightlife.org/brightlife/get/sponsor/kids?sponsor_id=${id}"));
-    // console.log(result);
+    // const result=await(getData("https://test-api.brightlife.org/brightlife/get/sponsor/kids?sponsor_id=1"))
+    // console.log(result?.data?.status);
+
     useEffect(()=>{
         const getDetails=async()=>{
             const res1=await fetch(`https://test-api.brightlife.org/brightlife/get/sponsor/kids?sponsor_id=${id}`,{headers:{"Authorization":"token 2d21e847092508ace5f534ac492bf03cd742145a"}});
             const getdet=await res1.json();
-            console.log(getdet);
-            console.log(getdet.response.data);
-            setPosts(getdet.response.data);
+            if(getdet?.status==true){
+                setPosts(getdet?.response?.SponsoredApplications?.application);
+            }
+            else{
+                console.log(getdet?.error?.message)
+                setMessage(getdet?.error?.message);
+            }
+            
         }
         getDetails();
     },[]);
@@ -46,12 +54,13 @@ const sponser_list=()=>
                 <div>
                     <Side/>
                 </div>
-                <div style={{marginTop:"100px",width:'800px',height:'100%',backgroundColor:'white',borderRadius:'10px',boxShadow:'0 8px 6px 3px rgba(0,0,0,0.5)',transition:'3s'}}>
+                <div style={{marginTop:"70px",width:'800px',height:'100%',backgroundColor:'white',borderRadius:'10px',boxShadow:'0 8px 6px 3px rgba(0,0,0,0.5)',transition:'3s'}}>
                     <main className={homestyle.main}>
                         <div className={homestyle.grid}>
-                            {posts.length>0 && posts.map((item)=>(
+                            {message}
+                            {posts.map((item)=>(
                                 <div className={homestyle.card}>
-                                    <img src={logo} style={{width:'100%',height:'200px'}}/>
+                                    <Image src={logo} style={{width:'100%',height:'200px'}}/>
                                     <p style={{marginLeft:'30px'}}>{item.name}</p><br/>
                                     <div className="row">
                                         < div className="col-sm">
@@ -72,9 +81,9 @@ const sponser_list=()=>
                                 </div><br/>
                                 <p style={{fontSize:'16px'}}>Vishwa Prasad is from India lives with parents,Enjoys playing with dolls ,playing with friends,Running</p><br/>
                                 <div style={{display:'flex'}}>
-                                    <button className="btn" style={{color:'green'}}>SPONSER CHILDREN</button>&nbsp;
-                                    <a href={`/children/${item.id}`} className="btn btn-secondary btn-sm" style={{color:'red'}}>More Details</a>
-                                </div>
+                                    <a href={`/children/${item.id}`} className="btn btn-primary btn-sm" >SPONSER CHILDREN</a>&nbsp;
+                                    <a href={`/children/${item.id}`} className="btn btn-secondary btn-sm" >More Details</a>
+                              </div>
                             </div>
                             ))
                         }

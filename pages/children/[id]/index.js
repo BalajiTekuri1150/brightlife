@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import homestyle from "../../../styles/Home.module.css"
 import logo from "../../../public/fb.png";
+import Router from 'next/router'
+import Image from 'next/image';
 import { getLocalData } from '../../../utils/storage_service';
 const index=({user})=>
 {
     const [money,setMoney]=useState(0);
     const [span,setSpan]=useState("");
+    const [message,setMessage]=useState("")
     console.log(user);
     const handleMoney=(e)=>
     {
@@ -27,7 +30,6 @@ const index=({user})=>
         console.log(id);
         console.log(money);
         console.log(span);
-        // console.log(user);
         const data1={
                 application_id:user.id,
                 sponsor_id:id,
@@ -43,12 +45,18 @@ const index=({user})=>
         fetch("https://test-api.brightlife.org/brightlife/sponsor/child",{
             method:'POST',
             headers:{
-                // "Authorization":"token 2d21e847092508ace5f534ac492bf03cd742145a",
+                "Authorization":"token 2d21e847092508ace5f534ac492bf03cd742145a",
                 'Content-Type':'application/json',
             },
             body:JSONdata,
         }).then((response)=>{
-            console.log(response);
+            setMessage("Children added to Your Sponser List");
+        })
+    }
+    const profileClick=()=>
+    {
+        Router.push({
+            pathname:'/sponser/My_Profile',
         })
     }
     return(
@@ -58,7 +66,7 @@ const index=({user})=>
                     <div style={{display:'flex'}}>
                         <p style={{position:'relative',color:'white',marginLeft:'800px',marginTop:'10px'}}>Our Team</p>
                         <p style={{position:'relative',color:'white',marginLeft:'100px',marginTop:'10px'}}>Our Team</p>
-                        <button style={{position:'relative',color:'green',marginLeft:'10px',marginTop:'10px',width:'200px',height:'50px'}}>Profile</button>
+                        <button style={{position:'relative',color:'green',marginLeft:'10px',marginTop:'10px',width:'200px',height:'50px'}} onClick={profileClick}>Profile</button>
                     </div>
             </div>
             <br/>
@@ -66,27 +74,27 @@ const index=({user})=>
                 <br/>
                 <div className='row' style={{marginLeft:'10px',display:'flex'}}>
                     <div className='col-sm-4'>
-                        <img src={logo} width="200px" height="200px"/><br/>
+                        <Image src={logo} width="200px" height="200px"/><br/>
                         <label>{user.gender.name}</label><br/><br/>
                         <label>{user.birthday}</label>
                     </div>
-                    <div className='col-sm-8' style={{marginLeft:'30px'}}>
-                    <h1>{user?.name}</h1>
-                    <label>12 year girl from Telangana,India</label><br/>
-                    <label>She lives with her Mom and Sister.Her Favourite is Maths,she enjoys playing with the dogs and going to the beach.He Has some special needs requiring extra attention and resources which her mother struggles to afford.</label><br/>
-                    <div style={{marginTop:'100px',display:'flex'}}>
+                    <div className='col-sm-8' style={{marginLeft:'0px'}}>
+                        <h1>{user?.name}</h1>
+                        <label>12 year girl from Telangana,India</label><br/>
+                        <label>She lives with her Mom and Sister.Her Favourite is Maths,she enjoys playing with the dogs and going to the beach.He Has some special needs requiring extra attention and resources which her mother struggles to afford.</label><br/>
+                        <div style={{marginTop:'100px',display:'flex'}}>
                             <select style={{backgroundColor:'none',width:'300px',height:'50px'}} onClick={(e)=>handleMoney(e)}>
                                 <option value="0">----Select Money----</option>
                                 <option value="20">$20 monthly</option>
                                 <option value="60">$60 Querterly</option>
                                 <option value="120">$120 Semi-Anually</option>
                             </select>
-                        <button className='btn btn-primary' style={{marginLeft:'100px',backgroundColor:'blue',width:'300px',height:'50px'}}>Sponser</button>
-                    </div>
+                            <button className='btn btn-primary' style={{marginLeft:'100px',backgroundColor:'blue',width:'300px',height:'50px'}}>Sponser</button>
+                        </div>
                     </div>
                 </div>
             </div><br/><br/>
-            <h4 style={{marginLeft:'400px'}}>More Info About Shalini Kumar</h4>
+            <h4 style={{marginLeft:'200px'}}>More Info About {user.name}</h4>
             <div className='container' style={{backgroundColor:'white',marginTop:'30px',marginLeft:'200px',marginRight:'200px',width:'1000px',border:'1px solid lightgray'}}>  
                 <div className='row' style={{marginLeft:'100px'}}>
                     <div style={{display:'flex'}}>
@@ -121,7 +129,7 @@ const index=({user})=>
                 <div className='row' style={{marginLeft:'100px'}}>
                     <div style={{display:'flex'}}>
                         <p style={{marginRight:'250px'}}>Schooling:Sharada</p>
-                        <p style={{marginLeft:'215px'}}>Family Income:5000</p>
+                        <p style={{marginLeft:'215px'}}>Family Income:{user?.annual_income}</p>
                     </div>
                 </div><br/>
                 <div className='row' style={{marginLeft:'100px'}}>
@@ -131,13 +139,14 @@ const index=({user})=>
                     </div>
                 </div><br/>
             </div><br/>
-            <div className='container' style={{backgroundColor:'white',marginTop:'60px',marginLeft:'400px',marginRight:'200px',width:'1000px'}}>
+            <div className='container' style={{backgroundColor:'white',marginTop:'60px',marginLeft:'200px',marginRight:'100px',width:'1000px'}}>
                 <br/>
                 <div className='row' style={{marginLeft:'10px',display:'flex'}}>
                    <div style={{width:'400px'}}>
                         <h1>Select Payment </h1><br/>
                         <b>Type to Sponser her</b><br/>
                         <h3>Select Periodical Sponsership For Child</h3><br/>
+                        <div style={{color:'green'}}>{message}</div>
                         <button className='btn btn-primary' style={{backgroundColor:'blue',width:'200px',height:'50px'}} onClick={handleAmount}>Sponser</button>
                    </div>
                    <div>

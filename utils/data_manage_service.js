@@ -28,6 +28,21 @@ export const getData=async( url)=> {
     return response
 }
 
+//Don't Remove this
+export const postData2=async( url, data)=> {
+    const JSONdata = JSON.stringify(data)
+    const response = await axios({
+        method: "POST",
+        url:  url,
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'token 2d21e847092508ace5f534ac492bf03cd742145a'
+        },
+        data: JSONdata
+    }).catch(e => {return e.response});
+    return response
+}
+
 export const postData1=async( url, data)=> {
     const JSONdata = JSON.stringify(data)
     // const token=getLocalData("token")

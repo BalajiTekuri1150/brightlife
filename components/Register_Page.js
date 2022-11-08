@@ -25,7 +25,6 @@ const Register_Page=()=>
     const [disable,setDisable]=useState(true);
     const handleData=(name,value,isval,error)=>
     {
-        // console.log(error);
         setData({
             ...data,
             [name]:{
@@ -34,33 +33,31 @@ const Register_Page=()=>
                 isValid:isval,
             },
         });
-        setErr1(true);
-        setErr2(true);
-        setErr3(true);
         setDisable(false);
+        // setErr1(true);
+        // setErr2(true);
+        // setErr3(true);
         if(name==="user" && error==false){
            setOne(false);
         }
         if(name==="user" && error==true){
             setOne(true);
+            setErr1(true);
         }
         if(name==="gmail" && error==false){
             setTwo(false);
          }
         if(name==="gmail" && error==true){
             setTwo(true);
+            setErr2(true);
         }
         if(name==="pass" && error==false){
             setThree(false)  
         }
         if(name==="pass" && error==true){
             setThree(true);
+            setErr3(true);
         }
-        // if(name==="gmail" && error==false)
-        // {
-        //     console.log("Invalid gmail");
-        //     setUserErr("Invalid gmail");
-        // }
     }
 
     const arr=new Array(data.user.isValid,data.pass.isValid,data.gmail.isValid);

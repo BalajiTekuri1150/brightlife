@@ -1,7 +1,8 @@
 import homestyle from '../../styles/Home.module.css';
 import { useState,useEffect } from "react";
-import logo from "../../public/fb.png"
+import logo from "../../public/orphan-kids-.jpg"
 import {setLocalData} from "../../utils/storage_service"
+import Image from 'next/image'
 const Child_Card=(props)=>
 {
     const [posts,setPosts]=useState([]);
@@ -23,7 +24,7 @@ const Child_Card=(props)=>
             <div className={homestyle.grid}>
                 {posts.length>0 && posts.map((item)=>(
                         <div className={homestyle.card}>
-                            <img src={logo} style={{width:'100%',height:'200px'}}/>
+                            <Image src={logo} style={{width:'100%',height:'200px'}}/>
                             <p style={{marginLeft:'30px'}}>{item.name}</p><br/>
                             <div className="row">
                                 < div className="col-sm">

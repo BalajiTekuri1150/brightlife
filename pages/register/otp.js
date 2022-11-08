@@ -56,14 +56,18 @@ const Otp=()=>
         if(e.target.name==="otp2")
         {
             otp3Ref.current.focus();
-        }
-        if(e.target.value==="")
-        {
-            if(e.target.name==="otp2")
+            if(e.target.value==="")
             {
                 otp1Ref.current.focus();
             }
         }
+        // if(e.target.value==="")
+        // {
+        //     if(e.target.name==="otp2")
+        //     {
+        //         otp1Ref.current.focus();
+        //     }
+        // }
         setNum2(e.target.value);
     }
     const handleOTP3=(e)=>
@@ -111,7 +115,7 @@ const Otp=()=>
         }        
         setTimeLeft(30)
     }
-    const handleSubmit=(e)=>
+    const handleSubmit=async(e)=>
     {
         e.preventDefault();
         const total=num1+num2+num3+num4;
@@ -121,53 +125,78 @@ const Otp=()=>
             context:"signup",
             otp:total,
         }
-        const JSONdata=JSON.stringify(data1);
-        fetch("https://test-api.brightlife.org/brightlife/v2/verify/otp",{
-            method:'POST',
-            headers:{
-                'Content-Type':'application/json',
-            },
-            body:JSONdata,
-        })
-        .then((response)=>{
-            console.log(response);
-            response.json()
-            .then((response)=>{
-                console.log(response.status);
-               if(response.status==true)
-                {
+        const result=await(postData1("https://test-api.brightlife.org/brightlife/v2/verify/otp",data1));
+        if(result?.data?.status==true)
+        {
+            const data2={
+                name:name,
+                email:email,
+                password:pass,
+                password2:pass,
+                role:role,
+            }
+            const result1=await(postData1("https://test-api.brightlife.org/brightlife/signup",data2))
+            if(result1?.data?.status==true)
+            {
+                setLocalData("id",result1?.data?.response?.data?.id);
+                Router.push({
+                    pathname:'/sponser/sponser',
+                    query:{name:name,email:email,pass:pass,id:result1?.data?.response?.data?.id}
+                })
+            }  
+            else
+                setMessage(result1?.data?.error);
+        }
+        else{
+            setMessage(result?.data?.error?.message);
+        }
+        // const JSONdata=JSON.stringify(data1);
+        // fetch("https://test-api.brightlife.org/brightlife/v2/verify/otp",{
+        //     method:'POST',
+        //     headers:{
+        //         'Content-Type':'application/json',
+        //     },
+        //     body:JSONdata,
+        // })
+        // .then((response)=>{
+        //     console.log(response);
+        //     response.json()
+        //     .then((response)=>{
+        //         console.log(response.status);
+        //        if(response.status==true)
+        //         {
                     
-                    const data2={
-                        name:name,
-                        email:email,
-                        password:pass,
-                        password2:pass,
-                        role:role,
-                    }
-                    const JSONdata2=JSON.stringify(data2);
-                    fetch("https://test-api.brightlife.org/brightlife/signup",{
-                        method:'POST',
-                        headers:{
-                            'Content-Type':'application/json',
-                        },
-                        body:JSONdata2,
-                    })
-                    .then((response)=>{
-                        response.json()
-                        .then((response)=>{
-                            setLocalData("id",response?.response?.data?.id);
-                            Router.push({
-                                pathname:'/sponser/sponser',
-                                query:{name:name,email:email,pass:pass,id:response?.response?.data?.id}
-                            })
-                        });
-                    })
-                }
-                else{
-                   setMessage(response?.error?.message);
-                }
-            });
-        })
+        //             const data2={
+        //                 name:name,
+        //                 email:email,
+        //                 password:pass,
+        //                 password2:pass,
+        //                 role:role,
+        //             }
+        //             const JSONdata2=JSON.stringify(data2);
+        //             fetch("https://test-api.brightlife.org/brightlife/signup",{
+        //                 method:'POST',
+        //                 headers:{
+        //                     'Content-Type':'application/json',
+        //                 },
+        //                 body:JSONdata2,
+        //             })
+        //             .then((response)=>{
+        //                 response.json()
+        //                 .then((response)=>{
+        //                     setLocalData("id",response?.response?.data?.id);
+        //                     Router.push({
+        //                         pathname:'/sponser/sponser',
+        //                         query:{name:name,email:email,pass:pass,id:response?.response?.data?.id}
+        //                     })
+        //                 });
+        //             })
+        //         }
+        //         else{
+        //            setMessage(response?.error?.message);
+        //         }
+        //     });
+        // })
     }
     return(
         <div>

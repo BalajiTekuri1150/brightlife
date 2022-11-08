@@ -1,8 +1,9 @@
 import homestyle from '../../styles/Home.module.css';
 import { useState,useEffect } from "react";
-import logo from "../../public/fb.png"
+import logo from "../../public/orphan-kids-.jpg"
 import {setLocalData} from "../../utils/storage_service"
 import Router, { useRouter } from 'next/router';
+import Image from 'next/image'
 const search_filter=(props)=>
 {
     const router=useRouter();
@@ -24,10 +25,10 @@ const search_filter=(props)=>
     return(
         <main className={homestyle.main}>
             <div className={homestyle.grid}>
-                {posts.filter(item1=>item1.name.toString().includes("akash"))
+                {posts.filter(item1=>item1?.gender?.name.toString().includes(gen) || item1?.annual_income?.toString().includes(income))
                         .map((item)=>(
                         <div className={homestyle.card}>
-                            <img src={logo} style={{width:'100%',height:'200px'}}/>
+                            <Image src={logo} style={{width:'100%',height:'200px'}}/>
                             <p style={{marginLeft:'30px'}}>{item.name}</p><br/>
                             <div className="row">
                                 < div className="col-sm">

@@ -36,8 +36,9 @@ const Final=()=>
         }
         getCountry();
     },[]);
-    
+
     const id1=getLocalData("id");
+    
     useEffect(()=>{
         const getprofile=async()=>{
             const res2=await fetch(`https://test-api.brightlife.org/brightlife/get/sponsor/profile?user_id=${id1}`,{headers:{"Authorization":"token 2d21e847092508ace5f534ac492bf03cd742145a"}});
@@ -92,9 +93,12 @@ const Final=()=>
     }
     const handleProfile=()=>
     {
+        setLocalData("name",name);
+        setLocalData("email",email);
+        setLocalData("role",role);
         Router.push({
             pathname:'/sponser/My_Profile',
-            query:{name:name,email:email,pass:pass,role:role,id:id},
+            // query:{name:name,email:email,pass:pass,role:role,id:id},
         })
     }
     const handleSubmit=(e)=>
@@ -155,8 +159,8 @@ const Final=()=>
                         </Form.Control>
                         <Form.Control as="select" className={style.sponser_input} onClick={handleGender}>
                             <option value=" ">SELECT GENDER</option>
-                            <option value="MALE">MALE</option>
-                            <option value="FEM">FEMALE</option>
+                            <option value="Male">MALE</option>
+                            <option value="Female">FEMALE</option>
                         </Form.Control>
                         <Form.Control as="input" className={style.sponser_input} placeholder="AGE" onChange={handleAge}/>
                     </div>

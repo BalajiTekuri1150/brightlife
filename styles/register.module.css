@@ -94,3 +94,8 @@
     box-shadow:0 8px 6px 3px rgba(0,0,0,0.5);
     transition:3s;
 }
+.card{
+    margin-top: 30px;
+    margin-left:100px;
+    border-radius: 10px;
+}
