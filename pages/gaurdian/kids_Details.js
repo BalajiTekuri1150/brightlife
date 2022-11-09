@@ -1,15 +1,18 @@
 import { useRouter } from "next/router"
-import { useState } from "react"
+import { useState,useEffect} from "react"
 import { setLocalData,getLocalData } from "../../utils/storage_service"
-import { postData} from "../../utils/data_manage_service"
+import { postData,getData} from "../../utils/data_manage_service"
 import Input from "./input_compent"
 import Link from "next/link"
-export default function Kids_details(){
+export default function Kids_details(props){
+    console.log(props)
     let value="",isvalid=false
     const [message,setMessage]=useState("")
     const [status,setStatus]=useState(true)
     const router=useRouter()
+    const application_id=getLocalData("application_id")
     const gaurdian_id=getLocalData("gaurdian_id")
+    const [user_Data,setUser_Data]=useState({})
     const [formValues,setFormValues]=useState({
         profile:{value,isvalid},
         username:{value,isvalid},
@@ -19,6 +22,13 @@ export default function Kids_details(){
         child:{value,isvalid},
         gender:{value,isvalid}
     })
+    useEffect(()=>{
+        const getprofile=async()=>{
+            const result=await getData(`https://test-api.brightlife.org/brightlife/get/application/details?page=1&page_size=5&application_id=${application_id}`);
+            setUser_Data(result?.data?.response?.data[0])
+        }
+        getprofile();
+    },[]);
     const handleSubmit=async(e)=>
     {
         e.preventDefault()   
@@ -64,27 +74,27 @@ export default function Kids_details(){
                     <div className="row">
                         <div className="col-5 mx-4">
                             <label>Name</label>
-                            <Input type="text"  name="username" className="form-control" onChange={handleChange}/> 
+                            <Input type="text"  name="username" value={user_Data.name}  className="form-control" onChange={handleChange}/> 
                         </div>
                         <div className="col-5 mx-4">
                             <label>Birthday</label>
-                            <Input type="date" name="bday" className="form-control" onChange={handleChange}/>
+                            <Input type="date" name="bday" value={user_Data.birthday} className="form-control" onChange={handleChange}/>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-5 m-4">
                             <label>Age</label>
-                            <Input type="number" name="age" className="form-control" onChange={handleChange}/>
+                            <Input type="number" name="age"  className="form-control" onChange={handleChange}/>
                         </div>
                         <div className="col-5 m-4">
                             <label>Email Address</label>
-                            <Input type="email" name="email" className="form-control" onChange={handleChange}/>
+                            <Input type="email" name="email" value={user_Data.email} className="form-control" onChange={handleChange}/>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-5 m-4">
                             <label>Mobile Number</label>
-                            <Input type="tel" name="mobile" className="form-control" onChange={handleChange}/>
+                            <Input type="tel" name="mobile" className="form-control" value={user_Data.mobile} onChange={handleChange}/>
                         </div>
                         <div className="col-5 m-4">
                             <label>Is the child</label>

@@ -61,7 +61,7 @@ const Child_Card=()=>
                                     </div><br/>
                                     <p style={{fontSize:'16px'}}>Vishwa Prasad is from India lives with parents,Enjoys playing with dolls ,playing with friends,Running</p><br/>
                                     <div style={{display:'flex'}}>
-                                        {application_status.id!=1? <Link href="./kids/kids_Dashboard"><button>Edit Application</button></Link>:<Link href={`/children/${item.id}`}><button>View Application</button></Link>}
+                                        {application_status.id!=1? <Link href="/gaurdian/kids_Details"><button>Edit Application</button></Link>:<Link href={`/children/${item.id}`}><button>View Application</button></Link>}
                                     </div>
                                 </div>
                             ))}

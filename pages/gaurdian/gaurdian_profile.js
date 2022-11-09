@@ -1,4 +1,5 @@
 import { useState ,useEffect} from "react"
+import Link from "next/link";
 import { getLocalData } from "../../utils/storage_service";
 import { getData,postData } from "../../utils/data_manage_service";
 import My_Profile_Child from "../sponser/My_Profile_Child";
@@ -147,6 +148,7 @@ export default function Gaurdian_Profile(){
                     {status?<p className="text-success">{message}</p>:<p className="text-danger">{message}</p>}
                     <div className="row">
                         <button type="submit" className="btn btn-primary mx-5 col-2" >Update</button>
+                        <Link href="/gaurdian/gaurdian_dashboard"><button className="btn btn-secondary mx-5 col-2" >Exit</button></Link>
                     </div>
                 </form>
             </section>

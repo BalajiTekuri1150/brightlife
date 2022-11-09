@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@syncfusion/ej2-data": "^20.3.56",
     "axios": "^1.1.2",
     "bootstrap": "^5.2.2",
     "next": "^12.3.1",
