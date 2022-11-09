@@ -3,19 +3,22 @@ import homestyle from '../../styles/Home.module.css';
 import { useState,useEffect } from "react";
 import Link from "next/link";
 import { getData } from "../../utils/data_manage_service";
-import { getLocalData } from "../../utils/storage_service";
+import { getLocalData ,setLocalData} from "../../utils/storage_service";
 const Child_Card=()=>
 {
     const [posts,setPosts]=useState([]);
+    const [application_status,setApplication_status]=useState({})
     const user_id=getLocalData("user_id")
     useEffect(()=>{
         const getDetails=async()=>{
-            const result=await getData(`https://test-api.brightlife.org/brightlife/get/application/details?page=1&page_size=3&guardian_id=${user_id}`);
-            setPosts(result.data.response.data);
+            const result=await getData(`https://test-api.brightlife.org/brightlife/get/guardian/profile?user_id=${user_id}`)
+            setLocalData("gaurdian_id",result?.data?.response.sponsor?.id)
+            const result1=await getData(`https://test-api.brightlife.org/brightlife/get/application/details?page=1&page_size=3&guardian_id=${result?.data?.response.sponsor?.id}`);
+            setPosts(result1?.data?.response?.data);
+            setApplication_status(result1.data.response.data[0].status)
         }
         getDetails();
     },[]);
-    console.log(posts)
     return(
         <div className="wrapper" >
             <nav className="navbar fixed-top navbar-expand-lg" style={{"backgroundColor":" #00004d"}}>
@@ -36,6 +39,7 @@ const Child_Card=()=>
                             {posts.length>0 && posts.map((item)=>(
                                 <div className={homestyle.card}>
                                     <img src={item.profile} style={{width:'100%',height:'200px'}}/>
+                                    <p style={{marginLeft:'30px'}} className="text-primary">{application_status.name}</p><br/>
                                     <p style={{marginLeft:'30px'}}>{item.name}</p><br/>
                                     <div className="row">
                                         < div className="col-sm">
@@ -57,8 +61,7 @@ const Child_Card=()=>
                                     </div><br/>
                                     <p style={{fontSize:'16px'}}>Vishwa Prasad is from India lives with parents,Enjoys playing with dolls ,playing with friends,Running</p><br/>
                                     <div style={{display:'flex'}}>
-                                        <Link href={`/children/${item.id}`} className="btn btn-primary btn-sm" >SPONSER CHILDREN</Link>
-                                        <Link href={`/children/${item.id}`} className="btn btn-secondary btn-sm">More Details</Link>
+                                        {application_status.id!=1? <Link href="kids/kids_Dashboard"><button>Edit Application</button></Link>:<Link href={`/children/${item.id}`}><button>View Application</button></Link>}
                                     </div>
                                 </div>
                             ))}

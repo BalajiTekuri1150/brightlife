@@ -1,44 +1,41 @@
 import { getData,postData } from "../../utils/data_manage_service"
 import { useRouter } from "next/router"
 import { useState } from "react"
+import { DataManager } from '@syncfusion/ej2-data';
 import { getLocalData } from "../../utils/storage_service"
 import Link from "next/link"
 let number_of_documents=0
 export default function Required_documents(){
     const router=useRouter()
-    const [disable,setDisable]=useState(true)
     const [status,seStatus]=useState(true)
     const [message,setMessage]=useState("")
-    const id=getLocalData("id")
+    const id=getLocalData("application_id")
+    const token=getLocalData("token")
     const handleChange=async(e)=>{
-        console.log(e.target.value)
         seStatus(true)
         setMessage("")
         number_of_documents+=1
         let document_type
-        if(number_of_documents>=3){
-            setDisable(false)
-        }
         const file_type=e.target.value.split(".")
-        const data={
-            "application":id,
-            "seq_no":number_of_documents,
-            "url":e.target.value,
-            "file_type":file_type[file_type.length-1]
-        }
         const result=await(getData("https://test-api.brightlife.org/brightlife/list/document/types")) 
         for (let i = 0; i < result?.data?.response?.data?.length; i++) {
             if(result?.data?.response?.data[i].name==e.target.name){
                 document_type=result?.data?.response?.data[i]?.id
             }
         }
-        data["document_type"]=document_type
-        const response=await(postData("https://test-api.brightlife.org/brightlife/add/application/documents",data)) 
-        console.log(response)
-        if(!response?.data?.status){
-            seStatus(response?.data?.status)
-            setMessage(response?.data?.error?.url) 
+        const formData = new FormData()
+        formData.append("application", id);
+        formData.append("seq_no", number_of_documents);
+        formData.append("url", e.target.files[0]);
+        formData.append("file_type", file_type[file_type.length-1]);
+        formData.append("document_type",document_type);
+        let dataManager = new DataManager()
+        const fileData = await dataManager.postData("https://test-api.brightlife.org/brightlife/add/application/documents", formData).catch(e => { });
+        if (!!fileData && fileData.status) {
+            this.setState(() => { return { disableSearch: false } });
+            this.setState(() => { return { input_image: fileData.response.path } })
         }
+        
     }
     const handleSubmit=(e)=>{
         e.preventDefault()
@@ -93,8 +90,8 @@ export default function Required_documents(){
                     </div>
                     {status?<p></p>:<p className="text-danger">{message}</p>}
                     <div className="row">
-                        <button type="submit" className="btn btn-primary mx-5 col-2 " disabled={disable}>Save&Continue</button>
-                        <Link href="/components/gaurdian_dashboard"><button type="button" className="btn btn-secondary col-2 mx-5 " >Exit</button></Link>
+                        <button type="submit" className="btn btn-primary mx-5 col-2" >Save&Continue</button>
+                        <Link href="/gaurdian/gaurdian_dashboard"><button type="button" className="btn btn-secondary col-2 mx-5 " >Exit</button></Link>
                     </div>
                 </form>
             </section>

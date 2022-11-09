@@ -7,7 +7,7 @@ export default function Bank_details(){
     let value="",isvalid=false
     const [message,setMessage]=useState("")
     const [status,setStatus]=useState(true)
-    const id=getLocalData("id")
+    const id=getLocalData("application_id")
     const[bankDetails,setBankDetails]=useState({})
     // useEffect(()=>{
     //     const getDetails=async()=>{

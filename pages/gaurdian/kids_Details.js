@@ -1,6 +1,6 @@
 import { useRouter } from "next/router"
 import { useState } from "react"
-import { setLocalData } from "../../utils/storage_service"
+import { setLocalData,getLocalData } from "../../utils/storage_service"
 import { postData} from "../../utils/data_manage_service"
 import Input from "./input_compent"
 import Link from "next/link"
@@ -9,6 +9,7 @@ export default function Kids_details(){
     const [message,setMessage]=useState("")
     const [status,setStatus]=useState(true)
     const router=useRouter()
+    const gaurdian_id=getLocalData("gaurdian_id")
     const [formValues,setFormValues]=useState({
         profile:{value,isvalid},
         username:{value,isvalid},
@@ -22,17 +23,18 @@ export default function Kids_details(){
     {
         e.preventDefault()   
         const data = {
-            profile:formValues.profile.value,
+            // profile:formValues.profile.value,
             name: formValues.username.value,
             birthday:formValues.bday.value,
             gender_id: formValues.gender.value,
             email:formValues.email.value,
             mobile: formValues.mobile.value,
-            child_type_id: formValues.child.value
+            child_type_id: formValues.child.value,
+            guardian_id:gaurdian_id,
         }
         const result=await(postData('https://test-api.brightlife.org/brightlife/add/application/profile',data))
         if(result?.data?.status){
-            setLocalData("id",result?.data?.response.data.id)
+            setLocalData("application_id",result?.data?.response.data.id)
             router.push({ 
                 pathname: '/gaurdian/gaurdian_details',
             })  
@@ -102,7 +104,7 @@ export default function Kids_details(){
                     <span className="m-2">{status?<p className="text-sucess">{message}</p>:<p className="text-danger">{message}</p>}</span>
                     <div className="row">
                         <button type="submit" className="btn btn-primary mx-5 col-2 " disabled={!isFormValid}>Save&Continue</button>
-                        <Link href="/components/gaurdian_dashboard"><button type="button" className="btn btn-secondary col-2 mx-5 " >Exit</button></Link>
+                        <Link href="/gaurdian/gaurdian_dashboard"><button type="button" className="btn btn-secondary col-2 mx-5 " >Exit</button></Link>
                     </div>
                 </form>
             </section>

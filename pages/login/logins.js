@@ -27,6 +27,7 @@ export default function Login()
                 setMessage("Login successful")
                 setLocalData("token",result.data.token)
                 setLocalData("user_id",result?.data?.response?.user?.id)
+                console.log(result?.data?.response?.user?.role)
                 if(result?.data?.response?.user?.role==="sponsor")
                 {
                     router.push({ 

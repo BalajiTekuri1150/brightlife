@@ -9,7 +9,7 @@ export default function Education_details(){
     const [message,setMessage]=useState("")
     const [status,setStatus]=useState(true)
     const router=useRouter()
-    const id=getLocalData("id")
+    const id=getLocalData("application_id")
     const [formValues,setFormValues]=useState({
         grade:{value,isvalid},
         school_name:{value,isvalid},
@@ -96,7 +96,7 @@ export default function Education_details(){
                     <span className="m-2">{status?<p className="text-sucess">{message}</p>:<p className="text-danger">{message}</p>}</span>
                     <div className="row">
                         <button type="submit" className="btn btn-primary mx-5 col-2 " disabled={!isFormValid}>Save&Continue</button>
-                        <Link href="/components/gaurdian_dashboard"><button type="button" className="btn btn-secondary col-2 mx-5 " >Exit</button></Link>
+                        <Link href="/gaurdian/gaurdian_dashboard"><button type="button" className="btn btn-secondary col-2 mx-5 " >Exit</button></Link>
                     </div>
                 </form>
             </section>
