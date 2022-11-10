@@ -1,7 +1,8 @@
 import axios from "axios"
 import { getLocalData } from "./storage_service";
-export const postData=async( url, data)=> {
-    const JSONdata = JSON.stringify(data)
+let JSONdata
+export const postData=async( url, data,bool=0)=> {
+    bool===1?JSONdata=data:JSONdata = JSON.stringify(data)
     const token=getLocalData("token")
     const response = await axios({
         method: "POST",

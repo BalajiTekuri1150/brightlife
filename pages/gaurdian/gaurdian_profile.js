@@ -25,20 +25,21 @@ export default function Gaurdian_Profile(){
     useEffect(()=>{
         const getprofile=async()=>{
             const result=await getData(`https://test-api.brightlife.org/brightlife/get/guardian/profile?user_id=${user_id}`);
-            setId(result?.data?.response?.sponsor?.id)
-            setRole(result?.data?.response?.sponsor?.user?.role)
+            const mobile=isNaN(result?.data?.response?.guardian?.mobile)?"":parseInt(result?.data?.response?.guardian?.mobile,10)
+            setId(result?.data?.response?.guardian?.id)
+            setRole(result?.data?.response?.guardian?.user?.role)
             setData({
-                fname:{value:result?.data?.response?.sponsor?.user?.name},
+                fname:{value:result?.data?.response?.guardian?.user?.name},
                 lname:{value:""},
-                email:{value:result?.data?.response?.sponsor?.user?.email},
-                organization:{value:result?.data?.response?.sponsor?.organization},
-                mobile:{value:result?.data?.response?.sponsor?.mobile},
-                source:{value:result?.data?.response?.sponsor?.source},
-                address:{value:result?.data?.response?.sponsor?.address},
-                city:{value:result?.data?.response?.sponsor?.city},
-                state:{value:result?.data?.response?.sponsor?.state},
-                country:{value:result?.data?.response?.sponsor?.country},
-                postcode:{value:result?.data?.response?.sponsor?.postal_code},
+                email:{value:result?.data?.response?.guardian?.user?.email},
+                organization:{value:result?.data?.response?.guardian?.organization},
+                mobile:{value:mobile},
+                source:{value:result?.data?.response?.guardian?.source},
+                address:{value:result?.data?.response?.guardian?.address},
+                city:{value:result?.data?.response?.guardian?.city},
+                state:{value:result?.data?.response?.guardian?.state},
+                country:{value:result?.data?.response?.guardian?.country},
+                postcode:{value:result?.data?.response?.guardian?.postal_code},
             })
         }
         getprofile();
@@ -56,6 +57,7 @@ export default function Gaurdian_Profile(){
     }
     const updateProfile=async(e)=>
     {
+        e.preventDefault()
         const user_data={
             user: {
                 id:user_id,
@@ -74,7 +76,6 @@ export default function Gaurdian_Profile(){
             postal_code:data.postcode.value
         }
         const result=await(postData("https://test-api.brightlife.org/brightlife/update/guardian/profile",user_data))
-        console.log(result)
         setStatus(result?.data?.status)
         if(result?.data?.status==true)
         {
@@ -82,7 +83,7 @@ export default function Gaurdian_Profile(){
         }
         else
         {
-            setMessage(result?.data?.error)
+            setMessage(Object.keys(result.data.error.message)+Object.values(result.data.error.message))
         }
     }
     return(

@@ -4,14 +4,11 @@ import { useState } from "react"
 import axios from "axios"
 import { getLocalData } from "../../utils/storage_service"
 import Link from "next/link"
-import { setRevalidateHeaders } from "next/dist/server/send-payload"
 let number_of_documents=0,document_type
 export default function Required_documents(){
     const router=useRouter()
     let value=0,isvalid=false
     const [disable,setDisable]=useState(true)
-    const [status,seStatus]=useState(true)
-    const [message,setMessage]=useState("")
     const id=getLocalData("application_id")
     const token=getLocalData("token")
     const [formValues,setFormValues]=useState({
@@ -21,16 +18,17 @@ export default function Required_documents(){
         Disability_certificate:{value,isvalid}
     })
     const handleChange=async(e)=>{
-        seStatus(true)
-        setMessage("")
         if(e.target.value===""){
-            number_of_documents-=1
+            number_of_documents==0?number_of_documents=0:number_of_documents-=1
             setFormValues({...formValues,[e.target.name]:{value:0,isvalid:false}})
             // const result=await(postData('https://test-api.brightlife.org/brightlife/remove/application/documents',ids))
         }
         else{
             if(!formValues[e.target.name]?.isvalid){
                 number_of_documents+=1
+            }
+            if(number_of_documents>=3){
+                setDisable(false)
             }
             setFormValues({...formValues,[e.target.name]:{value:1,isvalid:true}})
             const file_type=e.target.value.split(".")
@@ -54,11 +52,7 @@ export default function Required_documents(){
                     'Authorization': "token "+token
                 },
                 data: formData
-            }).then((response)=>{console.log(response)})
-            .catch(e => {return e.response});
-            if(number_of_documents>=3){
-                setDisable(false)
-            }
+            })            
         }
     }
     const handleSubmit=(e)=>{
@@ -112,7 +106,6 @@ export default function Required_documents(){
                             <input className="form-control form-control-sm"  name="report_card" type="file" onChange={handleChange}/>
                         </div>
                     </div>
-                    {status?<p></p>:<p className="text-danger">{message}</p>}
                     <div className="row">
                         <button type="submit" className="btn btn-primary mx-5 col-2" disabled={disable}>Save&Continue</button>
                         <Link href="/gaurdian/gaurdian_dashboard"><button type="button" className="btn btn-secondary col-2 mx-5 " >Exit</button></Link>

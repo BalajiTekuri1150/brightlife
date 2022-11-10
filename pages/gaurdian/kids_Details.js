@@ -1,52 +1,61 @@
 import { useRouter } from "next/router"
 import { useState,useEffect} from "react"
-import { setLocalData,getLocalData } from "../../utils/storage_service"
+import { getLocalData } from "../../utils/storage_service"
 import { postData,getData} from "../../utils/data_manage_service"
 import Input from "./input_compent"
 import Link from "next/link"
-export default function Kids_details(props){
-    console.log(props)
+export default function Kids_details(){
     let value="",isvalid=false
     const [message,setMessage]=useState("")
     const [status,setStatus]=useState(true)
     const router=useRouter()
-    const application_id=getLocalData("application_id")
-    const gaurdian_id=getLocalData("gaurdian_id")
-    const [user_Data,setUser_Data]=useState({})
+    const [new_application,setNew_application]=useState(true)
+    const application_number=router.query.application_id
+    const guardian_id=getLocalData("guardian_id")
     const [formValues,setFormValues]=useState({
         profile:{value,isvalid},
         username:{value,isvalid},
-        bday:{value,isvalid},
+        birthday:{value,isvalid},
         mobile:{value,isvalid},
         email:{value,isvalid},
         child:{value,isvalid},
         gender:{value,isvalid}
     })
     useEffect(()=>{
-        const getprofile=async()=>{
-            const result=await getData(`https://test-api.brightlife.org/brightlife/get/application/details?page=1&page_size=5&application_id=${application_id}`);
-            setUser_Data(result?.data?.response?.data[0])
+        if(!isNaN(application_number)){
+            setNew_application(false)
+            const getprofile=async()=>{
+                const result=await getData(`https://test-api.brightlife.org/brightlife/get/application/details?page=1&page_size=5&application_id=${application_number}`);
+                setFormValues({
+                    profile:{value:result?.data?.response?.data[0].profile,isvalid:true},
+                    username:{value:result?.data?.response?.data[0].name,isvalid:true},
+                    birthday:{value:result?.data?.response?.data[0].birthday,isvalid:true},
+                    mobile:{value:result?.data?.response?.data[0].mobile,isvalid:true},
+                    email:{value:result?.data?.response?.data[0].email,isvalid:true},
+                    gender:{value:result?.data?.response?.data[0].gender.id,isvalid:true},
+                    child:{value:result?.data?.response?.data[0].child_type.id,isvalid:true}
+                })
+            }
+            getprofile();
         }
-        getprofile();
-    },[]);
+    },1);
     const handleSubmit=async(e)=>
     {
-        e.preventDefault()   
-        const data = {
-            // profile:formValues.profile.value,
-            name: formValues.username.value,
-            birthday:formValues.bday.value,
-            gender_id: formValues.gender.value,
-            email:formValues.email.value,
-            mobile: formValues.mobile.value,
-            child_type_id: formValues.child.value,
-            guardian_id:gaurdian_id,
-        }
-        const result=await(postData('https://test-api.brightlife.org/brightlife/add/application/profile',data))
+        e.preventDefault()  
+        const formData = new FormData()
+        formData.append("profile",e.target[0].files[0]);
+        formData.append("name", formValues.username.value);
+        formData.append("birthday",formValues.birthday.value);
+        formData.append("gender_id", formValues.gender.value);
+        formData.append("email",formValues.email.value); 
+        formData.append("mobile",formValues.mobile.value); 
+        formData.append("child_type_id", formValues.child.value); 
+        formData.append(" guardian_id",guardian_id); 
+        const result=new_application?await(postData('https://test-api.brightlife.org/brightlife/add/application/profile',formData,1)):await(postData('https://test-api.brightlife.org/brightlife/update/application/profile',formData,1))
         if(result?.data?.status){
-            setLocalData("application_id",result?.data?.response.data.id)
             router.push({ 
                 pathname: '/gaurdian/gaurdian_details',
+                query:{"application_id":application_number}
             })  
         }
         else{
@@ -74,11 +83,11 @@ export default function Kids_details(props){
                     <div className="row">
                         <div className="col-5 mx-4">
                             <label>Name</label>
-                            <Input type="text"  name="username" value={user_Data.name}  className="form-control" onChange={handleChange}/> 
+                            <Input type="text"  name="username"  className="form-control" value={formValues.username.value} onChange={handleChange}/> 
                         </div>
                         <div className="col-5 mx-4">
                             <label>Birthday</label>
-                            <Input type="date" name="bday" value={user_Data.birthday} className="form-control" onChange={handleChange}/>
+                            <Input type="date" name="birthday" className="form-control" value={formValues.birthday.value} onChange={handleChange}/>
                         </div>
                     </div>
                     <div className="row">
@@ -88,13 +97,13 @@ export default function Kids_details(props){
                         </div>
                         <div className="col-5 m-4">
                             <label>Email Address</label>
-                            <Input type="email" name="email" value={user_Data.email} className="form-control" onChange={handleChange}/>
+                            <Input type="email" name="email"  className="form-control" value={formValues.email.value} onChange={handleChange}/>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-5 m-4">
                             <label>Mobile Number</label>
-                            <Input type="tel" name="mobile" className="form-control" value={user_Data.mobile} onChange={handleChange}/>
+                            <Input type="tel" name="mobile" className="form-control"  value={formValues.mobile.value} onChange={handleChange}/>
                         </div>
                         <div className="col-5 m-4">
                             <label>Is the child</label>
@@ -114,7 +123,7 @@ export default function Kids_details(props){
                     <span className="m-2">{status?<p className="text-sucess">{message}</p>:<p className="text-danger">{message}</p>}</span>
                     <div className="row">
                         <button type="submit" className="btn btn-primary mx-5 col-2 " disabled={!isFormValid}>Save&Continue</button>
-                        <Link href="/gaurdian/gaurdian_dashboard"><button type="button" className="btn btn-secondary col-2 mx-5 " >Exit</button></Link>
+                        <Link href={{pathname:"/gaurdian/gaurdian_dashboard"}}><button type="button" className="btn btn-secondary col-2 mx-5 " >Exit</button></Link>
                     </div>
                 </form>
             </section>

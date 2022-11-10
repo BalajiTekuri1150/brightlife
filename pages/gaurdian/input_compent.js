@@ -56,7 +56,7 @@ export default function Input(props){
     }
     return(
         <>
-            <input className="form-control" name={props.name} type={props.type} onChange={change}/>
+            <input className="form-control" name={props.name} type={props.type} value={props.value} onChange={change}/>
             {err?<p className="text-danger">{msg}</p>:<p></p>}
         </>
     )
