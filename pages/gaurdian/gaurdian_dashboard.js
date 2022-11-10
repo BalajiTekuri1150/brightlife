@@ -14,7 +14,7 @@ const Child_Card=()=>
         const getDetails=async()=>{
             const result=await getData(`https://test-api.brightlife.org/brightlife/get/guardian/profile?user_id=${user_id}`)
             setLocalData("guardian_id",result?.data?.response?.guardian?.id)
-            const result1=await getData(`https://test-api.brightlife.org/brightlife/get/application/details?page=1&page_size=10&guardian_id=${result?.data?.response.guardian?.id}`);
+            const result1=await getData(`https://test-api.brightlife.org/brightlife/get/application/details?page=1&page_size=12&guardian_id=${result?.data?.response.guardian?.id}`);
             setPosts(result1?.data?.response?.data);
         }
         getDetails();
@@ -41,6 +41,7 @@ const Child_Card=()=>
                                     <Image src={profile} style={{width:'100%',height:'200px'}}/>
                                     <p style={{marginLeft:'30px'}} className="text-primary">{item.status.name}</p><br/>
                                     <p style={{marginLeft:'30px'}}>{item.name}</p><br/>
+                                    <p>{item.id}</p>
                                     <div className="row">
                                         < div className="col-sm">
                                             {item.gender.name}

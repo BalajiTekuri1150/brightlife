@@ -5,7 +5,7 @@ import { postData,getData} from "../../utils/data_manage_service"
 import Input from "./input_compent"
 import Link from "next/link"
 export default function Kids_details(){
-    let value="",isvalid=false
+    let value="",isvalid=false,result
     const [message,setMessage]=useState("")
     const [status,setStatus]=useState(true)
     const router=useRouter()
@@ -38,7 +38,7 @@ export default function Kids_details(){
             }
             getprofile();
         }
-    },1);
+    },[]);
     const handleSubmit=async(e)=>
     {
         e.preventDefault()  
@@ -50,12 +50,23 @@ export default function Kids_details(){
         formData.append("email",formValues.email.value); 
         formData.append("mobile",formValues.mobile.value); 
         formData.append("child_type_id", formValues.child.value); 
-        formData.append(" guardian_id",guardian_id); 
-        const result=new_application?await(postData('https://test-api.brightlife.org/brightlife/add/application/profile',formData,1)):await(postData('https://test-api.brightlife.org/brightlife/update/application/profile',formData,1))
+        if(new_application){
+            console.log("in add")
+            formData.append(" guardian_id",guardian_id); 
+            result=await(postData('https://test-api.brightlife.org/brightlife/add/application/profile',formData,1))
+            application_number=result?.data?.response?.data?.id
+        }
+        else{
+            console.log("in update")
+            formData.append("id",application_number), 
+            result=await(postData('https://test-api.brightlife.org/brightlife/update/application/profile',formData,1))
+            console.log(result)
+        }
         if(result?.data?.status){
+            console.log(application_number)
             router.push({ 
                 pathname: '/gaurdian/gaurdian_details',
-                query:{"application_id":application_number}
+                query:{application_id:application_number}
             })  
         }
         else{

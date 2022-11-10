@@ -7,6 +7,7 @@ import Link from "next/link"
 let number_of_documents=0,document_type
 export default function Required_documents(){
     const router=useRouter()
+    const application_number=router.query.application_id
     let value=0,isvalid=false
     const [disable,setDisable]=useState(true)
     const id=getLocalData("application_id")
@@ -17,6 +18,20 @@ export default function Required_documents(){
         PAN:{value,isvalid},
         Disability_certificate:{value,isvalid}
     })
+    // useEffect(()=>{
+    //     const getprofile=async()=>{
+    //         const result=await getData(`https://test-api.brightlife.org/brightlife/get/application/documents?application_id=${application_number}`);
+    //         setFormValues({
+    //             Aadhar:{value:result?.data?.response?.data[0].grade,isvalid:true},
+    //             school_address:{value:result?.data?.response?.data[0].school_address,isvalid:true},
+    //             school_name:{value:result?.data?.response?.data[0].school,isvalid:true},
+    //             hobbies:{value:result?.data?.response?.data[0].hobbies,isvalid:true},
+    //             aspirations:{value:result?.data?.response?.data[0].aspirations,isvalid:true},
+    //             achievements:{value:result?.data?.response?.data[0].achievements,isvalid:true},
+    //         })
+    //     }
+    //     getprofile();
+    // },[]);
     const handleChange=async(e)=>{
         if(e.target.value===""){
             number_of_documents==0?number_of_documents=0:number_of_documents-=1
@@ -59,6 +74,7 @@ export default function Required_documents(){
         e.preventDefault()
         router.push({ 
             pathname: '/gaurdian/bank_details',
+            query:{"application_id":application_number}
         })          
     }
     return(
@@ -107,8 +123,9 @@ export default function Required_documents(){
                         </div>
                     </div>
                     <div className="row">
-                        <button type="submit" className="btn btn-primary mx-5 col-2" disabled={disable}>Save&Continue</button>
+                        <button type="submit" className="btn btn-primary mx-5 col-2" >Save&Continue</button>
                         <Link href="/gaurdian/gaurdian_dashboard"><button type="button" className="btn btn-secondary col-2 mx-5 " >Exit</button></Link>
+                    {/* disabled={disable} */}
                     </div>
                 </form>
             </section>

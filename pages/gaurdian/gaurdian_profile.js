@@ -25,7 +25,6 @@ export default function Gaurdian_Profile(){
     useEffect(()=>{
         const getprofile=async()=>{
             const result=await getData(`https://test-api.brightlife.org/brightlife/get/guardian/profile?user_id=${user_id}`);
-            const mobile=isNaN(result?.data?.response?.guardian?.mobile)?"":parseInt(result?.data?.response?.guardian?.mobile,10)
             setId(result?.data?.response?.guardian?.id)
             setRole(result?.data?.response?.guardian?.user?.role)
             setData({
@@ -33,7 +32,7 @@ export default function Gaurdian_Profile(){
                 lname:{value:""},
                 email:{value:result?.data?.response?.guardian?.user?.email},
                 organization:{value:result?.data?.response?.guardian?.organization},
-                mobile:{value:mobile},
+                mobile:{value:result?.data?.response?.guardian?.mobile},
                 source:{value:result?.data?.response?.guardian?.source},
                 address:{value:result?.data?.response?.guardian?.address},
                 city:{value:result?.data?.response?.guardian?.city},
@@ -83,7 +82,7 @@ export default function Gaurdian_Profile(){
         }
         else
         {
-            setMessage(Object.keys(result.data.error.message)+Object.values(result.data.error.message))
+            setMessage(result?.data?.error)
         }
     }
     return(

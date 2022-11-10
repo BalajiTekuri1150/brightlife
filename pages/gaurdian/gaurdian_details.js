@@ -18,12 +18,15 @@ export default function Gaurdian_details(){
     useEffect(()=>{
         const getprofile=async()=>{
             const result=await getData(`https://test-api.brightlife.org/brightlife/get/application/details?page=1&page_size=5&application_id=${application_number}`);
-            setFormValues({
-                profession:{value:result?.data?.response?.data[0].profession,isvalid:true},
-                annual_income:{value:result?.data?.response?.data[0].annual_income,isvalid:true},
-                family_members:{value:result?.data?.response?.data[0].family_members,isvalid:true},
-                extra_allowance:{value:result?.data?.response?.data[0].extra_allowance,isvalid:true},
-            })
+            const disable=(Object.keys(formValues)).every((item)=>(Object.keys(result?.data?.response?.data[0])).includes(item))
+            if(disable){
+                setFormValues({
+                    profession:{value:result?.data?.response?.data[0].profession,isvalid:true},
+                    annual_income:{value:result?.data?.response?.data[0].annual_income,isvalid:true},
+                    family_members:{value:result?.data?.response?.data[0].family_members,isvalid:true},
+                    extra_allowance:{value:result?.data?.response?.data[0].extra_allowance,isvalid:true},
+                })
+            }
         }
         getprofile();
     },[]);
@@ -38,9 +41,15 @@ export default function Gaurdian_details(){
             extra_allowance: formValues.extra_allowance.value
         } 
         const result=await(postData('https://test-api.brightlife.org/brightlife/update/guardian/details',data,1))
-        if(!result?.data?.status){
+        if(result?.data?.status){
+            router.push({ 
+                pathname: '/gaurdian/education_details',
+                query:{"application_id":application_number}
+            })  
+        }
+        else{
             setStatus(result?.data?.status)
-            setMessage(result?.data?.error?.message)
+            setMessage(result?.data?.error.message)
         }            
     }
     const handleChange=(name,values,valid)=>{
@@ -77,7 +86,7 @@ export default function Gaurdian_details(){
                     </div>
                     <span className="m-2">{status?<p className="text-sucess">{message}</p>:<p className="text-danger">{message}</p>}</span>
                     <div className="row">
-                        <Link href={{pathname:"/gaurdian/education_details",query: { "application_id":application_number}}}><button type="submit" className="btn btn-primary mx-5 col-2 " disabled={!isFormValid}>Save&Continue</button></Link>
+                        <button type="submit" className="btn btn-primary mx-5 col-2 " disabled={!isFormValid}>Save&Continue</button>
                         <Link href="/gaurdian/gaurdian_dashboard"><button type="button" className="btn btn-secondary col-2 mx-5 " >Exit</button></Link>
                     </div>
                 </form>

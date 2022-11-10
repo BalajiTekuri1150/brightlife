@@ -4,14 +4,14 @@ import { postData ,getData} from "../../utils/data_manage_service"
 import Input from "./input_compent"
 import Link from "next/link"
 export default function Education_details(){
-    let value="",isvalid=false
+    let value="",isvalid=false,isFormValid
     const [message,setMessage]=useState("")
     const [status,setStatus]=useState(true)
     const router=useRouter()
     const application_number=router.query.application_id
     const [formValues,setFormValues]=useState({
         grade:{value,isvalid},
-        school_name:{value,isvalid},
+        school:{value,isvalid},
         school_address:{value,isvalid},
         hobbies:{value,isvalid},
         aspirations:{value,isvalid},
@@ -25,14 +25,17 @@ export default function Education_details(){
     useEffect(()=>{
         const getprofile=async()=>{
             const result=await getData(`https://test-api.brightlife.org/brightlife/get/application/details?page=1&page_size=5&application_id=${application_number}`);
-            setFormValues({
-                grade:{value:result?.data?.response?.data[0].grade,isvalid:true},
-                school_address:{value:result?.data?.response?.data[0].school_address,isvalid:true},
-                school_name:{value:result?.data?.response?.data[0].school,isvalid:true},
-                hobbies:{value:result?.data?.response?.data[0].hobbies,isvalid:true},
-                aspirations:{value:result?.data?.response?.data[0].aspirations,isvalid:true},
-                achievements:{value:result?.data?.response?.data[0].achievements,isvalid:true},
-            })
+            const disable=(Object.keys(formValues)).every((item)=>(Object.keys(result?.data?.response?.data[0])).includes(item))
+            if(disable){
+                setFormValues({
+                    grade:{value:result?.data?.response?.data[0].grade,isvalid:true},
+                    school_address:{value:result?.data?.response?.data[0].school_address,isvalid:true},
+                    school:{value:result?.data?.response?.data[0].school,isvalid:true},
+                    hobbies:{value:result?.data?.response?.data[0].hobbies,isvalid:true},
+                    aspirations:{value:result?.data?.response?.data[0].aspirations,isvalid:true},
+                    achievements:{value:result?.data?.response?.data[0].achievements,isvalid:true},
+                })
+            }
         }
         getprofile();
     },[]);
@@ -42,7 +45,7 @@ export default function Education_details(){
         const data = {
             application_id: application_number,
             grade:formValues.grade.value ,
-            school:formValues.school_name.value ,
+            school:formValues.school.value ,
             school_address: formValues.school_address.value ,
             hobbies: formValues.hobbies.value ,
             aspirations:formValues.aspirations.value ,
@@ -52,6 +55,7 @@ export default function Education_details(){
         if(result?.data?.status){
             router.push({ 
                 pathname: '/gaurdian/required_documents',
+                query:{"application_id":application_number}
             })  
         }
         else{
@@ -60,7 +64,7 @@ export default function Education_details(){
             setMessage(result?.data?.error?.message)
         }            
     }
-    const isFormValid=Object.keys(formValues).every((key)=>{
+    isFormValid=Object.keys(formValues).every((key)=>{
         return formValues[key].isvalid
     })
     return(
@@ -74,7 +78,7 @@ export default function Education_details(){
                         </div>
                         <div className="col-5 mx-4">
                             <label>School name</label>
-                            <Input type="text" name="school_name" className="form-control" value={formValues.school_name.value} onChange={handleChange}/>
+                            <Input type="text" name="school" className="form-control" value={formValues.school.value} onChange={handleChange}/>
                         </div>
                     </div>
                     <div className="row">
@@ -108,7 +112,7 @@ export default function Education_details(){
                     </div>
                     <span className="m-2">{status?<p className="text-sucess">{message}</p>:<p className="text-danger">{message}</p>}</span>
                     <div className="row">
-                        <Link href={{pathname:"/gaurdian/required_documents",query: { "application_id":application_number}}}><button type="submit" className="btn btn-primary mx-5 col-2 " disabled={!isFormValid}>Save&Continue</button></Link>
+                        <button type="submit" className="btn btn-primary mx-5 col-2 " disabled={!isFormValid}>Save&Continue</button>
                         <Link href="/gaurdian/gaurdian_dashboard"><button type="button" className="btn btn-secondary col-2 mx-5 " >Exit</button></Link>
                     </div>
                 </form>
