@@ -10,13 +10,8 @@ import { getData } from '../../utils/data_manage_service';
 const sponser_list=()=>
 {
     const id=getLocalData("sponser_id");
-    console.log(id);
     const [posts,setPosts]=useState([]);
     const [message,setMessage]=useState("");
-
-    // const result=await(getData("https://test-api.brightlife.org/brightlife/get/sponsor/kids?sponsor_id=1"))
-    // console.log(result?.data?.status);
-
     useEffect(()=>{
         const getDetails=async()=>{
             const res1=await fetch(`https://test-api.brightlife.org/brightlife/get/sponsor/kids?sponsor_id=${id}`,{headers:{"Authorization":"token 2d21e847092508ace5f534ac492bf03cd742145a"}});
@@ -25,7 +20,6 @@ const sponser_list=()=>
                 setPosts(getdet?.response?.SponsoredApplications?.application);
             }
             else{
-                console.log(getdet?.error?.message)
                 setMessage(getdet?.error?.message);
             }
             
@@ -39,7 +33,12 @@ const sponser_list=()=>
             pathname:'/sponser/My_Profile',
         })
     }
-
+    const handleKidsList=()=>
+    {
+        Router.push({
+            pathname:'/sponser/sponser',
+        })
+    }
     return(
         <div>
             <div className="container">
@@ -55,6 +54,7 @@ const sponser_list=()=>
                     <Side/>
                 </div>
                 <div style={{marginTop:"70px",width:'800px',height:'100%',backgroundColor:'white',borderRadius:'10px',boxShadow:'0 8px 6px 3px rgba(0,0,0,0.5)',transition:'3s'}}>
+                    <button className="btn btn-primary" style={{marginLeft:'700px',marginTop:'10px'}} onClick={handleKidsList}>Kids List</button>
                     <main className={homestyle.main}>
                         <div className={homestyle.grid}>
                             {message}

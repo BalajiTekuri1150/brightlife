@@ -28,7 +28,7 @@ export const getData=async( url)=> {
     return response
 }
 
-//Don't Remove this
+//please Don't Remove this
 export const postData2=async( url, data)=> {
     const JSONdata = JSON.stringify(data)
     const response = await axios({
@@ -45,13 +45,11 @@ export const postData2=async( url, data)=> {
 
 export const postData1=async( url, data)=> {
     const JSONdata = JSON.stringify(data)
-    // const token=getLocalData("token")
     const response = await axios({
         method: "POST",
         url:  url,
         headers: {
             'Content-Type': 'application/json',
-            // 'Authorization': "token "+token
         },
         data: JSONdata
     }).catch(e => {return e.response});

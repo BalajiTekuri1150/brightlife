@@ -15,7 +15,7 @@ const Final=()=>
 {
     
     const router = useRouter()
-    const{name,email,pass,role,id}=router.query;
+    // const{name,email,pass,role,id}=router.query;
     const [coun,setCoun]=useState([]);
     const [conid,setconId]=useState(' ');
     const [st,setSt]=useState([]);
@@ -51,7 +51,7 @@ const Final=()=>
     const handleCountry=(e)=>
     {
         const getCountryid=e.target.value;
-        console.log(getCountryid);
+        // console.log(getCountryid);
         setconId(getCountryid);
     }
 
@@ -93,9 +93,9 @@ const Final=()=>
     }
     const handleProfile=()=>
     {
-        setLocalData("name",name);
-        setLocalData("email",email);
-        setLocalData("role",role);
+        // setLocalData("name",name);
+        // setLocalData("email",email);
+        // setLocalData("role",role);
         Router.push({
             pathname:'/sponser/My_Profile',
             // query:{name:name,email:email,pass:pass,role:role,id:id},
@@ -104,10 +104,10 @@ const Final=()=>
     const handleSubmit=(e)=>
     {
         e.preventDefault();
-        console.log(state);
-        console.log(coun);
-        console.log(mon);
-        console.log(gen);
+        // console.log(state);
+        // console.log(coun);
+        // console.log(mon);
+        // console.log(gen);
         Router.push({
             pathname:'/sponser/search_filter',
             query:{state:state,mon:mon,gen:gen,age:age,income:income},

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import homestyle from "../../../styles/Home.module.css"
-import logo from "../../../public/fb.png";
+import logo from "../../../public/orphan-kids-.jpg"
 import Router from 'next/router'
 import Image from 'next/image';
 import { getLocalData } from '../../../utils/storage_service';

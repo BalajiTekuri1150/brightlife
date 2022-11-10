@@ -17,7 +17,6 @@ const search_filter=(props)=>
         }
         getDetails();
     },[]);
-    // console.log(posts);
     const handleCard=()=>
     {
         setLocalData("childid",props.id);
@@ -25,7 +24,7 @@ const search_filter=(props)=>
     return(
         <main className={homestyle.main}>
             <div className={homestyle.grid}>
-                {posts.filter(item1=>item1?.gender?.name.toString().includes(gen) || item1?.annual_income?.toString().includes(income))
+                {posts.filter(item1=>item1?.gender?.name.toString().includes(gen) || item1?.annual_income?.toString().includes(income) || item1?.state?.toString().includes(state))
                         .map((item)=>(
                         <div className={homestyle.card}>
                             <Image src={logo} style={{width:'100%',height:'200px'}}/>

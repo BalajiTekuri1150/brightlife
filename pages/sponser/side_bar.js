@@ -2,7 +2,7 @@ import React from "react";
 import style from '../../styles/register.module.css';
 import Link from 'next/link';
 import Image from 'next/image';
-import logo from "../../public/orphan-kids-.jpg"
+import logo from "../../public/kid.jpeg"
 import Router  from "next/router";
 const Side=()=>
 {
@@ -22,7 +22,7 @@ const Side=()=>
         <div style={{display:'flex'}}>
             <div className={style.side}>
                 <div className={style.card}>
-                    <Image src={logo} alt="Prathap" width="100px" height="70px"/>
+                    {/* <Image src={logo} alt="Prathap" width="100px" height="70px"/> */}
                 </div><br/><br/> 
             <div style={{marginLeft:'120px',color:'blue'}}>
                     <button className="btn btn-light" onClick={profileClick}>My Profile</button>

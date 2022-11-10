@@ -27,6 +27,7 @@ const Role=()=>
     {
         setDisable(false);
         setRole(e.target.value);
+        setMessage("");
     }
     const handleSubmit=async(e)=>
     {
@@ -37,22 +38,28 @@ const Role=()=>
         }
         else
         {
-            setDisable(true);
-            const data={
-                email:gmail,
-                context:"signup"
-            }
-            const result=await(postData1("https://test-api.brightlife.org/brightlife/v2/get/otp",data));
-            if(result?.data?.status==true)
+            if(role=="sponsor")
             {
-                setLocalData("reference_id",result?.data?.response?.referrence_id)
-                Router.push({
-                    pathname: '/register/otp',
-                    query: {name:name,email:gmail,pass:pass,role:role},
-                });
+                setDisable(true);
+                const data={
+                    email:gmail,
+                    context:"signup"
+                }
+                const result=await(postData1("https://test-api.brightlife.org/brightlife/v2/get/otp",data));
+                if(result?.data?.status==true)
+                {
+                    setLocalData("reference_id",result?.data?.response?.referrence_id)
+                    Router.push({
+                        pathname: '/register/otp',
+                        query: {name:name,email:gmail,pass:pass,role:role},
+                    });
+                }
+                else{
+                    setMessage(result?.message);
+                }
             }
             else{
-                setMessage(result?.message);
+                setMessage("You selected other than sponsor");
             }
             // const JSONdata=JSON.stringify(data);
             // fetch("https://test-api.brightlife.org/brightlife/v2/get/otp",{

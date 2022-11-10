@@ -139,9 +139,12 @@ const Otp=()=>
             if(result1?.data?.status==true)
             {
                 setLocalData("id",result1?.data?.response?.data?.id);
+                setLocalData("name",name);
+                setLocalData("email",email);
+                setLocalData("role",role);
                 Router.push({
                     pathname:'/sponser/sponser',
-                    query:{name:name,email:email,pass:pass,id:result1?.data?.response?.data?.id}
+                    // query:{name:name,email:email,pass:pass,role:role,id:result1?.data?.response?.data?.id}
                 })
             }  
             else
