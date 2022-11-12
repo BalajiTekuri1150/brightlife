@@ -1,116 +1,154 @@
-import Input from "./input_compent"
-import { useState } from "react"
+import { useState ,useEffect} from "react"
+import Link from "next/link";
+import { getLocalData } from "../../utils/storage_service";
+import { getData,postData } from "../../utils/data_manage_service";
+import My_Profile_Child from "../sponser/My_Profile_Child";
 export default function Gaurdian_Profile(){
-    let value="",isvalid=false
-    // const [message,setMessage]=useState("")
-    // const [status,setStatus]=useState(true)
-    const [formValues,setFormValues]=useState({
-        firstName:{value,isvalid},
-        lastName:{value,isvalid},
-        organization:{value,isvalid},
-        mobile:{value,isvalid},
-        email:{value,isvalid},
-        address:{value,isvalid},
-        city:{value,isvalid},
-        state:{value,isvalid},
-        postalCode:{value,isvalid},
-        conutry:{value,isvalid}
-    })
-    const handleSubmit=async(e)=>
-    {
-        e.preventDefault()   
-        // const data = {
-        //     profile:formValues.profile.value,
-        //     name: formValues.username.value,
-        //     birthday:formValues.bday.value,
-        //     gender_id: formValues.gender.value,
-        //     email:formValues.email.value,
-        //     mobile: formValues.mobile.value,
-        //     child_type_id: formValues.child.value
-        // }
-        // const result=await(postData('https://test-api.brightlife.org/brightlife/add/application/profile',data))
-        // if(result?.data?.status){
-        //     setLocalData("id",result?.data?.response.data.id)
-        //     router.push({ 
-        //         pathname: '/components/gaurdian_details',
-        //     })  
-        // }
-        // else{
-        //     setStatus(result?.data?.status)
-        //     setMessage(result?.data?.error?.message)
-        // }           
-    }
-    const handleChange=(name,values,valid)=>{
+    const user_id=getLocalData("user_id")
+    const[id,setId]=useState()
+    const[role,setRole]=useState("")
+    const [status,setStatus]=useState(true)
+    const [message,setMessage]=useState("")
+    const [data,setData]=useState({
+        fname:{value:""},
+        lname:{value:""},
+        email:{value:""},
+        organization:{value:""},
+        mobile:{value:""},
+        source:{value:""},
+        address:{value:""},
+        city:{value:""},
+        state:{value:""},
+        country:{value:""},
+        postcode:{value:""},
+    });
+    useEffect(()=>{
+        const getprofile=async()=>{
+            const result=await getData(`https://test-api.brightlife.org/brightlife/get/guardian/profile?user_id=${user_id}`);
+            setId(result?.data?.response?.guardian?.id)
+            setRole(result?.data?.response?.guardian?.user?.role)
+            setData({
+                fname:{value:result?.data?.response?.guardian?.user?.name},
+                lname:{value:""},
+                email:{value:result?.data?.response?.guardian?.user?.email},
+                organization:{value:result?.data?.response?.guardian?.organization},
+                mobile:{value:result?.data?.response?.guardian?.mobile},
+                source:{value:result?.data?.response?.guardian?.source},
+                address:{value:result?.data?.response?.guardian?.address},
+                city:{value:result?.data?.response?.guardian?.city},
+                state:{value:result?.data?.response?.guardian?.state},
+                country:{value:result?.data?.response?.guardian?.country},
+                postcode:{value:result?.data?.response?.guardian?.postal_code},
+            })
+        }
+        getprofile();
+    },[]);
+    const handleData=(name,value)=>{
         setStatus(true)
         setMessage("")
-        setFormValues({...formValues,[name]:{value:values,isvalid:valid}})
+        setData({
+            ...data,
+            [name]:{
+                ...value.name,
+                value:value,
+            }
+        })
     }
-    const isFormValid=Object.keys(formValues).every((key)=>{
-        return formValues[key].isvalid
-    })
+    const updateProfile=async(e)=>
+    {
+        e.preventDefault()
+        const user_data={
+            user: {
+                id:user_id,
+                name: data.fname.value,
+                email:data.email.value,
+                role: role
+            },
+            id:id,
+            mobile:data.mobile.value,
+            organization: data.organization.value,
+            source:data.source.value,
+            address:data.address.value,
+            city:data.city.value,
+            state:data.state.value,
+            country:data.country.value,
+            postal_code:data.postcode.value
+        }
+        const result=await(postData("https://test-api.brightlife.org/brightlife/update/guardian/profile",user_data))
+        setStatus(result?.data?.status)
+        if(result?.data?.status==true)
+        {
+            setMessage("Details Updated Successfully");
+        }
+        else
+        {
+            setMessage(result?.data?.error)
+        }
+    }
     return(
         <>
             <section className="form">
-                <form className="bg-light px-5 pt-5" onSubmit={handleSubmit}>
+                <form className="bg-light px-5 pt-5" onSubmit={updateProfile}>
                     <div className="row">
                         <div className="col-5 mx-4">
                             <label>First Name</label>
-                            <Input type="text"  name="username" className="form-control" onChange={handleChange}/> 
+                            <My_Profile_Child type="text"  name="fname" className="form-control"  value={data.fname.value}  handleChange={handleData}/> 
                         </div>
                         <div className="col-5 mx-4">
                             <label>LastName</label>
-                            <Input type="text" name="username" className="form-control" onChange={handleChange}/>
+                            <My_Profile_Child type="text" name="lname" className="form-control" value={data.lname.value}  handleChange={handleData}/>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-5 m-4">
                             <label>Organization</label>
-                            <Input type="text" name="organization" className="form-control" onChange={handleChange}/>
+                            <My_Profile_Child type="text" name="organization" className="form-control" value={data.organization.value}  handleChange={handleData}/>
                         </div>
                         <div className="col-5 m-4">
                             <label>Email Address</label>
-                            <Input type="email" name="email" className="form-control" onChange={handleChange}/>
+                            <My_Profile_Child type="email" name="email" className="form-control" value={data.email.value}  handleChange={handleData}/>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-5 m-4">
                             <label>Mobile Number</label>
-                            <Input type="tel" name="mobile" className="form-control" onChange={handleChange}/>
+                            <My_Profile_Child type="tel" name="mobile" className="form-control" value={data.mobile.value}  handleChange={handleData}/>
                         </div>
                         <div className="col-5 m-4">
-                            <label>How did you hear aboiut us</label>
-                            <Input type="tel" name="mobile" className="form-control" onChange={handleChange}/>
+                            <label>How did you hear about us</label>
+                            <My_Profile_Child type="tel" name="source" className="form-control" value={data.source.value}  handleChange={handleData}/>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-5 m-4">
                             <label>Address</label>
-                            <Input type="text" name="address" className="form-control" onChange={handleChange}/>
+                            <My_Profile_Child type="text" name="address" className="form-control" value={data.address.value}  handleChange={handleData}/>
                         </div>
                         <div className="col-5 m-4">
                             <label>City</label>
-                            <Input type="text" name="city" className="form-control" onChange={handleChange}/>
+                            <My_Profile_Child type="text" name="city" className="form-control" value={data.city.value}  handleChange={handleData}/>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-5 m-4">
                             <label>State</label>
-                            <Input type="text" name="state" className="form-control" onChange={handleChange}/>
+                            <My_Profile_Child type="text" name="state" className="form-control" value={data.state.value}  handleChange={handleData}/>
                         </div>
                         <div className="col-5 m-4">
                             <label>Country</label>
-                            <Input type="text" name="country" className="form-control" onChange={handleChange}/>
+                            <My_Profile_Child type="text" name="country" className="form-control" value={data.country.value}  handleChange={handleData}/>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-5 m-4">
                             <label>Postal code</label>
-                            <Input type="number" name="postcode" className="form-control" onChange={handleChange}/>
+                            <My_Profile_Child type="number" name="postcode" className="form-control" value={data.postcode.value}  handleChange={handleData}/>
                         </div>
                     </div>
+                    {status?<p className="text-success">{message}</p>:<p className="text-danger">{message}</p>}
                     <div className="row">
-                        <button type="submit" className="btn btn-primary mx-5 col-2 " disabled={!isFormValid}>Save&Continue</button>
-                        <button type="button" className="btn btn-secondary col-2 mx-5 " >Exit</button>
+                        <button type="submit" className="btn btn-primary mx-5 col-2" >Update</button>
+                        <Link href="/gaurdian/gaurdian_dashboard"><button className="btn btn-secondary mx-5 col-2" >Exit</button></Link>
                     </div>
                 </form>
             </section>

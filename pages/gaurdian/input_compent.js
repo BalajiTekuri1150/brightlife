@@ -4,9 +4,9 @@ export default function Input(props){
     const [msg,setMsg]=useState("")
     const change=(e)=>{
         if(e.target.name=="mobile"){
-            if(e.target.value.length!=10){
+            if(!(/^[\+][0-9]{12}$/).test(e.target.value)){
                 setErr(true)
-                setMsg("Phone number must cntain 10 digits")
+                setMsg("Enter phone number with country code")
                 props.onChange(e.target.name,e.target.value,false)
             }
             else{
@@ -56,7 +56,7 @@ export default function Input(props){
     }
     return(
         <>
-            <input className="form-control" name={props.name} type={props.type} onChange={change}/>
+            <input className="form-control" name={props.name} type={props.type} value={props.value} onChange={change}/>
             {err?<p className="text-danger">{msg}</p>:<p></p>}
         </>
     )

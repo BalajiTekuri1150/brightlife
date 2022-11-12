@@ -66,6 +66,7 @@ export default function Enterotp()
     const resendOTP=async()=>
     {
         setFormValues({otp1:"",otp2:"",otp3:"",otp4:""})
+        setColor({"border":"1px solid "})
         const data ={
             referrence_id:user.refid
         } 

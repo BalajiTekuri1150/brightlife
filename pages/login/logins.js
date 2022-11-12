@@ -4,7 +4,6 @@ import { useState } from "react"
 import { useRouter } from "next/router";
 import { setLocalData } from "../../utils/storage_service";
 import { postData } from "../../utils/data_manage_service"
-import Footers from "../footers"
 export default function Login()
 {
     const router = useRouter();
@@ -36,10 +35,10 @@ export default function Login()
                 else if(result?.data?.response?.user?.role==="child")
                 {
                     router.push({ 
-                        pathname: '/components/child_dashboard',
+                        pathname: '/kids/kids_Dashboard',
                     })  
                 }
-                else if(result?.data?.response?.user?.role==="gaurdian")
+                else if(result?.data?.response?.user?.role==="guardian")
                 {
                     router.push({ 
                         pathname: '/gaurdian/gaurdian_dashboard',
@@ -123,7 +122,6 @@ export default function Login()
                         </form>
                     </div>
                 </div>
-                <Footers/>
             {/* </div> */}
         </>
     )
