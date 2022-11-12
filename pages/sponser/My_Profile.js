@@ -14,6 +14,7 @@ const My_Profile=()=>
     const router = useRouter()
     // const{name,email,pass,role}=router.query;
     let reg_name=new RegExp('^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$');
+    let reg_phone=new RegExp('^[0-9]{12,14}$');
     const [info,setInfo]=useState([]);
     const [uname,setUname]=useState("");
     const name=getLocalData("name");
@@ -25,6 +26,28 @@ const My_Profile=()=>
     const [selectedFile, setSelectedFile] = useState([]);
     const [selectedImage, setSelectedImage] = useState(null);
 
+    // const [one,setOne]=useState(true);
+    // const [err1,setErr1]=useState(true);
+    // const [two,setTwo]=useState(true);
+    // const [err2,setErr2]=useState(true);
+    // const [three,setThree]=useState(true);
+    // const [err3,setErr3]=useState(true);
+    // const [four,setFour]=useState(true);
+    // const [err4,setErr4]=useState(true);
+    // const [five,setFive]=useState(true);
+    // const [err5,setErr5]=useState(true);
+    // const [six,setSix]=useState(true);
+    // const [err6,setErr6]=useState(true);
+    // const [seven,setSeven]=useState(true);
+    // const [err7,setErr7]=useState(true);
+    // const [eight,setEight]=useState(true);
+    // const [err8,setErr8]=useState(true);
+    // const [nine,setNine]=useState(true);
+    // const [err9,setErr9]=useState(true);
+    // const [ten,setTen]=useState(true);
+    // const [err10,setErr10]=useState(true);
+    // const [eleven,setEleven]=useState(true);
+    // const [err11,setErr11]=useState(true);
     const [data,setData]=useState({
         fname:{value:""},
         sname:{value:""},
@@ -72,8 +95,14 @@ const My_Profile=()=>
                 // isVal:isVal,
             }
         })
+        
         setMessage1("");
         setMessage("");
+    }
+    // const arr=new Array(data.fname.isVal,data.sname.isVal,data.gmail.isVal,data.organisation.isVal,data.mobile.isVal,data.how.isVal,data.address.isVal,data.city.isVal,data.state.isVal,data.country.isVal,data.pin.isVal);
+    const check=(item)=>
+    {
+        return item===true;
     }
     const updateProfile=async()=>
     {
@@ -102,8 +131,7 @@ const My_Profile=()=>
         if(result?.data?.status==false)
         {
             console.log(result?.data?.error?.message)
-            setMessage(result?.data?.error?.message?.mobile)
-            // setMessage(result?.data?.error?.message?.organisation)
+            setMessage(result?.data?.error?.message?.mobile);
         }
     }
     const sponserChild=()=>
@@ -112,14 +140,6 @@ const My_Profile=()=>
             pathname:'/sponser/sponser_list',
         })
     }
-    // const onChange=(e)=>{
-    //     var files = e.target.files;
-    //     console.log(files);
-    //     var filesArr = Array.prototype.slice.call(files);
-    //     console.log(filesArr);
-    //     // this.setState({ files: [...this.state.files, ...filesArr] });
-    //     setSelectedFile({ files: [...files, ...filesArr] });
-    //   }
     const profileClick=()=>
     {
         Router.push({
@@ -139,7 +159,6 @@ const My_Profile=()=>
             <div style={{display:'flex'}}>
                 <div className={style.side}>
                     <div className={style.card}>
-                        {/* <Image src={logo} alt="Prathap" width="100px" height="70px"/>  */}
                         <div style={{width:'30px'}}>
                             {selectedImage && (
                                 <div>
@@ -160,7 +179,6 @@ const My_Profile=()=>
                                 />
                             </div>
                         </div>
-                        {/* <input type="file" accept=".jpg, .jpeg, .png" multiple onChange={onChange} /> */}
                     </div><br/><br/> 
                 <div style={{marginLeft:'120px',color:'blue'}}>
                     <button className="btn btn-light" onClick={profileClick}>My Profile</button>
@@ -169,8 +187,8 @@ const My_Profile=()=>
                             <button className="btn btn-lg btn-light" onClick={sponserChild}>Sponsered Child</button>
                     </div>
                 </div>
-                <div style={{marginTop:"70px",width:'1000px',height:'700px',backgroundColor:'white',borderRadius:'10px',boxShadow:'0 8px 6px 3px rgba(0,0,0,0.5)',transition:'3s'}}>
-                <form style={{border:'2px solid gray',marginTop:'20px',marginLeft:'20px',marginRight:'20px'}}>
+                <div style={{marginTop:"70px",width:'1000px',height:'100%',backgroundColor:'white',borderRadius:'10px',boxShadow:'0 8px 6px 3px rgba(0,0,0,0.5)',transition:'3s'}}>
+                <form style={{border:'2px solid gray',marginTop:'20px',marginLeft:'20px',marginRight:'20px',height:'100%'}}>
                     <br/>
                     <div className="form-group row">
                         <div className="col-sm-5" style={{marginLeft:'30px',marginRight:'30px'}}>
@@ -182,6 +200,7 @@ const My_Profile=()=>
                                                 reg={reg_name}
                                                 handleChange={handleData}
                             />
+                            {/* {err1 ? <div></div> : <div>Invalid</div>} */}
                         </div>
                         <div className="col-sm-5">
                             <label>Second Name</label><br/>
@@ -191,6 +210,7 @@ const My_Profile=()=>
                                                 reg={reg_name}
                                                 handleChange={handleData}
                             />
+                             {/* {err2 ? <div></div> : <div>Invalid</div>} */}
                         </div>
                     </div><br/>
                     <div className="form-group row">
@@ -202,6 +222,7 @@ const My_Profile=()=>
                                                 reg={reg_name}
                                                 handleChange={handleData}
                             />
+                            {/* {err3 ? <div></div> : <div>Invalid</div>} */}
                         </div>
                         <div className="col-sm-5">
                             <label>Email Address</label><br/>
@@ -211,6 +232,7 @@ const My_Profile=()=>
                                                 reg={reg_name}
                                                 handleChange={handleData}
                             />
+                            {/* {err4 ? <div></div> : <div>Invalid</div>} */}
                         </div>
                     </div><br/>
                     <div className="form-group row">
@@ -219,9 +241,10 @@ const My_Profile=()=>
                             <My_Profile_Child type="text"
                                                 name="mobile"
                                                 value={data.mobile.value}
-                                                reg={reg_name}
+                                                reg={reg_phone}
                                                 handleChange={handleData}
                             />
+                            {/* {err5 ? <div></div> : <div>Invalid</div>} */}
                         </div>
                         <div className="col-sm-5">
                             <label>How did you head about Us?</label><br/>
@@ -231,6 +254,7 @@ const My_Profile=()=>
                                                 reg={reg_name}
                                                 handleChange={handleData}
                             />
+                            {/* {err6 ? <div></div> : <div>Invalid</div>} */}
                         </div>
                     </div><br/>
                     <div className="form-group row">
@@ -242,6 +266,7 @@ const My_Profile=()=>
                                                 reg={reg_name}
                                                 handleChange={handleData}
                             />
+                            {/* {err7 ? <div></div> : <div>Invalid</div>} */}
                         </div>
                         <div className="col-sm-5">
                             <label>city</label><br/>
@@ -251,6 +276,7 @@ const My_Profile=()=>
                                                 reg={reg_name}
                                                 handleChange={handleData}
                             />
+                            {/* {err8 ? <div></div> : <div>Invalid</div>} */}
                         </div>
                     </div><br/>
                     <div className="form-group row">
@@ -262,6 +288,7 @@ const My_Profile=()=>
                                                 reg={reg_name}
                                                 handleChange={handleData}
                             />
+                            {/* {err9 ? <div></div> : <div>Invalid</div>} */}
                         </div>
                         <div className="col-sm-5">
                             <label>Country</label><br/>
@@ -271,6 +298,7 @@ const My_Profile=()=>
                                                 reg={reg_name}
                                                 handleChange={handleData}
                             />
+                            {/* {err10 ? <div></div> : <div>Invalid</div>} */}
                         </div>
                     </div><br/>
                     <div className="form-group row">
@@ -282,6 +310,7 @@ const My_Profile=()=>
                                                 reg={reg_name}
                                                 handleChange={handleData}
                             />
+                            {/* {err11 ? <div></div> : <div>Invalid</div>} */}
                         </div>
                     </div><br/>
                     <div style={{color:'red',marginLeft:'150px'}}>{message}</div><br/>

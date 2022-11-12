@@ -1,21 +1,24 @@
 import React from "react";
+import { useState } from "react";
 const My_Profile_Child=(props)=>
 {
     // let isVal=false;
-    // let [error,setError]=useState(false);
+    // let error=false;
     // let onHandle=(e)=>
     // {
     //     if(props.reg.test((e.target.value)))
     //     {
-    //         setError(true);
+    //         // setError(true);
+    //         error=true;
     //         isVal=true;
     //     }
     //     else
     //     {
-    //         setError(false);
+    //         // setError(false);
+    //         error=false;
     //         isVal=false;
     //     }
-    //     props.handleChange(props.name,e.target.value,isVal);
+    //     props.handleChange(props.name,e.target.value,isVal,error);
     // }
     let onHandle=(e)=>
     {
