@@ -2,12 +2,14 @@ import { useState,useEffect } from "react"
 import { postData ,getData} from "../../utils/data_manage_service"
 import Input from "./input_compent"
 import Link from "next/link"
+import { useRouter } from "next/router"
 import { getLocalData } from "../../utils/storage_service"
 export default function Gaurdian_details(props){
     let value="",isvalid=false
+    const router=useRouter()
     const [message,setMessage]=useState("")
     const [status,setStatus]=useState(true)
-    const application_number=getLocalData("application_id")
+    const application_number=router.query.application_id
     const [formValues,setFormValues]=useState({
         profession:{value,isvalid},
         annual_income:{value,isvalid},
@@ -15,19 +17,22 @@ export default function Gaurdian_details(props){
         extra_allowance:{value,isvalid},
     })
     useEffect(()=>{
-        const getprofile=async()=>{
-            const result=await getData(`https://test-api.brightlife.org/brightlife/get/application/details?page=1&page_size=5&application_id=${application_number}`);
-            const disable=(Object.keys(formValues)).every((item)=>(Object.keys(result?.data?.response?.data[0])).includes(item))
-            if(disable){
-                setFormValues({
-                    profession:{value:result?.data?.response?.data[0].profession,isvalid:true},
-                    annual_income:{value:result?.data?.response?.data[0].annual_income,isvalid:true},
-                    family_members:{value:result?.data?.response?.data[0].family_members,isvalid:true},
-                    extra_allowance:{value:result?.data?.response?.data[0].extra_allowance,isvalid:true},
-                })
+        if(!isNaN(application_number)){
+            const getprofile=async()=>{
+                const result=await getData(`https://test-api.brightlife.org/brightlife/get/application/details?page=1&page_size=5&application_id=${application_number}`);
+                console.log(result)
+                const disable=(Object.keys(formValues)).every((item)=>(Object.keys(result?.data?.response?.data[0])).includes(item))
+                if(disable){
+                    setFormValues({
+                        profession:{value:result?.data?.response?.data[0].profession,isvalid:true},
+                        annual_income:{value:result?.data?.response?.data[0].annual_income,isvalid:true},
+                        family_members:{value:result?.data?.response?.data[0].family_members,isvalid:true},
+                        extra_allowance:{value:result?.data?.response?.data[0].extra_allowance,isvalid:true},
+                    })
+                }
             }
+            getprofile();
         }
-        getprofile();
     },[]);
     const handleSubmit=async(e)=>
     {

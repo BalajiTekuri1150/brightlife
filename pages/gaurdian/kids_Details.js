@@ -1,14 +1,16 @@
 import { useState,useEffect} from "react"
+import { useRouter } from "next/router"
 import { getLocalData } from "../../utils/storage_service"
 import { postData,getData} from "../../utils/data_manage_service"
 import Input from "./input_compent"
 import Link from "next/link"
 export default function Kids_details(props){
     let value="",isvalid=false,result
+    const router=useRouter()
     const [message,setMessage]=useState("")
     const [status,setStatus]=useState(true)
     const [new_application,setNew_application]=useState(true)
-    const application_number=getLocalData("application_id")
+    const application_number=router.query.application_id
     const guardian_id=getLocalData("guardian_id")
     const [formValues,setFormValues]=useState({
         profile:{value,isvalid},
@@ -50,13 +52,12 @@ export default function Kids_details(props){
         formData.append("child_type_id", formValues.child.value); 
         if(new_application){
             formData.append(" guardian_id",guardian_id); 
-            result=await(postData('https://test-api.brightlife.org/brightlife/add/application/profile',formData,1))
+            result=await(postData('https://test-api.brightlife.org/brightlife/add/application/profile',formData,1,1))
             application_number=result?.data?.response?.data?.id
-            props.screenvalue()
         }
         else{
             formData.append("id",application_number), 
-            result=await(postData('https://test-api.brightlife.org/brightlife/update/application/profile',formData,1))
+            result=await(postData('https://test-api.brightlife.org/brightlife/update/application/profile',formData,1,1))
         }
         if(result?.data?.status){
             props.screenvalue()

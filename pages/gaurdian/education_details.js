@@ -2,12 +2,13 @@ import { useState,useEffect } from "react"
 import { postData ,getData} from "../../utils/data_manage_service"
 import Input from "./input_compent"
 import Link from "next/link"
-import { getLocalData } from "../../utils/storage_service"
+import { useRouter } from "next/router"
 export default function Education_details(props){
     let value="",isvalid=false,isFormValid
     const [message,setMessage]=useState("")
     const [status,setStatus]=useState(true)
-    const application_number=getLocalData("application_id")
+    const router=useRouter()
+    const application_number=router.query.application_id
     const [formValues,setFormValues]=useState({
         grade:{value,isvalid},
         school:{value,isvalid},
@@ -22,24 +23,25 @@ export default function Education_details(props){
         setFormValues({...formValues,[name]:{value:values,isvalid:valid}})
     }
     useEffect(()=>{
-        const getprofile=async()=>{
-            const result=await getData(`https://test-api.brightlife.org/brightlife/get/application/details?page=1&page_size=5&application_id=${application_number}`);
-            const disable=(Object.keys(formValues)).every((item)=>(Object.keys(result?.data?.response?.data[0])).includes(item))
-            if(disable){
-                setFormValues({
-                    grade:{value:result?.data?.response?.data[0].grade,isvalid:true},
-                    school_address:{value:result?.data?.response?.data[0].school_address,isvalid:true},
-                    school:{value:result?.data?.response?.data[0].school,isvalid:true},
-                    hobbies:{value:result?.data?.response?.data[0].hobbies,isvalid:true},
-                    aspirations:{value:result?.data?.response?.data[0].aspirations,isvalid:true},
-                    achievements:{value:result?.data?.response?.data[0].achievements,isvalid:true},
-                })
+        if(!isNaN(application_number)){
+            const getprofile=async()=>{
+                const result=await getData(`https://test-api.brightlife.org/brightlife/get/application/details?page=1&page_size=5&application_id=${application_number}`);
+                const disable=(Object.keys(formValues)).every((item)=>(Object.keys(result?.data?.response?.data[0])).includes(item))
+                if(disable){
+                    setFormValues({
+                        grade:{value:result?.data?.response?.data[0].grade,isvalid:true},
+                        school_address:{value:result?.data?.response?.data[0].school_address,isvalid:true},
+                        school:{value:result?.data?.response?.data[0].school,isvalid:true},
+                        hobbies:{value:result?.data?.response?.data[0].hobbies,isvalid:true},
+                        aspirations:{value:result?.data?.response?.data[0].aspirations,isvalid:true},
+                        achievements:{value:result?.data?.response?.data[0].achievements,isvalid:true},
+                    })
+                }
             }
+            getprofile();
         }
-        getprofile();
     },[]);
-    const handleSubmit=async(e)=>
-    {
+    const handleSubmit=async(e)=>{
         e.preventDefault()  
         const data = {
             application_id: application_number,
@@ -50,7 +52,7 @@ export default function Education_details(props){
             aspirations:formValues.aspirations.value ,
             achievements: formValues.achievements.value 
         }
-        const result=await(postData('https://test-api.brightlife.org/brightlife/update/education/details',data))
+        const result=await(postData('https://test-api.brightlife.org/brightlife/update/education/details',data,1))
         if(result?.data?.status){
             props.screenvalue()
         }

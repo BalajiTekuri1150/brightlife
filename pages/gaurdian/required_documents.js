@@ -1,14 +1,15 @@
 import { getData, postData } from "../../utils/data_manage_service"
 import { useState,useEffect } from "react"
-import axios from "axios"
-import { getLocalData } from "../../utils/storage_service"
+// import axios from "axios"
+import { useRouter } from "next/router"
 import Link from "next/link"
 let number_of_documents=0,document_type
 export default function Required_documents(props){
-    const application_number=getLocalData("application_id")
+    const router=useRouter()
+    const application_number=router.query.application_id
     let value=0,isvalid=false
     const [disable,setDisable]=useState(true)
-    const token=getLocalData("token")
+    // const token=getLocalData("token")
     const [formValues,setFormValues]=useState({
         Aadhar:{value,isvalid},
         Birth_certificate:{value,isvalid},
@@ -16,13 +17,15 @@ export default function Required_documents(props){
         Disability_certificate:{value,isvalid}
     })
     useEffect(()=>{
-        const getprofile=async()=>{
-            const result=await getData(`https://test-api.brightlife.org/brightlife/get/application/documents?application_id=${application_number}`);
-            if(result?.data?.response.length!=0){
-                setDisable(false)
+        if(!isNaN(application_number)){
+            const getprofile=async()=>{
+                const result=await getData(`https://test-api.brightlife.org/brightlife/get/application/documents?application_id=${application_number}`);
+                if(result?.data?.response.length!=0){
+                    setDisable(false)
+                }
             }
+            getprofile();
         }
-        getprofile();
     },[]);
     const handleChange=async(e)=>{
         if(e.target.value===""){

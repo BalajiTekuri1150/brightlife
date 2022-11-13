@@ -59,7 +59,7 @@ export default function Child_Card(){
                                     </div><br/>
                                     <p style={{fontSize:'16px'}}>Vishwa Prasad is from India lives with parents,Enjoys playing with dolls ,playing with friends,Running</p><br/>
                                     <div style={{display:'flex'}}>
-                                        {item.status.id!=1? <Link href={{pathname:"/gaurdian/application"}}><button onClick={()=>{setLocalData("application_id",item.id)}}>Edit Application</button></Link>:<Link href={`/children/${item.id}`}><button>View Application</button></Link>}
+                                        {item.status.id!=1? <Link href={{pathname:"/gaurdian/application",query:{application_id:`${item.id}`}}}><button onClick={()=>{setLocalData("application_id",item.id)}}>Edit Application</button></Link>:<Link href={`/children/${item.id}`}><button>View Application</button></Link>}
                                     </div>
                                 </div>
                             ))}
