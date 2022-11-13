@@ -40,6 +40,7 @@ export default function Login()
                 }
                 else if(result?.data?.response?.user?.role==="guardian")
                 {
+                    setLocalData("guardian_id",result.data.response.guardian.id)
                     router.push({ 
                         pathname: '/gaurdian/gaurdian_dashboard',
                     })   

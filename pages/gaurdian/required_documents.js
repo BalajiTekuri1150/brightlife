@@ -1,4 +1,4 @@
-import { getData } from "../../utils/data_manage_service"
+import { getData, postData } from "../../utils/data_manage_service"
 import { useState,useEffect } from "react"
 import axios from "axios"
 import { getLocalData } from "../../utils/storage_service"
@@ -60,15 +60,16 @@ export default function Required_documents(props){
             formData.append("url", e.target.files[0]);
             formData.append("file_type", file_type[file_type.length-1]);
             formData.append("document_type",document_type);
-            axios({
-                method: "POST",
-                url: "https://test-api.brightlife.org/brightlife/add/application/documents",
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    'Authorization': "token "+token
-                },
-                data: formData
-            })            
+            await(postData("https://test-api.brightlife.org/brightlife/add/application/documents",formData,1,1))
+            // axios({
+            //     method: "POST",
+            //     url: "https://test-api.brightlife.org/brightlife/add/application/documents",
+            //     headers: {
+            //         'Content-Type': 'multipart/form-data',
+            //         'Authorization': "token "+token
+            //     },
+            //     data: formData
+            // })            
         }
     }
     const handleSubmit=(e)=>{

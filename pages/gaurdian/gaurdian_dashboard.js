@@ -8,12 +8,10 @@ import { getData } from "../../utils/data_manage_service";
 import { getLocalData ,setLocalData} from "../../utils/storage_service";
 export default function Child_Card(){
     const [posts,setPosts]=useState([]);
-    const user_id=getLocalData("user_id")
+    const guardian_id=getLocalData("guardian_id")
     useEffect(()=>{
         const getDetails=async()=>{
-            const result=await getData(`https://test-api.brightlife.org/brightlife/get/guardian/profile?user_id=${user_id}`)
-            setLocalData("guardian_id",result?.data?.response?.guardian?.id)
-            const result1=await getData(`https://test-api.brightlife.org/brightlife/get/application/details?page=1&page_size=36&guardian_id=${result?.data?.response.guardian?.id}`);
+            const result1=await getData(`https://test-api.brightlife.org/brightlife/get/application/details?page=1&page_size=36&guardian_id=${guardian_id}`);
             setPosts(result1?.data?.response?.data);
         }
         getDetails();
@@ -27,7 +25,7 @@ export default function Child_Card(){
                 <div className="border border-dark bg-white mt-5" style={{"width":"350px","height":"1000px"}}>
                     <ul className=" col-2 sidebar-menu">
                         <Link href="/gaurdian/gaurdian_profile"><p className="text-dark m-5 pe-auto">Myprofile</p></Link>
-                        <Link href="/gaurdian/application"><p className="text-dark m-5">Applications</p></Link>
+                        <Link href="/gaurdian/gaurdian_dashboard"><p className="text-dark m-5">Applications</p></Link>
                     </ul>
                 </div>
                 <div className="bg-white mt-5" style={{"width":"1100px","height":"1000px"}}>

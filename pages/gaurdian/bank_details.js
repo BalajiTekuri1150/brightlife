@@ -57,12 +57,12 @@ export default function Bank_details(){
             ifsc: e.target.ifsc.value
         }
         if(update){
-            result=await(postData('https://test-api.brightlife.org/brightlife/update/bank/details',data))
+            data[id]=bank_id
+            result=await(postData('https://test-api.brightlife.org/brightlife/update/bank/details',data,1))
         }
         else{
-            result=await(postData('https://test-api.brightlife.org/brightlife/add/bank/details',data))
+            result=await(postData('https://test-api.brightlife.org/brightlife/add/bank/details',data,1))
         }
-        // const result=await(postData('https://test-api.brightlife.org/brightlife/add/bank/details',data))
         setStatus(result?.data?.status)
         if(result?.data?.status){
             setMessage("Application submitted for verification")
