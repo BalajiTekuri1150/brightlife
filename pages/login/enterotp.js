@@ -46,7 +46,7 @@ export default function Enterotp()
                 context:user.context,
                 otp:parseInt(total)
             }   
-            const result=await(postData('https://test-api.brightlife.org/brightlife/v2/verify/otp',data))
+            const result=await(postData('https://test-api.brightlife.org/brightlife/v2/verify/otp',data,0))
             setStatus(result?.data?.status)
             if(result?.data?.status){ 
                 setColor({"border":"1px solid green"})
@@ -70,7 +70,7 @@ export default function Enterotp()
         const data ={
             referrence_id:user.refid
         } 
-        const result=await(postData('https://test-api.brightlife.org/brightlife/v2/resend/otp',data))
+        const result=await(postData('https://test-api.brightlife.org/brightlife/v2/resend/otp',data,0))
         setDisable(false)
         setStatus(result?.data?.status)
         if(result?.data?.status){         

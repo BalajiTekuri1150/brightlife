@@ -20,7 +20,7 @@ export default function Login()
             password: e.target.password.value,
         }
         if(data.email!="" && data.password!=""){
-            const result=await(postData('https://test-api.brightlife.org/brightlife/signin',data))
+            const result=await(postData('https://test-api.brightlife.org/brightlife/signin',data,0))
             setStatus(result?.data?.status)
             if(result?.data?.status){
                 setMessage("Login successful")

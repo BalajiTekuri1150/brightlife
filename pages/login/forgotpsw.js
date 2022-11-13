@@ -22,7 +22,7 @@ export default function Forgotpsw()
                 email: e.target.email.value,
                 context:"forgot_password"
             }
-            const result=await(postData('https://test-api.brightlife.org/brightlife/v2/get/otp',data))
+            const result=await(postData('https://test-api.brightlife.org/brightlife/v2/get/otp',data,0))
             setStatus(result?.data?.status)
             if(result?.data?.status){
                 setMessage(result?.data?.response?.message) 

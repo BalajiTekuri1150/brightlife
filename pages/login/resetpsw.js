@@ -21,7 +21,7 @@ export default function Resetpsw()
                 otp: user.otp,
                 password:e.target[0].value
             }   
-            const result=await(postData('https://test-api.brightlife.org/brightlife/update/password',data))
+            const result=await(postData('https://test-api.brightlife.org/brightlife/update/password',data,0))
             setStatus(result?.data?.status)
             if(result?.data?.status){
                 setMessage(result?.data?.response.message) 

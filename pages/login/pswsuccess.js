@@ -1,40 +1,20 @@
 import { useRouter } from "next/router"
-import { getSessionData,removeSessionData,setLocalData } from "../../utils/storage_service"
-import { postData } from "../../utils/data_manage_service"
+// import { getSessionData,removeSessionData,setLocalData } from "../../utils/storage_service"
+// import { postData } from "../../utils/data_manage_service"
 export default function Pswsucess(){
     const router=useRouter()
-    const email=router.query.email
-    const psw=getSessionData("password")
+    // const email=router.query.email
+    // const psw=getSessionData("password")
     const handleSubmit=async(e)=>{
         e.preventDefault()
-        const data = {
-            username:email,
-            password:psw
-        }   
-        const result=await(postData('https://test-api.brightlife.org/brightlife/signin',data))
-        removeSessionData(password)
-        setLocalData("token",result.data.token)
-        setLocalData("user_id",result?.data?.response?.user?.id)
-        if(result?.data?.response?.user?.role==="sponsor"){
-            router.push({ 
-                pathname: '/sponser/sponser_list',
-            })
-        }
-        else if(result?.data?.response?.user?.role==="child"){
-            router.push({
-                pathname: '/kids/kids_Dashboard',
-            })  
-        }
-        else if(result?.data?.response?.user?.role==="guardian"){
-            router.push({ 
-                pathname: '/gaurdian/gaurdian_dashboard',
-            })   
-        }
-        else if(result?.data?.response?.user?.role==="admin"){
-            router.push({ 
-                pathname: '/components/admin_dashboard',
-            })  
-        }
+        // const data = {
+        //     username:email,
+        //     password:psw
+        // }   
+        // const result=await(postData('https://test-api.brightlife.org/brightlife/get/token',data,0))
+        // removeSessionData("password")
+        // setLocalData("token",result.data.token)
+        router.push({pathname: '/login/logins'})
     }
     return(
         <>
