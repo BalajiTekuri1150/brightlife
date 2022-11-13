@@ -1,16 +1,13 @@
-import { getData,postData } from "../../utils/data_manage_service"
-import { useRouter } from "next/router"
-import { useState } from "react"
+import { getData } from "../../utils/data_manage_service"
+import { useState,useEffect } from "react"
 import axios from "axios"
 import { getLocalData } from "../../utils/storage_service"
 import Link from "next/link"
 let number_of_documents=0,document_type
-export default function Required_documents(){
-    const router=useRouter()
-    const application_number=router.query.application_id
+export default function Required_documents(props){
+    const application_number=getLocalData("application_id")
     let value=0,isvalid=false
     const [disable,setDisable]=useState(true)
-    const id=getLocalData("application_id")
     const token=getLocalData("token")
     const [formValues,setFormValues]=useState({
         Aadhar:{value,isvalid},
@@ -18,23 +15,26 @@ export default function Required_documents(){
         PAN:{value,isvalid},
         Disability_certificate:{value,isvalid}
     })
-    // useEffect(()=>{
-    //     const getprofile=async()=>{
-    //         const result=await getData(`https://test-api.brightlife.org/brightlife/get/application/documents?application_id=${application_number}`);
-    //         setFormValues({
-    //             Aadhar:{value:result?.data?.response?.data[0].grade,isvalid:true},
-    //             school_address:{value:result?.data?.response?.data[0].school_address,isvalid:true},
-    //             school_name:{value:result?.data?.response?.data[0].school,isvalid:true},
-    //             hobbies:{value:result?.data?.response?.data[0].hobbies,isvalid:true},
-    //             aspirations:{value:result?.data?.response?.data[0].aspirations,isvalid:true},
-    //             achievements:{value:result?.data?.response?.data[0].achievements,isvalid:true},
-    //         })
-    //     }
-    //     getprofile();
-    // },[]);
+    useEffect(()=>{
+        const getprofile=async()=>{
+            const result=await getData(`https://test-api.brightlife.org/brightlife/get/application/documents?application_id=${application_number}`);
+            if(result?.data?.response.length!=0){
+                setDisable(false)
+            }
+        }
+        getprofile();
+    },[]);
     const handleChange=async(e)=>{
         if(e.target.value===""){
-            number_of_documents==0?number_of_documents=0:number_of_documents-=1
+            if(number_of_documents==0){
+                number_of_documents=0
+            }else{
+                number_of_documents=number_of_documents-1
+            }
+            if(number_of_documents<3){
+                setDisable(true)
+            }
+            console.log(number_of_documents)
             setFormValues({...formValues,[e.target.name]:{value:0,isvalid:false}})
             // const result=await(postData('https://test-api.brightlife.org/brightlife/remove/application/documents',ids))
         }
@@ -45,7 +45,8 @@ export default function Required_documents(){
             if(number_of_documents>=3){
                 setDisable(false)
             }
-            setFormValues({...formValues,[e.target.name]:{value:1,isvalid:true}})
+            console.log(number_of_documents)
+            setFormValues({...formValues,[e.target.name]:{value:e.target.files[0],isvalid:true}})
             const file_type=e.target.value.split(".")
             const result=await(getData("https://test-api.brightlife.org/brightlife/list/document/types")) 
             for (let i = 0; i < result?.data?.response?.data?.length; i++) {
@@ -54,7 +55,7 @@ export default function Required_documents(){
                 }
             }
             const formData = new FormData()
-            formData.append("application", id);
+            formData.append("application", application_number);
             formData.append("seq_no", number_of_documents);
             formData.append("url", e.target.files[0]);
             formData.append("file_type", file_type[file_type.length-1]);
@@ -72,10 +73,7 @@ export default function Required_documents(){
     }
     const handleSubmit=(e)=>{
         e.preventDefault()
-        router.push({ 
-            pathname: '/gaurdian/bank_details',
-            query:{"application_id":application_number}
-        })          
+        props.screenvalue()       
     }
     return(
         <>
@@ -123,9 +121,8 @@ export default function Required_documents(){
                         </div>
                     </div>
                     <div className="row">
-                        <button type="submit" className="btn btn-primary mx-5 col-2" >Save&Continue</button>
+                        <button type="submit" className="btn btn-primary mx-5 col-2" disabled={disable} >Save&Continue</button>
                         <Link href="/gaurdian/gaurdian_dashboard"><button type="button" className="btn btn-secondary col-2 mx-5 " >Exit</button></Link>
-                    {/* disabled={disable} */}
                     </div>
                 </form>
             </section>

@@ -43,30 +43,28 @@ export default function Forgotpsw()
     }
     return(
         <>
-                <div>
-                    <h3 className="mb-4 pt-5 font-monospace text-center">bright life</h3>
-                    <div className="d-flex justify-content-center pb-5">
-                        <form className="bg-light px-5 pt-2" onSubmit={handleSubmit}>
-                            <h1 className="h4 font-monospace text-center ">Forgot Password?</h1>
-                            <h6 className="h6 text-center  mb-3 "><small>Enter email associated with your account</small></h6>
-                                <div className="mb-3 col-xs-30 row">
-                                    <div>
-                                        <AiOutlineMail/>
-                                        <label className="mb-3"> Email</label>
-                                    </div>
-                                    <div>
-                                        <input className="form-control" name="email" type="email" placeholder="enter e-mail address" disabled={disable} onChange={handleChange}/>
-                                    </div>
-                                </div>
-                                <div className="text-center">
-                                    {status?<p className="text-sucess">{message}</p>:<p className="text-danger">{message}</p>}
-                                </div>
-                                <div className="text-center mb-4">
-                                    <button className="btn btn-success m-2 col-6" type="submit" disabled={disable}>continue</button>
-                                </div>
-                        </form>
+            <h3 className="mb-4 pt-5 font-monospace text-center">bright life</h3>
+            <div className="d-flex justify-content-center pb-5">
+                <form className="bg-light px-5 pt-2" onSubmit={handleSubmit}>
+                    <h1 className="h4 font-monospace text-center ">Forgot Password?</h1>
+                    <h6 className="h6 text-center  mb-3 "><small>Enter email associated with your account</small></h6>
+                    <div className="mb-3 col-xs-30 row">
+                        <div>
+                            <AiOutlineMail/>
+                            <label className="mb-3"> Email</label>
+                        </div>
+                        <div>
+                            <input className="form-control" name="email" type="email" placeholder="enter e-mail address" disabled={disable} onChange={handleChange}/>
+                        </div>
                     </div>
-                </div>
+                    <div className="text-center">
+                        {status?<p className="text-sucess">{message}</p>:<p className="text-danger">{message}</p>}
+                    </div>
+                    <div className="text-center mb-4">
+                        <button className="btn btn-success m-2 col-6" type="submit" disabled={disable}>continue</button>
+                    </div>
+                </form>
+            </div>
         </>
     )
 }

@@ -1,14 +1,13 @@
-import { useRouter } from "next/router"
 import { useState,useEffect } from "react"
 import { postData ,getData} from "../../utils/data_manage_service"
 import Input from "./input_compent"
 import Link from "next/link"
-export default function Education_details(){
+import { getLocalData } from "../../utils/storage_service"
+export default function Education_details(props){
     let value="",isvalid=false,isFormValid
     const [message,setMessage]=useState("")
     const [status,setStatus]=useState(true)
-    const router=useRouter()
-    const application_number=router.query.application_id
+    const application_number=getLocalData("application_id")
     const [formValues,setFormValues]=useState({
         grade:{value,isvalid},
         school:{value,isvalid},
@@ -53,10 +52,7 @@ export default function Education_details(){
         }
         const result=await(postData('https://test-api.brightlife.org/brightlife/update/education/details',data))
         if(result?.data?.status){
-            router.push({ 
-                pathname: '/gaurdian/required_documents',
-                query:{"application_id":application_number}
-            })  
+            props.screenvalue()
         }
         else{
             setDisable(false)

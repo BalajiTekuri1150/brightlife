@@ -1,14 +1,13 @@
-import { useRouter } from "next/router"
 import { useState,useEffect } from "react"
 import { postData ,getData} from "../../utils/data_manage_service"
 import Input from "./input_compent"
 import Link from "next/link"
-export default function Gaurdian_details(){
+import { getLocalData } from "../../utils/storage_service"
+export default function Gaurdian_details(props){
     let value="",isvalid=false
     const [message,setMessage]=useState("")
     const [status,setStatus]=useState(true)
-    const router=useRouter()
-    const application_number=router.query.application_id
+    const application_number=getLocalData("application_id")
     const [formValues,setFormValues]=useState({
         profession:{value,isvalid},
         annual_income:{value,isvalid},
@@ -42,10 +41,7 @@ export default function Gaurdian_details(){
         } 
         const result=await(postData('https://test-api.brightlife.org/brightlife/update/guardian/details',data,1))
         if(result?.data?.status){
-            router.push({ 
-                pathname: '/gaurdian/education_details',
-                query:{"application_id":application_number}
-            })  
+            props.screenvalue()
         }
         else{
             setStatus(result?.data?.status)

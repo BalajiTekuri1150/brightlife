@@ -6,15 +6,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { getData } from "../../utils/data_manage_service";
 import { getLocalData ,setLocalData} from "../../utils/storage_service";
-const Child_Card=()=>
-{
+export default function Child_Card(){
     const [posts,setPosts]=useState([]);
     const user_id=getLocalData("user_id")
     useEffect(()=>{
         const getDetails=async()=>{
             const result=await getData(`https://test-api.brightlife.org/brightlife/get/guardian/profile?user_id=${user_id}`)
             setLocalData("guardian_id",result?.data?.response?.guardian?.id)
-            const result1=await getData(`https://test-api.brightlife.org/brightlife/get/application/details?page=1&page_size=12&guardian_id=${result?.data?.response.guardian?.id}`);
+            const result1=await getData(`https://test-api.brightlife.org/brightlife/get/application/details?page=1&page_size=36&guardian_id=${result?.data?.response.guardian?.id}`);
             setPosts(result1?.data?.response?.data);
         }
         getDetails();
@@ -28,12 +27,12 @@ const Child_Card=()=>
                 <div className="border border-dark bg-white mt-5" style={{"width":"350px","height":"1000px"}}>
                     <ul className=" col-2 sidebar-menu">
                         <Link href="/gaurdian/gaurdian_profile"><p className="text-dark m-5 pe-auto">Myprofile</p></Link>
-                        <Link href="/gaurdian/kids_Details"><p className="text-dark m-5">Applications</p></Link>
+                        <Link href="/gaurdian/application"><p className="text-dark m-5">Applications</p></Link>
                     </ul>
                 </div>
                 <div className="bg-white mt-5" style={{"width":"1100px","height":"1000px"}}>
                     {/* <section className="content-header m-5">Ribbon</section> */}
-                    <Link href="/gaurdian/kids_Details"><button className="btn btn-primary ">New Application</button></Link>
+                    <Link href="/gaurdian/application"><button className="btn btn-primary ">New Application</button></Link>
                     <main className={homestyle.main}>
                         <div className={homestyle.grid}>
                             {posts.length>0 && posts.map((item)=>(
@@ -62,7 +61,7 @@ const Child_Card=()=>
                                     </div><br/>
                                     <p style={{fontSize:'16px'}}>Vishwa Prasad is from India lives with parents,Enjoys playing with dolls ,playing with friends,Running</p><br/>
                                     <div style={{display:'flex'}}>
-                                        {item.status.id!=1? <Link href={{pathname:"/gaurdian/kids_Details",query: { "application_id":item.id}}}><button>Edit Application</button></Link>:<Link href={`/children/${item.id}`}><button>View Application</button></Link>}
+                                        {item.status.id!=1? <Link href={{pathname:"/gaurdian/application"}}><button onClick={()=>{setLocalData("application_id",item.id)}}>Edit Application</button></Link>:<Link href={`/children/${item.id}`}><button>View Application</button></Link>}
                                     </div>
                                 </div>
                             ))}
@@ -73,4 +72,3 @@ const Child_Card=()=>
         </div>
     )
 }
-export default Child_Card;

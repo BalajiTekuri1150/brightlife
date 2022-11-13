@@ -5,12 +5,11 @@ import { postData ,getData} from "../../utils/data_manage_service"
 import Input from "./input_compent"
 import Link from "next/link"
 export default function Bank_details(){
-    let value="",isvalid=false,update
+    let value="",isvalid=false,update,bank_id,result
     const [message,setMessage]=useState("")
     const [status,setStatus]=useState(true)
-    const id=getLocalData("application_id")
     const router=useRouter()
-    const application_number=router.query.application_id
+    const application_number=getLocalData("application_id")
     const [formValues,setFormValues]=useState({
         bank_name:{value,isvalid},
         state:{value,isvalid},
@@ -24,6 +23,7 @@ export default function Bank_details(){
         const getprofile=async()=>{
             const result=await getData(`https://test-api.brightlife.org/brightlife/get/bank/details?application_id=${application_number}`);
             update=result?.data?.status
+            bank_id=result?.data?.response?.id
             if(update){
                 setFormValues({
                     bank_name:{value:result?.data?.response?.bank_name,isvalid:true},
@@ -56,11 +56,19 @@ export default function Bank_details(){
             branch:e.target.branch.value,
             ifsc: e.target.ifsc.value
         }
-        // const result=update?await(postData('https://test-api.brightlife.org/brightlife/update/bank/details',data)):await(postData('https://test-api.brightlife.org/brightlife/add/bank/details',data))
-        const result=await(postData('https://test-api.brightlife.org/brightlife/add/bank/details',data))
+        if(update){
+            result=await(postData('https://test-api.brightlife.org/brightlife/update/bank/details',data))
+        }
+        else{
+            result=await(postData('https://test-api.brightlife.org/brightlife/add/bank/details',data))
+        }
+        // const result=await(postData('https://test-api.brightlife.org/brightlife/add/bank/details',data))
         setStatus(result?.data?.status)
         if(result?.data?.status){
             setMessage("Application submitted for verification")
+            router.push({
+                pathname:"gaurdian/gaurdian_dashboard"
+            })
         }
         else{
             setMessage(Object.values(result.data.error.message))
@@ -69,7 +77,6 @@ export default function Bank_details(){
     const isFormValid=Object.keys(formValues).every((key)=>{
         return formValues[key].isvalid
     })
-    console.log(isFormValid)
     return(
         <>
             <section className="form">
