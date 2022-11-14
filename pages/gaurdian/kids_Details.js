@@ -56,7 +56,8 @@ export default function Kids_details(props){
             application_number=result?.data?.response?.data?.id
         }
         else{
-            formData.append("id",application_number), 
+            formData.append("id",application_number)
+            console.log(formData.get("mobile"))
             result=await(postData('https://test-api.brightlife.org/brightlife/update/application/profile',formData,1,1))
         }
         if(result?.data?.status){

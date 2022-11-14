@@ -58,7 +58,6 @@ export default function Gaurdian_Profile(){
     }
     const updateProfile=async(e)=>
     {
-        e.preventDefault()
         const user_data={
             user: {
                 id:user_id,

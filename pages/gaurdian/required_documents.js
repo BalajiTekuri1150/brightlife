@@ -1,6 +1,7 @@
-import { getData, postData } from "../../utils/data_manage_service"
+import { getData } from "../../utils/data_manage_service"
+import { getLocalData } from "../../utils/storage_service"
 import { useState,useEffect } from "react"
-// import axios from "axios"
+import axios from "axios"
 import { useRouter } from "next/router"
 import Link from "next/link"
 let number_of_documents=0,document_type
@@ -9,7 +10,7 @@ export default function Required_documents(props){
     const application_number=router.query.application_id
     let value=0,isvalid=false
     const [disable,setDisable]=useState(true)
-    // const token=getLocalData("token")
+    const token=getLocalData("token")
     const [formValues,setFormValues]=useState({
         Aadhar:{value,isvalid},
         Birth_certificate:{value,isvalid},
@@ -63,16 +64,16 @@ export default function Required_documents(props){
             formData.append("url", e.target.files[0]);
             formData.append("file_type", file_type[file_type.length-1]);
             formData.append("document_type",document_type);
-            await(postData("https://test-api.brightlife.org/brightlife/add/application/documents",formData,1,1))
-            // axios({
-            //     method: "POST",
-            //     url: "https://test-api.brightlife.org/brightlife/add/application/documents",
-            //     headers: {
-            //         'Content-Type': 'multipart/form-data',
-            //         'Authorization': "token "+token
-            //     },
-            //     data: formData
-            // })            
+            // await(postData("https://test-api.brightlife.org/brightlife/add/application/documents",formData,1,1))
+            axios({
+                method: "POST",
+                url: "https://test-api.brightlife.org/brightlife/add/application/documents",
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': "token "+token
+                },
+                data: formData
+            })            
         }
     }
     const handleSubmit=(e)=>{

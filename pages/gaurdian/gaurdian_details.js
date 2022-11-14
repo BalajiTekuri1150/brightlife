@@ -20,7 +20,6 @@ export default function Gaurdian_details(props){
         if(!isNaN(application_number)){
             const getprofile=async()=>{
                 const result=await getData(`https://test-api.brightlife.org/brightlife/get/application/details?page=1&page_size=5&application_id=${application_number}`);
-                console.log(result)
                 const disable=(Object.keys(formValues)).every((item)=>(Object.keys(result?.data?.response?.data[0])).includes(item))
                 if(disable){
                     setFormValues({

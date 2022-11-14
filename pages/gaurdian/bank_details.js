@@ -4,8 +4,10 @@ import Input from "./input_compent"
 import { useRouter } from "next/router"
 import Link from "next/link"
 export default function Bank_details(){
-    let value="",isvalid=false,update,bank_id,result
+    let value="",isvalid=false,result
+    const [bank_id,setBank_id]=useState(0)
     const [message,setMessage]=useState("")
+    const [update,setUpdate]=useState(false)
     const [status,setStatus]=useState(true)
     const router=useRouter()
     const application_number=router.query.application_id
@@ -22,9 +24,9 @@ export default function Bank_details(){
         if(!isNaN(application_number)){
             const getprofile=async()=>{
                 const result=await getData(`https://test-api.brightlife.org/brightlife/get/bank/details?application_id=${application_number}`);
-                update=result?.data?.status
-                bank_id=result?.data?.response?.id
-                if(update){
+                setUpdate(result?.data?.status)
+                setBank_id(result?.data?.response?.id)
+                if(result?.data?.status){
                     setFormValues({
                         bank_name:{value:result?.data?.response?.bank_name,isvalid:true},
                         state:{value:result?.data?.response?.state,isvalid:true},
@@ -46,8 +48,7 @@ export default function Bank_details(){
     }
     const handleSubmit=async(e)=>
     {
-        e.preventDefault()  
-        console.log(update)      
+        e.preventDefault()    
         const data = {
             application_id:application_number,
             bank_name:e.target.bank_name.value,
@@ -59,9 +60,9 @@ export default function Bank_details(){
             ifsc: e.target.ifsc.value
         }
         if(update){
-            data[id]=bank_id
-            console.log("in update",data)
-            // result=await(postData('https://test-api.brightlife.org/brightlife/update/bank/details',data,1))
+            data.id=bank_id
+            console.log("in update",bank_id)
+            result=await(postData('https://test-api.brightlife.org/brightlife/update/bank/details',data,1))
         }
         else{
             result=await(postData('https://test-api.brightlife.org/brightlife/add/bank/details',data,1))
@@ -70,11 +71,12 @@ export default function Bank_details(){
         if(result?.data?.status){
             setMessage("Application submitted for verification")
             router.push({
-                pathname:"/gaurdian_dashboard"
+                pathname:"gaurdian_dashboard"
             })
         }
         else{
-            setMessage(Object.values(result?.data?.error?.message))
+            setMessage(result?.data?.error?.message)
+            // setMessage(Object.values(result?.data?.error?.message))
         }          
     }
     const isFormValid=Object.keys(formValues).every((key)=>{
