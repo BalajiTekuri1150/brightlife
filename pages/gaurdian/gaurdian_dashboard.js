@@ -20,12 +20,13 @@ export default function Child_Card(){
         <div className="wrapper" >
             <nav className="navbar fixed-top navbar-expand-lg" style={{"backgroundColor":" #00004d"}}>
                 <p className="navbar-brand text-light m-2 px-5">Logo</p>
+                <p className="text-light pe-auto end-0"><Link href="/login/logins">Logout</Link></p>
             </nav>
             <div className="row h-100 mt-5">
                 <div className="border border-dark bg-white mt-5" style={{"width":"350px","height":"1000px"}}>
                     <ul className=" col-2 sidebar-menu">
-                        <Link href="/gaurdian/gaurdian_profile"><p className="text-dark m-5 pe-auto">Myprofile</p></Link>
-                        <Link href="/gaurdian/gaurdian_dashboard"><p className="text-dark m-5">Applications</p></Link>
+                        <p className="text-dark m-5 pe-auto"><Link href="/gaurdian/gaurdian_profile">Myprofile</Link></p>
+                        <p className="text-dark m-5"><Link href="/gaurdian/gaurdian_dashboard">Applications</Link></p>
                     </ul>
                 </div>
                 <div className="bg-white mt-5" style={{"width":"1100px","height":"1000px"}}>
