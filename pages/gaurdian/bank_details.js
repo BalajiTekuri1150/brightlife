@@ -1,14 +1,14 @@
 import { useState,useEffect } from "react"
-import { useRouter } from "next/router"
-import { getLocalData } from "../../utils/storage_service"
 import { postData ,getData} from "../../utils/data_manage_service"
 import Input from "./input_compent"
+import { useRouter } from "next/router"
 import Link from "next/link"
 export default function Bank_details(){
-    let value="",isvalid=false,update
+    let value="",isvalid=false,result
+    const [bank_id,setBank_id]=useState(0)
     const [message,setMessage]=useState("")
+    const [update,setUpdate]=useState(false)
     const [status,setStatus]=useState(true)
-    const id=getLocalData("application_id")
     const router=useRouter()
     const application_number=router.query.application_id
     const [formValues,setFormValues]=useState({
@@ -21,22 +21,25 @@ export default function Bank_details(){
         ifsc:{value,isvalid}
     })
     useEffect(()=>{
-        const getprofile=async()=>{
-            const result=await getData(`https://test-api.brightlife.org/brightlife/get/bank/details?application_id=${application_number}`);
-            update=result?.data?.status
-            if(update){
-                setFormValues({
-                    bank_name:{value:result?.data?.response?.bank_name,isvalid:true},
-                    state:{value:result?.data?.response?.state,isvalid:true},
-                    postal_code:{value:result?.data?.response?.postal_code,isvalid:true},
-                    account_holder:{value:result?.data?.response?.account_holder,isvalid:true},
-                    account_number:{value:result?.data?.response?.account_number,isvalid:true},
-                    branch:{value:result?.data?.response?.branch,isvalid:true},
-                    ifsc:{value:result?.data?.response?.ifsc,isvalid:true}
-                })
+        if(!isNaN(application_number)){
+            const getprofile=async()=>{
+                const result=await getData(`https://test-api.brightlife.org/brightlife/get/bank/details?application_id=${application_number}`);
+                setUpdate(result?.data?.status)
+                setBank_id(result?.data?.response?.id)
+                if(result?.data?.status){
+                    setFormValues({
+                        bank_name:{value:result?.data?.response?.bank_name,isvalid:true},
+                        state:{value:result?.data?.response?.state,isvalid:true},
+                        postal_code:{value:result?.data?.response?.postal_code,isvalid:true},
+                        account_holder:{value:result?.data?.response?.account_holder,isvalid:true},
+                        account_number:{value:result?.data?.response?.account_number,isvalid:true},
+                        branch:{value:result?.data?.response?.branch,isvalid:true},
+                        ifsc:{value:result?.data?.response?.ifsc,isvalid:true}
+                    })
+                }
             }
+            getprofile();
         }
-        getprofile();
     },[]);
     const handleChange=(name,values,valid)=>{
         setStatus(true)
@@ -45,7 +48,7 @@ export default function Bank_details(){
     }
     const handleSubmit=async(e)=>
     {
-        e.preventDefault()        
+        e.preventDefault()    
         const data = {
             application_id:application_number,
             bank_name:e.target.bank_name.value,
@@ -56,20 +59,29 @@ export default function Bank_details(){
             branch:e.target.branch.value,
             ifsc: e.target.ifsc.value
         }
-        // const result=update?await(postData('https://test-api.brightlife.org/brightlife/update/bank/details',data)):await(postData('https://test-api.brightlife.org/brightlife/add/bank/details',data))
-        const result=await(postData('https://test-api.brightlife.org/brightlife/add/bank/details',data))
+        if(update){
+            data.id=bank_id
+            console.log("in update",bank_id)
+            result=await(postData('https://test-api.brightlife.org/brightlife/update/bank/details',data,1))
+        }
+        else{
+            result=await(postData('https://test-api.brightlife.org/brightlife/add/bank/details',data,1))
+        }
         setStatus(result?.data?.status)
         if(result?.data?.status){
             setMessage("Application submitted for verification")
+            router.push({
+                pathname:"gaurdian_dashboard"
+            })
         }
         else{
-            setMessage(Object.values(result.data.error.message))
+            setMessage(result?.data?.error?.message)
+            // setMessage(Object.values(result?.data?.error?.message))
         }          
     }
     const isFormValid=Object.keys(formValues).every((key)=>{
         return formValues[key].isvalid
     })
-    console.log(isFormValid)
     return(
         <>
             <section className="form">

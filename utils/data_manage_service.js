@@ -1,16 +1,16 @@
 import axios from "axios"
 import { getLocalData } from "./storage_service";
 let JSONdata
-export const postData=async( url, data,bool=0)=> {
-    bool===1?JSONdata=data:JSONdata = JSON.stringify(data)
-    const token=getLocalData("token")
+export const postData=async( url, data,authorizaion,formdata=0)=> {
+    formdata===1?JSONdata=data:JSONdata = JSON.stringify(data)
+    let headers={'Content-Type': 'application/json'}
+    if(authorizaion===1){
+        Object.assign(headers, {"Authorization": "token "+getLocalData("token")})
+    }
     const response = await axios({
         method: "POST",
         url:  url,
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': "token "+token
-        },
+        headers: headers,
         data: JSONdata
     }).catch(e => {return e.response});
     return response
