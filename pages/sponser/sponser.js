@@ -26,6 +26,7 @@ const Final=()=>
     const[region,setRegion]=useState(" ");
     const[income,setIncome]=useState(" ");
     const [posts,setPosts]=useState([]);
+    const [count,setCount]=useState(0);
     useEffect(()=>{
         const getCountry=async()=>{
             const res=await fetch("https://test-api.brightlife.org/brightlife/list/countries",{headers:{"Authorization":"token 2d21e847092508ace5f534ac492bf03cd742145a"}});
@@ -101,17 +102,30 @@ const Final=()=>
             // query:{name:name,email:email,pass:pass,role:role,id:id},
         })
     }
+    const handleClear=()=>
+    {
+        setCount(0);
+        setState("");
+        setGen("");
+        setAge("");
+        setIncome("");
+        setMon("");
+    }
     const handleSubmit=(e)=>
     {
         e.preventDefault();
-        // console.log(state);
-        // console.log(coun);
-        // console.log(mon);
-        // console.log(gen);
-        Router.push({
-            pathname:'/sponser/search_filter',
-            query:{state:state,mon:mon,gen:gen,age:age,income:income},
-        })
+        setCount(1);
+        setLocalData("state",state);
+        setLocalData("mon",mon);
+        setLocalData("gen",gen);
+        setLocalData("income",income);
+    }
+    const handleCount=()=>
+    {
+        setCount(2);
+        // Router.push({
+        //     pathname:'/sponser/validate',
+        // })
     }
     return( 
         <div>
@@ -122,8 +136,6 @@ const Final=()=>
                     <div className="col-sm text-light">how it works</div>
                     <div className="col-sm text-light">donate</div>
                     <button className="col-sm btn btn-secondary" onClick={handleProfile}>My Profile</button>
-                    {/* <Avatar size="100" facebook-id="invalidfacebookusername" src={logo}/> */}
-                    {/* <Profile/> */}
                 </div>
             </div>
             <div style={{backgroundColor:'white',marginLeft:'200px',width:'1000px',height:'300px',marginTop:'100px',borderRadius:'10px'}}>
@@ -182,10 +194,11 @@ const Final=()=>
                 </Form.Group><br/>
                 <Form.Group style={{marginLeft:'350px'}}>
                     <Button variant="primary" type="submit" style={{marginRight:'50px'}} size="lg" onClick={handleSubmit}>Search</Button>{' '}
-                    <Button variant="secondary" type="submit" size="lg" active>Clear All</Button>
+                    <Button variant="secondary" type="submit" size="lg" active onClick={handleClear}>Clear All</Button>
                 </Form.Group>
-            </Form>
-            <Child_Card />
+            </Form><br/><br/>
+            <button className="btn btn-success" onClick={handleCount}>Sort By Newest</button>
+            <Child_Card count={count}/>
             </div>
         </div>
     )

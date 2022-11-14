@@ -7,7 +7,7 @@ import logo from "../../public/orphan-kids-.jpg"
 import Image from 'next/image'
 import Router from 'next/router';
 import { getData } from '../../utils/data_manage_service';
-const sponser_list=()=>
+const Sponser_list=()=>
 {
     const id=getLocalData("sponser_id");
     const [posts,setPosts]=useState([]);
@@ -26,13 +26,6 @@ const sponser_list=()=>
         }
         getDetails();
     },[]);
-
-    const profileClick=()=>
-    {
-        Router.push({
-            pathname:'/sponser/My_Profile',
-        })
-    }
     const handleKidsList=()=>
     {
         Router.push({
@@ -41,18 +34,18 @@ const sponser_list=()=>
     }
     return(
         <div>
-            <div className="container">
+            {/* <div className="container">
                 <div className="row bg-black">
                     <div className="col-sm text-light"></div>
                     <div className="col-md-auto text-light">how it works</div>
                     <div className="col-md-auto text-light">donate</div>
                     <button className="col btn btn-secondary" onClick={profileClick}>My Profile</button>
                 </div>
-            </div>
+            </div> */}
             <div style={{display:'flex'}}>
-                <div>
+                {/* <div>
                     <Side/>
-                </div>
+                </div> */}
                 <div style={{marginTop:"70px",width:'800px',height:'100%',backgroundColor:'white',borderRadius:'10px',boxShadow:'0 8px 6px 3px rgba(0,0,0,0.5)',transition:'3s'}}>
                     <button className="btn btn-primary" style={{marginLeft:'700px',marginTop:'10px'}} onClick={handleKidsList}>Kids List</button>
                     <main className={homestyle.main}>
@@ -94,4 +87,4 @@ const sponser_list=()=>
         </div>
     )
 } 
-export default sponser_list;
+export default Sponser_list;

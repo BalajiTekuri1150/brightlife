@@ -22,7 +22,8 @@ const Register_Page=()=>
     const [err2,setErr2]=useState(true);
     const [three,setThree]=useState(true);
     const [err3,setErr3]=useState(true);
-    const [disable,setDisable]=useState(true);
+    const [message,setMessage]=useState("");
+    // const [disable,setDisable]=useState(true);
     const handleData=(name,value,isval,error)=>
     {
         setData({
@@ -33,12 +34,15 @@ const Register_Page=()=>
                 isValid:isval,
             },
         });
-        setDisable(false);
+        setMessage("");
+        // setDisable(false);
         // setErr1(true);
         // setErr2(true);
         // setErr3(true);
         if(name==="user" && error==false){
            setOne(false);
+           setErr2(true);
+           setErr3(true);
         }
         if(name==="user" && error==true){
             setOne(true);
@@ -46,13 +50,17 @@ const Register_Page=()=>
         }
         if(name==="gmail" && error==false){
             setTwo(false);
+            setErr1(true);
+            setErr3(true);
          }
         if(name==="gmail" && error==true){
             setTwo(true);
             setErr2(true);
         }
         if(name==="pass" && error==false){
-            setThree(false)  
+            setThree(false) 
+            setErr2(true);
+           setErr1(true); 
         }
         if(name==="pass" && error==true){
             setThree(true);
@@ -78,10 +86,16 @@ const Register_Page=()=>
         }
         else
         {
-            console.log(one);
-            setErr1(one);
-            setErr2(two);
-            setErr3(three);
+            if(data.user.value=="" || data.gmail.value=="" || data.pass.value=="")
+            {
+                setMessage("Some fields are empty")
+            }
+            else{
+                console.log(one);
+                setErr1(one);
+                setErr2(two);
+                setErr3(three);
+            }
         }
     }
     return(
@@ -129,10 +143,12 @@ const Register_Page=()=>
                                 placeholder='enter password'/>
                     </div>
                     <div style={{color:'red',fontSize:'13px'}}>{err3 ? <div></div>:<div>Password must be 8 characters with one Special character,One Capital letter and one Number</div>}</div>
+                    <div style={{color:'red',fontSize:'13px'}}>{message}</div>
                     <button className='btn-success' 
                             style={{marginLeft:'110px',width:'180px',height:'40px',borderRadius:'5px',backgroundColor:'lightseagreen '}}
                             onClick={handleSubmit}
-                            disabled={disable}>
+                            // disabled={disable}
+                            >
                             CreateAccount
                     </button><br/>
                     <p className={style.condition}>By Click on the continue you are agree to the <b style={{color:'lightseagreen '}}>terms&conditions</b></p>

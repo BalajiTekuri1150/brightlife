@@ -61,13 +61,26 @@ const Otp=()=>
             if(result1?.data?.status==true)
             {
                 setLocalData("id",result1?.data?.response?.data?.id);
+                setLocalData("user_id",result1?.data?.response?.data?.id);
                 setLocalData("name",name);
                 setLocalData("email",email);
                 setLocalData("role",role);
-                Router.push({
-                    pathname:'/sponser/sponser',
-                    // query:{name:name,email:email,pass:pass,role:role,id:result1?.data?.response?.data?.id}
-                })
+                console.log(result1?.data?.response?.data?.token)
+                setLocalData("token",result1?.data?.response?.data?.token);
+                if(role==="sponsor")
+                {
+                    Router.push({
+                        pathname:'/sponser/sponser',
+                        // query:{name:name,email:email,pass:pass,role:role,id:result1?.data?.response?.data?.id}
+                    })
+                }
+                else if(role==="guardian")
+                {
+                    Router.push({
+                        pathname:'/gaurdian/gaurdian_dashboard',
+                    })  
+                    // alert("Need to do code sync of guardian") 
+                }
             }  
             else
                 setMessage(result1?.data?.error);

@@ -38,8 +38,7 @@ const Role=()=>
         }
         else
         {
-            if(role=="sponsor")
-            {
+            
                 setDisable(true);
                 const data={
                     email:gmail,
@@ -54,13 +53,8 @@ const Role=()=>
                         query: {name:name,email:gmail,pass:pass,role:role},
                     });
                 }
-                else{
-                    setMessage(result?.message);
-                }
-            }
-            else{
-                setMessage("You selected other than sponsor");
-            }
+                
+           
             // const JSONdata=JSON.stringify(data);
             // fetch("https://test-api.brightlife.org/brightlife/v2/get/otp",{
             //     method:'POST',
