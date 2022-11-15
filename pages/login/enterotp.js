@@ -35,7 +35,6 @@ export default function Enterotp()
         for (let i in value){
             total=total+value[i]
         }
-        console.log(total.length)
         if(total.length!=4){
             setMessage("Enter correct otp")
             setStatus(false)

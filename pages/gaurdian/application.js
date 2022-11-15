@@ -10,18 +10,17 @@ export default function Application(){
     const toggleChecked = () => {setscreen(screen+1)};
     return (
         <div className="wrapper" >
-            <nav className="navbar fixed-top navbar-expand-lg" style={{"backgroundColor":" #00004d"}}>
-                <p className="navbar-brand text-light m-2 px-5">Logo</p>
-                <p className="text-light pe-auto end-0"><Link href="/login/logins">Logout</Link></p>
-            </nav>
+        <nav className="navbar fixed-top navbar-expand-lg" style={{"backgroundColor":" #00004d"}}>
+            <p className="navbar-brand text-light m-2 px-5">Logo</p>
+        </nav>
             <div className="row h-100 mt-5">
                 <div className="border border-dark bg-white mt-5" style={{"width":"350px","height":"1000px"}}>
                     <ul className=" col-2 sidebar-menu">
-                        <p className="text-dark m-5 pe-auto"><Link href="/gaurdian/gaurdian_profile">Myprofile</Link></p>
-                        <p className="text-dark m-5"><Link href="/gaurdian/gaurdian_dashboard">Applications</Link></p>
+                        <Link href="/gaurdian/gaurdian_profile"><p className="text-dark m-5 pe-auto">Myprofile</p></Link>
+                        <Link href="/gaurdian/gaurdian_dashboard"><p className="text-dark m-5">Applications</p></Link>
                     </ul>
                 </div>
-                <div className="bg-white mt-5" style={{"width":"1500px","height":"900px"}}>
+                <div className="bg-white mt-5" style={{"width":"1500px","height":"auto"}}>
                     {screen==1 && <Kids_details screenvalue={toggleChecked}/> }
                     {screen==2 && <Gaurdian_details screenvalue={toggleChecked}/> }
                     {screen==3 && <Education_details screenvalue={toggleChecked}/> }

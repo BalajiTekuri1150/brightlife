@@ -26,13 +26,10 @@ export default function Login()
                 setMessage("Login successful")
                 setLocalData("token",result.data.token)
                 setLocalData("user_id",result?.data?.response?.user?.id)
-                setLocalData("id",result?.data?.response?.user?.id)
-                setLocalData("name",result?.data?.response?.user?.name)
-                setLocalData("role",result?.data?.response?.user?.role)
                 if(result?.data?.response?.user?.role==="sponsor")
                 {
                     router.push({ 
-                        pathname: '/sponser/sponser',
+                        pathname: '/sponser/sponser_list',
                     })
                 }
                 else if(result?.data?.response?.user?.role==="child")

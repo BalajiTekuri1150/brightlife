@@ -23,15 +23,15 @@ export default function Child_Card(){
                 <p className="text-light pe-auto end-0"><Link href="/login/logins">Logout</Link></p>
             </nav>
             <div className="row h-100 mt-5">
-                <div className="border border-dark bg-white mt-5" style={{"width":"350px","height":"1000px"}}>
+                <div className="border border-dark bg-white mt-5" style={{"width":"350px","height":"auto"}}>
                     <ul className=" col-2 sidebar-menu">
                         <p className="text-dark m-5 pe-auto"><Link href="/gaurdian/gaurdian_profile">Myprofile</Link></p>
                         <p className="text-dark m-5"><Link href="/gaurdian/gaurdian_dashboard">Applications</Link></p>
                     </ul>
                 </div>
-                <div className="bg-white mt-5" style={{"width":"1100px","height":"1000px"}}>
+                <div className="bg-white mt-5" style={{"width":"1500px","height":"auto"}}>
                     {/* <section className="content-header m-5">Ribbon</section> */}
-                    <Link href="/gaurdian/application"><button className="btn btn-primary ">New Application</button></Link>
+                    <Link href="/gaurdian/application"><button className="btn btn-primary m-3">New Application</button></Link>
                     <main className={homestyle.main}>
                         <div className={homestyle.grid}>
                             {posts.length>0 && posts.map((item)=>(

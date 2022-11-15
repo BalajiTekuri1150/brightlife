@@ -1,5 +1,6 @@
 import { useState,useEffect } from "react"
 import { postData ,getData} from "../../utils/data_manage_service"
+import { getLocalData } from "../../utils/storage_service"
 import Input from "./input_compent"
 import { useRouter } from "next/router"
 import Link from "next/link"
@@ -10,7 +11,7 @@ export default function Bank_details(){
     const [update,setUpdate]=useState(false)
     const [status,setStatus]=useState(true)
     const router=useRouter()
-    const application_number=router.query.application_id
+    const application_number=router.query.application_id || getLocalData("application_id")
     const [formValues,setFormValues]=useState({
         bank_name:{value,isvalid},
         state:{value,isvalid},
@@ -76,7 +77,6 @@ export default function Bank_details(){
         }
         else{
             setMessage(result?.data?.error?.message)
-            // setMessage(Object.values(result?.data?.error?.message))
         }          
     }
     const isFormValid=Object.keys(formValues).every((key)=>{
