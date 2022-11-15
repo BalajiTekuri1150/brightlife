@@ -20,20 +20,20 @@ const Child_Card=(props)=>
         }
         getDetails();
     },[]);
-    useEffect(()=>{
-        const getDetails1=async()=>{
-            const res1=await fetch("https://test-api.brightlife.org/brightlife/get/application/details?page_size=100",{headers:{"Authorization":"token 2d21e847092508ace5f534ac492bf03cd742145a"}});
-            const getdet=await res1.json();
-            setPosts1(getdet?.response?.data);
-            console.log(posts1);
-            setData1(getdet?.response?.data);
-            console.log(data1);
-            const sorted=[...data1].sort((a,b)=>a["id"] > b["id"] ? 1 : -1);
-            // console.log(sorted)
-            setData(sorted)
-        }
-        getDetails1();
-    },[]);
+    // useEffect(()=>{
+    //     const getDetails1=async()=>{
+    //         const res1=await fetch("https://test-api.brightlife.org/brightlife/get/application/details?page_size=100",{headers:{"Authorization":"token 2d21e847092508ace5f534ac492bf03cd742145a"}});
+    //         const getdet=await res1.json();
+    //         setPosts1(getdet?.response?.data);
+    //         console.log(posts1);
+    //         setData1(getdet?.response?.data);
+    //         console.log(data1);
+    //         const sorted=[...data1].sort((a,b)=>a["id"] > b["id"] ? 1 : -1);
+    //         // console.log(sorted)
+    //         setData(sorted)
+    //     }
+    //     getDetails1();
+    // },[]);
     const gen=getLocalData("gen");
     const income=getLocalData("income");
     const state=getLocalData("state");
@@ -74,7 +74,7 @@ const Child_Card=(props)=>
                         </div>
                     ))
                 }
-                {props.count==1 && posts.filter(item1=>item1?.gender?.name.toString().includes(gen) || item1?.annual_income?.toString().includes(income) || item1?.state?.toString().includes(state))
+                {props.count>0 && posts.length>0 && posts.filter(item1=>item1?.gender?.name.toString().includes(gen) || item1?.annual_income?.toString().includes(income) || item1?.state?.toString().includes(state))
                         .map((item)=>(
                         <div className={homestyle.card}>
                             <Image src={logo} style={{width:'100%',height:'200px'}}/>
@@ -104,7 +104,7 @@ const Child_Card=(props)=>
                         </div>
                     ))
                 } 
-                {props.count==2 && data.length>0 && data.map((item)=>(
+                {/* {props.count==2 && data.length>0 && data.map((item)=>(
                         <div className={homestyle.card}>
                             <Image src={logo} style={{width:'100%',height:'200px'}}/>
                             <p style={{marginLeft:'30px'}}>{item.name}</p><br/>
@@ -132,7 +132,7 @@ const Child_Card=(props)=>
                             </div>
                         </div>
                     ))
-                }
+                } */}
             </div>
         </main>
     )

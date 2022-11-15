@@ -114,7 +114,7 @@ const Final=()=>
     const handleSubmit=(e)=>
     {
         e.preventDefault();
-        setCount(1);
+        setCount(count+1);
         setLocalData("state",state);
         setLocalData("mon",mon);
         setLocalData("gen",gen);
@@ -122,10 +122,10 @@ const Final=()=>
     }
     const handleCount=()=>
     {
-        setCount(2);
-        // Router.push({
-        //     pathname:'/sponser/validate',
-        // })
+        // setCount(2);
+        Router.push({
+            pathname:'/sponser/validate',
+        })
     }
     return( 
         <div>
@@ -197,7 +197,7 @@ const Final=()=>
                     <Button variant="secondary" type="submit" size="lg" active onClick={handleClear}>Clear All</Button>
                 </Form.Group>
             </Form><br/><br/>
-            <button className="btn btn-success" onClick={handleCount}>Sort By Newest</button>
+            {/* <button className="btn btn-success" onClick={handleCount}>Sort By Newest</button> */}
             <Child_Card count={count}/>
             </div>
         </div>

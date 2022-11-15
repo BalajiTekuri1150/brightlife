@@ -34,14 +34,6 @@ const Sponser_list=()=>
     }
     return(
         <div>
-            {/* <div className="container">
-                <div className="row bg-black">
-                    <div className="col-sm text-light"></div>
-                    <div className="col-md-auto text-light">how it works</div>
-                    <div className="col-md-auto text-light">donate</div>
-                    <button className="col btn btn-secondary" onClick={profileClick}>My Profile</button>
-                </div>
-            </div> */}
             <div style={{display:'flex'}}>
                 {/* <div>
                     <Side/>

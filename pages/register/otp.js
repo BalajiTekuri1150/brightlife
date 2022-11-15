@@ -16,7 +16,7 @@ const Otp=()=>
     const otp2Ref=useRef("")
     const otp3Ref=useRef("")
     const otp4Ref=useRef("")
-    const user = router.query;
+    // const user = router.query;
     const [color,setColor]=useState({"border":"1px solid "})
     const [timeLeft, setTimeLeft] = useState(30);
     const [status,setStatus]=useState("")
@@ -24,6 +24,7 @@ const Otp=()=>
     const [disable,setDisable]=useState(false)
     const initialValues={otp1:"",otp2:"",otp3:"",otp4:""};
 	const [formValues,setFormValues]=useState(initialValues);
+    const [length,setLength]=useState(0);
     useEffect(() => {
         if(timeLeft!=0){
         const interval = setInterval(() => {
@@ -38,55 +39,73 @@ const Otp=()=>
         e.preventDefault();
         const value=Object.values(formValues)
         let total=""
+        let count=0
         for (let i in value){
+            console.log(value[i])
             total=total+value[i]
+            count++
+            // console.log(total)
+            // setLength(total.length)
         }
-        console.log(total);
-        const data1={
-            email:email,
-            context:"signup",
-            otp:parseInt(total),
+        console.log(total.length);
+        console.log(count);
+        if(total.length!=137){
+            setMessage("Enter correct otp")
+            setStatus(false)
         }
-        const result=await(postData1("https://test-api.brightlife.org/brightlife/v2/verify/otp",data1));
-        if(result?.data?.status==true)
+        else
         {
-            const data2={
-                name:name,
+            const data1={
                 email:email,
-                password:pass,
-                password2:pass,
-                role:role,
+                context:"signup",
+                otp:parseInt(total)
             }
-            const result1=await(postData1("https://test-api.brightlife.org/brightlife/signup",data2))
-            if(result1?.data?.status==true)
+            const result=await(postData1("https://test-api.brightlife.org/brightlife/v2/verify/otp",data1));
+            if(result?.data?.status==true)
             {
-                setLocalData("id",result1?.data?.response?.data?.id);
-                setLocalData("user_id",result1?.data?.response?.data?.id);
-                setLocalData("name",name);
-                setLocalData("email",email);
-                setLocalData("role",role);
-                console.log(result1?.data?.response?.data?.token)
-                setLocalData("token",result1?.data?.response?.data?.token);
-                if(role==="sponsor")
-                {
-                    Router.push({
-                        pathname:'/sponser/sponser',
-                        // query:{name:name,email:email,pass:pass,role:role,id:result1?.data?.response?.data?.id}
-                    })
+                const data2={
+                    name:name,
+                    email:email,
+                    password:pass,
+                    password2:pass,
+                    role:role,
                 }
-                else if(role==="guardian")
+                const result1=await(postData1("https://test-api.brightlife.org/brightlife/signup",data2))
+                if(result1?.data?.status==true)
                 {
-                    Router.push({
-                        pathname:'/gaurdian/gaurdian_dashboard',
-                    })  
-                    // alert("Need to do code sync of guardian") 
-                }
-            }  
-            else
-                setMessage(result1?.data?.error);
-        }
-        else{
-            setMessage(result?.data?.error?.message);
+                    setLocalData("id",result1?.data?.response?.data?.id);
+                    setLocalData("user_id",result1?.data?.response?.data?.id);
+                    setLocalData("name",name);
+                    setLocalData("email",email);
+                    setLocalData("role",role);
+                    console.log(result1?.data?.response?.data?.token)
+                    setLocalData("token",result1?.data?.response?.data?.token);
+                    if(role==="sponsor")
+                    {
+                        Router.push({
+                            pathname:'/sponser/sponser',
+                            // query:{name:name,email:email,pass:pass,role:role,id:result1?.data?.response?.data?.id}
+                        })
+                    }
+                    if(role==="guardian")
+                    {
+                        Router.push({
+                            pathname:'/gaurdian/gaurdian_dashboard',
+                        })  
+                        // alert("Need to do code sync of guardian") 
+                    }
+                    if(role==="child"){
+                        router.push({ 
+                            pathname: '/kids/kids_Dashboard',
+                        })  
+                    }
+                }  
+                else
+                    setMessage(result1?.data?.error);
+            }
+            else{
+                setMessage(result?.data?.error?.message);
+            }
         }
     }
     const resendOTP=async()=>
@@ -105,7 +124,7 @@ const Otp=()=>
         }        
         setTimeLeft(30)
     }
-    // 
+    
     const onHandleKeydown = (e) => {
         const keyCode = e.keyCode;
         if (keyCode !== 8 && (keyCode>47 && keyCode<=57) ) {
@@ -155,10 +174,10 @@ const Otp=()=>
                         <h1 className="h4 font-monospace text-center ">Enter OTP</h1>
                         <h6 className="h6 text-center  mb-3 "><small><AiOutlineMail/>Enter OTP sent to {email}</small></h6>
                         <div className="mt-2">
-                            <input type="text" name="otp1" onKeyDown={onHandleKeydown} ref={otp1Ref} value={formValues.otp1} style={color} className="col-1 mx-1 " />
-                            <input type="text" name="otp2" onKeyDown={onHandleKeydown} ref={otp2Ref} value={formValues.otp2} style={color} className="col-1 mx-1 " />
-                            <input type="text" name="otp3" onKeyDown={onHandleKeydown} ref={otp3Ref} value={formValues.otp3} style={color} className="col-1 mx-1 " />
-                            <input type="text" name="otp4" onKeyDown={onHandleKeydown} ref={otp4Ref} value={formValues.otp4} style={color} className="col-1 mx-1 " />                            
+                            <input type="number" name="otp1" onKeyDown={onHandleKeydown} ref={otp1Ref} value={formValues.otp1} style={color} className="col-1 mx-1 " />
+                            <input type="number" name="otp2" onKeyDown={onHandleKeydown} ref={otp2Ref} value={formValues.otp2} style={color} className="col-1 mx-1 " />
+                            <input type="number" name="otp3" onKeyDown={onHandleKeydown} ref={otp3Ref} value={formValues.otp3} style={color} className="col-1 mx-1 " />
+                            <input type="number" name="otp4" onKeyDown={onHandleKeydown} ref={otp4Ref} value={formValues.otp4} style={color} className="col-1 mx-1 " />                            
                         </div>
                         <div className="text-center m-2">
                             {status?<p className="text-success">{message}</p>:<p className="text-danger">{message}</p>}
