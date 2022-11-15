@@ -1,19 +1,8 @@
 import { useRouter } from "next/router"
-// import { getSessionData,removeSessionData,setLocalData } from "../../utils/storage_service"
-// import { postData } from "../../utils/data_manage_service"
 export default function Pswsucess(){
     const router=useRouter()
-    // const email=router.query.email
-    // const psw=getSessionData("password")
     const handleSubmit=async(e)=>{
         e.preventDefault()
-        // const data = {
-        //     username:email,
-        //     password:psw
-        // }   
-        // const result=await(postData('https://test-api.brightlife.org/brightlife/get/token',data,0))
-        // removeSessionData("password")
-        // setLocalData("token",result.data.token)
         router.push({pathname: '/login/logins'})
     }
     return(

@@ -2,6 +2,7 @@ import {AiOutlineMail} from "react-icons/ai";
 import { useRouter } from 'next/router'
 import { useState,useEffect,useRef } from "react";
 import { postData } from "../../utils/data_manage_service";
+import { getLocalData,setLocalData } from "../../utils/storage_service";
 export default function Enterotp()
 {
     const router = useRouter();
@@ -42,7 +43,7 @@ export default function Enterotp()
         }
         else{
             const data = {
-                email:user.email,
+                email:getLocalData("email"),
                 context:user.context,
                 otp:parseInt(total)
             }   
@@ -51,9 +52,9 @@ export default function Enterotp()
             if(result?.data?.status){ 
                 setColor({"border":"1px solid green"})
                 setMessage(result?.data?.response?.message)
+                setLocalData("otp",total)
                 router.push({
                     pathname: '/login/resetpsw',
-                    query: { email:user.email,otp:total },
                 })
             }
             else{
@@ -68,7 +69,7 @@ export default function Enterotp()
         setFormValues({otp1:"",otp2:"",otp3:"",otp4:""})
         setColor({"border":"1px solid "})
         const data ={
-            referrence_id:user.refid
+            referrence_id:getLocalData("refid")
         } 
         const result=await(postData('https://test-api.brightlife.org/brightlife/v2/resend/otp',data,0))
         setDisable(false)
