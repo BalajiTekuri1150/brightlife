@@ -13,7 +13,7 @@ const Child_Card=(props)=>
     const [order,setOrder]=useState();
     useEffect(()=>{
         const getDetails=async()=>{
-            const res1=await fetch("https://test-api.brightlife.org/brightlife/get/application/details?page_size=6",{headers:{"Authorization":"token 2d21e847092508ace5f534ac492bf03cd742145a"}});
+            const res1=await fetch("https://test-api.brightlife.org/brightlife/get/application/details?page_size=100",{headers:{"Authorization":"token 2d21e847092508ace5f534ac492bf03cd742145a"}});
             const getdet=await res1.json();
             setPosts(getdet.response.data);
             setData(getdet.response.data)
@@ -37,10 +37,10 @@ const Child_Card=(props)=>
     const gen=getLocalData("gen");
     const income=getLocalData("income");
     const state=getLocalData("state");
-    // console.log(data);
     const handleCard=()=>
     {
-        setLocalData("childid",props.id);
+        console.log("The page will redirect to payment page");
+        // setLocalData("childid",props.id);
     }
     return(
         <main className={homestyle.main}>
@@ -137,6 +137,14 @@ const Child_Card=(props)=>
         </main>
     )
 }
-
+export async function getStaticProps(){
+    const res=await fetch(`https://test-api.brightlife.org/brightlife/get/application/details?page=${props.page}`)
+    const posts2=await res.json();
+    return{
+        props:{
+            posts2,
+        }
+    }
+}
 
 export default Child_Card;

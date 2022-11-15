@@ -56,10 +56,10 @@ const My_Profile=()=>
     const [data,setData]=useState({
         fname:{value:"",isVal:false},
         sname:{value:"",isVal:false},
-        organisation:{value:"",isVal:false},
+        organization:{value:"",isVal:false},
         gmail:{value:"",isVal:false},
         mobile:{value:"",isVal:false},
-        how:{value:"",isVal:false},
+        source:{value:"",isVal:false},
         address:{value:"",isVal:false},
         city:{value:"",isVal:false},
         state:{value:"",isVal:false},
@@ -76,9 +76,9 @@ const My_Profile=()=>
                 fname:{value:getpofiledata.response?.sponsor?.user?.name},
                 sname:{value:""},
                 gmail:{value:getpofiledata.response?.sponsor?.user?.email},
-                organisation:{value:getpofiledata.response?.sponsor?.organisation},
+                organization:{value:getpofiledata.response?.sponsor?.organization},
                 mobile:{value:getpofiledata.response?.sponsor?.mobile},
-                how:{value:""},
+                source:{value:getpofiledata.response?.sponsor?.source},
                 address:{value:getpofiledata.response?.sponsor?.address},
                 city:{value:getpofiledata.response?.sponsor?.city},
                 state:{value:getpofiledata.response?.sponsor?.state},
@@ -105,12 +105,12 @@ const My_Profile=()=>
     else
         data.sname.isVal=false;
     //Orgnisation
-    if(reg_name.test(data.organisation.value))
+    if(reg_name.test(data.organization.value))
     {
-        data.organisation.isVal=true;
+        data.organization.isVal=true;
     }
     else
-        data.organisation.isVal=false;
+        data.organization.isVal=false;
     //address
     if(reg_name.test(data.address.value))
     {
@@ -126,12 +126,12 @@ const My_Profile=()=>
     else    
         data.city.isVal=false;
     //How
-    if(reg_name.test(data.how.value))
+    if(reg_name.test(data.source.value))
     {
-        data.how.isVal=true;
+        data.source.isVal=true;
     }
     else    
-        data.how.isVal=false;
+        data.source.isVal=false;
     //State
     if(reg_name.test(data.state.value))
     {
@@ -196,11 +196,11 @@ const My_Profile=()=>
             setTwo(true);
             setErr2(true);
         }
-        if(name==="organisation" && error==false)
+        if(name==="organization" && error==false)
         {
             setThree(false);
         }
-        if(name=="organisation" && error==true)
+        if(name=="organization" && error==true)
         {
             setThree(true);
             setErr3(true);
@@ -223,11 +223,11 @@ const My_Profile=()=>
             setFive(true);
             setErr5(true);
         }
-        if(name==="how" && error==false)
+        if(name==="source" && error==false)
         {
             setSix(false);
         }
-        if(name=="how" && error==true)
+        if(name=="source" && error==true)
         {
             setSix(true);
             setErr6(true);
@@ -280,7 +280,7 @@ const My_Profile=()=>
         setMessage1("");
         setMessage("");
     }
-    const arr=new Array(data.fname.isVal,data.sname.isVal,data.organisation.isVal,data.gmail.isVal,data.mobile.isVal,data.how.isVal,data.address.isVal,data.city.isVal,data.state.isVal,data.country.isVal,data.pin.isVal);
+    const arr=new Array(data.fname.isVal,data.sname.isVal,data.organization.isVal,data.gmail.isVal,data.mobile.isVal,data.source.isVal,data.address.isVal,data.city.isVal,data.state.isVal,data.country.isVal,data.pin.isVal);
     // console.log(arr)
     const check=(item)=>
     {
@@ -299,7 +299,8 @@ const My_Profile=()=>
                     role: role
                 },
                 mobile:data.mobile.value,
-                organisation: data.organisation.value,
+                organization: data.organization.value,
+                // profile:URL.createObjectURL(selectedImage),
                 source: "Turito",
                 address:data.address.value,
                 city: data.city.value,
@@ -321,7 +322,7 @@ const My_Profile=()=>
         else
         {
             // console.log(one);
-            if(data.fname.value==="" || data.sname.value==="" || data.organisation.value==="" || data.mobile.value==="" || data.how.value==="" || data.address.value==="" || data.city.value==="" || data.state.value==="" || data.country.value==="" || data.pin.value==="")
+            if(data.fname.value==="" || data.sname.value==="" || data.organization.value==="" || data.mobile.value==="" || data.source.value==="" || data.address.value==="" || data.city.value==="" || data.state.value==="" || data.country.value==="" || data.pin.value==="")
             {
                 setMessage("Some Blanks Are empty")
                 setMessage1("");
@@ -404,7 +405,7 @@ const My_Profile=()=>
                                                     reg={reg_name}
                                                     handleChange={handleData}
                                 />
-                                {err1 ? <div></div> : <div style={{color:'red'}}>Invalid</div>}
+                                {err1 ? <div></div> : <div style={{color:'red'}}>First name should contain minimum 4 characters</div>}
                             </div>
                             <div className="col-sm-5">
                                 <label>Second Name</label><br/>
@@ -414,19 +415,19 @@ const My_Profile=()=>
                                                     reg={reg_name}
                                                     handleChange={handleData}
                                 />
-                                {err2 ? <div></div> : <div style={{color:'red'}}>Invalid</div>}
+                                {err2 ? <div></div> : <div style={{color:'red'}}>Second name should contain minimum 4 characters</div>}
                             </div>
                         </div><br/>
                         <div className="form-group row">
                             <div className="col-sm-5" style={{marginLeft:'30px',marginRight:'30px'}}>
-                                <label>Organisation</label><br/>
+                                <label>Organization</label><br/>
                                 <My_Profile_Child type="text"
-                                                    name="organisation"
-                                                    value={data.organisation.value}
+                                                    name="organization"
+                                                    value={data.organization.value}
                                                     reg={reg_name}
                                                     handleChange={handleData}
                                 />
-                                {err3 ? <div></div> : <div style={{color:'red'}}>Invalid</div>}
+                                {err3 ? <div></div> : <div style={{color:'red'}}>Organization should contain minimum 4 characters</div>}
                             </div>
                             <div className="col-sm-5">
                                 <label>Email Address</label><br/>
@@ -436,7 +437,7 @@ const My_Profile=()=>
                                                     reg={reg_email}
                                                     handleChange={handleData}
                                 />
-                                {err4 ? <div></div> : <div style={{color:'red'}}>Invalid</div>}
+                                {err4 ? <div></div> : <div style={{color:'red'}}>gmail should be like ***@gmail.com</div>}
                             </div>
                         </div><br/>
                         <div className="form-group row">
@@ -448,17 +449,17 @@ const My_Profile=()=>
                                                     reg={reg_phone}
                                                     handleChange={handleData}
                                 />
-                                {err5 ? <div></div> : <div style={{color:'red'}}>Invalid</div>}
+                                {err5 ? <div></div> : <div style={{color:'red'}}>Mobile Number should start with +91 and contain 10 numbers only</div>}
                             </div>
                             <div className="col-sm-5">
                                 <label>How did you head about Us?</label><br/>
                                 <My_Profile_Child type="text"
-                                                    name="how"
-                                                    value={data.how.value}
+                                                    name="source"
+                                                    value={data.source.value}
                                                     reg={reg_name}
                                                     handleChange={handleData}
                                 />
-                                {err6 ? <div></div> : <div style={{color:'red'}}>Invalid</div>}
+                                {err6 ? <div></div> : <div style={{color:'red'}}>Source should contain minimum 4 characters</div>}
                             </div>
                         </div><br/>
                         <div className="form-group row">
@@ -470,7 +471,7 @@ const My_Profile=()=>
                                                     reg={reg_name}
                                                     handleChange={handleData}
                                 />
-                                {err7 ? <div></div> : <div style={{color:'red'}}>Invalid</div>}
+                                {err7 ? <div></div> : <div style={{color:'red'}}>Address should contain minimum 4 characters</div>}
                             </div>
                             <div className="col-sm-5">
                                 <label>city</label><br/>
@@ -480,7 +481,7 @@ const My_Profile=()=>
                                                     reg={reg_name}
                                                     handleChange={handleData}
                                 />
-                                {err8 ? <div></div> : <div style={{color:'red'}}>Invalid</div>}
+                                {err8 ? <div></div> : <div style={{color:'red'}}>City should contain minimum 4 characters</div>}
                             </div>
                         </div><br/>
                         <div className="form-group row">
@@ -492,7 +493,7 @@ const My_Profile=()=>
                                                     reg={reg_name}
                                                     handleChange={handleData}
                                 />
-                                {err9 ? <div></div> : <div style={{color:'red'}}>Invalid</div>}
+                                {err9 ? <div></div> : <div style={{color:'red'}}>State should contain minimum 4 characters</div>}
                             </div>
                             <div className="col-sm-5">
                                 <label>Country</label><br/>
@@ -502,7 +503,7 @@ const My_Profile=()=>
                                                     reg={reg_name}
                                                     handleChange={handleData}
                                 />
-                                {err10 ? <div></div> : <div style={{color:'red'}}>Invalid</div>}
+                                {err10 ? <div></div> : <div style={{color:'red'}}>Country should contain minimum 4 characters</div>}
                             </div>
                         </div><br/>
                         <div className="form-group row">
@@ -514,7 +515,7 @@ const My_Profile=()=>
                                                     reg={reg_name}
                                                     handleChange={handleData}
                                 />
-                                {err11 ? <div></div> : <div style={{color:'red'}}>Invalid</div>}
+                                {err11 ? <div></div> : <div style={{color:'red'}}>Pin should contain minimum 4 characters</div>}
                             </div>
                         </div><br/>
                         <div style={{color:'red',marginLeft:'150px'}}>{message}</div><br/>

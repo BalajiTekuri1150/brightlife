@@ -12,25 +12,25 @@ const Validate=()=>
     const [order,setOrder]=useState();
     useEffect(()=>{
         const getDetails=async()=>{
-            const res1=await fetch("https://test-api.brightlife.org/brightlife/get/application/details?page_size=6",{headers:{"Authorization":"token 2d21e847092508ace5f534ac492bf03cd742145a"}});
+            const res1=await fetch('https://test-api.brightlife.org/brightlife/get/application/details?page_size=100',{headers:{"Authorization":"token 2d21e847092508ace5f534ac492bf03cd742145a"}});
             const getdet=await res1.json();
             setPosts(getdet.response.data);
             console.log(posts);
-            setData(getdet.response.data);
+            setData(getdet?.response?.data);
             console.log(data);
-            const sorted=[...data].sort((a,b)=>a["name"].toLowerCase()>b["name"].toLowerCase() ? 1 : -1);
+            const sorted=[...data].sort((a,b)=>a["id"]>b["id"] ? 1 : -1);
             console.log(sorted)
             setData(sorted)
         }
         getDetails();
     },[]);
-    const sorting=()=>
-    {
-        const sorted=data.sort((a,b)=>a["name"].toLowerCase()>b["name"].toLowerCase ? 1 : -1);
-        console.log(sorted)
-        setData(sorted)
-        console.log(data);
-    }
+    // const sorting=()=>
+    // {
+    //     const sorted=data.sort((a,b)=>a["name"].toLowerCase()>b["name"].toLowerCase ? 1 : -1);
+    //     console.log(sorted)
+    //     setData(sorted)
+    //     console.log(data);
+    // }
     return(
         <div>  
              <main className={homestyle.main}>

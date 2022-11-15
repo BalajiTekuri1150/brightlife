@@ -27,6 +27,7 @@ const Final=()=>
     const[income,setIncome]=useState(" ");
     const [posts,setPosts]=useState([]);
     const [count,setCount]=useState(0);
+    const [page,setPage]=useState(1);
     useEffect(()=>{
         const getCountry=async()=>{
             const res=await fetch("https://test-api.brightlife.org/brightlife/list/countries",{headers:{"Authorization":"token 2d21e847092508ace5f534ac492bf03cd742145a"}});
@@ -127,6 +128,11 @@ const Final=()=>
             pathname:'/sponser/validate',
         })
     }
+    const handlePage=(e)=>
+    {
+        console.log(e.target.value);
+        setPage(e.target.value);
+    }
     return( 
         <div>
             <div className="container">
@@ -199,6 +205,8 @@ const Final=()=>
             </Form><br/><br/>
             {/* <button className="btn btn-success" onClick={handleCount}>Sort By Newest</button> */}
             <Child_Card count={count}/>
+            {/* <input type="button" value="1" onClick={handlePage}/>
+            <input type="button" value="2" onClick={handlePage}/> */}
             </div>
         </div>
     )
