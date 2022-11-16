@@ -21,7 +21,7 @@ export default function Application(){
                         <p className="text-dark m-5"><Link href="/gaurdian/gaurdian_dashboard">Applications</Link></p>
                     </ul>
                 </div>
-                <div className="bg-white mt-5" style={{"width":"1500px","height":"900px"}}>
+                <div className="bg-white mt-5" style={{"width":"900px","height":"900px",marginLeft:'30px'}}>
                     {screen==1 && <Kids_details screenvalue={toggleChecked}/> }
                     {screen==2 && <Gaurdian_details screenvalue={toggleChecked}/> }
                     {screen==3 && <Education_details screenvalue={toggleChecked}/> }

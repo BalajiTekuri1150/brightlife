@@ -99,7 +99,7 @@ export default function Gaurdian_Profile(){
                             <Link href="/gaurdian/gaurdian_dashboard"><p className="text-dark m-5">Applications</p></Link>
                         </ul>
                     </div>
-                    <div className="bg-white mt-5" style={{"width":"1500px","height":"900px"}}>
+                    <div className="bg-white mt-5" style={{"width":"900px","height":"900px",marginLeft:'30px'}}>
                         <form className="bg-light px-5 pt-5" onSubmit={updateProfile}>
                             <div className="row">
                                 <div className="col-5 mx-4">

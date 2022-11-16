@@ -5,6 +5,7 @@ import { BsPersonFill,BsFileLock,BsGoogle,BsFacebook} from "react-icons/bs";
 import {useState} from "react";
 import Register_child from './Register_child';
 import Router from 'next/router';
+import { setLocalData } from '../utils/storage_service';
 const Register_Page=()=>
 {
     let reg_name=new RegExp('^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$');
@@ -77,7 +78,8 @@ const Register_Page=()=>
     {
         e.preventDefault(); 
         if(arr.every(check))
-        { 
+        {   
+            setLocalData("pass",data.pass.value);
             Router.push({
                 pathname: '/register/role',
                 query: {name:data.user.value,gmail:data.gmail.value,pass:data.pass.value},

@@ -4,6 +4,7 @@ import logo from "../../public/orphan-kids-.jpg"
 import {setLocalData} from "../../utils/storage_service"
 import Image from 'next/image'
 import { getLocalData } from '../../utils/storage_service';
+import Link from 'next/link';
 const Child_Card=(props)=>
 {
     const [posts,setPosts]=useState([]);
@@ -68,8 +69,8 @@ const Child_Card=(props)=>
                             </div><br/>
                             <p style={{fontSize:'16px'}}>Vishwa Prasad is from India lives with parents,Enjoys playing with dolls ,playing with friends,Running</p><br/>
                             <div style={{display:'flex'}}>
-                                <a href={`/children/${item.id}`} className="btn btn-primary btn-sm" onClick={handleCard}>SPONSER CHILDREN</a>&nbsp;
-                                <a href={`/children/${item.id}`} className="btn btn-secondary btn-sm" onClick={handleCard}>More Details</a>
+                                <button className="btn btn-primary btn-sm"><Link href={`/children/${item.id}`}><label style={{color:'white'}}>SPONSER CHILDREN</label></Link></button>&nbsp;
+                                <button className="btn btn-secondary btn-sm"><Link href={`/children/${item.id}`}><label style={{color:'white'}}>More Details</label></Link></button>
                             </div>
                         </div>
                     ))
@@ -98,8 +99,8 @@ const Child_Card=(props)=>
                             </div><br/>
                             <p style={{fontSize:'16px'}}>Vishwa Prasad is from India lives with parents,Enjoys playing with dolls ,playing with friends,Running</p><br/>
                             <div style={{display:'flex'}}>
-                                <a href={`/children/${item.id}`} className="btn btn-primary btn-sm" onClick={handleCard}>SPONSER CHILDREN</a>&nbsp;
-                                <a href={`/children/${item.id}`} className="btn btn-secondary btn-sm" onClick={handleCard}>More Details</a>
+                                <button className="btn btn-success btn-sm"><Link href={`/children/${item.id}`}><label style={{color:'white'}}>SPONSER CHILDREN</label></Link></button>&nbsp;
+                                <button className="btn btn-secondary btn-sm"><Link href={`/children/${item.id}`}><label style={{color:'white'}}>More Details</label></Link></button>
                             </div>
                         </div>
                     ))

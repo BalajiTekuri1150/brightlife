@@ -50,7 +50,7 @@ const Role=()=>
                     setLocalData("reference_id",result?.data?.response?.referrence_id)
                     Router.push({
                         pathname: '/register/otp',
-                        query: {name:name,email:gmail,pass:pass,role:role},
+                        query: {name:name,email:gmail,role:role},
                     });
                 }
                 

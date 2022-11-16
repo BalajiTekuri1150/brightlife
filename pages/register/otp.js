@@ -11,7 +11,7 @@ import { postData } from "../../utils/data_manage_service";
 const Otp=()=>
 {
     const router = useRouter();
-    const {name,email,pass,role}=router.query;
+    const {name,email,role}=router.query;
     const otp1Ref=useRef("")
     const otp2Ref=useRef("")
     const otp3Ref=useRef("")
@@ -25,6 +25,7 @@ const Otp=()=>
     const initialValues={otp1:"",otp2:"",otp3:"",otp4:""};
 	const [formValues,setFormValues]=useState(initialValues);
     const [length,setLength]=useState(0);
+    const pass=getLocalData("pass");
     useEffect(() => {
         if(timeLeft!=0){
         const interval = setInterval(() => {

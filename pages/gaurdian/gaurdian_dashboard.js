@@ -29,7 +29,7 @@ export default function Child_Card(){
                         <p className="text-dark m-5"><Link href="/gaurdian/gaurdian_dashboard">Applications</Link></p>
                     </ul>
                 </div>
-                <div className="bg-white mt-5" style={{"width":"1100px","height":"1000px"}}>
+                <div className="bg-white mt-5" style={{"width":"800px","height":"100%",marginLeft:'50px'}}>
                     {/* <section className="content-header m-5">Ribbon</section> */}
                     <Link href="/gaurdian/application"><button className="btn btn-primary ">New Application</button></Link>
                     <main className={homestyle.main}>
