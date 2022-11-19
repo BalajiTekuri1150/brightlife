@@ -1,12 +1,11 @@
 import {AiOutlineEye,AiOutlineEyeInvisible} from "react-icons/ai";
-import { useRouter } from 'next/router';
 import { useState } from "react"
+import { useRouter } from "next/router";
 import { postData } from "../../utils/data_manage_service";
-import { setSessionData } from "../../utils/storage_service";
+import { setSessionData,getLocalData } from "../../utils/storage_service";
 export default function Resetpsw()
 {
-    const router = useRouter()
-    const user = router.query;
+    const router=useRouter()
     const [passwordShown, setPasswordShown] = useState(false)
     const [status,setStatus]=useState("")
     const [message,setMessage]=useState(true)
@@ -17,18 +16,17 @@ export default function Resetpsw()
         if(e.target[0].value==e.target[1].value && e.target[0].value!="")
         {
             const data = {
-                email:user.email,
-                otp: user.otp,
+                email:getLocalData("email"),
+                otp: getLocalData("otp"),
                 password:e.target[0].value
             }   
             const result=await(postData('https://test-api.brightlife.org/brightlife/update/password',data,0))
             setStatus(result?.data?.status)
+            console.log(result.data)
             if(result?.data?.status){
                 setMessage(result?.data?.response.message) 
-                setSessionData("password",e.target[0].value)
                 router.push({ 
                     pathname: '/login/pswsuccess',
-                    query: { email:user.email}
                 })
             }
             else{  
@@ -62,7 +60,7 @@ export default function Resetpsw()
             <div className="d-flex justify-content-center pb-5">
                 <form className="bg-light px-4 pt-5" onSubmit={handleSubmit}>
                     <h1 className="h3 mb-2 font-monospace text-center ">Reset Password</h1>
-                    <h6 className="text-center mb-3 ">{user.email}</h6>
+                    <h6 className="text-center mb-3 ">{getLocalData("email")}</h6>
                     <div className="mb-3 row">
                         <div>
                             <label className="col-form-label"> Password</label>

@@ -1,5 +1,6 @@
 import { useState,useEffect } from "react"
 import { postData ,getData} from "../../utils/data_manage_service"
+import { getLocalData } from "../../utils/storage_service"
 import Input from "./input_compent"
 import { useRouter } from "next/router"
 import Link from "next/link"
@@ -10,7 +11,7 @@ export default function Bank_details(){
     const [update,setUpdate]=useState(false)
     const [status,setStatus]=useState(true)
     const router=useRouter()
-    const application_number=router.query.application_id
+    const application_number=router.query.appication_id || getLocalData("appication_id")
     const [formValues,setFormValues]=useState({
         bank_name:{value,isvalid},
         state:{value,isvalid},
@@ -71,12 +72,11 @@ export default function Bank_details(){
         if(result?.data?.status){
             setMessage("Application submitted for verification")
             router.push({
-                pathname:"gaurdian_dashboard"
+                pathname:"/gaurdian/gaurdian_dashboard"
             })
         }
         else{
             setMessage(result?.data?.error?.message)
-            // setMessage(Object.values(result?.data?.error?.message))
         }          
     }
     const isFormValid=Object.keys(formValues).every((key)=>{
@@ -123,7 +123,7 @@ export default function Bank_details(){
                         <label>IFSC code</label>
                         <Input type="text" name="ifsc" className="form-control" value={formValues.ifsc.value} onChange={handleChange}/>
                     </div>
-                    <span className="m-2">{status?<p className="text-sucess">{message}</p>:<p className="text-danger">{message}</p>}</span>
+                    <span className="m-2">{status?<div className="text-sucess">{message}</div>:<div className="text-danger">{message}</div>}</span>
                     <div className="row">
                         <button type="submit" className="btn btn-primary mx-5 col-2 " disabled={!isFormValid}>Submit for verification</button>
                         <Link href="/gaurdian/gaurdian_dashboard"><button type="button" className="btn btn-secondary col-2 mx-5 " >Exit</button></Link>

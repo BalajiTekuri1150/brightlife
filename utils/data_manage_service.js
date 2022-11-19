@@ -56,3 +56,15 @@ export const postData1=async( url, data)=> {
     }).catch(e => {return e.response});
     return response
 }
+export const getData1=async( url)=> {
+    const token=getLocalData("token")
+    const response = await axios({
+        method: "GET",
+        url:  url,
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'token 2d21e847092508ace5f534ac492bf03cd742145a'
+        },
+    }).catch(e => {return e.response});
+    return response
+}

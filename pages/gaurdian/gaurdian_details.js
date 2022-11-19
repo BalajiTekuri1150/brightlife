@@ -9,7 +9,7 @@ export default function Gaurdian_details(props){
     const router=useRouter()
     const [message,setMessage]=useState("")
     const [status,setStatus]=useState(true)
-    const application_number=router.query.application_id
+    const application_number=getLocalData("appication_id" ) || router.query.application_id
     const [formValues,setFormValues]=useState({
         profession:{value,isvalid},
         annual_income:{value,isvalid},
@@ -33,15 +33,17 @@ export default function Gaurdian_details(props){
             getprofile();
         }
     },[]);
+    console.log(application_number)
     const handleSubmit=async(e)=>
     {
         e.preventDefault()  
+        console.log(application_number)
         const data = {
             application_id: application_number,
             profession: formValues.profession.value,
-            annual_income: formValues.annual_income.value,
-            family_members: formValues.family_members.value,
-            extra_allowance: formValues.extra_allowance.value
+            annual_income: Number(formValues.annual_income.value),
+            family_members: Number(formValues.family_members.value),
+            extra_allowance: Number(formValues.extra_allowance.value)
         } 
         const result=await(postData('https://test-api.brightlife.org/brightlife/update/guardian/details',data,1))
         if(result?.data?.status){
@@ -49,7 +51,7 @@ export default function Gaurdian_details(props){
         }
         else{
             setStatus(result?.data?.status)
-            setMessage(result?.data?.error.message)
+            setMessage(result?.data?.error?.message)
         }            
     }
     const handleChange=(name,values,valid)=>{

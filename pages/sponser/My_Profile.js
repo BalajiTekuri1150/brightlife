@@ -26,7 +26,7 @@ const My_Profile=()=>
     const role=getLocalData("role");
     const [message,setMessage]=useState("")
     const [message1,setMessage1]=useState("")
-    const [selectedFile, setSelectedFile] = useState([]);
+    const [selectedFile, setSelectedFile] = useState(null);
     const [selectedImage, setSelectedImage] = useState(null);
     const [count,setCount]=useState(0);
 
@@ -286,38 +286,65 @@ const My_Profile=()=>
     {
         return item===true;
     }
+    // const form_data = new FormData();
     const updateProfile=async()=>
     {
         if(arr.every(check))
         {
-            const datafinal={
-                id:info.id,
-                user: {
-                    id:id,
-                    name: name,
-                    email:email,
-                    role: role
+            const formData=new FormData();
+            // console.log(id);
+            formData.append('id',info.id);
+            formData.append('user',{
+                id:id,
+                name: name,
+                email:email,
+                role: role,
+            });
+            formData.append('mobile',data.mobile.value);
+            formData.append('organization', data.organization.value)
+            formData.append('profile',selectedFile);
+            formData.append('source',"Turito")
+            formData.append('address',data.address.value)
+            formData.append('city',data.city.value)
+            formData.append('state',data.state.value)
+            formData.append('country',data.country.value)
+            formData.append('postal_code',data.pin.value)
+            // const JSONdata=JSON.stringify(formData);
+            await fetch("https://test-api.brightlife.org/brightlife/update/sponsor/profile",{
+                method:'POST',
+                headers:{
+                    // 'Content-Type': 'multipart/form-data;boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW',
+                    'Authorization':'token 2d21e847092508ace5f534ac492bf03cd742145a',
                 },
-                mobile:data.mobile.value,
-                organization: data.organization.value,
-                // profile:URL.createObjectURL(selectedImage),
-                source: "Turito",
-                address:data.address.value,
-                city: data.city.value,
-                state: data.state.value,
-                country:data.country.value,
-                postal_code:data.pin.value
-            }
-            const result=await(postData2("https://test-api.brightlife.org/brightlife/update/sponsor/profile",datafinal))
-            if(result?.data?.status==true)
-            {
-                setMessage1("Details Updated Successfully");
-            }
-            if(result?.data?.status==false)
-            {
-                console.log(result?.data?.error?.message)
-                setMessage(result?.data?.error?.message?.mobile);
-            }
+                body:formData,
+            })
+            // const datafinal={
+            //     id:info.id,
+            //     user: {
+            //         id:id,
+            //         name: name,
+            //         email:email,
+            //         role: role
+            //     },
+            //     mobile:data.mobile.value,
+            //     organization: data.organization.value,
+            //     source: "Turito",
+            //     address:data.address.value,
+            //     city: data.city.value,
+            //     state: data.state.value,
+            //     country:data.country.value,
+            //     postal_code:data.pin.value
+            // }
+            // const result=await(postData2("https://test-api.brightlife.org/brightlife/update/sponsor/profile",datafinal))
+            // if(result?.data?.status==true)
+            // {
+            //     setMessage1("Details Updated Successfully");
+            // }
+            // if(result?.data?.status==false)
+            // {
+            //     console.log(result?.data?.error?.message)
+            //     setMessage(result?.data?.error?.message?.mobile);
+            // }
         }
         else
         {
@@ -350,6 +377,33 @@ const My_Profile=()=>
     {
         setCount(0);
     }
+    const fileChange=async(e)=>{
+        setSelectedFile(e.target.files[0]);
+        // const formData=new FormData();
+        // formData.append('profile',e.target.files[0]);
+        // formData.append('id',info.id);
+        // formData.append('user',{
+        //     'id':id,
+        //     'name': name,
+        //     'email':email,
+        //     'role': role
+        // });
+        // formData.append('mobile',data.mobile.value);
+        // formData.append('organization', data.organization.value)
+        // formData.append('source',"Turito")
+        // formData.append('address',data.address.value)
+        // formData.append('city',data.city.value)
+        // formData.append('state',data.state.value)
+        // formData.append('country',data.country.value)
+        // formData.append('postal_code',data.pin.value)
+        // await fetch("https://test-api.brightlife.org/brightlife/update/sponsor/profile",{
+        //     method:'POST',
+        //     headers:{
+        //         Authorization:'token 2d21e847092508ace5f534ac492bf03cd742145a',
+        //     },
+        //     body:formData,
+        // });
+    }
     return(
         <div>
             <div className="container">
@@ -364,24 +418,15 @@ const My_Profile=()=>
                 <div className={style.side}>
                     <div className={style.card}>
                         <div style={{width:'30px'}}>
-                            {selectedImage && (
+                            <input type="file" onChange={fileChange}/>
+                            {selectedFile && (
                                 <div>
-                                <img alt="not fount" src={URL.createObjectURL(selectedImage)} width="100px" height="70px" style={{borderRadius:'100px',marginLeft:'30px'}}/>
+                                <img alt="not fount" src={URL.createObjectURL(selectedFile)} width="100px" height="70px" style={{borderRadius:'100px',marginLeft:'30px'}}/>
                                 <br />
-                                <button onClick={()=>setSelectedImage(null)} style={{marginLeft:'50px',marginTop:'10px'}}>Remove</button>
+                                <button onClick={()=>setSelectedFile(null)} style={{marginLeft:'50px',marginTop:'10px'}}>Remove</button>
                                 </div>
                             )}
                             <br /> 
-                            <div>
-                                <input
-                                    type="file"
-                                    name="myImage"
-                                    onChange={(event) => {
-                                    console.log(event.target.files[0]);
-                                    setSelectedImage(event.target.files[0]);
-                                    }}
-                                />
-                            </div>
                         </div>
                     </div><br/><br/> 
                 <div style={{marginLeft:'120px',color:'blue'}}>

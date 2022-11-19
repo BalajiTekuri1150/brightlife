@@ -11,6 +11,7 @@ import Router from "next/router";
 import logo from '../../public/fb.png';
 import { getLocalData } from "../../utils/storage_service";
 import { setLocalData } from "../../utils/storage_service";
+import { getData1 } from "../../utils/data_manage_service";
 const Final=()=>
 {
     
@@ -19,15 +20,15 @@ const Final=()=>
     const [coun,setCoun]=useState([]);
     const [conid,setconId]=useState(' ');
     const [st,setSt]=useState([]);
-    const[mon,setMon]=useState(" ");
-    const[gen,setGen]=useState(" ");
-    const[state,setState]=useState(" ");
-    const[age,setAge]=useState();
-    const[region,setRegion]=useState(" ");
-    const[income,setIncome]=useState(" ");
+    const [mon,setMon]=useState(" ");
+    const [gen,setGen]=useState("");
+    const [state,setState]=useState(" ");
+    const [age,setAge]=useState();
+    const [region,setRegion]=useState(" ");
+    const [income,setIncome]=useState('');
     const [posts,setPosts]=useState([]);
     const [count,setCount]=useState(0);
-    const [page,setPage]=useState(1);
+    const [page,setPage]=useState(6);
     useEffect(()=>{
         const getCountry=async()=>{
             const res=await fetch("https://test-api.brightlife.org/brightlife/list/countries",{headers:{"Authorization":"token 2d21e847092508ace5f534ac492bf03cd742145a"}});
@@ -95,43 +96,44 @@ const Final=()=>
     }
     const handleProfile=()=>
     {
-        // setLocalData("name",name);
-        // setLocalData("email",email);
-        // setLocalData("role",role);
         Router.push({
             pathname:'/sponser/My_Profile',
-            // query:{name:name,email:email,pass:pass,role:role,id:id},
         })
     }
-    const handleClear=()=>
+    const handleClear=(e)=>
     {
+        e.preventDefault()
         setCount(0);
-        setState("");
+        setState(" ");
         setGen("");
-        setAge("");
-        setIncome("");
-        setMon("");
+        setAge(" ");
+        setIncome(" ");
+        setMon(" ");
     }
     const handleSubmit=(e)=>
     {
         e.preventDefault();
-        setCount(count+1);
+        if(count==0)
+        {
+            setCount(count+2);
+        }
+        else{
+            setCount(count+1);
+        }
         setLocalData("state",state);
         setLocalData("mon",mon);
         setLocalData("gen",gen);
         setLocalData("income",income);
     }
-    const handleCount=()=>
+    const handleCount=(c)=>
     {
-        // setCount(2);
-        Router.push({
-            pathname:'/sponser/validate',
-        })
-    }
-    const handlePage=(e)=>
-    {
-        console.log(e.target.value);
-        setPage(e.target.value);
+        console.log(c);
+        setCount(c);
+        setState(" ");
+        setGen(" ");
+        setAge(" ");
+        setIncome(" ");
+        setMon(" ");
     }
     return( 
         <div>
@@ -160,7 +162,7 @@ const Final=()=>
                             }
 
                         </Form.Control>
-                        <Form.Control as="select" className={style.sponser_input} placeholder="Birth Month" onClick={handleMonth}>
+                        <Form.Control as="select" value={mon} className={style.sponser_input} placeholder="Birth Month" onChange={handleMonth}>
                             <option value=" ">SELECT MONTH</option>
                             <option value="JAN">JANUARY</option>
                             <option value="feb">FEBRUARY</option>
@@ -175,18 +177,18 @@ const Final=()=>
                             <option value="NOV">NOVEMBER</option>
                             <option value="DEC">DECEMBER</option>
                         </Form.Control>
-                        <Form.Control as="select" className={style.sponser_input} onClick={handleGender}>
-                            <option value=" ">SELECT GENDER</option>
+                        <Form.Control as="select" value={gen} className={style.sponser_input} onChange={handleGender}>
+                            <option value=' '>SELECT GENDER</option>
                             <option value="Male">MALE</option>
                             <option value="Female">FEMALE</option>
                         </Form.Control>
-                        <Form.Control as="input" className={style.sponser_input} placeholder="AGE" onChange={handleAge}/>
+                        <label style={{marginTop:'8px'}}>AGE:</label><Form.Control as="input" className={style.sponser_input} value={age} placeholder="AGE" onChange={handleAge}/>
                     </div>
                 </Form.Group><br/>
                 <Form.Group>
                     <div style={{display:'flex'}}>
-                        <Form.Control as="select" style={{width:'300px',marginLeft:'10px',marginRight:'10px'}} onClick={handleState}>
-                            <option value=" ">-----SELECT STATE-------</option>
+                        <Form.Control as="select" value={state} style={{width:'300px',marginLeft:'10px',marginRight:'10px'}} onChange={handleState}>
+                            <option value="">-----SELECT STATE-------</option>
                             {
                                 st.length>0 &&
                                 st.map((resst)=>{
@@ -195,18 +197,16 @@ const Final=()=>
                             }
                         </Form.Control>
                         <Form.Control as="input" className={style.sponser_input} placeholder="REGION" onChange={handleRegion}/>
-                        <Form.Control as="input" className={style.sponser_input} placeholder="FAMILY INCOME" onChange={handleIncome}/>
+                        <label style={{marginTop:'8px'}}>INCOME:</label><Form.Control as="input" className={style.sponser_input} placeholder="FAMILY INCOME" value={income} onChange={handleIncome}/>
                     </div>
                 </Form.Group><br/>
                 <Form.Group style={{marginLeft:'350px'}}>
                     <Button variant="primary" type="submit" style={{marginRight:'50px'}} size="lg" onClick={handleSubmit}>Search</Button>{' '}
-                    <Button variant="secondary" type="submit" size="lg" active onClick={handleClear}>Clear All</Button>
+                    <Button variant="secondary" type="submit" size="lg" onClick={handleClear}>Clear All</Button>
                 </Form.Group>
             </Form><br/><br/>
-            {/* <button className="btn btn-success" onClick={handleCount}>Sort By Newest</button> */}
-            <Child_Card count={count}/>
-            {/* <input type="button" value="1" onClick={handlePage}/>
-            <input type="button" value="2" onClick={handlePage}/> */}
+            {/* <button className="btn btn-success" onClick={handleCount}>Sort By Oldest</button> */}
+            <Child_Card count={count} HandleSort={handleCount}/>
             </div>
         </div>
     )

@@ -1,6 +1,6 @@
 import { useState,useEffect} from "react"
 import { useRouter } from "next/router"
-import { getLocalData } from "../../utils/storage_service"
+import { getLocalData, setLocalData } from "../../utils/storage_service"
 import { postData,getData} from "../../utils/data_manage_service"
 import Input from "./input_compent"
 import Link from "next/link"
@@ -54,10 +54,10 @@ export default function Kids_details(props){
             formData.append(" guardian_id",guardian_id); 
             result=await(postData('https://test-api.brightlife.org/brightlife/add/application/profile',formData,1,1))
             application_number=result?.data?.response?.data?.id
+            setLocalData("appicatio_id",result?.data?.response?.data?.id)
         }
         else{
             formData.append("id",application_number)
-            console.log(formData.get("mobile"))
             result=await(postData('https://test-api.brightlife.org/brightlife/update/application/profile',formData,1,1))
         }
         if(result?.data?.status){

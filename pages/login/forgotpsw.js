@@ -2,6 +2,7 @@ import {AiOutlineMail} from "react-icons/ai";
 import {useRouter} from "next/router";
 import { useState } from "react";
 import { postData } from "../../utils/data_manage_service";
+import { setLocalData } from "../../utils/storage_service";
 export default function Forgotpsw()
 {
     const router = useRouter();
@@ -26,9 +27,11 @@ export default function Forgotpsw()
             setStatus(result?.data?.status)
             if(result?.data?.status){
                 setMessage(result?.data?.response?.message) 
+                setLocalData("email",e.target.email.value)
+                setLocalData("refid",result.data.response.referrence_id)
                 router.push({ 
                     pathname: '/login/enterotp',
-                    query: { email:e.target.email.value,context:data.context,refid:result.data.response.referrence_id}
+                    query: { context:data.context}
                 })
             }
             else{

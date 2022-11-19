@@ -3,12 +3,13 @@ import { postData ,getData} from "../../utils/data_manage_service"
 import Input from "./input_compent"
 import Link from "next/link"
 import { useRouter } from "next/router"
+import { getLocalData } from "../../utils/storage_service"
 export default function Education_details(props){
-    let value="",isvalid=false,isFormValid
+    let value="",isvalid=false
     const [message,setMessage]=useState("")
     const [status,setStatus]=useState(true)
     const router=useRouter()
-    const application_number=router.query.application_id
+    const application_number=router.query.appication_id || getLocalData("appication_id")
     const [formValues,setFormValues]=useState({
         grade:{value,isvalid},
         school:{value,isvalid},
@@ -57,12 +58,11 @@ export default function Education_details(props){
             props.screenvalue()
         }
         else{
-            setDisable(false)
             setStatus(result?.data?.status)
             setMessage(result?.data?.error?.message)
         }            
     }
-    isFormValid=Object.keys(formValues).every((key)=>{
+    const isFormValid=Object.keys(formValues).every((key)=>{
         return formValues[key].isvalid
     })
     return(

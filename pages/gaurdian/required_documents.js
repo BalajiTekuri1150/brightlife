@@ -8,6 +8,7 @@ let number_of_documents=0,document_type
 export default function Required_documents(props){
     const router=useRouter()
     const application_number=router.query.application_id
+    const [message,setMessage]=useState("")
     let value=0,isvalid=false
     const [disable,setDisable]=useState(true)
     const token=getLocalData("token")
@@ -29,51 +30,54 @@ export default function Required_documents(props){
         }
     },[]);
     const handleChange=async(e)=>{
-        if(e.target.value===""){
-            if(number_of_documents==0){
-                number_of_documents=0
-            }else{
-                number_of_documents=number_of_documents-1
+        const file_type=e.target.value.split(".")[1]
+        if(["png","jpeg","pdf","jpg"].includes(file_type)){
+            setMessage("")
+            if(e.target.value===""){
+                if(number_of_documents==0){
+                    number_of_documents=0
+                }else{
+                    number_of_documents=number_of_documents-1
+                }
+                if(number_of_documents<3){
+                    setDisable(true)
+                }
+                setFormValues({...formValues,[e.target.name]:{value:0,isvalid:false}})
+                // const result=await(postData('https://test-api.brightlife.org/brightlife/remove/application/documents',ids))
             }
-            if(number_of_documents<3){
-                setDisable(true)
+            else{
+                if(!formValues[e.target.name]?.isvalid){
+                    number_of_documents+=1
+                }
+                if(number_of_documents>=3){
+                    setDisable(false)
+                }
+                setFormValues({...formValues,[e.target.name]:{value:e.target.files[0],isvalid:true}})
+                const result=await(getData("https://test-api.brightlife.org/brightlife/list/document/types")) 
+                for (let i = 0; i < result?.data?.response?.data?.length; i++) {
+                    if(result?.data?.response?.data[i].name==e.target.name){
+                        document_type=result?.data?.response?.data[i]?.id
+                    }
+                }
+                const formData = new FormData()
+                formData.append("application", application_number);
+                formData.append("seq_no", number_of_documents);
+                formData.append("url", e.target.files[0]);
+                formData.append("file_type", file_type[file_type.length-1]);
+                formData.append("document_type",document_type);
+                axios({
+                    method: "POST",
+                    url: "https://test-api.brightlife.org/brightlife/add/application/documents",
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        'Authorization': "token "+token
+                    },
+                    data: formData
+                })            
             }
-            console.log(number_of_documents)
-            setFormValues({...formValues,[e.target.name]:{value:0,isvalid:false}})
-            // const result=await(postData('https://test-api.brightlife.org/brightlife/remove/application/documents',ids))
         }
         else{
-            if(!formValues[e.target.name]?.isvalid){
-                number_of_documents+=1
-            }
-            if(number_of_documents>=3){
-                setDisable(false)
-            }
-            console.log(number_of_documents)
-            setFormValues({...formValues,[e.target.name]:{value:e.target.files[0],isvalid:true}})
-            const file_type=e.target.value.split(".")
-            const result=await(getData("https://test-api.brightlife.org/brightlife/list/document/types")) 
-            for (let i = 0; i < result?.data?.response?.data?.length; i++) {
-                if(result?.data?.response?.data[i].name==e.target.name){
-                    document_type=result?.data?.response?.data[i]?.id
-                }
-            }
-            const formData = new FormData()
-            formData.append("application", application_number);
-            formData.append("seq_no", number_of_documents);
-            formData.append("url", e.target.files[0]);
-            formData.append("file_type", file_type[file_type.length-1]);
-            formData.append("document_type",document_type);
-            // await(postData("https://test-api.brightlife.org/brightlife/add/application/documents",formData,1,1))
-            axios({
-                method: "POST",
-                url: "https://test-api.brightlife.org/brightlife/add/application/documents",
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    'Authorization': "token "+token
-                },
-                data: formData
-            })            
+                setMessage("Only .png .jpeg .jpg .pdf files are accepted")
         }
     }
     const handleSubmit=(e)=>{
@@ -125,6 +129,7 @@ export default function Required_documents(props){
                             <input className="form-control form-control-sm"  name="report_card" type="file" onChange={handleChange}/>
                         </div>
                     </div>
+                    <p className="text-danger">{message}</p>
                     <div className="row">
                         <button type="submit" className="btn btn-primary mx-5 col-2" disabled={disable} >Save&Continue</button>
                         <Link href="/gaurdian/gaurdian_dashboard"><button type="button" className="btn btn-secondary col-2 mx-5 " >Exit</button></Link>
