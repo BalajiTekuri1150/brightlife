@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="57" height="57" viewBox="0 0 57 57">
+    <defs>
+        <filter id="y951orieta" x="0" y="0" width="57" height="57" filterUnits="userSpaceOnUse">
+            <feOffset dy="3"/>
+            <feGaussianBlur stdDeviation="3" result="blur"/>
+            <feFlood flood-opacity=".071"/>
+            <feComposite operator="in" in2="blur"/>
+            <feComposite in="SourceGraphic"/>
+        </filter>
+    </defs>
+    <g style="filter:url(#y951orieta)">
+        <circle data-name="Ellipse 10" cx="19.5" cy="19.5" r="19.5" transform="translate(9 6)" style="fill:#fff"/>
+    </g>
+    <path data-name="Path 43" d="M15.568 0 7.784 7.784 0 0" transform="rotate(90 7.392 25.133)" style="fill:none;stroke:#808082;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px"/>
+</svg>

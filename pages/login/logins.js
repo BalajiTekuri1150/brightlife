@@ -3,7 +3,8 @@ import Link from "next/link";
 import { useState } from "react"
 import { useRouter } from "next/router";
 import { setLocalData } from "../../utils/storage_service";
-import { postData } from "../../utils/data_manage_service"
+import { postData } from "../../utils/data_manage_service";
+import Head from 'next/head';
 export default function Login()
 {
     const router = useRouter();
@@ -26,6 +27,7 @@ export default function Login()
                 setMessage("Login successful")
                 setLocalData("token",result.data.token)
                 setLocalData("user_id",result?.data?.response?.user?.id)
+                setLocalData("id",result?.data?.response?.user?.id)
                 if(result?.data?.response?.user?.role==="sponsor")
                 {
                     router.push({ 
@@ -76,7 +78,37 @@ export default function Login()
     }
     return(
         <>
-            <h3 className="mb-4 pt-5 font-monospace text-center">bright life</h3>
+            <Head>
+                <title>Brightlife</title>
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+                <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+            </Head>
+             <div className="sign-bg">
+                <img src="/img/signin-bg.jpg" alt="" className="bg" />
+            </div>
+            <div className="sign-container">
+                <a href="index.html"> <div className="sign-logo"> <img src="/img/logo.png" alt="Bright Life" /></div></a>
+                <div className="sign-in-block">
+                    <h3>Sign In</h3>
+                    <p>To your Bright life account</p>
+                    <form onSubmit={handleSubmit}>
+                        <div className="form-group">
+                            <label htmlFor="exampleInputEmail1"><img src="/img/email-icon.svg" className="lab-icon" />Email</label>
+                            <input type="email" name="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="enter e-mail address" disabled={disable} onChange={handleChange}/>
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="exampleInputPassword1"><img src="/img/pass-lock-icon.svg" className="lab-icon" />Password</label>
+                            <input className="form-control" name="password" id="exampleInputPassword1" placeholder="enter your password" type={passwordShown ? "text" : "password"} disabled={disable} onChange={handleChange}/>
+                            <i className="eye-icon"><img src="/img/eye-icon.svg" /></i>
+                        </div>
+                        <div className="forgot-txt"><Link href="/login/forgotpsw">Forgot Password?</Link></div>
+                        {status?<p className="text-success text-bold">{message}</p>:<p className="text-danger text-bold">{message}</p>}
+                        <p><button type="submit" className="btn sign-btn btn btn-success" disabled={disable}>Sign In</button></p>
+                        <p>Not a member?<Link ClassName="text-primary" href="/">Sign Up</Link></p> 
+                    </form>
+                </div>
+            </div>
+            {/* <h3 className="mb-4 pt-5 font-monospace text-center">bright life</h3>
             <div className="d-flex justify-content-center pb-5">
                 <form className="bg-light px-4 pt-5" onSubmit={handleSubmit}>
                     <h1 className="h3 mb-2 font-monospace text-center ">Sign in</h1>
@@ -119,7 +151,7 @@ export default function Login()
                     <br/>
                     <p className="text-center py-3">Not a member?<Link ClassName="text-primary" href="/">Sign UP</Link></p>
                 </form>
-            </div>
+            </div> */}
         </>
     )
 }

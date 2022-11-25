@@ -25,6 +25,7 @@ const Role=()=>
     },[]);
     const handleRadio=(e)=>
     {
+        console.log(e.target.value);
         setDisable(false);
         setRole(e.target.value);
         setMessage("");
@@ -82,34 +83,66 @@ const Role=()=>
         }
     }
     return(
-        <div>
-            <form className={style.forming}>
-                <br/><br/><h2 style={{marginLeft:'50px'}}>Select Category you belong to</h2> 
-                <label style={{marginLeft:'60px',fontSize:'15px',color:'gray'}}>Please note that it is one time selection,you will</label><br/>
-                <label style={{marginLeft:'90px',fontSize:'15px',color:'gray'}}>be able to change your category later</label><br/><br/>
-                <div className="form-group">                    
-                    <div className={style.inputbox}><input type="radio" value={post[1]?.role} name="role" onChange={handleRadio} checked={role===post[1]?.role}/><label style={{marginLeft:'20px'}}>Sponser</label></div>
-                </div>
-                <div>
-                    <div className={style.inputbox}><input type="radio" value={post[2]?.role} name="role" onChange={handleRadio} checked={role===post[2]?.role}/><label style={{marginLeft:'20px'}}>Guardian,Volunteer applying for scholarship</label></div>
-                </div>
-                <div>
-                    <div className={style.inputbox}><input type="radio" value={post[3]?.role} name="role" onChange={handleRadio} checked={role===post[3]?.role}/><label style={{marginLeft:'20px'}}>Kid Applying For Scholarship</label></div>
-                </div>
-                <div style={{color:'red'}}>{message}</div>
-                <button className='btn-success' 
-                            style={{marginLeft:'140px',
-                            width:'180px',
-                            height:'40px',
-                            borderRadius:'5px',
-                            backgroundColor:'lightseagreen '}}
-                            onClick={handleSubmit}
-                            disabled={disable}
-                            >
-                            continue
-                </button><br/><br/>
-            </form>
+        <>
+            <div className="sign-bg">
+          <img src="/img/signin-bg.jpg" alt="" className="bg" />
         </div>
+        <div className="sign-container">
+          <div className="sign-logo"> <img src="/img/logo.png" alt="Bright Life" /></div>
+          <div className="sign-in-block">
+            <h3>Select a category you belong to</h3>
+            <p>Please note that this is a one time selection, you will not be able to change your category later.</p>
+            <form>
+              <div className="radio-wrapper">
+                <input type="radio" name="select" value={post[1]?.role} onChange={handleRadio} id="option-1" />
+                <input type="radio" name="select" value={post[2]?.role} onChange={handleRadio} id="option-2" />
+                <input type="radio" name="select" value={post[3]?.role} onChange={handleRadio} id="option-3" />
+                <label htmlFor="option-1" className="option option-1">
+                  <div className="dot" />
+                  <span>Sponsor</span>
+                </label>
+                <label htmlFor="option-2" className="option option-2">
+                  <div className="dot" />
+                  <span>Guardian, Volunteer applying for scholarships</span>
+                </label>
+                <label htmlFor="option-3" className="option option-3">
+                  <div className="dot" />
+                  <span>Kid applying for a scholarship</span>
+                </label>
+              </div>
+              <p><button type="submit" className="btn sign-btn btn-success" onClick={handleSubmit} disabled={disable}>Continue</button></p>
+            </form>
+          </div>
+        </div>
+        </>
+        // <div>
+        //     <form className={style.forming}>
+        //         <br/><br/><h2 style={{marginLeft:'50px'}}>Select Category you belong to</h2> 
+        //         <label style={{marginLeft:'60px',fontSize:'15px',color:'gray'}}>Please note that it is one time selection,you will</label><br/>
+        //         <label style={{marginLeft:'90px',fontSize:'15px',color:'gray'}}>be able to change your category later</label><br/><br/>
+        //         <div className="form-group">                    
+        //             <div className={style.inputbox}><input type="radio" value={post[1]?.role} name="role" onChange={handleRadio} checked={role===post[1]?.role}/><label style={{marginLeft:'20px'}}>Sponser</label></div>
+        //         </div>
+        //         <div>
+        //             <div className={style.inputbox}><input type="radio" value={post[2]?.role} name="role" onChange={handleRadio} checked={role===post[2]?.role}/><label style={{marginLeft:'20px'}}>Guardian,Volunteer applying for scholarship</label></div>
+        //         </div>
+        //         <div>
+        //             <div className={style.inputbox}><input type="radio" value={post[3]?.role} name="role" onChange={handleRadio} checked={role===post[3]?.role}/><label style={{marginLeft:'20px'}}>Kid Applying For Scholarship</label></div>
+        //         </div>
+        //         <div style={{color:'red'}}>{message}</div>
+        //         <button className='btn-success' 
+        //                     style={{marginLeft:'140px',
+        //                     width:'180px',
+        //                     height:'40px',
+        //                     borderRadius:'5px',
+        //                     backgroundColor:'lightseagreen '}}
+        //                     onClick={handleSubmit}
+        //                     disabled={disable}
+        //                     >
+        //                     continue
+        //         </button><br/><br/>
+        //     </form>
+        // </div>
     );
 }
 export default Role;

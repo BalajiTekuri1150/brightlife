@@ -85,6 +85,7 @@ const My_Profile=()=>
                 country:{value:getpofiledata.response?.sponsor?.country},
                 pin:{value:getpofiledata.response?.sponsor?.postal_code},
             })
+            // setSelectedFile(getpofiledata.response?.sponsor?.profile);
             setUname(getpofiledata.response?.sponsor?.user?.name);
             setLocalData("sponser_id",getpofiledata.response?.sponsor?.id);
         }
@@ -177,7 +178,7 @@ const My_Profile=()=>
                 isVal:isVal,
             }
         })
-        console.log(error);
+        // console.log(error);
         if(name==="fname" && error==false)
         {
             setOne(false);
@@ -292,15 +293,15 @@ const My_Profile=()=>
         if(arr.every(check))
         {
             const formData=new FormData();
-            // console.log(id);
+            console.log(info.id);
             formData.append('id',info.id);
-            formData.append('user',{
-                id:id,
-                name: name,
-                email:email,
-                role: role,
-            });
-            formData.append('mobile',data.mobile.value);
+            formData.append('user',JSON.stringify({
+                'id':id,
+                'name': name,
+                'email':email,
+                'role': role,
+            }))
+            formData.append('mobile',data.mobile.value)
             formData.append('organization', data.organization.value)
             formData.append('profile',selectedFile);
             formData.append('source',"Turito")
@@ -379,30 +380,6 @@ const My_Profile=()=>
     }
     const fileChange=async(e)=>{
         setSelectedFile(e.target.files[0]);
-        // const formData=new FormData();
-        // formData.append('profile',e.target.files[0]);
-        // formData.append('id',info.id);
-        // formData.append('user',{
-        //     'id':id,
-        //     'name': name,
-        //     'email':email,
-        //     'role': role
-        // });
-        // formData.append('mobile',data.mobile.value);
-        // formData.append('organization', data.organization.value)
-        // formData.append('source',"Turito")
-        // formData.append('address',data.address.value)
-        // formData.append('city',data.city.value)
-        // formData.append('state',data.state.value)
-        // formData.append('country',data.country.value)
-        // formData.append('postal_code',data.pin.value)
-        // await fetch("https://test-api.brightlife.org/brightlife/update/sponsor/profile",{
-        //     method:'POST',
-        //     headers:{
-        //         Authorization:'token 2d21e847092508ace5f534ac492bf03cd742145a',
-        //     },
-        //     body:formData,
-        // });
     }
     return(
         <div>

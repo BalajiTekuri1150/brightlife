@@ -1,5 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../styles/globals.css";
+import "../styles/global.scss";
 // import Footer from "../pages/footers"
 import { useEffect } from "react";
 
@@ -9,7 +9,6 @@ function MyApp({ Component, pageProps }) {
   }, []);
 
   return <Component {...pageProps} />
-  {/* <Footer/></>; */}
 }
 
 export default MyApp;

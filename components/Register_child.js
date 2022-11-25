@@ -23,7 +23,7 @@ const Register_child=(props)=>
     }
     return(
         <div>
-            <input type={props.type} value={props.value} name={props.name} onChange={onHandle} className="form-control" />
+            <input type={props.type} value={props.value} name={props.name} onChange={onHandle} className="form-control" placeholder={props.placeholder}/>
             {/* {error ? <p style={{color:'green'}}>Valid {props.name}</p>:<p style={{color:'red'}}>InValid {props.name}</p>} */}
         </div>
     );
