@@ -104,7 +104,7 @@ export default function Login()
                         <div className="forgot-txt"><Link href="/login/forgotpsw">Forgot Password?</Link></div>
                         {status?<p className="text-success text-bold">{message}</p>:<p className="text-danger text-bold">{message}</p>}
                         <p><button type="submit" className="btn sign-btn btn btn-success" disabled={disable}>Sign In</button></p>
-                        <p>Not a member?<Link ClassName="text-primary" href="/">Sign Up</Link></p> 
+                        <p>Not a member?<Link ClassName="text-primary" href="/register/Register_Page">Sign Up</Link></p> 
                     </form>
                 </div>
             </div>

@@ -100,6 +100,7 @@ header .navbar {
   text-align: center;  
   color:#fff;
   border-radius:4;
+  margin-top:10px;
 }   
 .signin-button:hover{
    color:#fff;   
@@ -108,6 +109,56 @@ header .nav-item .nav-link  {
     color:#fff;
     font-size:22px;
 }  
+/* header user icon dropsoen */
+.user-image{
+  padding-left:40px;
+  margin-top: 11px;
+}
+.dropdown-nav img{
+  width:20px;
+  margin-right:21px;
+}
+
+.dropdown-nav a{
+  /* font-family: OpenSans; */
+  font-size: 16px;
+  font-weight: normal; 
+  text-align: left;
+  color: #6e6e6e;
+}
+.user-image .user-image-header{
+  margin-right:8px;
+  height:40px;
+  width:40px;
+  border-radius: 50%;
+}
+.user-image i{
+  margin-left:18px;
+}
+.dropdown-nav {
+display: none;
+	
+	position: absolute;
+	z-index: 1;
+  width: 300px;
+  height: 181px;  
+  
+  border-radius: 6px;
+  box-shadow: 0 0 30px 0 rgba(145, 145, 145, 0.42);
+  border: solid 1px #ebebeb;
+  background-color: #fff;
+  right:0;
+}
+.dropdown-nav li{
+  margin:0 !important;
+  padding:17px 20px;
+  border-bottom:1px solid #eee; 
+}
+
+.dropdown:hover .dropdown-nav {
+		display: block;
+		box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+	}
 .border_bottom {
     border-bottom:1px solid rgba(255,255,255, 0.3);
     padding:0 0 5px 0;
@@ -124,17 +175,18 @@ header .nav-item .nav-link  {
   color:#fff;
   background:#6c5eff;
   border-radius:4;
+  margin-top: 10px;
 }
 .Signup-button:hover{     
   color:#fff;
 }
 header .navbar-nav li:first-child{
     margin-right:30px;
-    margin-top:3px;
+    margin-top:15px;
 }
 header .navbar-nav li:nth-child(2){
     margin-right:30px;
-    margin-top:3px;
+    margin-top:15px;
 }
 /* header css end */
 
@@ -279,13 +331,6 @@ header .navbar-nav li:nth-child(2){
     list-style: none;
     padding: 0;
     margin: 0;
-  }
-  
-  #footer .footer-top .footer-links ul i {
-    padding-right: 2px;
-    color: #47b2e4;
-    font-size: 18px;
-    line-height: 1;
   }
   
   #footer .footer-top .footer-links ul li {
@@ -884,595 +929,1829 @@ header .navbar-nav li:nth-child(2){
  #option-3:checked:checked ~ .option-3 span{
    color: #2aaca8;
  }
-.radio-wrapper ~ p{text-align: center;}
-    
-  
+.radio-wrapper ~ p{text-align: center;} 
    /* Sing in and Signup end Here */
+ /* out teams page start   */
+ .page_start_warpper{
+  padding-top:90px;
+ }
+ .our-teams{
+  margin-top:83px;
+ }
+ #teamsslider .slick-list{
+  padding:0 !important ;
+ }
+ .teams-des{
+  width: 981px;  
+  font-size: 18px;
+  font-weight: normal; 
+  text-align: center;
+  color: #6e6e6e;
+  margin: 0 auto;
+ }
+ .our-teams .section-title{
+  margin-bottom:15px;
+ }
+ #teamsslider{
+  margin-top:108px;
+ }
+ #teamsslider .img-box{
+  text-align: center;
+  height: 140px;
+  overflow: hidden;
+ }
+ #teamsslider .img-box img{
+  height: 140px;
+  margin:0 auto;
+ }
+ .team-name {
+  font-size: 24px;
+  font-weight: normal;
+  text-align: left;
+  color: #2a2a2a;
+  text-align: center;
+  margin-top: 28px;
+}
+.team-role {
+  margin-top: 12px;
+  font-size: 18px;
+  font-weight: normal;
+  text-align: left;
+  color: #6e6e6e;
+  text-align: center;
+}
+.team-desp{ 
+    font-size: 16px;
+    font-weight: normal;
+    color: #6e6e6e;
+    text-align: center;
+    margin-top: 23px;
+    line-height: 1.56;
+    padding: 0px 30px;
+}
+.teams-social span{
+  padding-right:14px;  
+}
+.teams-social{
+  margin:19px 0 19px 0px;
+}
+.our-teams .carousel-control-prev {
+  width: 40px;
+  height: 40px;
+  top: 100%;
+  background: none;
+  left: 44%;
+}
+.our-teams .carousel-control-next {
+  width: 40px;
+  height: 40px;
+  top: 100%;
+  background: none;
+  right: 44%;
+}
+.our-teams .team-indicator {
+  margin-bottom: 50px;
+}
+.teams-aboutus{
+  background-color:#f9f9f9;
+  margin-top:110px;
+}
+.about-head{
+  font-size: 43px;
+  font-weight: normal; 
+  text-align: left;
+  color: #00000b;
+  margin-top:97px;
+}
+.about-head span{
+  font-weight:600;
+}
+.teams-aboutus p{ 
+  font-size: 18px;
+  font-weight: normal;
+  line-height: 1.39;
+  text-align: left;
+  color: #6e6e6e;
+  margin-bottom:25px;
+}
+/* .teams-aboutus img{
+  margin-left:158px;
+  width: 777px;
+  height: 557px;
+} */
+ .slick-next:before {
+  font-size:50px;
+  color:#ddd;
+}
+.slick-prev:before {
+  font-size:50px;
+  color:#ddd;
+}
+.slick-prev {
+  left: 45%;
+  bottom: 0px;
+}
+.slick-next {
+  right: 45%;
+}
+.slick-prev, .slick-next {
+  top: 106%;
+}
+.teams-row {
+  display: flex;
+  width: 100%;
+}
+.teams-row .col-lg-6{  
+  text-align: right;
+  padding-right: 0;
+}
+.teams-left{
+  width:60%;
+  padding-left: 17.3%;
+}
+.teams-right{
+  width:40%;
+}
+  /* out teams page end   */
 
-   /*Responsive Design*/
+  /* how it works start */
+  .howitwork-bg{
+    background-image: url("/img/howitworksbanner.png");
+    background-repeat: no-repeat, repeat;
+   position: relative;    
+   height: 300px;
+  }
+  .howitwork-ban{
+    position: absolute;
+    top: 50%;  
+    left: 50%; 
+    transform: translate(-50%, -50%);
+    text-align: center;  
+    
+  }
+  .howitwork-ban h4{  
+  font-size: 43px;
+  font-weight: bold;  
+  color: #fff;
+  }
+  .howitwork-ban p{  
+    font-size: 18px;
+    font-weight: normal;    
+    color: #fff;
+    margin-top:20px;
+    }
+   
+  .work-steps .step-num{
+    opacity: 0.1;
+  font-size: 300px;
+  font-weight: bold;  
+  color: #6c5eff;
+  text-align: right;
+  }  
+  .work-steps2{
+   background: #f9f9f9;
+  } 
+  .work-steps2 .step-num{
+    opacity: 0.1;
+  font-size: 300px;
+  font-weight: bold;  
+  color: #6c5eff;
+  text-align: left;
+  } 
+  .work-content h4{
+    font-size: 40px;
+    font-weight: bold;    
+    color: #2a2a2a;
+    padding-top:170px;
+  }
+  .work-content p{
+    font-size: 20px;
+  font-weight: normal;  
+  line-height: 1.5;  
+  color: #808082;
+  }
+  .sponsor-row{
+    display: flex;
+    width: 100%;
+      }
+  .sponsor-row .spons-leftcard{
+    width:60%;
+    height: auto;
+    background-image: url("/img/spons-leftcard-bg.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-left: 17.3%;
+  }
+ 
+  .sponsor-row .spons-rightcard{
+    width:40%;
+  }
+  .spons-title{
+    font-size: 43px;
+  font-weight: normal;  
+  color: #2a2a2a; 
+  padding-top:42px;
+ }
+  .spons-title span{   
+    font-weight: bold;   
+    color: #2a2a2a;
+  }
+  .spons-leftcard p{
+    font-size: 20px;
+  font-weight: normal; 
+  color: #6e6e6e;
+  margin-top:22px;
+  margin-bottom: 16px;
+  }
+  .spons-leftcard h4{
+    font-size: 24px;
+  font-weight: normal;  
+  text-align: left;
+  color: #2a2a2a;
+  margin:8px 0 20px 0;  
+  }
+  .sponsorship-section li {
+    position: relative;
+    padding-left: 1.5em; 
+    font-size: 20px;
+    font-weight: 600;  
+    font-style: normal;
+    text-align: left;
+    color: #6e6e6e;
+    margin-bottom:20px;
+  }
+  .sponsorship-section li:before {
+    content: ''; 
+    position: absolute;
+    left: 0; 
+    width: 1em;
+    height: 1em;
+    background: url("/img/tick.svg") no-repeat;
+    margin-top:10px;
+  }
+  .work-steps .col-lg-6, .work-steps2 .col-lg-6{
+    padding-left:0;
+    padding-right:0;
+  }
+ .commitments .custom-container{
+  font-size: 26px;
+  font-weight: 600; 
+  font-style: normal; 
+  text-align: center;
+  color: #55a505; 
+  margin:74px auto 257px auto;  
+ }
+ /* sponsor section start */
+ .sponsor-section{
+  margin-top:150px;
+ }
+ .sponsor-card{
+    border-radius: 8px;
+    box-shadow: 0 0 30px 0 rgba(108, 94, 255, 0.17);
+    background-color: #fff;
+    padding:50px;
+    text-align: center;
+    margin-bottom: 96px;
+ }
+ .sponsor-card .spon-title{
+  font-size: 30px;
+  font-weight: bold;  
+  color: #2a2a2a;
+ }
+ .sponsor-card p{
+  font-size: 18px;
+  font-weight: normal;
+  color: #6e6e6e;
+ }
+ .card-sec{
+  margin-top:105px;
+ }
+ .card-steps{
+  margin-top:34px;
+ }
+ .spon-step-des{
+  font-size: 16px;
+  font-weight: normal; 
+  text-align: center;
+  color: #6e6e6e;
+  margin-top:5px;
+ }
+ .sponsor-card .spon-count{
+  padding:0 32px;
+ }
+ .sponsor-card .width-50-per{
+  width:50%;
+ }
+ .sponsor-card .d-flex{
+  margin-bottom:47px;
+ }
+ .sposor-btn{
+  margin-top:40px;
+  margin-bottom:20px;
+ }
+ .sposor-btn a{
+  margin-top:40px;
+  padding: 18px 96px;
+  border-radius: 4px;
+  box-shadow: 0 0 20px 0 rgba(108, 94, 255, 0.38);
+  background-color: #6c5eff;
+  color:#fff;
+ }
+ .donar .spon-count{  
+  margin:auto auto  47px auto;
+  text-align:center;
+ }
+ /* make a donation start */
+ .make-donation-bg{  
+    background-image: url("/img/make-donation-bg.png");
+    background-repeat: no-repeat, repeat;
+   position: relative;    
+   height: 300px;
+  }
+  .makedonation-ban{
+    position: absolute;
+    top:30%;
+  }
+  .makedonation-ban .make-title{  
+  font-size: 43px;  
+  color: #fff;
+  }
+  .makedonation-ban .make-title span{  
+    font-weight: 600;
+    }
+  .makedonation-ban p{  
+    font-size: 18px;
+    font-weight: normal;
+    color: #fff;
+    margin-top: 18px;
+    width: 70%;
+    }
+   .donateform-card{
+    padding:40px;
+    border-radius: 6px;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.16);
+    background-color: #fff;
+    margin-top:-30px;
+    position: relative;
+    margin-bottom:56px;
+   } 
+   .donateform-card img{
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.16);
+   }
+   .card-colum{
+    display: flex;
+    width: 100%;
+   }
+   .card-colum:first-child{
+    width:40%;
+   }
+   .card-colum:nth-child(2){
+    width:60%;
+   }
+   .doante-q{
+    font-size: 20px;
+    font-weight: normal; 
+    text-align: left;
+    color: #2a2a2a;
+    margin-bottom:24px !important;
+  }
+  .form-length select{
+    width:288px;
+    margin-bottom: 37px;
+  }
+  .selected-active{
+    color:#6c5eff;
+    border-color: #6c5eff;
+  }
+  .form-length {
+    margin-top:60px;
+  } 
+  .dontate-amount{
+    width: 100px;
+    height: 40px;  
+    font-size: 14px;
+    border-radius: 4px;
+    border: solid 1px #c1c1c1;
+    background-color: #fff;
+    text-align: center;
+   line-height: 40px;
+   font-weight: 600;
+   color:#6e6e6e;
+   margin-right:20px;
+   margin-bottom: 20px;
+  }
+  .amount-active{
+    border: solid 1px #6c5eff;
+    color:#6c5eff;
+  }
+  .pay-btn{
+    width: 288px;
+    height: 50px;    
+    border-radius: 4px;
+    box-shadow: 0 0 20px 0 rgba(108, 94, 255, 0.38);
+    background-color: #6c5eff;
+    color:#fff;
+    font-size: 18px;
+    font-weight: normal;
+    padding:13px  84px;       
+  }
+  .proceed-to-pay{
+    margin-top:47px;  
+  }
+  .specific-amount input{
+    width:230px;
+    height:40px;
+  }
+  .note-text{
+    font-size: 18px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.67;
+    letter-spacing: normal;
+    text-align: center;
+    color: #6e6e6e;
+    margin-top:38px;
+    padding:0 150px;
+  }
+  
 
-   @media screen and (max-width: 1680px){
-    .banner-section .carousel-inner {
-        height: 660px;
-    }
-    header .nav-item .nav-link {        
-        font-size: 20px;
-    }
-    .sponsored-title {
-        margin: 40px 53px 34.5px 30px;
-        font-family: Poppins;
-        font-size: 35px;      
-        color: #2a2a2a;
-    }
+  /*Responsive Design*/
 
+  
+@media screen and (max-width: 1856px){
+  .sponsor-row .spons-leftcard {       
+      padding-left: 16.3%;
+  }
+}
+
+@media screen and (max-width: 1792px){
+  .sponsor-row .spons-leftcard {       
+      padding-left: 15%;
+  }
+  .teams-left{       
+      padding-left: 15%;
+    }
+  .spons-title {
+      font-size: 38px;        
+  }
+}
+
+@media screen and (max-width: 1680px){
+  .banner-section .carousel-inner {
+      height: 660px;
+  }
+  header .nav-item .nav-link {        
+      font-size: 20px;
+  }
+  .sponsored-title {
+      margin: 40px 53px 34.5px 30px;
+      font-family: Poppins;
+      font-size: 35px;      
+      color: #2a2a2a;
+  }
+  .about-head {
+      font-size: 38px;
+      margin-top: 88px;
+  }
+  .sponsor-row .spons-leftcard {       
+      padding-left: 12.7%;
+  }
+  .teams-left{       
+      padding-left: 12.7%;
+    }
+  .spons-title {
+      font-size: 35px;    
+      padding-top: 20px;    
+  }
+  .spons-leftcard p {
+      font-size: 20px;
+  }
+  .sponsorship-section li {       
+      font-size: 19px;   
+      margin-bottom: 15px;
+  }
+  .sponsorship-section li:before {       
+      margin-top: 8px;
+      }
+      .slick-next:before {
+          font-size:40px;
+          color:#ddd;
+        }
+        .slick-prev:before {
+          font-size:40px;
+          color:#ddd;
+        }
+  
+}
+@media screen and (max-width: 1600px){
+.sponsor-row .spons-leftcard {
+  padding-left: 10.9%;
+}
+.teams-left{       
+  padding-left: 10.9%;
+}
 }
 @media screen and (max-width: 1580px){
-    .banner-section .carousel-inner {
-        height: 600px;
-    }
-    .sponsored-title {
-        margin: 40px 53px 2.5px 30px;
-        font-size: 30px;
-        
-    }
-    .sponsored-age {
-        margin: 4px 185px 14px 30px;
-        font-size: 16px;      
-    }
-    .sponsored-child-says p {
-        margin: 15px 15px 15px 30px;
-        font-size: 18px;
-        text-align: left;
-        color: #6e6e6e;
-    }
-    .sponsored-underline {
-        width: 190px;
-        height: 4px;
-        margin: 15px 30px;
-        background-color: #6c5eff;
-    }
-    .sponsored-name {
-        margin: 15px 30px;
-        font-weight: 500;
-        font-size: 24px;
-        text-align: left;
-        color: #545056;
-    }
+  .banner-section .carousel-inner {
+      height: 600px;
+  }
+  .sponsored-title {
+      margin: 40px 53px 2.5px 30px;
+      font-size: 30px;
+      
+  }
+  .sponsored-age {
+      margin: 4px 185px 14px 30px;
+      font-size: 16px;      
+  }
+  .sponsored-child-says p {
+      margin: 15px 15px 15px 30px;
+      font-size: 18px;
+      text-align: left;
+      color: #6e6e6e;
+  }
+  .sponsored-underline {
+      width: 190px;
+      height: 4px;
+      margin: 15px 30px;
+      background-color: #6c5eff;
+  }
+  .sponsored-name {
+      margin: 15px 30px;
+      font-weight: 500;
+      font-size: 24px;
+      text-align: left;
+      color: #545056;
+  }
 
 }
 
 
 
 @media screen and (max-width: 1440px){
-    .custom-container {
-        width: 1050px;
-        margin: 0 auto;
-    }
-    .banner-content h1 {
-        font-size: 39px;
-     
-    }
-    .banner-section .carousel-inner {
-        height: 555px;
-    }
-    .step2-grad{
-        width: 326px;       
-      }
-      .step1-grad{
-        width: 326px;        
-      }
-      .sponsored-child-says {
-        margin-top: 45px;
-    }
+  .custom-container {
+      width: 1050px;
+      margin: 0 auto;
+  }
+  .banner-content h1 {
+      font-size: 39px;
    
-}
-@media screen and (max-width: 1366px){
-    .custom-container {
-        width: 1040px;
-        margin: 0 auto;
+  }
+  .banner-section .carousel-inner {
+      height: 555px;
+  }
+  .step2-grad{
+      width: 326px;       
     }
-    .banner-content h1 {
-        font-size: 36px;     
-    }
-    header .nav-item .nav-link {        
-        font-size: 18px;
-    }  
-}
-@media screen and (max-width: 1280px){
-    .custom-container {
-        width: 1000px;
-        margin: 0 auto;
-    }
-    .banner-content h1 {
-        font-size: 36px;     
-    }
-    header .nav-item .nav-link {        
-        font-size: 18px;
-    }
-    .sponsored-title {
-        margin: 15px 30px;
-        font-size: 27px;
-    }
-    .how-its-work-box {     
-        min-height: 554px;
-    }
-    .sponsored-child-says p {      
-        font-size: 17px;    
-    }
-    .sponsored-age {
-        margin: 10px 30px;
-        font-size: 16px;
-    }
-    .sponsored-bg .child1 {
-        position: absolute;
-        right: 99px;
-        top: -29px;
-    }
-}
-@media screen and (max-width: 1200px){
-    .custom-container {
-        width: 900px;
-        margin: 0 auto;
-    }
-    .banner-content h1 {
-        font-size: 30px;     
-    }
-    header .nav-item .nav-link {        
-        font-size: 18px;
-    }
-    .how-its-work-box {
-        padding: 24px;       
-    }
-    .sponsored-title {
-        margin: 15px 8px 15px 30px;
-        font-size: 24px;
-    }
-    .sponsored-bg .child1 {
-        position: absolute;
-        right: 43px;
-        top: -29px;
-    }
-    .sponsored-child-says p {
-        margin: 8px -10px 15px 30px;
-        font-size: 15px;
-       
+    .step1-grad{
+      width: 326px;        
     }
     .sponsored-child-says {
-        margin-top: 45px;
+      margin-top: 45px;
+  }
+  .sponsor-row .spons-leftcard {
+      padding-left: 13.2%;
+  }
+  .teams-left{       
+      padding-left: 13.2%;
     }
-    .sponsored-name {
-        margin: 8px 30px;
-        font-weight: 500;
-        font-size: 24px;
-        text-align: left;
-        color: #545056;
-    }
-}
-@media screen and (max-width: 1100px){
-    .custom-container {
-        width: 800px;
-        margin: 0 auto;
-    }
-   
-    header .nav-item .nav-link {        
-        font-size: 18px;
-    }
-}
-@media screen and (max-width: 1024px) {
-    .custom-container {
-        width: 800px;
-        margin: 0 auto;
-    }
-      .banner-section .carousel-inner {
-        height: 600px;
-    }
-    .banner-content h1 {
-        font-size: 30px;        
-    }
-    .banner-content {
-    
-        top: 200px;
-        z-index: 1024;
-      
-    }
-    .banner-content p {
-        font-size: 16px;
-       
-    }
-    #footer .footer-top {
-        padding: 35px 0 30px 0;
-        background: #3c3e45;
-    }
-    #footer .footer-top .social-links a {
-       
-        margin-right: 3px;
-      
-    }
-    .count-section img{   
-        height: 313px;
-        width: 329px;
-        margin-top: -19px;
-        
-       }
-       .step1-grad {
-        width: 275px;
-    }
-}
-@media screen and (min-width: 992px) {
-    header .navbar-expand-lg .navbar-collapse{
-        flex: none;
-    }
-    .banner-section .carousel-indicators{
-        display: none;
-    }
-    .mobile-steps .step-cirlce1,  .mobile-steps .step-cirlce2 , .mobile-steps .step-cirlce3{
-            display: none;
+    .about-head {
+      font-size: 38px;
+      margin-top: 37px;
+  }
+  .sponsor-section {
+      margin-top: 65px;
+  }
+  .sponsor-card .spon-title {
+      font-size: 25px;
+      font-weight: bold;
+      color: #2a2a2a;
+  }
+  .sponsor-card {
+      border-radius: 8px;
+      box-shadow: 0 0 30px 0 rgb(108 94 255 / 17%);
+      background-color: #fff;
+      padding: 30px;
+      text-align: center;
+      margin-bottom: 96px;
+  }
+  .sponsor-card .spon-count {
+      padding: 0 15px;
+  }
+  .section-title {
+      font-size: 30px;     
+      margin-bottom: 30px;
+  }
+  .sposor-btn a {
+      margin-top: 40px;
+      padding: 18px 60px;      
+  }
 
+  .howitwork-bg {       
+      height: 260px;
+  }
+  .howitwork-ban h4 {
+      font-size: 38px;       
+  }
+  .howitwork-ban p {
+      font-size: 16px;       
+      margin-top: 10px;
+  }
+  .work-content h4 {
+      font-size: 32px;        
+      padding-top: 70px;
+  }
+  .work-steps .step-num {       
+      font-size: 240px;        
+  }
+  .work-steps2 .step-num {
+      font-size: 240px;  
+  }
+  .work-content p {
+      font-size: 18px;        
+  }
+  .spons-title {
+      font-size: 32px;
+      padding-top: 15px; 
+  }
+ 
+  .spons-leftcard p {
+      font-size: 18px;
+  }
+  .sponsorship-section li {       
+      font-size: 16px;   
+      margin-bottom: 10px;
+  }
+  .sponsorship-section li:before {       
+      margin-top: 7px;
+      }
+      /* make a donation */
+      .make-donation-bg {          
+          height: 250px;
+      }
+      .makedonation-ban .make-title {
+          font-size: 30px;
+      }
+      .form-length {
+          margin-top: 20px;
+      }
+      .doante-q {
+          font-size: 19px;
+          margin-bottom: 14px !important;
+      }
+      .form-length select {
+          width: 288px;
+          margin-bottom: 20px;
+      }
+      .proceed-to-pay {
+          margin-top: 40px;
+      }
+      .slick-next:before {
+          font-size:35px;
+          color:#ddd;
+        }
+        .slick-prev:before {
+          font-size:35px;
+          color:#ddd;
+        }
+}
+@media screen and (max-width: 1400px){
+
+  .sponsor-row .spons-leftcard {
+      padding-left: 12.2%;
+  }
+  .teams-left{       
+      padding-left: 12.2%;
     }
-    .md-hide{
-        display:none;
+    .about-head {
+      font-size: 34px;
+      margin-top: 30px;
+  }
+}
+@media screen and (max-width: 1366px){
+  .custom-container {
+      width: 1040px;
+      margin: 0 auto;
+  }
+  .banner-content h1 {
+      font-size: 36px;     
+  }
+  header .nav-item .nav-link {        
+      font-size: 18px;
+  }  
+  .about-head {
+      font-size: 30px;
+      margin-top: 60px;
+  }
+  .sponsor-row .spons-leftcard {       
+      padding-left: 11.3%;
+  }
+  .teams-aboutus p {
+      font-size: 16px;       
+      margin-bottom: 15px;
+  }
+  .teams-left{       
+      padding-left: 11.3%;
+    }
+  .howitwork-bg {       
+      height: 220px;
+  }
+  .howitwork-ban h4 {
+      font-size: 35px;       
+  }
+  .howitwork-ban p {
+      font-size: 15px;       
+      margin-top: 10px;
+  }
+  .work-content h4 {
+      font-size: 30px;        
+      padding-top: 70px;
+  }
+  .work-steps .step-num {       
+      font-size: 220px;        
+  }
+  .work-steps2 .step-num {
+      font-size: 220px;  
+  }
+  .work-content p {
+      font-size: 18px;        
+  }
+  .spons-title {
+      font-size: 32px;
+  }
+  .sponsorship-section li:before {       
+      margin-top: 6px;
+      }
+      .commitments .custom-container {
+          font-size: 18px;
+          font-weight: 600;      
+          margin: 40px auto 80px auto;
+      }
+}
+@media screen and (max-width: 1280px){
+  .custom-container {
+      width: 1000px;
+      margin: 0 auto;
+  }
+  .banner-content h1 {
+      font-size: 36px;     
+  }
+  header .nav-item .nav-link {        
+      font-size: 18px;
+  }
+  .sponsored-title {
+      margin: 15px 30px;
+      font-size: 27px;
+  }
+  .how-its-work-box {     
+      min-height: 554px;
+  }
+  .sponsored-child-says p {      
+      font-size: 17px;    
+  }
+  .sponsored-age {
+      margin: 10px 30px;
+      font-size: 16px;
+  }
+  .sponsored-bg .child1 {
+      position: absolute;
+      right: 99px;
+      top: -29px;
+  }
+  .sponsor-row .spons-leftcard {
+      padding-left: 10.3%;
+  }
+  .teams-left{       
+      padding-left: 10.3%;
+    }
+  .spons-title {
+      font-size: 32px;
+      padding-top: 10px; 
+  }
+ 
+  .spons-leftcard p {
+      font-size: 16px;
+  }
+  .sponsorship-section li {       
+      font-size: 14px;   
+      margin-bottom: 6px;
+  }
+  .sponsorship-section li:before {       
+      margin-top: 5px;
+      }
+}
+@media screen and (max-width: 1200px){
+  .custom-container {
+      width: 900px;
+      margin: 0 auto;
+  }
+  .banner-content h1 {
+      font-size: 30px;     
+  }
+  header .nav-item .nav-link {        
+      font-size: 18px;
+  }
+  .how-its-work-box {
+      padding: 24px;       
+  }
+  .sponsored-title {
+      margin: 15px 8px 15px 30px;
+      font-size: 24px;
+  }
+  .sponsored-bg .child1 {
+      position: absolute;
+      right: 43px;
+      top: -29px;
+  }
+  .sponsored-child-says p {
+      margin: 8px -10px 15px 30px;
+      font-size: 15px;
+     
+  }
+  .sponsored-child-says {
+      margin-top: 45px;
+  }
+  .sponsored-name {
+      margin: 8px 30px;
+      font-weight: 500;
+      font-size: 24px;
+      text-align: left;
+      color: #545056;
+  }
+}
+@media screen and (max-width: 1152px){
+  header .nav-item .nav-link {        
+      font-size: 14px;
+  }
+  .signin-button {   
+      font-size: 14px;   
+      margin-top: 10px;     
+  }
+  header .navbar-nav li:nth-child(1), header .navbar-nav li:nth-child(2) {     
+      margin-top: 16px;
+  }
+  .user-image {      
+      padding-top: 7px;
       }
   
 }
-@media screen and (max-width: 991px) {
-    #mobilesidemenu{
-        display: none;
-    }
-
-    .sidebar-overlay {
-        position: fixed;
-        height: 100%;
-        width: 100%;
-        background: #0000008f;
-        z-index: 1100;
-        display: block;
-    }
-
-    .mobilesidebar{
-        display: block !important;
-        background: #444;
-        position: fixed;
-        top: 60px;
-        left: 0;
-        right: 30%;
-        padding: 18px;
-        bottom: 0;
-    }
-    
-    .md-hide{
-        display:block;
-      }
-    .sm-hide{
-        display:none;
-    }
-    header .navbar-brand .logo {
-        width: 84px;
-        margin-top:-18px;
-    }
-    .how-its-work-box {
-        min-height: auto;
-    }
-    .border_bottom {
-        border-bottom: none;      
-    }
-    header .navbar {
-        background-color: #190646;       
-        height: 60px;
-    }
-    header .navbar.solid {              
-        height: 60px;
-    }
-    .page_start{
-        padding-top:60px;
-    }
-    .navbar-toggler .fa-bars{
-        color:#fff;
-        font-size: 30px;
-        
-    }
-    .custom-container{
-        width:100%;
-        margin: 0 auto;
-        padding-left:20px;
-        padding-right:20px;
-      }
-      .banner-section .carousel-control-next,  .banner-section .carousel-control-prev {   
-        display: none;    
-    }
-    .sponsorship-button {
-        font-size: 16px;
-        padding:10px 20px;
-     
-        margin-top:10px;
-        cursor: pointer;
-        
-    }
-    .donate-button {
-        font-size: 16px;
-        padding:10px 20px;    
-        margin-top:10px;       
-        margin-left:10px;
-        cursor: pointer;
-    }
-    .how-it-works-steps{
-        display: none;
-    }
-    .how-it-works-row {
-        margin-top: 0px;
-        position: relative;
-        z-index: -1;
-    }
-    
-    .mobile-steps .step-cirlce1,  .mobile-steps .step-cirlce2 , .mobile-steps .step-cirlce3{
-       margin:0 auto;
-    }
-    .mobile-steps .steps_content {
-        margin-top: 25px;
-    }
-    .mobile-steps .how-its-work-box {
-        margin-bottom: 25px;
-    }
-    .section-title {
-        font-size: 27px;        
-        margin-bottom: 16px;
-    }
+@media screen and (max-width: 1100px){
+  .custom-container {
+      width: 800px;
+      margin: 0 auto;
+  }
+ 
+ 
+  
+}
+@media screen and (max-width: 1024px) {
+  .custom-container {
+      width: 800px;
+      margin: 0 auto;
+  }
     .banner-section .carousel-inner {
-        height: 300px;
-    }
-    .banner-content h1 {
-        font-size: 26px;
-        color: #fff;
-        line-height: 1.5;
-    }
-    .banner-content p {
-        font-size: 14px;
-        color: #d1d1d1;
-        margin-top: 5px;
-    }
-    .banner-content {      
-        top: 20px;    
-        z-index: 1024;
-    }
-    .carousel-indicators {      
-        bottom: -12px;     
-    }
-    .carousel-indicators li {      
-        width: 10px;
-        height: 10px;       
-        border-radius: 50%;        
-    }
-    .banner-section .banner-content{
-        padding-left:15px;
-    }
-    .navbar .custom-container{
-        padding-left:0;
-    }
-    .navbar .navbar-toggler{
-        padding-left:0;
-    }
-    #footer .footer-top {
-        padding: 20px 0 30px 0;
-        background: #3c3e45;
-    }
-    .sponsored-bg{
-        display: none;
-    }
-    .sponsored-child-says p {
-        margin:10px 30px;          
-    }
-    .sponsored-title {
-        margin:30px 30px 10px 30px;    
-        font-size: 21px;   
-    }
-    .sponsored-underline {
-        width: 100px;
-        height: 4px;
-        margin:10px 30px; 
-        background-color: #6c5eff;
-    }
-    .sponsored-name {
-        margin:10px 30px;  
-        font-size: 18px;       
-    }
-    .sponsored-age {
-        margin:10px 30px;  
-        font-size: 16px;
-        text-align: left;
-        color: #545056;
-    }
-    .sponsored-child-says {
-        margin-top: 5px; 
-    }
-    .count-num {
-        font-size: 40px;
+      height: 600px;
+  }
+  .banner-content h1 {
+      font-size: 30px;        
+  }
+  .banner-content {
+  
+      top: 200px;
+      z-index: 1024;
+    
+  }
+  .banner-content p {
+      font-size: 16px;
+     
+  }
+  #footer .footer-top {
+      padding: 35px 0 30px 0;
+      background: #3c3e45;
+  }
+  #footer .footer-top .social-links a {
+     
+      margin-right: 3px;
+    
+  }
+  .count-section img{   
+      height: 313px;
+      width: 329px;
+      margin-top: -19px;
       
-    }
-    .count-section .kids, .count-section .donors{
-        padding-top:20px;
-        text-align: center;
      }
-     .count-type {        
-        text-align: center;
-        color: #fff;
-        font-size: 20px;
-    }
-    .count-section p {
+     .step1-grad {
+      width: 275px;
+  }
+  .about-head {
+      font-size: 20px;
+      margin-top: 20px;
+  }
+  .sponsor-card .width-50-per {
+      width: 80%;
+  }
+  .sponsor-card {   
+      padding: 30px;
+      margin-bottom: 50px;
+      min-height: 890px;
+      }
+  .teams-aboutus p {
+      font-size: 14px;
+      margin-bottom: 6px;
+  }
+  .user-image {
+      padding-left: 15px;
+      margin-top: 11px;
+  }
+  header .navbar-nav li:first-child,header .navbar-nav li:nth-child(2) {
+      margin-right:10px
+  }
+  .signin-button {   
+      font-size: 14px;   
+      margin-top: 17px;     
+  }
+  header .navbar-nav li:nth-child(1), header .navbar-nav li:nth-child(2) {     
+      margin-top: 23px;
+  }
+  .howitwork-bg {       
+      height: 200px;
+  }
+  .howitwork-ban h4 {
+      font-size: 28px;       
+  }
+  .howitwork-ban p {
+      font-size: 14px;       
+      margin-top: 10px;
+  }
+  .work-content h4 {
+      font-size: 25px;        
+      padding-top: 70px;
+  }
+  .work-steps .step-num {       
+      font-size: 200px;        
+  }
+  .work-steps2 .step-num {
+      font-size: 200px;  
+  }
+  .work-content p {
+      font-size: 16px;        
+  }
+  .teams-des {
+      width: auto;
+      font-size: 18px;
       
-        text-align: center;
-        
-    }
-     .count-section {
-        margin-top: 20px;       
-    }
-    .sponsored-bg{
-        display: none;
-    }
-    .line-sapration{
-        display: none;
-    }
-    .testmonailbg1, .testmonailquote1, .testmonailquote2{
-        display: none;
-    }
-    .testimonials-section .carousel-control-prev {
-        width: 40px;
-        height: 40px;     
-        top: 100%;
-        background: none;
-        left:30%;
-        
+      margin: 0 auto;
+  }
+  .spons-title {
+      font-size: 25px;
+      padding-top: 8px;
+  }
+ 
+  .spons-leftcard p {
+      font-size: 14px;
+      margin-top: 10px;
+      margin-bottom: 8px;
+  }
+  .sponsorship-section li {       
+      font-size: 12px;   
+      margin-bottom: 5px;
+  }
+  .sponsorship-section li:before {       
+      margin-top: 3px;
       }
-      .testimonials-section .carousel-control-next {
-        width: 40px;
-        height: 40px;     
-        top: 100%;
-        background: none;
-        right:30%;
-        
+      /* make a donation */
+      .note-text {
+          font-size: 16px;           
+          margin-top: 30px;
+          padding: 0px 8px;
       }
-    .contact-us-button {
-        font-size: 17px;
-        font-weight: normal;
-        text-align: center;
-        color: #fff;
-        padding: 18px 32px;
-        border-radius: 4px;
-        background-color: #6c5eff;
+      .form-length {
+          margin-top: 0px;
+      }
+      .form-length select {         
+          margin-bottom: 14px;
+      }
+      .dontate-amount {           
+          margin-bottom: 10px;
+      }
+      .pay-btn {
+          width: 288px;
+          height: auto;          
+          font-size: 14px;         
+          padding: 10px 60px;
+      }
+      .proceed-to-pay {
+          margin-top: 14px;
+      }
+}
+@media screen and (min-width: 992px) {
+  header .navbar-expand-lg .navbar-collapse{
+      flex: none;
+  }
+  .banner-section .carousel-indicators{
+      display: none;
+  }
+  .mobile-steps .step-cirlce1,  .mobile-steps .step-cirlce2 , .mobile-steps .step-cirlce3{
+          display: none;
+
+  }
+  .md-hide{
+      display:none;
     }
-    .contact-btn-div {
-        margin-top: 40px;
+
+}
+@media screen and (max-width: 991px) {
+  #mobilesidemenu{
+      display: none;
+  }
+  .sidebar-overlay {
+      position: fixed;
+      height: 100%;
+      width: 100%;
+      background: #0000008f;
+      z-index: 1100;
+      display: block;
+  }
+  .mobilesidebar{
+      display: block !important;
+      background: #444;
+      position: fixed;
+      top: 60px;
+      left: 0;
+      right: 30%;
+      padding: 18px;
+      bottom: 0;
+     
+  }
+  
+  
+  .md-hide{
+      display:block;
     }
-    /* signup css */
-    .sign-container {
-        width: 100%;
-        margin: 40px auto;
-        font-family: 'Open Sans', sans-serif;
-        padding: 0 30px;
+  .sm-hide{
+      display:none;
+  }
+  header .navbar-brand .logo {
+      width: 84px;
+      margin-top:-18px;
+  }
+  .how-its-work-box {
+      min-height: auto;
+  }
+  .border_bottom {
+      border-bottom: none;      
+  }
+  header .navbar {
+      background-color: #190646;       
+      height: 60px;
+  }
+  header .navbar.solid {              
+      height: 60px;
+  }
+  .page_start{
+      padding-top:60px;
+  }
+  .navbar-toggler .fa-bars{
+      color:#fff;
+      font-size: 30px;        
+  }
+  .user-image {
+      padding-left: 0px;
+  }
+  .user-image .dropdown-nav{
+      display:block;
+      position: relative;
+      z-index: 1;
+      width: auto;
+      height: auto;
+      border-radius: none;
+      box-shadow: none;
+      border: none;
+      background-color:transparent;
+      left: 0;        
+  }
+  .user-image .dropdown-nav li{
+      margin: 0 !important;
+      padding: 9px 0px;
+      border-bottom: none;       
+  }
+  .user-image .dropdown-nav a {
+      /* font-family: OpenSans; */
+      font-size: 14px;
+      font-weight: normal;
+      text-align: left;
+      color: #fff;
+  }
+  .dropdown:hover .dropdown-nav {
+      display: block;
+      box-shadow:none;
+  }
+  .custom-container{
+      width:100%;
+      margin: 0 auto;
+      padding-left:20px;
+      padding-right:20px;
     }
-    .sign-btn {
-        background: #2aaca8;
-        color: #fff;
-        width: 100%;
-        height: 60px;
-        margin: 0 auto;
-        text-align: center;
+    .banner-section .carousel-control-next,  .banner-section .carousel-control-prev {   
+      display: none;    
+  }
+  .sponsorship-button {
+      font-size: 16px;
+      padding:10px 20px;    
+      margin-top:10px;
+      cursor: pointer;        
+  }
+  .sponsored-child-says .row {
+       width: auto; 
+      padding-left: 20px;
+      padding-right: 20px;
+  }
+  .sponsored-child-says{
+      padding-left: 20px;
+      padding-right: 5px;
+  }
+  .sponsored-child-says .col-lg-6{       
+      padding-right:0px;
+  }
+ 
+  .sponsored-child-says .row:first-child{
+      padding-left:0;
+      padding-right:0;
+  }
+  .sponsor-row .spons-leftcard {
+      padding-left:20px;
+      padding-right:20px;
+  }
+  .sponsor-section {
+      margin-top: 50px;
+  }
+  .sponsor-section .col-md-12{
+      padding:0 100px;
+  }
+  .sponsor-card .width-50-per {
+      width: 50%;
+      margin: 0 auto;
+  }
+  .sponsor-card {
+     
+      margin-bottom: 40px;
+  }
+  .teams-left{       
+      padding-left:20px;
+      padding-right:20px;     
+      width:100%;   
     }
-    .sign-in-block {
-        background: #fff;
-        border-radius: 4px;
-        padding: 20px 30px;
-        margin-top: 40px;
+    .teams-right{       
+      width:100%;   
     }
-    .radio-wrapper .option{margin: 0 0 20px;}
-    .radio-wrapper label{font-size: 14px;}
-    .radio-wrapper .option .dot::before{transform:none;transition:none}
-    .radio-wrapper .option .dot {margin-right: 15px;}
+    .teams-row {
+      display: flex;
+      width: 100%;
+      flex-direction: column-reverse;
+  }
+  
+  .commitments .custom-container {
+      font-size: 20px;
+      font-weight: 600;
+      font-style: normal;
+      text-align: center;
+      color: #55a505;
+      margin: 50px auto 150px auto;
+  }
+  .sponsor-card {   
+    
+      min-height: auto;
+      }
+  .donate-button {
+      font-size: 16px;
+      padding:10px 20px;    
+      margin-top:10px;       
+      margin-left:10px;
+      cursor: pointer;
+  }
+  .how-it-works-steps{
+      display: none;
+  }
+  .how-it-works-row {
+      margin-top: 0px;
+      position: relative;
+      z-index: -1;
+  }
+  
+  .mobile-steps .step-cirlce1,  .mobile-steps .step-cirlce2 , .mobile-steps .step-cirlce3{
+     margin:0 auto;
+  }
+  .mobile-steps .steps_content {
+      margin-top: 25px;
+  }
+  .mobile-steps .how-its-work-box {
+      margin-bottom: 25px;
+  }
+  .section-title {
+      font-size: 27px;        
+      margin-bottom: 16px;
+  }
+  .banner-section .carousel-inner {
+      height: 300px;
+  }
+  .banner-content h1 {
+      font-size: 26px;
+      color: #fff;
+      line-height: 1.5;
+  }
+  .banner-content p {
+      font-size: 14px;
+      color: #d1d1d1;
+      margin-top: 5px;
+  }
+  .banner-content {      
+      top: 20px;    
+      z-index: 1024;
+  }
+  .carousel-indicators {      
+      bottom: -12px;     
+  }
+  .carousel-indicators li {      
+      width: 10px;
+      height: 10px;       
+      border-radius: 50%;        
+  }
+  .banner-section .banner-content{
+      padding-left:15px;
+  }
+  .navbar .custom-container{
+      padding-left:0;
+  }
+  .navbar .navbar-toggler{
+      padding-left:0;
+  }
+  #footer .footer-top {
+      padding: 20px 0 30px 0;
+      background: #3c3e45;
+  }
+  .sponsored-bg{
+      display: none;
+  }
+  .sponsored-child-says p {
+      margin:10px 30px 10px 0px;  
+      font-size: 14px;       
+  }
+  .sponsored-title {
+      margin: 16px 30px 10px 0px;
+      font-size: 20px;
+  }
+  .sponsored-underline {
+      width: 100px;
+      height: 4px;
+      margin:10px 30px 10px 0px; 
+      background-color: #6c5eff;
+  }
+  .sponsored-name {
+      margin:10px 30px 0px 0px; 
+      font-size: 18px;       
+  }
+  .sponsored-age {
+      margin:0px 30px 10px 0px; 
+      font-size: 14px;
+      text-align: left;
+      color: #545056;
+  }
+  .sponsored-child-says {
+      margin-top: 5px; 
+  }
+  .count-num {
+      font-size: 40px;
+    
+  }
+  .count-section .kids, .count-section .donors{
+      padding-top:20px;
+      text-align: center;
+   }
+   .count-type {        
+      text-align: center;
+      color: #fff;
+      font-size: 20px;
+  }
+  .count-section p {
+    
+      text-align: center;
+      
+  }
+   .count-section {
+      margin-top: 20px;       
+  }
+  .sponsored-bg{
+      display: none;
+  }
+  .line-sapration{
+      display: none;
+  }
+  .testimonials-section {       
+      margin-top: 20px;
+  }
+  .testmonailbg1, .testmonailquote1, .testmonailquote2{
+      display: none;
+  }
+  .testimonials-section .carousel-control-prev {
+      width: 40px;
+      height: 40px;     
+      top: 100%;
+      background: none;
+      left:30%;
+      
+    }
+    .testimonials-section .carousel-control-next {
+      width: 40px;
+      height: 40px;     
+      top: 100%;
+      background: none;
+      right:30%;
+      
+    }
+  .contact-us-button {
+      font-size: 17px;
+      font-weight: normal;
+      text-align: center;
+      color: #fff;
+      padding: 18px 32px;
+      border-radius: 4px;
+      background-color: #6c5eff;
+  }
+  .contact-btn-div {
+      margin-top: 40px;
+  }
+  /* signup css */
+  .sign-container {
+      width: 100%;
+      margin: 40px auto;
+      font-family: 'Open Sans', sans-serif;
+      padding: 0 30px;
+  }
+  .sign-btn {
+      background: #2aaca8;
+      color: #fff;
+      width: 100%;
+      height: 60px;
+      margin: 0 auto;
+      text-align: center;
+  }
+  .sign-in-block {
+      background: #fff;
+      border-radius: 4px;
+      padding: 20px 30px;
+      margin-top: 40px;
+  }
+  .radio-wrapper .option{margin: 0 0 20px;}
+  .radio-wrapper label{font-size: 14px;}
+  .radio-wrapper .option .dot::before{transform:none;transition:none}
+  .radio-wrapper .option .dot {margin-right: 15px;}
+  /* out teams */
+  .teams-aboutus img{
+      margin-left:0px;
+      width: 100%;
+      height: auto;
+    }
+    .teams-des {
+      width: 100%;
+      font-size: 16px;
+  }
+  .team-name {
+      font-size: 20px;       
+      margin-top: 6px;
+  }
+  .team-role {
+      margin-top: 8px;
+  }
+  .team-desp {
+      font-size: 15px;        
+      padding: 0px 5px;
+      margin-top:8px
+  }
+  .slick-prev:before {
+      font-size: 35px;
+      color: #ddd;
+  }
+  .slick-next:before {
+      font-size: 35px;
+      color: #ddd;
+  }
+  .about-head {
+      font-size: 20px;
+      margin-top: 30px;
+  }
+  .teams-aboutus p {
+      font-size: 16px;       
+      margin-bottom: 18px;
+  }
+  
+  .our-teams {
+      margin-top: 10px;
+  }
+  #teamsslider {
+      margin-top: 40px;
+  }
+  .slick-prev {
+      left: 35%;
+      bottom: 0px;
+    }
+    .slick-next {
+      right: 35%;
+    }
+    .page_start_warpper {
+      padding-top: 58px;
+  }
+    .work-steps .d-flex{
+      flex-direction: column-reverse;
+    }
+    .work-steps .step-num {
+      font-size: 100px;
+      text-align: center;
+  }
+  .work-content h4 {
+      font-size: 25px;
+      padding-top: 10px;
+  }
+  .work-steps2 .d-flex{
+      flex-direction: column;
+  }
+  .work-steps2 .step-num {
+      font-size: 100px;
+      text-align: center;
+  }
+  .sponsor-row {
+      display: flex;
+      width: 100%;
+      flex-direction: column-reverse;
+  }
+  .sponsor-row .spons-leftcard {
+      width: 100%;
+  }
+  .teams-left{       
+     width:100%;
+    }
+  .sponsor-row .spons-rightcard {
+      width: 100%;
+  }
+  .sponsor-card .d-flex{
+      flex-direction: column;
+  }
+  /* make a donation */
+  .donateform-card .col-lg-5 img{
+      width:100%;
+  }
+  .form-length {
+      margin-top: 30px;
+  }
+  .form-length select {
+      width: 100%;
+      margin-bottom: 20px;
+  }
+  .dontate-amount {
+      margin-bottom: 20px;
+  }
+  .proceed-to-pay {
+      margin-top: 30px;
+      text-align: center;
+  }
+  .note-text {
+      font-size: 14px;
+      margin-top: 30px;
+      padding: 0px 8px;
+  }
+  .makedonation-ban {
+      position: absolute;
+      top: 20%;
+  }
 }
 @media screen and (max-width: 600px) {  
-    .banner-content h1 {
-        font-size: 28px;
-        color: #fff;
-        line-height: 1.5;
+  .section-title {
+      font-size: 20px;
+      margin-bottom: 16px;
+  }
+  .how-it-works {
+      margin-top: 25px;
+  }
+  .banner-content h1 {
+      font-size: 28px;
+      color: #fff;
+      line-height: 1.5;
+  }
+  .banner-content p {
+      font-size: 15px;
+      color: #d1d1d1;
+      margin-top: 5px;
+  }
+  .banner-content {      
+      top: 20px;    
+      z-index: 1024;
+  }
+  .sponsorship-button {
+      font-size: 16px;        
+  }
+  .sponsor-card .spon-title {
+      font-size: 20px;  
+      
+  }
+  .sponsor-card .width-50-per {
+      width: 100%;
+      margin: 0 auto;
+  }
+  .sponsor-section .col-md-12 {
+      padding: 0 70px;
+  }
+  .sponsor-section {
+      margin-top: 30px;
+  }
+  .donate-button {
+      font-size: 16px;
+   
+  }
+  .banner-section .carousel-inner {
+      height: 260px;
     }
-    .banner-content p {
-        font-size: 15px;
-        color: #d1d1d1;
-        margin-top: 5px;
-    }
-    .banner-content {      
-        top: 20px;    
-        z-index: 1024;
-    }
-    .sponsorship-button {
-        font-size: 16px;        
-    }
-    .donate-button {
-        font-size: 16px;
+    .step-cirlce1, .step-cirlce2, .step-cirlce3 {
+      width: 80px;
+      height: 80px;       
+      font-size: 30px;
+      line-height: 53px;
      
-    }
-    .banner-section .carousel-inner {
-        height: 260px;
-      }
-      #footer .credits a {
-        transition: 0.3s;
-        color: #ddd;
-        font-size: 16px;
-        padding-left: 10px;
-    }
-    #footer .copyright {
-        float: left;
-        color: #ddd;
-        font-size: 14px;
-    }
-    .count-section img{
-        width: 290px;
-        height: auto;
-    }
-    .sign-container {
-        width: 100%;
-        margin: 40px auto;
-        font-family: 'Open Sans', sans-serif;
-        padding: 0 20px;
-    }
-    .sign-in-block {
-        background: #fff;
-        border-radius: 4px;
-        padding: 20px 15px;
-        margin-top: 40px;
-    }
-    
+  }
+  .how-its-work-box .step-title {
+      font-size: 18px;        
+  }
+  .howitwork-ban h4 {
+      font-size: 20px;
+  }
+  .howitwork-ban {
+      right: 4%;
+      position: absolute;
+      top: 29%;
+      left: 4%;
+       transform: none; 
+      text-align: center;      
+      margin: 0 auto;
+  }
+  .work-steps .step-num {
+      font-size: 70px;
+  }
+  .work-steps2 .step-num {
+      font-size: 70px;
+  }
+  .work-content h4 {
+      font-size: 20px;
+      padding-top: 5px;
+  }
+  .work-content p {
+      font-size: 14px;
+  }
+  .spons-leftcard h4 {
+      font-size: 18px;
+      font-weight: normal;
+      text-align: left;
+      color: #2a2a2a;
+      margin: 8px 0 20px 0;
+  }
+  .howitwork-bg {
+      height: 150px;
+  }
+  .commitments .custom-container {
+      font-size: 18px;
+      font-weight: 600;      
+      margin: 40px auto 80px auto;
+  }
+  .step-description {
+      margin-top: 10px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      text-align: left;
+      color: #6e6e6e;
+  }
+  .or-text {
+      width: 25px;
+      font-size: 14px;       
+      margin-top: -12px;
+      
+  }
+  #footer .footer-top .footer-contact p {
+      font-size: 14px;
+      line-height: 20px;
+      margin-bottom: 0;
+      color: #aeafb2;
+      margin-top: 10px;
+  }
+  #footer .footer-top h4 {
+      font-size: 14px;        
+      padding-bottom: 8px;
+  }
+  #footer .footer-top .footer-links ul a {
+      font-size: 14px;
+  }
+  .footer-links div {        
+      font-size: 14px;
+      margin-top:5px;
+  }
+    #footer .credits a {
+      transition: 0.3s;
+      color: #ddd;
+      font-size: 14px;
+      padding-left: 10px;
+  }
+  #footer .copyright {
+      float: left;
+      color: #ddd;
+      font-size: 14px;
+  }
+  .count-section img{
+      width: 290px;
+      height: auto;
+  }
+  .count-num {
+      font-size: 29px;
+  }
+  .count-type {       
+      font-size: 18px;
+      margin-top:5px;
+  }
+  .count-section p {
+      font-size: 14px;        
+      margin-top: 10px;
+  }
+  .testimonial-name {
+      font-size: 20px;      
+      margin-top: 9px;
+  }
+  .testimonial-role {
+      margin-top: 0px;
+      font-size: 14px;
+  }
+  .testimonial-desp {      
+      font-size: 14px;        
+      margin-top: 10px;
+  }
+  .have-any-question p {
+      font-size: 14px;   
+      margin-top:10px   
+  }
+  .have-any-question {
+      padding-top: 40px;
+      padding-bottom: 40px;
+  }
+  .contact-us-button {
+      font-size: 16px;
+      font-weight: normal;
+      text-align: center;
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 4px;
+      background-color: #6c5eff;
+  }
+  .sign-container {
+      width: 100%;
+      margin: 40px auto;
+      font-family: 'Open Sans', sans-serif;
+      padding: 0 20px;
+  }
+  .sign-in-block {
+      background: #fff;
+      border-radius: 4px;
+      padding: 20px 15px;
+      margin-top: 40px;
+  }
+  .makedonation-ban p {
+      font-size: 18px;
+      font-weight: normal;
+      color: #fff;
+      margin-top: 18px;
+      width: 85%;
+  }
+  .make-donation-bg {
+      height: 210px;
+  }
+  
 }
 @media screen and (max-width: 475px) {  
-    .banner-content h1 {
-        font-size: 14px;
-        color: #fff;
+  .banner-content h1 {
+      font-size: 14px;
+      color: #fff;
+  }
+  .banner-content p {
+      font-size: 12px;
+      color: #d1d1d1;
+      margin-top: 5px;
+  }
+  .banner-content {      
+      top: 20px;    
+      z-index: 1024;
+  }
+ 
+  .banner-section .carousel-inner {
+      height: 220px;
     }
-    .banner-content p {
-        font-size: 12px;
-        color: #d1d1d1;
-        margin-top: 5px;
-    }
-    .banner-content {      
-        top: 20px;    
-        z-index: 1024;
-    }
-   
-    .banner-section .carousel-inner {
-        height: 220px;
-      }
-      #footer .credits a {
-        transition: 0.3s;
-        color: #ddd;
-        font-size: 16px;
-        padding-left: 10px;
-    }
-    #footer .copyright {
-        float: left;
-        color: #ddd;
-        font-size: 14px;
-    }
-    .sponsorship-button {
-        font-size: 12px;        
-    }
-    .donate-button {
-        font-size: 12px;
-     
+    #footer .credits a {
+      transition: 0.3s;
+      color: #ddd;
+      font-size: 14px;
+      padding-left: 10px;
+  }
+  #footer .copyright {
+      float: left;
+      color: #ddd;
+      font-size: 14px;
+  }
+  .sponsorship-button {
+      font-size: 12px;        
+  }
+  .sponsor-card .d-flex {
+      margin-bottom: 20px;
+  }
+  .sposor-btn a {
+      margin-top: 40px;
+      padding: 15px 20px;
+      border-radius: 4px;
+      box-shadow: 0 0 20px 0 rgb(108 94 255 / 38%);
+      background-color: #6c5eff;
+      color: #fff;
+  }
+  .donate-button {
+      font-size: 12px;     
 }
 .radio-wrapper label {
-    font-size: 13px;
+  font-size: 13px;
 
 }
 .radio-wrapper .option {padding: 8px 6px;}
+.teams-des {
+ 
+  font-size: 14px;
+}
+.team-name {
+  font-size: 18px;       
+  margin-top: 6px;
+}
+.team-role {
+  margin-top: 8px;
+}
+.team-desp {
+  font-size: 14px;        
+  padding: 0px 5px;
+  margin-top:8px
+}
+
+.teams-aboutus p {
+  font-size: 14px;       
+  margin-bottom: 18px;
+}
+.donateform-card {
+  padding: 20px;
+  margin-bottom: 40px;
+}
+.makedonation-ban p {
+  font-size: 14px;
+  font-weight: normal;
+  color: #fff;
+  margin-top: 10px;
+  width:90%;
+}
+.make-donation-bg {
+  height: 180px;
+}
+.makedonation-ban .make-title {
+  font-size: 20px;
+}
+.doante-q {
+  font-size: 16px;
+ 
+}
+
 
 }
 @media screen and (max-width: 375px) {  
 
-    .radio-wrapper .option .dot {
-        margin-right: 5px;
-    }
+  .radio-wrapper .option .dot {
+      margin-right: 5px;
+  }
+  .sponsor-section .col-md-12 {
+      padding: 0 20px;
+  }
+  .sponsor-card {     
+      padding: 20px;      
+  }
+  .dontate-amount {
+      width: 100px;
+      height: 40px;      
+      margin-right: 5px;
+      margin-bottom: 10px;
+      font-size:12px;
+  }
+  .makedonation-ban {
+    
+      top: 12%;
+  }
 }
 
 @media screen and (max-width: 360px) { 
 .radio-wrapper label {
-    font-size: 10px;
+  font-size: 10px;
 }
 }

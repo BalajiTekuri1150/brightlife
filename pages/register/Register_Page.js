@@ -1,11 +1,11 @@
 import Link from 'next/link';
-import style from '../styles/register.module.css';
-import {AiOutlineMail,FaUserTie} from "react-icons/ai";
-import { BsPersonFill,BsFileLock,BsGoogle,BsFacebook} from "react-icons/bs";
+// import style from '../styles/register.module.css';
+// import {AiOutlineMail,FaUserTie} from "react-icons/ai";
+// import { BsPersonFill,BsFileLock,BsGoogle,BsFacebook} from "react-icons/bs";
 import {useState} from "react";
 import Register_child from './Register_child';
 import Router from 'next/router';
-import { setLocalData } from '../utils/storage_service';
+import { setLocalData } from '../../utils/storage_service';
 import Head from 'next/head';
 import Script from 'next/script';
 const Register_Page=()=>
@@ -110,16 +110,16 @@ const Register_Page=()=>
             <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
         </Head>
         <div className="sign-bg">
-            <img src="img/signin-bg.jpg" alt="" className="bg" />
+            <img src="/img/signin-bg.jpg" alt="" className="bg" />
             </div>
                 <div className="sign-container">
-                <a href="index.html"> <div className="sign-logo"> <img src="img/logo.png" alt="Bright Life" /></div></a>
+                <a href="index.html"> <div className="sign-logo"> <img src="/img/logo.png" alt="Bright Life" /></div></a>
                 <div className="sign-in-block">
                 <h3>Sign Up</h3>
                 <p>To become a Bright life member</p>
                 <form>
                 <div className="form-group">
-                    <label htmlFor="exampleInputEmail1"><img src="img/user-icon.svg" className="lab-icon" />Name</label>
+                    <label htmlFor="exampleInputEmail1"><img src="/img/user-icon.svg" className="lab-icon" />Name</label>
                     <Register_child 
                             type="text" 
                             name="user"
@@ -133,7 +133,7 @@ const Register_Page=()=>
                     <div style={{color:'red',fontSize:'13px'}}>{err1 ? <div></div>:<div>Username should contain minimum 8 characters</div>}</div>
                 </div>
                 <div className="form-group">
-                    <label htmlFor="exampleInputEmail1"><img src="img/email-icon.svg" className="lab-icon" />Email</label>
+                    <label htmlFor="exampleInputEmail1"><img src="/img/email-icon.svg" className="lab-icon" />Email</label>
                     <Register_child 
                             type="email" 
                             value={data.gmail.value}
@@ -147,7 +147,7 @@ const Register_Page=()=>
                     <div style={{color:'red',fontSize:'13px'}}>{err2 ? <div></div>:<div>Gmail should be like ****@gmail.com</div>}</div>
                 </div>
                 <div className="form-group">
-                    <label htmlFor="exampleInputPassword1"><img src="img/pass-lock-icon.svg" className="lab-icon" />Password</label>
+                    <label htmlFor="exampleInputPassword1"><img src="/img/pass-lock-icon.svg" className="lab-icon" />Password</label>
                     {/* <input type="password" className="form-control" id="exampleInputPassword1" placeholder="enter your password" /> */}
                     <Register_child
                             type="password"
@@ -171,7 +171,7 @@ const Register_Page=()=>
                 <p>By click on the continue you are agree to the  <a href="#">Terms &amp; Conditions</a></p>
                 {/* <div class="serperator-or"><span>OR</span></div>
                 <div class="btn-block"><span class="fb_btn"><img src="img/fb-icon.svg" alt="fb"> <span class="btn-txt">In with Facebook</span></span><span class="g_btn"><img src="img/google-icon.jpg" alt="fb"><span class="btn-txt">Sign In with Google</span></span></div> */}
-                <p>Already a member? <Link href="login/logins">Sign In</Link></p>
+                <p>Already a member? <Link href="/login/logins">Sign In</Link></p>
                 </form>
             </div>
         </div>

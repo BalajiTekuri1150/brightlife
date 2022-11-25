@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="87.445" height="112" viewBox="0 0 87.445 112">
+    <g data-name="Group 229">
+        <text data-name="1" transform="translate(0 84)" style="fill:#abf8f2;font-size:80px;font-family:Poppins-Bold,Poppins;font-weight:700;opacity:.381"><tspan x="0" y="0">1</tspan></text>
+        <g data-name="Group 81" transform="translate(628 -1850.354)">
+            <rect data-name="Rectangle 84" width="57.736" height="57.736" rx="4" transform="translate(-607.648 1873.816)" style="stroke-miterlimit:10;stroke:#4a4a4a;stroke-width:2px;fill:none"/>
+            <g data-name="Group 74" transform="translate(-597.614 1895.996)">
+                <rect data-name="Rectangle 85" width="7.041" height="7.041" rx="2" style="fill:#4a4a4a"/>
+                <rect data-name="Rectangle 86" width="7.041" height="7.041" rx="2" transform="translate(10.21)" style="fill:#4a4a4a"/>
+                <rect data-name="Rectangle 87" width="7.041" height="7.041" rx="2" transform="translate(20.419)" style="fill:#4a4a4a"/>
+                <rect data-name="Rectangle 88" width="7.041" height="7.041" rx="2" transform="translate(30.629)" style="fill:#4a4a4a"/>
+            </g>
+            <g data-name="Group 75" transform="translate(-597.614 1905.853)">
+                <rect data-name="Rectangle 89" width="7.041" height="7.041" rx="2" style="fill:#4a4a4a"/>
+                <rect data-name="Rectangle 90" width="7.041" height="7.041" rx="2" transform="translate(10.21)" style="fill:#4a4a4a"/>
+                <rect data-name="Rectangle 91" width="7.041" height="7.041" rx="2" transform="translate(20.419)" style="fill:#4a4a4a"/>
+                <rect data-name="Rectangle 92" width="7.041" height="7.041" rx="2" transform="translate(30.629)" style="fill:#4a4a4a"/>
+            </g>
+            <g data-name="Group 76" transform="translate(-597.614 1915.711)">
+                <rect data-name="Rectangle 93" width="7.041" height="7.041" rx="2" style="fill:#4a4a4a"/>
+                <rect data-name="Rectangle 94" width="7.041" height="7.041" rx="2" transform="translate(10.21)" style="fill:#4a4a4a"/>
+                <rect data-name="Rectangle 95" width="7.041" height="7.041" rx="2" transform="translate(20.419)" style="fill:#4a4a4a"/>
+                <rect data-name="Rectangle 96" width="7.041" height="7.041" rx="2" transform="translate(30.629)" style="fill:#4a4a4a"/>
+            </g>
+            <path data-name="Line 20" transform="translate(-608 1885.786)" style="stroke-miterlimit:10;stroke:#4a4a4a;stroke-width:2px;fill:none" d="M0 0h57.736"/>
+            <g data-name="Group 77">
+                <path data-name="Line 21" transform="translate(-598.847 1871)" style="stroke-linecap:round;stroke-miterlimit:10;stroke:#4a4a4a;stroke-width:2px;fill:none" d="M0 0v5.985"/>
+                <path data-name="Line 22" transform="translate(-592.158 1871)" style="stroke-linecap:round;stroke-miterlimit:10;stroke:#4a4a4a;stroke-width:2px;fill:none" d="M0 0v5.985"/>
+                <path data-name="Line 23" transform="translate(-585.469 1871)" style="stroke-linecap:round;stroke-miterlimit:10;stroke:#4a4a4a;stroke-width:2px;fill:none" d="M0 0v5.985"/>
+                <path data-name="Line 24" transform="translate(-578.78 1871)" style="stroke-linecap:round;stroke-miterlimit:10;stroke:#4a4a4a;stroke-width:2px;fill:none" d="M0 0v5.985"/>
+                <path data-name="Line 25" transform="translate(-572.091 1871)" style="stroke-linecap:round;stroke-miterlimit:10;stroke:#4a4a4a;stroke-width:2px;fill:none" d="M0 0v5.985"/>
+                <path data-name="Line 26" transform="translate(-565.402 1871)" style="stroke-linecap:round;stroke-miterlimit:10;stroke:#4a4a4a;stroke-width:2px;fill:none" d="M0 0v5.985"/>
+                <path data-name="Line 27" transform="translate(-558.713 1871)" style="stroke-linecap:round;stroke-miterlimit:10;stroke:#4a4a4a;stroke-width:2px;fill:none" d="M0 0v5.985"/>
+            </g>
+        </g>
+        <g data-name="Group 132" transform="translate(-1080 -665)">
+            <circle data-name="Ellipse 84" cx="17.582" cy="17.582" transform="translate(1132.281 673.837)" style="fill:#fff" r="17.582"/>
+            <g data-name="Ellipse 83" transform="translate(1137.221 678.776)" style="fill:#fff;stroke:#4a4a4a;stroke-width:2px">
+                <circle cx="12.642" cy="12.642" style="stroke:none" r="12.642"/>
+                <circle cx="12.642" cy="12.642" style="fill:none" r="11.642"/>
+            </g>
+            <text data-name="1" transform="translate(1144.865 696.365)" style="font-size:16px;font-family:Roboto-Medium,Roboto;font-weight:500;fill:#4a4a4a"><tspan x="0" y="0">1</tspan></text>
+        </g>
+    </g>
+</svg>
