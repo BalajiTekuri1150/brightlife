@@ -4,6 +4,8 @@ import Input from "./input_compent"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { getLocalData } from "../../utils/storage_service"
+import Script from "next/script"
+import Head from "next/head"
 export default function Education_details(props){
     let value="",isvalid=false
     const [message,setMessage]=useState("")
@@ -66,8 +68,136 @@ export default function Education_details(props){
         return formValues[key].isvalid
     })
     return(
-        <>
-            <section className="form">
+        <div style={{width:'1200px'}}>
+            <Head>
+                <title>Brightlife</title>
+                <meta charSet="utf-8" />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" />
+            </Head>
+            <div className="steps-wizard">
+                <div className="step1-wizard">
+                <a>
+                    <div className="step">1</div>
+                    <p style={{color: '#2a2a2a'}}>Kids details</p></a>
+                </div>  
+                <div className="step1-wizard step-active">
+                <a>
+                    <div className="step1">2</div>
+                    <p>Guardian details</p>
+                </a>
+                </div>  
+                <div className="step1-wizard step-active">
+                <a>
+                    <div className="step1">3</div>
+                    <p>Education details</p>
+                </a>
+                </div>  
+                <div className="step1-wizard">
+                <a>
+                    <div className="step1">4</div>
+                    <p>Required Documents</p>
+                </a>
+                </div>  
+                <div className="step1-wizard">
+                <a>
+                    <div className="step1">5</div>
+                    <p>Bank details</p>
+                </a>
+                </div>                     
+            </div>
+            <div className="application-form-card">
+                <form onSubmit={handleSubmit}> 
+                <div className="row sponsor-block bg-white">
+                    <div className="col-lg-6">
+                    <div className="form-group">
+                        <label>Class</label>
+                        <Input type="text"  name="grade" className="form-control" value={formValues.grade.value} onChange={handleChange}/>
+                    </div>
+                    </div>
+                    <div className="col-lg-6">
+                    <div className="form-group">
+                        <label>School Name</label>
+                        <Input type="text" name="school" className="form-control" value={formValues.school.value} onChange={handleChange}/>
+                        {/* <select className="form-control">
+                        <option />    
+                        <option>School1</option>
+                        <option>School2</option>
+                        <option>School3</option>
+                        </select>   */}
+                    </div>
+                    </div>
+                    <div className="col-lg-6">
+                    <div className="form-group">
+                        <label>School Area/address</label>
+                        <Input type="text" name="school_address" className="form-control" value={formValues.school_address.value} onChange={handleChange}/>
+                    </div>
+                    </div>
+                    <div className="col-lg-6">
+                    <div className="form-group">
+                        <label>Hobbies</label>
+                        <Input type="text" name="hobbies" className="form-control" value={formValues.hobbies.value} onChange={handleChange}/>
+                    </div>
+                    </div>
+                    <div className="col-lg-6">
+                    <div className="form-group">
+                        <label>What are the child’s aspirations/dream?</label>
+                        <Input type="text-area" name="aspirations" className="form-control" value={formValues.aspirations.value} onChange={handleChange}/>
+                    </div>
+                    </div>
+                    <div className="col-lg-6">
+                    <div className="form-group">
+                        <label>Any achievements or prizes won by the child? (Upload any supporting documents/photos)</label>
+                        {/* <textarea name="achievements" rows={4} className="form-control" placeholder="Explain in 50 words" value={formValues.achievements.value} onChange={handleChange}/> */}
+                        <Input type="text-area" name="achievements" className="form-control" value={formValues.achievements.value} onChange={handleChange}/>
+                    </div>
+                    </div>
+                    <div >
+                        <input className="form-check" type="checkbox"/>
+                        <label>Improve kids physical health</label>
+                        <input className="form-check" type="checkbox" />
+                        <label >Cover basic school needs</label>
+                        <input className="form-check" type="checkbox"/>
+                        <label >Increase Kids confidence/social acceptance</label>
+                    </div>
+                    {/* <div className="col-lg-6">
+                    <div className="form-group dream-checkbox">
+                        <label>What are the child’s aspirations/dream?</label>
+                        <div className="form-check">
+                            <Input className="form-check-input" type="checkbox" defaultValue id="defaultCheck1" />
+                            <label className="form-check-label" htmlFor="defaultCheck1">
+                                Improve kids physical health.
+                            </label>
+                        </div>
+                        <div className="form-check">
+                            <Input className="form-check-input" type="checkbox" defaultValue id="defaultCheck2" />
+                            <label className="form-check-label" htmlFor="defaultCheck2">
+                                cover basic school needs
+                            </label>
+                        </div>
+                        <div className="form-check">
+                            <Input className="form-check-input" type="checkbox" defaultValue id="defaultCheck2" />
+                            <label className="form-check-label" htmlFor="defaultCheck2">
+                                increase kids confidence/ social acceptance
+                            </label>
+                        </div>
+                    </div>
+                    </div> */}
+                    
+                    <span className="m-2">{status?<p className="text-sucess">{message}</p>:<p className="text-danger">{message}</p>}</span>
+                    <div className="col-lg-12 application-btns">
+                    <button type="submit" className="btn btn-primary mx-5 col-2 " disabled={!isFormValid}>Save&Continue</button>
+                    <a><div className="sponsor-exit-btn">Exit</div></a>
+                    </div>
+                </div>
+                </form>
+            </div>
+            <Script src="js/jquery.slim.min.js"></Script>
+            <Script src="js/popper.min.js"></Script>
+            <Script src="js/bootstrap.bundle.min.js"></Script>
+            <Script src="js/custom.js"></Script>
+            {/* <section className="form">
                 <form className="bg-light px-5 pt-5" onSubmit={handleSubmit}>
                     <div className="row">
                         <div className="col-5 mx-4">
@@ -114,7 +244,7 @@ export default function Education_details(props){
                         <Link href="/gaurdian/gaurdian_dashboard"><button type="button" className="btn btn-secondary col-2 mx-5 " >Exit</button></Link>
                     </div>
                 </form>
-            </section>
-        </>
+            </section> */}
+        </div>
     )
 }

@@ -251,6 +251,7 @@ const index=({user})=>
                     <span>Select payment</span><br /> type to sponsor her
                   </div>
                   <p>Select periodical sponsorship for child</p>
+                  <div style={{color:'green'}}>{message}</div>
                   <div className="sponor-name-btn" onClick={handleAmount}>
                     Sponsor {user.name}
                   </div>

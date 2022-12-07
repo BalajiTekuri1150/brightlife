@@ -2,8 +2,9 @@ import { getData } from "../../utils/data_manage_service"
 import { getLocalData } from "../../utils/storage_service"
 import { useState,useEffect } from "react"
 import axios from "axios"
-import { useRouter } from "next/router"
-import Link from "next/link"
+import { useRouter } from "next/router";
+import Head from "next/head";
+import Link from "next/link";
 let number_of_documents=0,document_type
 export default function Required_documents(props){
     const router=useRouter()
@@ -85,8 +86,129 @@ export default function Required_documents(props){
         props.screenvalue()       
     }
     return(
-        <>
-            <section className="form">
+        <div style={{width:'1200px',height:'100%'}}>
+            <div className="steps-wizard">
+                <div className="step1-wizard">
+                <a>
+                    <div className="step">1</div>
+                    <p style={{color: '#2a2a2a'}}>Kids details</p></a>
+                </div>  
+                <div className="step1-wizard step-active">
+                <a>
+                    <div className="step1">2</div>
+                    <p>Guardian details</p>
+                </a>
+                </div>  
+                <div className="step1-wizard step-active">
+                <a>
+                    <div className="step1">3</div>
+                    <p>Education details</p>
+                </a>
+                </div>  
+                <div className="step1-wizard step-active">
+                <a>
+                    <div className="step1">4</div>
+                    <p>Required Documents</p>
+                </a>
+                </div>  
+                <div className="step1-wizard">
+                <a>
+                    <div className="step1">5</div>
+                    <p>Bank details</p>
+                </a>
+                </div>                     
+            </div>
+            <div className="application-form-card" style={{height:'870px'}}>
+                <form onSubmit={handleSubmit}> 
+                    <div className="row sponsor-block bg-white" style={{height:'800px'}}>
+                        <div className="col-lg-12 upload-note">
+                        <p>Please upload a minimum of three documents from the below mentioned list</p>
+                        <p>(the more supporting documents you submit, the easier it will be to verify your application)</p>
+                        </div>
+                        <div className="col-lg-6">
+                        <label>Aadaar Card*</label>
+                        <div className="input-group">
+                            <div className="custom-file">
+                            <input className="form-control form-control-sm" name="Aadhar" type="file"  onChange={handleChange} d="inputGroupFile02"/>
+                            <label className="custom-file-label" htmlFor="inputGroupFile02" aria-describedby="inputGroupFileAddon02">100KB - 200KB, PNG, JPEG</label>
+                            </div>
+                        </div>
+                        </div>
+                        <div className="col-lg-6">
+                        <label>Birth certificate*</label>
+                        <div className="input-group">                                   
+                            <div className="custom-file">
+                            <input className="form-control form-control-sm" name="Birth_certificate" type="file" onChange={handleChange} id="inputGroupFile02"/>
+                            <label className="custom-file-label" htmlFor="inputGroupFile02" aria-describedby="inputGroupFileAddon02">100KB - 200KB, PNG, JPEG</label>
+                            </div>                                    
+                        </div>
+                        </div>
+                        <div className="col-lg-6">
+                        <label>Pan card</label>
+                        <div className="input-group">                                   
+                            <div className="custom-file">
+                            <input className="form-control form-control-sm" name="PAN" type="file" onChange={handleChange} id="inputGroupFile02"/>
+                            <label className="custom-file-label" htmlFor="inputGroupFile02" aria-describedby="inputGroupFileAddon02">100KB - 200KB, PNG, JPEG</label>
+                            </div>                                    
+                        </div>
+                        </div>
+                        <div className="col-lg-6">
+                        <label>Ration Card/ income proof</label>
+                        <div className="input-group">                                   
+                            <div className="custom-file">
+                            <input className="form-control form-control-sm" name="ration_card" type="file" onChange={handleChange} id="inputGroupFile02"/>
+                            <label className="custom-file-label" htmlFor="inputGroupFile02" aria-describedby="inputGroupFileAddon02">100KB - 200KB, PNG, JPEG</label>
+                            </div>                                    
+                        </div>
+                        </div>
+                        <div className="col-lg-6">
+                        <label>Health Certificate</label>
+                        <div className="input-group">                                   
+                            <div className="custom-file">
+                            <input className="form-control form-control-sm" type="file" name="health_certificate" onChange={handleChange} id="inputGroupFile02"/>
+                            <label className="custom-file-label" htmlFor="inputGroupFile02" aria-describedby="inputGroupFileAddon02">100KB - 200KB, PNG, JPEG</label>
+                            </div>                                    
+                        </div>
+                        </div>
+                        <div className="col-lg-6">
+                        <label>Disability certificate</label>
+                        <div className="input-group">                                   
+                            <div className="custom-file">
+                            <input className="form-control form-control-sm" type="file" name="Disability_certificate" onChange={handleChange} id="inputGroupFile02"/>
+                            <label className="custom-file-label" htmlFor="inputGroupFile02" aria-describedby="inputGroupFileAddon02">100KB - 200KB, PNG, JPEG</label>
+                            </div>                                    
+                        </div>
+                        </div>
+                        <div className="col-lg-6">
+                        <label>Schools Admission documents</label>
+                        <div className="input-group">                                   
+                            <div className="custom-file">
+                            <input className="form-control form-control-sm" type="file" name="schools_documents" onChange={handleChange} id="inputGroupFile02"/>
+                            <label className="custom-file-label" htmlFor="inputGroupFile02" aria-describedby="inputGroupFileAddon02">100KB - 200KB, PNG, JPEG</label>
+                            </div>                                    
+                        </div>
+                        </div>
+                        <div className="col-lg-6">
+                        <label>Report card</label>
+                        <div className="input-group">                                   
+                            <div className="custom-file">
+                            <input className="form-control form-control-sm"  name="report_card" type="file" onChange={handleChange} id="inputGroupFile02"/>
+                            <label className="custom-file-label" htmlFor="inputGroupFile02" aria-describedby="inputGroupFileAddon02">100KB - 200KB, PNG, JPEG</label>
+                            </div>                                    
+                        </div>
+                        </div>
+                        <div className="col-lg-12 application-btns">
+                            <button type="submit" className="sponsor-save-btn" disabled={disable} >Save&Continue</button>
+                            <Link href="/gaurdian/gaurdian_dashboard"><button type="button" className="sponsor-exit-btn" >Exit</button></Link>
+                        </div>
+                        {/* <div className="col-lg-12 application-btns">
+                        <a href="bank-details.html"><div className="sponsor-save-btn">Save &amp; continue</div></a>
+                        <a href><div className="sponsor-exit-btn">Exit</div></a>
+                        </div> */}
+                    </div>
+                </form>
+            </div>
+            {/* <section className="form">
                 <form className="bg-light px-5 pt-5" onSubmit={handleSubmit} >
                 Please submit minimum of 3 documents mentioned in below list.
                     <div className="row m-5">
@@ -135,7 +257,7 @@ export default function Required_documents(props){
                         <Link href="/gaurdian/gaurdian_dashboard"><button type="button" className="btn btn-secondary col-2 mx-5 " >Exit</button></Link>
                     </div>
                 </form>
-            </section>
-        </>
+            </section> */}
+        </div>
     )
 }

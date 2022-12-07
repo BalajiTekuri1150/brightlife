@@ -34,11 +34,12 @@ const Sponser_list=()=>
     }
     return(
         <div>
-            <div style={{display:'flex'}}>
+            <div className="col-lg-10 col-sm-12">
                 {/* <div>
                     <Side/>
                 </div> */}
-                <div style={{marginTop:"70px",width:'800px',height:'100%',backgroundColor:'white',borderRadius:'10px',boxShadow:'0 8px 6px 3px rgba(0,0,0,0.5)',transition:'3s'}}>
+                <div className="myaccount-right-block">
+                    <div className="myaccount-content-block">
                     <button className="btn btn-primary" style={{marginLeft:'700px',marginTop:'10px'}} onClick={handleKidsList}>Kids List</button>
                     <main className={homestyle.main}>
                         <div className={homestyle.grid}>
@@ -74,6 +75,7 @@ const Sponser_list=()=>
                         }
                         </div>
                     </main>
+                </div>
                 </div>
             </div>
         </div>

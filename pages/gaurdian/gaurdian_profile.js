@@ -333,9 +333,9 @@ export default function Gaurdian_Profile(){
                             {/* <div style={{color:'red',marginLeft:'150px'}}>{message}</div><br/> */}
                             {/* <div style={{color:'green',marginLeft:'150px'}}>{message1}</div><br/> */}
                             {status?<p className="text-success">{message}</p>:<p className="text-danger">{message}</p>}
-                            <div className="col-lg-12">
+                            <div className="col-lg-12 ">
                                 <div className="sponsor-save-btn" onClick={updateProfile}>Save</div>
-                                <Link href="/gaurdian/gaurdian_dashboard"><button className="btn btn-secondary mx-5 col-2" >Exit</button></Link>
+                                {/* <Link href="/gaurdian/gaurdian_dashboard"><button className="btn btn-secondary mx-5 col-2" >Exit</button></Link> */}
                             </div>
                         </div>
                         </form>

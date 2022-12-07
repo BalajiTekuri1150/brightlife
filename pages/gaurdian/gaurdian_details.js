@@ -4,6 +4,8 @@ import Input from "./input_compent"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { getLocalData } from "../../utils/storage_service"
+import Script from "next/script";
+import Head from "next/head"
 export default function Gaurdian_details(props){
     let value="",isvalid=false
     const router=useRouter()
@@ -19,6 +21,7 @@ export default function Gaurdian_details(props){
     useEffect(()=>{
         if(!isNaN(application_number)){
             const getprofile=async()=>{
+                console.log(application_number)
                 const result=await getData(`https://test-api.brightlife.org/brightlife/get/application/details?page=1&page_size=5&application_id=${application_number}`);
                 const disable=(Object.keys(formValues)).every((item)=>(Object.keys(result?.data?.response?.data[0])).includes(item))
                 if(disable){
@@ -63,8 +66,97 @@ export default function Gaurdian_details(props){
         return formValues[key].isvalid
     })
     return(
-        <>
-            <section className="form">
+        <div style={{width:'1200px'}}>
+            <Head>
+                <title>Brightlife</title>
+                <meta charSet="utf-8" />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" />
+            </Head>
+            <div className="steps-wizard">
+                <div className="step1-wizard">
+                <a>
+                    <div className="step">1</div>
+                    <p style={{color: '#2a2a2a'}}>Kids details</p></a>
+                </div>  
+                <div className="step1-wizard step-active">
+                <a>
+                    <div className="step1">2</div>
+                    <p>Guardian details</p>
+                </a>
+                </div>  
+                <div className="step1-wizard">
+                <a>
+                    <div className="step1">3</div>
+                    <p>Education details</p>
+                </a>
+                </div>  
+                <div className="step1-wizard">
+                <a>
+                    <div className="step1">4</div>
+                    <p>Required Documents</p>
+                </a>
+                </div>  
+                <div className="step1-wizard">
+                <a>
+                    <div className="step1">5</div>
+                    <p>Bank details</p>
+                </a>
+                </div>                     
+            </div>
+            <div className="application-form-card">
+                <form onSubmit={handleSubmit}> 
+                    <div className="row sponsor-block bg-white">
+                        <div className="col-lg-6">
+                        <div className="form-group">
+                            <label>Profession</label>
+                            <Input type="text" className="form-control" name="profession" value={formValues.profession.value} onChange={handleChange}/>            
+                        </div>
+                        </div>
+                        <div className="col-lg-6">
+                        <div className="form-group">
+                            <label>Annual Income</label>
+                            <Input type="number" className="form-control" name="annual_income" value={formValues.annual_income.value} onChange={handleChange}/>            
+                            {/* <select className="form-control">
+                            <option />    
+                            <option>less than 50000</option>
+                            <option>less than 40000</option>
+                            <option>less than 30000</option>
+                            </select>   */}
+                        </div>
+                        </div>
+                        <div className="col-lg-6">
+                        <div className="form-group">
+                            <label>Family Members</label>
+                            <Input type="number" className="form-control" name="family_members" value={formValues.family_members.value} onChange={handleChange}/>            
+                            {/* <select className="form-control">
+                            <option />
+                            <option>Member1</option>
+                            <option>Member2</option>
+                            <option>Member3</option>
+                            </select>   */}
+                        </div>
+                        </div>
+                        <div className="col-lg-6">
+                        <div className="form-group">
+                            <label>Extra Allowance</label>
+                            <Input type="text" name="extra_allowance" className="form-control" value={formValues.extra_allowance.value} onChange={handleChange}/>
+                        </div>
+                        </div>
+                        <span className="m-2">{status?<p className="text-sucess">{message}</p>:<p className="text-danger">{message}</p>}</span>
+                        <div className="col-lg-12 application-btns">
+                        <button type="submit" className="sponsor-save-btn " disabled={!isFormValid}>Save&Continue</button>
+                        <Link href="/gaurdian/gaurdian_dashboard"><div className="sponsor-exit-btn">Exit</div></Link>
+                        </div>
+                    </div>
+                </form>
+             </div>
+            <Script src="js/jquery.slim.min.js"></Script>
+            <Script src="js/popper.min.js"></Script>
+            <Script src="js/bootstrap.bundle.min.js"></Script>
+            <Script src="js/custom.js"></Script>
+            {/* <section className="form">
                 <form className="bg-light px-5 pt-5" onSubmit={handleSubmit}>
                     <div className="row">
                         <div className="col-5 mx-4">
@@ -92,7 +184,7 @@ export default function Gaurdian_details(props){
                         <Link href="/gaurdian/gaurdian_dashboard"><button type="button" className="btn btn-secondary col-2 mx-5 " >Exit</button></Link>
                     </div>
                 </form>
-            </section>
-        </>
+            </section> */}
+        </div>
     )
 }

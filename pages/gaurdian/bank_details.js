@@ -49,14 +49,15 @@ export default function Bank_details(){
     }
     const handleSubmit=async(e)=>
     {
-        e.preventDefault()    
+        e.preventDefault()  
+        console.log(e.target.bank_name.value)  
         const data = {
             application_id:application_number,
             bank_name:e.target.bank_name.value,
             state:e.target.state.value,
-            postal_code:e.target.postal_code.value,
+            postal_code:Number(e.target.postal_code.value),
             account_holder:e.target.account_holder.value,
-            account_number:e.target.account_number.value,
+            account_number:parseInt(e.target.account_number.value),
             branch:e.target.branch.value,
             ifsc: e.target.ifsc.value
         }
@@ -83,8 +84,100 @@ export default function Bank_details(){
         return formValues[key].isvalid
     })
     return(
-        <>
-            <section className="form">
+        <div style={{width:'1200px'}}>
+            <div className="steps-wizard">
+                <div className="step1-wizard">
+                <a>
+                    <div className="step">1</div>
+                    <p style={{color: '#2a2a2a'}}>Kids details</p></a>
+                </div>  
+                <div className="step1-wizard step-active">
+                <a>
+                    <div className="step1">2</div>
+                    <p>Guardian details</p>
+                </a>
+                </div>  
+                <div className="step1-wizard step-active">
+                <a>
+                    <div className="step1">3</div>
+                    <p>Education details</p>
+                </a>
+                </div>  
+                <div className="step1-wizard step-active">
+                <a>
+                    <div className="step1">4</div>
+                    <p>Required Documents</p>
+                </a>
+                </div>  
+                <div className="step1-wizard step-active">
+                <a>
+                    <div className="step1">5</div>
+                    <p>Bank details</p>
+                </a>
+                </div>                     
+            </div>
+            <div className="application-form-card">
+                <form onSubmit={handleSubmit}> 
+                    <div className="row sponsor-block bg-white">
+                        <div className="col-lg-12 bank-details-head">
+                        <h4>Bank Details</h4>
+                        </div>
+                        <div className="col-lg-6">
+                        <div className="form-group">
+                            <label>Bank Name</label>
+                            <Input type="text" name="bank_name" className="form-control" value={formValues.bank_name?.value} onChange={handleChange}/>
+                        </div>
+                        </div>
+                        <div className="col-lg-6">
+                        <div className="form-group">
+                            <label>Branch and Address</label>
+                            {/* <input type="text" className="form-control" />             */}
+                            <Input type="text" name="branch" className="form-control" value={formValues.branch.value} onChange={handleChange}/>
+                        </div>
+                        </div>
+                        <div className="col-lg-6">
+                        <div className="form-group">
+                            <label>State</label>
+                            <Input type="text" name="state" className="form-control" value={formValues.state.value} onChange={handleChange}/>
+                        </div>
+                        </div>
+                        <div className="col-lg-6">
+                        <div className="form-group">
+                            <label>Postal Code</label>
+                            <Input type="number" name="postal_code" className="form-control" value={formValues.postal_code.value} onChange={handleChange}/>
+                        </div>
+                        </div>
+                        <div className="details-divid col-md-12" />    
+                        <div className="col-lg-12 bank-details-head">
+                        <h4>Account Details</h4>
+                        </div>
+                        <div className="col-lg-6">
+                        <div className="form-group">
+                            <label>Account Holder</label>
+                            <Input type="text" name="account_holder" className="form-control" value={formValues.account_holder.value} onChange={handleChange}/>
+                        </div>
+                        </div>
+                        <div className="col-lg-6">
+                        <div className="form-group">
+                            <label>Account number</label>
+                            <Input type="number" name="account_number" className="form-control" value={formValues.account_number.value} onChange={handleChange}/>
+                        </div>
+                        </div>
+                        <div className="col-lg-6">
+                        <div className="form-group">
+                            <label>IFSC Code</label>
+                            <Input type="text" name="ifsc" className="form-control" value={formValues.ifsc.value} onChange={handleChange}/>
+                        </div>
+                        </div>                
+                        <div className="col-lg-12 application-btns">
+                        {/* <button type="submit" className="sponsor-save-btn">Submit for verification</button> */}
+                        <button type="submit" className="sponsor-save-btn" disabled={!isFormValid}>Submit for verification</button>
+                        <a href><div className="sponsor-exit-btn">Exit</div></a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            {/* <section className="form">
                 <form className="bg-light px-5 pt-5" onSubmit={handleSubmit}>
                     <h5 className="mb-5">Bank Details</h5>
                     <div className="row">
@@ -129,7 +222,7 @@ export default function Bank_details(){
                         <Link href="/gaurdian/gaurdian_dashboard"><button type="button" className="btn btn-secondary col-2 mx-5 " >Exit</button></Link>
                     </div>
                 </form>
-            </section>
-        </>
+            </section> */}
+        </div>
     )
 }

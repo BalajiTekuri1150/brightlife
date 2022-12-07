@@ -43,11 +43,10 @@ header .navbar.solid {
   color:#fff;
 }
 header .navbar {
-
     background-color: transparent;
     border: none;
     color: white;
-    z-index: 2000;
+    z-index: 1040;
     transition: background-color .61s ease 0s;
     position: fixed;
     width:100%;
@@ -1391,7 +1390,9 @@ header .navbar-nav li:nth-child(2){
 .view-prof-btn{background: #f6f7f9;height: 60px;display: flex;justify-content: center;align-items: center;font-size: 18px;color: #2a2a2a;border: 1px solid #ebebeb;}
   .sponsor-block .col-sm-4{flex: 0 0 31.333333%;max-width: 31.333333%;padding-right: 0;margin:0 15px 30px 0;}
   .sponsor-block-content{padding: 25px 30px;border-right: 1px solid #ebebeb;border-left: 1px solid #ebebeb;}
-  .sponsor-block-content p:nth-of-type(1){color:#6c5eff;text-align: center;font-size: 16px;}
+
+  .sponsor-block-content .plan-price{color:#6c5eff;text-align: center;font-size: 16px;}
+
   .sponsor-block-content h4{font-size: 24px;text-align: center;color: #2a2a2a;}
   .sponsor-justify{display: flex;justify-content: space-between;padding-bottom: 30px;color:#6e6e6e}
   .block-shadow{box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.06)}
@@ -1401,7 +1402,63 @@ header .navbar-nav li:nth-child(2){
   }
   .myaccount-content-inner .bg-white{
     margin-right:5px;
-
+  }
+  .filter_head{
+    display: flex;
+    justify-content: space-between;
+  }
+  .new-appli-btn{
+    border-radius: 4px;
+    background-color: #6c5eff;
+    font-size: 18px;   
+    color: #fff;
+    padding: 18px 47px;
+  }
+  .new-appli-btn i{
+   margin-right:10px;
+  }
+  .pending-status{
+    font-size: 16px;
+    font-weight: 600;    
+    text-align: center;
+    color: #fff;
+    padding: 2px 24px;
+    border-radius: 13px;
+    background-color: #ff5e5e;
+  }
+  .under-review-status {
+    font-size: 16px;
+    font-weight: 600;    
+    text-align: center;
+    color: #fff;
+    padding: 2px 24px;
+    border-radius: 13px;
+    background-color: #dea409;
+  }
+  .approved-status  {
+    font-size: 16px;
+    font-weight: 600;    
+    text-align: center;
+    color: #fff;
+    padding: 2px 24px;
+    border-radius: 13px;
+    background-color: #53ad04;
+  }
+  .scholarship-received-status {
+    font-size: 16px;
+    font-weight: 600;    
+    text-align: center;
+    color: #fff;
+    padding: 2px 24px;
+    border-radius: 13px;
+    background-color: #6c5eff;
+  }
+  .status-sec{
+    margin-bottom:10px;
+    text-align: center;
+  }
+  .sponsor-block-content .pending-status{
+    text-align: center;
   }
   .sponsor-save-btn{
     border-radius: 4px;
@@ -1411,10 +1468,23 @@ header .navbar-nav li:nth-child(2){
     font-size: 18px;
     font-weight: normal;
     text-align: center;
-    color: #fff !important;
-    float: right;
+    color: #fff !important;   
     position: relative;
     line-height: 50px;
+  }
+  .sponsor-exit-btn{
+    border-radius: 4px;
+    background-color: #fff;
+    width: 150px;
+    height: 50px;
+    font-size: 18px;
+    font-weight: normal;
+    text-align: center;
+    color: #6e6e6e !important;   
+    position: relative;
+    line-height: 50px;
+    border: solid 2px #aab2c2;
+    margin-left:40px;
   }
 /* Profile header end here */
 /* Apply for a sponsorship start */
@@ -1848,12 +1918,13 @@ cursor: pointer;
 /* new application wizard start */
 .steps-wizard{
   display: flex;
-  width: 100%;
+  max-width: 100%;
 }
 .step1-wizard{
-  width:20%
+  width:20%;
+  position: relative;
 }
-.step1{
+.step{
   width: 40px;
   height: 40px; 
   border: solid 2px #55bf07;
@@ -1864,13 +1935,381 @@ cursor: pointer;
   border-radius: 50%;
   text-align: center;
   line-height: 40px;
+  margin:0 auto;  
+}
+
+.step1{
+  width: 40px;
+  height: 40px; 
+  border: solid 2px #f0f0f0;
+  background-color: #f0f0f0;
+  font-size: 22px;
+  font-weight: normal; 
+  color: #adadad;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 40px;
+  margin:0 auto;  
+}
+
+.step1::after{
+  background-color:#e6e6e6;
+  content: "";
+  display: block;
+  height: 4px;
+  left: calc(-50% + 20px);
+  position: absolute;
+  top: 17px;
+  transition-delay: 0s;
+  transition-duration: 0.15s;
+  transition-property: all;
+  transition-timing-function: linear;
+  width: calc(100% - 40px);
+  z-index: 1;
+}
+.step-active .step1{
+  border: solid 2px #55bf07;
+  background-color: #55bf07;
+  color: #fff;
+}
+.step-active .step1::after{
+  background-color:#55bf07;
 }
 .step1-wizard p{
  margin-top:10px;
  font-size: 18px;
   color: #959595;
+  text-align: center;
+}
+.step-active p{
+  color:#2a2a2a
+}
+.steper-card .myaccount-content-inner{
+  padding: 0px 0px 50px 0px;
+  
+}
+.steps-wizard{
+  padding:32px 0px 15px 0;
+  border-bottom:1px solid #eeeeee;
+}
+.application-form-card{
+  margin:30px 40px;
+  border:1px solid #eee;
+  padding:40px;
+  margin-bottom: 80px;
+}
+.application-form-card .image-upload{
+  position: relative;
+  bottom: auto;
+  cursor: pointer;
+  margin-right:30px;
+}
+.application-form-card .image-upload img{
+  cursor: pointer;
+}
+.image-upload-sec{
+  display: flex;
 }
 
+.image-upload-sec h4{
+  font-size: 20px;
+  font-weight: 600;
+  text-align: left;
+  color: #6c5eff;
+  margin-top:30px;
+}
+.image-upload-sec p{
+  font-size: 16px;
+  font-weight: normal;
+  text-align: left;
+  color: #6e6e6e;
+}
+.radio-btn-size input{
+  height: 24px;
+  width: 24px;
+
+}
+.radio-btn-size .form-check{
+  margin-top:5px;
+}
+.application-btns{
+  display: flex;
+  justify-content: end;
+  margin-top:56px;
+}
+.dream-checkbox .form-check{
+  margin-top:20px;
+}
+.dream-checkbox .form-check input{
+  width:16px;
+  height:16px;  
+}
+.dream-checkbox .form-check .form-check-label{
+  padding-left:10px;
+  margin-top:2px;
+}
+.upload-note p:first-child{
+  font-size:16px;
+  margin-bottom:5px;
+}
+.upload-note p:nth-child(2){
+  font-size:14px;
+}
+.application-form-card .form-control[readonly] {
+  background-color: #fff;
+  opacity: 1;
+}
+.btn-remove{
+  color: #ef6b6b;
+  border-color: #d0d0d0;
+}
+.btn-remove:hover{
+  color: #ef6b6b;
+  border-color: #d0d0d0;
+}
+.application-form-card .custom-file-label::after {  
+  color: #6c5eff;
+  content: "Browse";
+  background-color: #fff; 
+}
+.custom-file-input {
+  cursor: pointer;
+}
+.application-form-card .input-group{
+  margin-bottom: 40px;
+}
+.application-form-card .input-group{
+  margin-bottom: 40px;
+}
+.application-form-card .custom-file-label {
+  color: #a8a9aa;
+  font-size: 16px;
+  height: 50px;
+  line-height:40px;
+}
+.application-form-card .custom-file-label::after {
+  height: 50px;
+  line-height:40px;
+}
+.application-form-card  input, .application-form-card  select {
+  height: 50px;
+  line-height:40px;
+}
+.bank-details-head h4{
+  font-size: 20px;
+  font-weight: 600; 
+  text-align: left;
+  color: #2a2a2a;
+  margin-bottom:22px;
+}
+.details-divid{
+  height: 2px;
+  background-color: #eee;
+  margin-top:35px;
+  margin-bottom:40px
+}
+.card-marign .col-lg-4{
+  margin-bottom:20px;
+}
+
+/* verification modal start */
+.verif-cont{
+  text-align:center;
+}
+.verif-cont h4{
+  opacity: 0.67;
+  font-size: 22px;
+  font-weight: 500; 
+  color: #00000b;
+}
+.verif-cont p{
+  font-size: 16px;
+  font-weight: normal; 
+  color: #808082;
+  margin-top:18px;
+  margin-bottom: 40px;
+}
+
+#verification-popup .modal-dialog {
+  max-width: 647px;
+  margin: 1.75rem auto;   
+}
+#verification-popup .modal-body { 
+  padding: 40px 95px;
+}
+.review-btn {
+  border-radius: 4px;
+  background-color: #fff;
+  width: 250px;
+  height: 50px;
+  font-size: 18px;
+  font-weight: normal;
+  text-align: center;
+  color: #6e6e6e !important;
+  position: relative;
+  line-height: 50px;
+  border: solid 2px #aab2c2;
+  margin-left: 10px;
+}
+.review-btns {
+  display: flex;
+  justify-content:center;
+  margin-top: 56px;
+}
+.verification-btn{
+  background-color: #6c5eff;
+    width: 250px;
+    height: 50px;
+    font-size: 18px;
+    font-weight: normal;
+    text-align: center;
+    color: #fff !important;
+    position: relative;
+    line-height: 50px;
+    border-radius: 4px;
+}
+/* verification modal end */
+
+/* payment start */
+.payment-bg {
+  background-image: url(/img/payment-bg.png);
+  background-repeat: no-repeat, repeat;
+  position: relative;
+ height: 638px;
+  background-size: cover;
+}
+.payment-card {
+  padding: 40px;
+  border-radius: 6px;
+  box-shadow: 0 0 20px 0 rgb(0 0 0 / 16%);
+  background-color: #fff;
+  margin-top: -375px;
+  position: relative;
+  margin-bottom: 56px;
+}
+.payment-ban-content {
+  position: absolute;
+  top:85px;
+  left: 50%;
+-webkit-transform: translateX(-50%);
+transform: translateX(-50%)
+}
+.payment-ban-content .make-title {
+  font-size: 43px;
+  color: #fff;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 0;
+}
+.payment-ban-content p{
+  font-size: 43px;
+  color: #fff;
+  text-align: center;
+}
+.pay-card-inner{
+  border-radius: 6px;
+  border: solid 1px #e0e4ed;
+}
+.select-method p{
+  font-size: 20px; 
+  text-align: left;
+  color: #2a2a2a;
+  margin-bottom:40px;
+}
+.select-method{
+  padding:33px 40px;
+}
+.select-method .form-check-label {
+  margin-left: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: left;
+  color: #2a2a2a;
+}
+.under_divid{
+  height: 1px;
+  background-color: #eee;  
+  margin-top:25px;
+  position: relative;
+}
+.img-cards{
+  width:180px;
+}
+.pay-method-form {
+ padding:0 25px;
+ margin-top:20px;
+}
+.pay-method-form p{
+  font-size: 14px;  
+  text-align: left;
+  color: #6e6e6e;
+}
+.pay-method-form .form-control{
+  height: 50px;
+}
+.card-icon{
+  position: absolute;
+    right: 12px;
+   top:12px
+}
+.pos-real{
+  position: relative;
+}
+.paybtn{
+  width: 288px;
+  height: 50px;  
+  border-radius: 4px;
+  box-shadow: 0 0 20px 0 rgba(108, 94, 255, 0.31);
+  background-color: #6c5eff;
+  color:#fff;
+  border:none;
+  margin-top:50px;
+  margin-bottom:48px;
+}
+.pay-note{
+  border-radius: 4px;
+  background-color: #f5f5f5;
+  font-size: 18px;
+  text-align: left;
+  color: #6e6e6e;
+  padding:16px 32px;
+}
+.credit-card{
+  display: flex;
+  justify-content: space-between;
+}
+.bg-successful{
+  background-image: url("/img/payment-success.png");
+  background-repeat: no-repeat, repeat;
+
+  background-size: cover;
+  height: 372px;
+  border:none;
+}
+.payment-succuss-content{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.payment-succuss-content h4{
+  font-size: 26px;
+  color: #2a2a2a;
+  margin-top:46px;
+}
+.payment-succuss-content p{
+  font-size: 18px;  
+  text-align: center;
+  color: #6e6e6e;
+  margin-top:24px;
+}
+.payment-succuss-main .payment-card{
+    height: 650px;    
+}
+.payment-succuss-main .payment-ban-content{
+  top: 110px
+}
+/* payment end */
 
 /*Responsive Design*/
 
@@ -2010,6 +2449,9 @@ cursor: pointer;
       .commitments p {
           font-size: 20px;
           margin-top: 20px;
+      }
+      .payment-succuss-main .payment-card {
+          height: 580px;
       }
 }
 @media screen and (max-width: 1600px){
@@ -2301,6 +2743,57 @@ cursor: pointer;
           width: 230px;
           padding: 12px;
       }
+      .step1-wizard p {          
+          font-size: 16px;           
+      }
+      #verification-popup .modal-dialog {
+          max-width: 600px;
+          margin: 1.75rem auto;   
+        }
+        #verification-popup .modal-body { 
+          padding: 40px 80px;
+        }
+        .review-btns {
+          margin-top: 40px;
+      }
+      /* payment css */
+      .payment-ban-content p {
+          font-size: 35px;
+      }
+      .payment-ban-content .make-title {
+          font-size: 35px;         
+      }
+      .payment-bg {
+          height: 480px;
+          background-size: cover;
+      }
+      .payment-card {
+          padding: 30px;
+          margin-top: -240px;
+          margin-bottom: 69px;
+      }
+      .select-method {
+          padding: 20px 30px;
+      }
+      .select-method p {
+          margin-bottom: 25px;
+      }
+      .pay-note {
+          border-radius: 4px;
+          background-color: #f5f5f5;
+          font-size: 16px;
+          text-align: left;
+          color: #6e6e6e;
+          padding: 16px 32px;
+      }
+      .payment-succuss-main .payment-card {
+          height: 480px;
+      }
+      .new-appli-btn {
+          border-radius: 4px;
+          font-size: 17px;
+          padding: 16px 38px;
+      }
 }
 @media screen and (max-width: 1400px){
 
@@ -2406,6 +2899,22 @@ cursor: pointer;
           margin-right: 30px;
           width: 47%;
       }
+      .sponsor-exit-btn {      
+          margin-left: 20px;
+      }
+      .payment-bg {
+          height: 450px;
+      }
+      .paybtn {
+          width: 250px;
+          height: 50px;
+   
+          margin-top: 30px;
+          margin-bottom: 20px;
+      }
+      .payment-succuss-main .payment-ban-content {
+          top: 80px;
+      }
 }
 @media screen and (max-width: 1280px){
   .custom-container {
@@ -2491,6 +3000,14 @@ cursor: pointer;
       .select-payemnt-stat p {
           font-size: 18px;
           margin-bottom: 13px;
+      }
+      .step1-wizard p {
+          font-size: 14px;
+      }
+      .new-appli-btn {
+          border-radius: 4px;
+          font-size: 15px;
+          padding: 14px 30px;
       }
 }
 @media screen and (max-width: 1200px){
@@ -2739,6 +3256,63 @@ cursor: pointer;
       .more-about-content tr > td {
           font-size: 13px;
       }
+      .application-form-card .custom-file-label {
+          color: #a8a9aa;
+          font-size: 14px;
+          height: 50px;
+          line-height: 40px;
+      }
+      .application-form-card .form-control[readonly] {     
+          font-size: 14px;
+      }
+      .btn-remove {
+          font-size: 14px;
+      }
+      .details-divid {            
+          margin-top: 20px;
+          margin-bottom: 25px;
+      }
+      .bank-details-head h4 {
+          font-size: 18px;          
+          margin-bottom: 18px;
+      }
+      .payment-ban-content p {
+          font-size: 28px;
+      }
+      .payment-ban-content .make-title {
+          font-size: 28px;
+      }
+      .payment-bg {
+          height: 370px;
+      }
+      .payment-ban-content {
+          top: 40px;            
+      }
+      .pay-method-form .col-lg-7{
+         max-width:100%;
+      }
+      .payment-succuss-main .payment-card {
+          height: 380px;
+      }
+      .payment-succuss-content h4 {
+          font-size: 20px;
+          color: #2a2a2a;
+          margin-top: 20px;
+      }
+      .payment-succuss-content p {
+          font-size: 16px;
+          margin-top: 20px;
+      }
+      .bg-successful {       
+          height: 220px;
+      }
+      .payment-succuss-main img{ 
+          width:75px;
+      }
+      .payment-succuss-main .payment-ban-content {
+          top: 50px;
+      }
+   
 }
 @media screen and (min-width: 992px) {
   header .navbar-expand-lg .navbar-collapse{
@@ -3246,6 +3820,14 @@ cursor: pointer;
       position: relative;
       line-height: 40px;
   }
+  .sponsor-exit-btn {      
+      width: 160px;
+      height: 40px;
+      font-size: 14px;
+      float: right;
+      position: relative;
+      line-height: 40px;
+  }
   .left-profilemenu-block {      
       min-height: auto;       
   }
@@ -3271,6 +3853,38 @@ cursor: pointer;
   .myaccount-content-block .pad-div {
       padding:0px;
   }
+  .steper-card .myaccount-content-inner {
+    background-color: #fff;
+  }
+  .application-form-card {
+      margin: 30px 10px;
+      border: 1px solid #eee;
+      padding: 20px;
+      margin-bottom: 80px;
+  }
+  .application-btns {
+      display: block;
+      justify-content: center;
+      margin-top: 25px;
+  }
+  .sponsor-save-btn {
+      width: 100%;       
+  }
+  .sponsor-exit-btn {
+      width: 100%;
+      margin-top:15px;
+  }
+  .payment-ban-content p {
+      font-size: 24px;
+  }
+  .payment-ban-content .make-title {
+      font-size: 24px;
+  }
+  .pay-note {
+      border-radius: 4px;    
+      font-size: 14px;    
+      padding: 10px 20px;
+      }
 }
 @media screen and (max-width: 768px) { 
   .apply-spons-row {
@@ -3656,12 +4270,85 @@ cursor: pointer;
   .child-detail-start {
       margin-top: 20px;
   }
+  #verification-popup .modal-body {
+      padding: 30px 50px;
+  }
+  #verification-popup .modal-dialog {
+      max-width: 520px;
+      margin: 1.75rem auto;
+  }
+  .verification-btn {       
+      width: 200px;
+      font-size:14px;
+  }
+  .review-btn {
+      width: 200px;        
+      font-size: 16px;
+      }
+      .payment-ban-content p {
+          font-size: 20px;
+      }
+      .payment-ban-content .make-title {
+          font-size: 20px;
+      }
+      .payment-succuss-content {
+          position: absolute;
+          top: 50%;
+          left: 8%;
+          transform: translate(-4%, -50%);
+      }
+      .payment-succuss-main .payment-card {
+          height: 300px;
+          margin-top: -172px;
+      }
+      .payment-succuss-main img {
+          width: 55px;
+      }
+      .payment-succuss-main .payment-bg {
+          height: 292px;
+      }
+      .payment-succuss-main .payment-ban-content {
+       
+          left: 50%;
+          -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+      }
+      
 }
 @media screen and (max-width: 550px) {  
  
-  .select-payemnt-stat .sponor-name-btn {
-      width: 200px;
+  
+  #verification-popup .modal-body {
+      padding: 25px 20px;
   }
+  #verification-popup .modal-dialog {
+      max-width: 420px;
+      margin: 1.75rem auto;
+  }
+  .verification-btn {       
+      width: 100%;
+      font-size:14px;
+      height: 40px;
+      line-height:40px;
+  }
+  .review-btn {
+      width: 100%;    
+      font-size: 16px;
+      margin-left: 0;
+      margin-top:10px;
+      height: 40px;
+      line-height:40px;
+      }
+      .verif-cont p {
+          font-size: 14px;
+          margin-top: 16px;
+          margin-bottom: 20px;
+      }
+      .review-btns {
+          display: block;
+          justify-content: center;           
+          margin-top: 30px;
+      }
   
 }
 @media screen and (max-width: 475px) {  
@@ -3822,6 +4509,106 @@ cursor: pointer;
   width: 200px;
   padding: 5px 18px;
 }
+.image-upload-sec h4 {
+  font-size: 14px; 
+}
+.image-upload-sec .image-upload img{
+  width: 80px;
+}
+.image-upload-sec h4 {
+  margin-top: 18px;
+}
+.image-upload-sec p {
+  font-size: 12px; 
+}
+.application-form-card .image-upload { 
+  margin-right: 15px;
+}
+.application-form-card {
+
+  padding: 10px 0 10px 18px ;
+}
+.upload-note p:first-child {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+.upload-note p:nth-child(2) {
+  font-size: 12px;
+}
+.application-form-card .input-group {
+  margin-bottom: 25px;
+}
+.details-divid {            
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
+.bank-details-head h4 {
+  font-size: 16px;          
+  margin-bottom: 12px;
+}
+#verification-popup .modal-dialog {
+  max-width: 320px;
+  margin: 1.75rem auto;
+}
+.verif-cont h4 {
+  font-size: 20px;  
+}
+.verif-cont p {
+  margin-bottom: 10px;
+}
+.credit-card{
+  display: block;    
+}
+.img-cards{
+  margin-top:15px;
+}
+.pay-method-form {
+  padding: 0;
+  margin-top: 20px;
+}
+.pay-method-form .col-lg-7{
+  padding:0;
+}
+.payment-card {
+  padding: 15px;
+  margin-top: -200px;
+  margin-bottom: 69px;
+}
+.under_divid {
+  height: 1px;;
+  margin-top: 3px;
+}
+.payment-ban-content p {
+  font-size: 16px;
+}
+.payment-ban-content .make-title {
+  font-size: 16px;
+}
+.payment-ban-content {   
+  left: 40%;
+  -webkit-transform: translateX(-34%);
+  transform: translateX(-34%);
+}
+.payment-bg {
+  height: 280px;
+}
+.payment-card {
+  padding: 15px;
+  margin-top: -140px;
+  margin-bottom: 69px;
+}
+.select-method {
+  padding: 20px 15px;
+}
+.new-appli-btn {
+  border-radius: 4px;
+  font-size: 13px;
+  padding: 11px 18px;
+  line-height: 32px;
+}
+.pending-status, .under-review-status, .approved-status, .scholarship-received-status {
+  font-size: 14px;    
+}
 }
 @media screen and (max-width: 375px) {  
 
@@ -3884,6 +4671,75 @@ cursor: pointer;
       width: 100%;
       padding: 5px 18px;
   }
+  .step1-wizard p {
+      font-size: 10px;
+  }
+  .step {
+      width: 30px;
+      height: 30px;
+      font-size: 16px;
+      font-weight: normal;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 30px;      
+  }
+  .step1 {
+      width: 30px;
+      height: 30px;
+      font-size: 16px;
+      font-weight: normal;
+      border-radius: 50%;
+      line-height: 30px;
+  }
+  .step1::after {
+      height: 3x;
+      left: calc(-50% + 14px);
+      top: 13px;
+      width: calc(100% - 28px);
+  }
+  .application-form-card .custom-file-label {
+      color: #a8a9aa;
+      font-size: 12px;
+      height: 50px;
+      line-height: 40px;
+  }
+  .application-form-card .form-control[readonly] {     
+      font-size: 12px;
+  }
+  .payment-ban-content p {
+      font-size: 15px;
+  }
+  .payment-ban-content .make-title {
+      font-size: 16px;
+  }
+  .paybtn {
+      width: 100%;
+      height: 40px;
+      margin-top: 13px;
+      margin-bottom: 3px;
+  }
+  .payment-succuss-content h4 {
+      font-size: 16px;
+      color: #2a2a2a;
+      margin-top: 15px;
+  }
+  .payment-succuss-content p {
+      font-size: 14px;
+      margin-top: 15px;
+  }
+  .payment-succuss-main .payment-bg {
+      height: 245px;
+  }
+  .payment-succuss-main .payment-ban-content {
+      top: 30px;
+  }
+  .new-appli-btn {
+      font-size: 12px;       
+  }
+  .sort-filter {
+      width: 128px;
+      font-size: 13px;
+  }
 }
 
 @media screen and (max-width: 360px) { 
@@ -3893,10 +4749,51 @@ cursor: pointer;
 .recent-activities-main img {
   width: 50%;
 }
+.payment-ban-content p {
+  font-size: 14px;
+}
+.payment-bg {
+  height: 260px;
+}
+.select-method p {
+  margin-bottom: 18px;
+  font-size: 14px;
+}
+.pay-method-form .form-control{
+  font-size: 14px;
+}
+.new-appli-btn {
+  font-size: 11px;
+  padding: 11px 10px;
+}
 }
 @media screen and (max-width: 320px) { 
   .clearall-btn {       
       margin-left: 10px;
   }
-
+  .application-form-card .custom-file-label {
+      font-size: 10px;
+  }
+  .application-form-card .form-control[readonly] {     
+      font-size: 10px;
+  }
+  #verification-popup .modal-dialog {
+      max-width: 290px;
+      margin: 1.75rem auto;
+  }
+  .verif-cont h4 {
+      font-size: 20px;  
+  }
+  .verif-cont p {
+      margin-bottom: 10px;
+  }
+  .review-btns {
+      display: block;
+      justify-content: center;        
+      margin-top: 22px;
+  }
+  .new-appli-btn {
+      font-size: 11px;
+      padding: 11px 10px;
+  }
   }

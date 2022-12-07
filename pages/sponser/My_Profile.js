@@ -88,7 +88,7 @@ const My_Profile=()=>
                 pin:{value:getpofiledata.response?.sponsor?.postal_code},
             })
             // console.log(getpofiledata.response?.sponsor?.profile)
-            setSelectedImage(getpofiledata.response?.sponsor?.profile);
+            setSelectedFile(getpofiledata.response?.sponsor?.profile);
             setUname(getpofiledata.response?.sponsor?.user?.name);
             setLocalData("sponser_id",getpofiledata.response?.sponsor?.id);
         }
@@ -441,7 +441,7 @@ const My_Profile=()=>
                   <i className="fa fa-bars" aria-hidden="true" />
                 </a>
                 <a className="navbar-brand" href="index.html">
-                  <img className="logo" src="img/logo.png" alt="Brightlife" />
+                  <img className="logo" src="/img/logo.png" alt="Brightlife" />
                 </a>
               </div>
               <div className=" navbar-collapse " id="mobilesidemenu">
@@ -493,35 +493,23 @@ const My_Profile=()=>
               <div className="left-profilemenu-block">
                 <div className="left-profilemenu-block">
                   <div className="left-profileimage">
-                    <img src="img/childsays.png" alt="My Profile Icon" className="left-pro-icon" />
-                    <div className="image-upload">
-                      <label htmlFor="file-input">
-                        <img src="/img/camera.png" />
-                      </label>
-                      {/* <input id="file-input" type="file" onChange={fileChange} />
+                    { !selectedFile && (
+                    <img src="/img/childsays.png" alt="My Profile Icon" className="left-pro-icon" />
+                    // <div className="image-upload">
+                    //   <label htmlFor="file-input">
+                    //     <img src="/img/camera.png" />
+                    //   </label>
+                    // </div>
+                   )}
                       {selectedFile && (
-                                <div>
-                                 <img alt="not fount" src={URL.createObjectURL(selectedFile)} width="100px" height="70px" style={{borderRadius:'100px',marginLeft:'30px'}}/>
-                                 <br />
-                                 <button onClick={()=>setSelectedFile(null)} style={{marginLeft:'50px',marginTop:'10px'}}>Remove</button>
-                                 </div>
-                             )}
-                             {selectedImage && 
-                                 <img src={selectedImage}></img>
-                             } */}
-
-                            <input id="file-input" type="file" onChange={fileChange}/>
-                             {selectedFile && (
-                                 <div>
-                                 <img alt="not fount" src={URL.createObjectURL(selectedFile)} width="100px" height="70px" style={{borderRadius:'100px',marginLeft:'30px'}}/>
-                                 <br />
-                                 {/* <button onClick={()=>setSelectedFile(null)} style={{marginLeft:'50px',marginTop:'10px'}}>Remove</button> */}
-                                 </div>
-                              )}
-                             {/* {selectedImage && 
-                                 <img src={selectedImage}></img>
-                             } */}
-                    </div>
+                          <div>
+                          <img alt="not fount" src={URL.createObjectURL(selectedFile)} className="left-pro-icon"/>
+                          <br />
+                          {/* <button onClick={()=>setSelectedFile(null)} style={{marginLeft:'50px',marginTop:'10px'}}>Remove</button> */}
+                          </div>
+                      )}
+                      <input id="file-input" type="file" onChange={fileChange}/>
+                    {/* </div> */}
                     <p>{data?.fname?.value}</p>
                   </div>
                   <div className="myaccount">
