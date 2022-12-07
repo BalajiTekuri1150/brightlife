@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="50" height="39.957" viewBox="0 0 50 39.957">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-1, .cls-2 {
+        stroke: #6c5eff;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 2px;
+      }
+
+      .cls-2 {
+        fill: #6c5eff;
+      }
+    </style>
+  </defs>
+  <g id="Group_138" data-name="Group 138" transform="translate(-3476.5 -2931.096)">
+    <path id="Path_98" data-name="Path 98" class="cls-1" d="M3493.152,2934.5h-4.174l-11.478,10.969,6.261,6.006,6.261-5.474-2.087,21.891h27.13L3512.979,2946l6.261,5.218,6.261-5.749-11.479-10.969h-4.174" transform="translate(0 2.162)"/>
+    <path id="Path_99" data-name="Path 99" class="cls-1" d="M3492.26,2938.772l-6.261-6.261h12.521Z" transform="translate(9.238 0)"/>
+    <rect id="Rectangle_147" data-name="Rectangle 147" class="cls-1" width="8.854" height="4.427" transform="translate(3501.498 2938.771) rotate(-45)"/>
+    <rect id="Rectangle_148" data-name="Rectangle 148" class="cls-1" width="4.427" height="8.854" transform="translate(3492.107 2935.641) rotate(-45)"/>
+    <path id="Path_100" data-name="Path 100" class="cls-2" d="M3491.157,2935.532l-4.141,18.718,4.174,6.261,4.141-6.261Z" transform="translate(10.343 3.283)"/>
+  </g>
+</svg>

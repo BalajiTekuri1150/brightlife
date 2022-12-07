@@ -1,6 +1,6 @@
 import React from 'react';
 import { getLocalData } from '../../utils/storage_service';
-import Side from './side_bar';
+// import Side from './side_bar';
 import homestyle from '../../styles/Home.module.css';
 import { useState,useEffect } from 'react';
 import logo from "../../public/orphan-kids-.jpg"

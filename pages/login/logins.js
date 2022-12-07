@@ -87,7 +87,7 @@ export default function Login()
                 <img src="/img/signin-bg.jpg" alt="" className="bg" />
             </div>
             <div className="sign-container">
-                <a href="index.html"> <div className="sign-logo"> <img src="/img/logo.png" alt="Bright Life" /></div></a>
+                <a href="/"> <div className="sign-logo"> <img src="/img/logo.png" alt="Bright Life" /></div></a>
                 <div className="sign-in-block">
                     <h3>Sign In</h3>
                     <p>To your Bright life account</p>
@@ -99,7 +99,8 @@ export default function Login()
                         <div className="form-group">
                             <label htmlFor="exampleInputPassword1"><img src="/img/pass-lock-icon.svg" className="lab-icon" />Password</label>
                             <input className="form-control" name="password" id="exampleInputPassword1" placeholder="enter your password" type={passwordShown ? "text" : "password"} disabled={disable} onChange={handleChange}/>
-                            <i className="eye-icon"><img src="/img/eye-icon.svg" /></i>
+                            {/* <i className="eye-icon"><img src="/img/eye-icon.svg" /></i> */}
+                            <span className="position-absolute flex end-0 p-2 bottom-0 m-2" onClick={handlePassword}>{passwordShown? <AiOutlineEye/>:<AiOutlineEyeInvisible/>}</span>
                         </div>
                         <div className="forgot-txt"><Link href="/login/forgotpsw">Forgot Password?</Link></div>
                         {status?<p className="text-success text-bold">{message}</p>:<p className="text-danger text-bold">{message}</p>}

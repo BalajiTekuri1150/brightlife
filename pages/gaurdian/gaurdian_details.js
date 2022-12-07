@@ -9,7 +9,7 @@ export default function Gaurdian_details(props){
     const router=useRouter()
     const [message,setMessage]=useState("")
     const [status,setStatus]=useState(true)
-    const application_number=getLocalData("appication_id" ) || router.query.application_id
+    const application_number=getLocalData("appication_id" ) || router.query.appication_id
     const [formValues,setFormValues]=useState({
         profession:{value,isvalid},
         annual_income:{value,isvalid},

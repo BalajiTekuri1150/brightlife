@@ -50,7 +50,7 @@ const Otp=()=>
         }
         console.log(total.length);
         console.log(count);
-        if(total.length!=137){
+        if(total.length!=4){
             setMessage("Enter correct otp")
             setStatus(false)
         }

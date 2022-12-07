@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getLocalData } from "../../utils/storage_service";
 import { getData,postData } from "../../utils/data_manage_service";
 import My_Profile_Child from "../sponser/My_Profile_Child";
+import Guardian_Child from "./guardian_child";
 export default function Gaurdian_Profile(){
     const user_id=getLocalData("user_id")
     const[id,setId]=useState()
@@ -89,10 +90,265 @@ export default function Gaurdian_Profile(){
     return(
         <>
             <div className="wrapper" >
-                <nav className="navbar fixed-top navbar-expand-lg" style={{"backgroundColor":" #00004d"}}>
-                    <p className="navbar-brand text-light m-2 px-5">Logo</p>
+            <header>
+                <nav className="navbar navbar-expand-lg navbar-light d-flex justify-content-between solid">
+                    <div className="custom-container border_bottom">
+                    <div>
+                        <a className="navbar-toggler" type="button" onclick="toggleSidebar()">
+                        <i className="fa fa-bars" aria-hidden="true" />
+                        </a>
+                        <a className="navbar-brand" href="/">
+                        <img className="logo" src="/img/logo.png" alt="Brightlife" />
+                        </a>
+                    </div>
+                    <div className=" navbar-collapse " id="mobilesidemenu">
+                        <ul className="navbar-nav mr-auto ">
+                        <li className="nav-item ">
+                            <a className="nav-link" href="/home_files/our_team"> Our Team</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="/home_files/how_works"> How it works </a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link " href="sponsor.html">
+                            <button className="btn signin-button" type="submit">
+                                <span className="Donate"> Donate </span>
+                            </button>
+                            </a>
+                        </li>
+                        <li className="nav-item user-image dropdown">
+                            <a className="nav-link " href>
+                            <img className="user-image-header" src="/img/user.png" />Andrew <i className="fa fa-angle-down" aria-hidden="true" />
+                            </a>
+                            <ul className="dropdown-nav">
+                            <Link href="/sponser/My_Profile">
+                                <li>
+                                <img src="/img/user.svg" /><span style={{color:'black'}}>My profile</span>
+                                </li>
+                            </Link>
+                            <Link href="/sponser/My_Profile">
+                                <li>
+                                <img src="/img/sponsored.svg" /><span style={{color:'black'}}>Sponsored</span>
+                                </li>
+                            </Link>
+                            <a href="#">
+                                <li>
+                                <img src="/img/signout.svg" />Sign out
+                                </li>
+                            </a>
+                            </ul>
+                        </li>
+                        </ul>
+                    </div>
+                    </div>
                 </nav>
-                <div className="row h-100 mt-5">
+            </header>
+
+            <div id="sidebaroverlay-id" onclick="outsideclick()" />     
+        <div className="profile-content page_start_warpper">
+          <div className="row nomar">
+            <div className="col-lg-2 col-sm-12">
+              <div className="left-profilemenu-block">
+                <div className="left-profilemenu-block">
+                  <div className="left-profileimage">
+                    <img src="/img/childsays.png" alt="My Profile Icon" className="left-pro-icon" />
+                    <div className="image-upload">
+                      <label htmlFor="file-input">
+                        <img src="/img/camera.png" />
+                      </label>
+                      <input id="file-input" type="file" />
+                      {/* {selectedFile && (
+                                <div>
+                                 <img alt="not fount" src={URL.createObjectURL(selectedFile)} width="100px" height="70px" style={{borderRadius:'100px',marginLeft:'30px'}}/>
+                                 <br />
+                                 <button onClick={()=>setSelectedFile(null)} style={{marginLeft:'50px',marginTop:'10px'}}>Remove</button>
+                                 </div>
+                             )}
+                             {selectedImage && 
+                                 <img src={selectedImage}></img>
+                             } */}
+                    </div>
+                    <p>{data?.fname?.value}</p>
+                  </div>
+                 
+                  <ul className=" col-2 sidebar-menu">
+                            <Link href="/gaurdian/gaurdian_profile"><p className="text-dark m-5 pe-auto">Myprofile</p></Link>
+                            <Link href="/gaurdian/gaurdian_dashboard"><p className="text-dark m-5">Applications</p></Link>
+                        </ul>
+                </div>
+              </div>
+            </div>
+            <div className="col-lg-10 col-sm-12">
+              <div className="myaccount-right-block">
+                <h4 className="sponsor-headding">My Profile</h4>
+                <div className="myaccount-content-block">
+                  <div className="myaccount-content-inner">   
+                        <form> 
+                        <div className="row sponsor-block bg-white">
+                            <div className="col-lg-6">
+                            <div className="form-group">
+                                <label>First Name</label>
+                                <Guardian_Child type="text"
+                                                name="fname"
+                                                placeholder="enter first name"
+                                                value={data.fname.value}
+                                                // reg={reg_name}
+                                                handleChange={handleData}
+                                />
+                                {/* {err1 ? <div></div> : <div style={{color:'red'}}>First name should contain minimum 4 characters</div>} */}
+                            </div>
+                            </div>
+                            <div className="col-lg-6">
+                            <div className="form-group">
+                                <label>Last Name</label>
+                                {/* <input type="text" className="form-control" />             */}
+                                <Guardian_Child type="text"
+                                                    name="lname"
+                                                     value={data.lname.value}
+                                                    //  reg={reg_name}
+                                                     handleChange={handleData}
+                                 />
+                                 {/* {err2 ? <div></div> : <div style={{color:'red'}}>Second name should contain minimum 4 characters</div>} */}
+                            </div>
+                            </div>
+                            <div className="col-lg-6">
+                            <div className="form-group">
+                                <label>Organisation</label>
+                                {/* <input type="text" className="form-control" />             */}
+                                <Guardian_Child type="text"
+                                                name="organization"
+                                                value={data.organization.value}
+                                                // reg={reg_name}
+                                                handleChange={handleData}
+                                />
+                                {/* {err3 ? <div></div> : <div style={{color:'red'}}>Organization should contain minimum 4 characters</div>} */}
+                            </div>
+                            </div>
+                            <div className="col-lg-6">
+                            <div className="form-group">
+                                <label>Email Address</label>
+                                {/* <input type="text" className="form-control" />             */}
+                                <Guardian_Child type="text"
+                                                name="gmail"
+                                                value={data.email.value}
+                                                // reg={reg_email}
+                                                handleChange={handleData}
+                                />
+                                {/* {err4 ? <div></div> : <div style={{color:'red'}}>gmail should be like ***@gmail.com</div>} */}
+                            </div>
+                            </div>
+                            <div className="col-lg-6">
+                            <div className="form-group">
+                                <label>Mobile number</label>
+                                {/* <input type="text" className="form-control" />             */}
+                                <Guardian_Child type="text"
+                                                     name="mobile"
+                                                     value={data.mobile.value}
+                                                    //  reg={reg_phone}
+                                                     handleChange={handleData}
+                                 />
+                                 {/* {err5 ? <div></div> : <div style={{color:'red'}}>Mobile Number should start with +91 and contain 10 numbers only</div>} */}
+                                
+                            </div>
+                            </div>
+                            <div className="col-lg-6">
+                            <div className="form-group">
+                                <label>How did you hear about brightlife</label>
+                                {/* <input type="text" className="form-control" />             */}
+                                <Guardian_Child type="text"
+                                                     name="source"
+                                                     value={data.source.value}
+                                                    //  reg={reg_name}
+                                                     handleChange={handleData}
+                                 />
+                                 {/* {err6 ? <div></div> : <div style={{color:'red'}}>Source should contain minimum 4 characters</div>} */}
+                            </div>
+                            </div>
+                            <div className="col-lg-6">
+                            <div className="form-group">
+                                <label>Address</label>
+                                {/* <input type="text" className="form-control" />             */}
+                                <Guardian_Child type="text"
+                                                     name="address"
+                                                     value={data.address.value}
+                                                    //  reg={reg_name}
+                                                     handleChange={handleData}
+                                 />
+                                 {/* {err7 ? <div></div> : <div style={{color:'red'}}>Address should contain minimum 4 characters</div>} */}
+                                
+                            </div>
+                            </div>
+                            <div className="col-lg-6">
+                            <div className="form-group">
+                                <label>City</label>
+                                {/* <input type="text" className="form-control" />             */}
+                                <Guardian_Child type="text"
+                                                    name="city"
+                                                     value={data.city.value}
+                                                    //  reg={reg_name}
+                                                     handleChange={handleData}
+                                 />
+                                 {/* {err8 ? <div></div> : <div style={{color:'red'}}>City should contain minimum 4 characters</div>} */}
+                            </div>
+                            </div>
+                            <div className="col-lg-6">
+                            <div className="form-group">
+                                <label>State</label>
+                                {/* <input type="text" className="form-control" />             */}
+                                <Guardian_Child type="text"
+                                                     name="state"
+                                                     value={data.state.value}
+                                                    //  reg={reg_name}
+                                                     handleChange={handleData}
+                                 />
+                                 {/* {err9 ? <div></div> : <div style={{color:'red'}}>State should contain minimum 4 characters</div>} */}
+                            </div>
+                            </div>
+                            <div className="col-lg-6">
+                            <div className="form-group">
+                                <label>Country</label>
+                                {/* <input type="text" className="form-control" />             */}
+                                <Guardian_Child type="text"
+                                                     name="country"
+                                                     value={data.country.value}
+                                                    //  reg={reg_name}
+                                                     handleChange={handleData}
+                                 />
+                                 {/* {err10 ? <div></div> : <div style={{color:'red'}}>Country should contain minimum 4 characters</div>} */}
+                            </div>
+                            </div>
+                            <div className="col-lg-6">
+                            <div className="form-group">
+                                <label>Postal Code</label>
+                                {/* <input type="text" className="form-control" />             */}
+                                <Guardian_Child type="text"
+                                                     name="pin"
+                                                     value={data.postcode.value}
+                                                    //  reg={reg_name}
+                                                     handleChange={handleData}
+                                 />
+                                 {/* {err11 ? <div></div> : <div style={{color:'red'}}>Pin should contain minimum 4 characters</div>} */}
+                            </div>
+                            </div>
+                            {/* <div style={{color:'red',marginLeft:'150px'}}>{message}</div><br/> */}
+                            {/* <div style={{color:'green',marginLeft:'150px'}}>{message1}</div><br/> */}
+                            {status?<p className="text-success">{message}</p>:<p className="text-danger">{message}</p>}
+                            <div className="col-lg-12">
+                                <div className="sponsor-save-btn" onClick={updateProfile}>Save</div>
+                                <Link href="/gaurdian/gaurdian_dashboard"><button className="btn btn-secondary mx-5 col-2" >Exit</button></Link>
+                            </div>
+                        </div>
+                        </form>
+                    {/* {count==1 && 
+                        <Sponser_list/>
+                    } */}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>            
+                {/* <div className="row h-100 mt-5">
                     <div className="border border-dark bg-white mt-5" style={{"width":"350px","height":"900px"}}>
                         <ul className=" col-2 sidebar-menu">
                             <Link href="/gaurdian/gaurdian_profile"><p className="text-dark m-5 pe-auto">Myprofile</p></Link>
@@ -164,7 +420,7 @@ export default function Gaurdian_Profile(){
                             </div>
                         </form>
                     </div>
-                </div>
+                </div> */}
             </div>
         </>
     )

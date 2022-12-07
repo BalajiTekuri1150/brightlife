@@ -8,6 +8,7 @@ import Router from 'next/router';
 import { setLocalData } from '../../utils/storage_service';
 import Head from 'next/head';
 import Script from 'next/script';
+import {AiOutlineEye,AiOutlineEyeInvisible} from "react-icons/ai";
 const Register_Page=()=>
 {
     let reg_name=new RegExp('^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$');
@@ -18,6 +19,7 @@ const Register_Page=()=>
         pass:{value:"",isValid:false},
         gmail:{value:"",isValid:false},
     });
+    const [passwordShown, setPasswordShown] = useState(false)
     // const [finalerr,setFinalerr]=useState(false);
     const [one,setOne]=useState(true);
     const [err1,setErr1]=useState(true);
@@ -102,6 +104,10 @@ const Register_Page=()=>
             }
         }
     }
+    const handlePassword = () => {
+        // console.log(passwordShown)
+		setPasswordShown(!passwordShown);
+	};
     return(
         <>
         <Head>
@@ -113,7 +119,7 @@ const Register_Page=()=>
             <img src="/img/signin-bg.jpg" alt="" className="bg" />
             </div>
                 <div className="sign-container">
-                <a href="index.html"> <div className="sign-logo"> <img src="/img/logo.png" alt="Bright Life" /></div></a>
+                <a href="/"> <div className="sign-logo"> <img src="/img/logo.png" alt="Bright Life" /></div></a>
                 <div className="sign-in-block">
                 <h3>Sign Up</h3>
                 <p>To become a Bright life member</p>
@@ -150,14 +156,16 @@ const Register_Page=()=>
                     <label htmlFor="exampleInputPassword1"><img src="/img/pass-lock-icon.svg" className="lab-icon" />Password</label>
                     {/* <input type="password" className="form-control" id="exampleInputPassword1" placeholder="enter your password" /> */}
                     <Register_child
-                            type="password"
+                            // type="password"
                             name="pass"
                             value={data.pass.value}
                             reg={reg_pass}
                             handleChange={handleData}
                             placeholder='Enter password'
                             id="exampleInputPassword1"
+                            type={passwordShown ? "text" : "password"}
                     />
+                    <span className="position-absolute flex end-0 p-2 bottom-0 m-2" onClick={handlePassword}>{passwordShown? <AiOutlineEye/>:<AiOutlineEyeInvisible/>}</span>
                 </div>
                 {/* <p><button type="submit" className="btn sign-btn">Create account</button></p> */}
                 <div style={{color:'red',fontSize:'13px'}}>{err3 ? <div></div>:<div>Password must be 8 characters with one Special character,One Capital letter and one Number</div>}</div>

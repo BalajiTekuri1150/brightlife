@@ -68,3 +68,16 @@ export const getData1=async( url)=> {
     }).catch(e => {return e.response});
     return response
 }
+
+export const postformdata=async( url, data)=> {
+    // const JSONdata = JSON.stringify(data)
+    const response = await axios({
+        method: "POST",
+        url:  url,
+        headers: {
+            'Authorization': 'token 2d21e847092508ace5f534ac492bf03cd742145a'
+        },
+        data: JSONdata
+    }).catch(e => {return e.response});
+    return response
+}

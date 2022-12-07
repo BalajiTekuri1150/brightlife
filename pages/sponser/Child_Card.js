@@ -110,6 +110,33 @@ const Child_Card=(props)=>
     return( 
         <div>
         <button className="btn btn-success" onClick={handleSort}>Sort By Oldest</button>
+            {/* <div className="col-lg-4  col-sm-12 col-md-6">
+                
+                <div className="block-shadow">
+                    {props.count==0 && posts.length>0 && posts.map((item)=>(
+                        <div >
+                            <div>
+                                <img src="/img/sponsor-child1.jpg" className="img-fluid" />
+                            </div>
+                            <div className='sponsor-block-content'>
+                                <p>20$/Monthly since Jan 2016</p>
+                                <h4>Shalini kumari</h4>
+                                <div>
+                                    <div className="sponsor-justify"><span><img src="/img/fem-clock.png" />female</span><span><img src="/img/time.png" />12 Years Old</span></div>
+                                    <div className="sponsor-justify"><span><img src="/img/date-icon.png" />2/2/2009</span> <span><img src="/img/lang.png" />Telugu</span></div>
+                                </div>
+                                <p>Vishwa Prasad is from India lives with parents, Enjoys Playing with dolls, Playing with friends, Running</p>
+                            </div>
+                            <div className="d-flex">
+                                <a href={`/children/${item.id}`} className="Sponsor-now-btn">Sponsor now</a>
+                                <a href={`/children/${item.id}`} className="more-details-btn">More details</a>                               
+                            </div>
+                        </div>
+                    ))
+                    }
+
+                </div>
+            </div> */}
         <main className={homestyle.main}>
             <div className={homestyle.grid}>
                 {props.count==0 && posts.length>0 && posts.map((item)=>(

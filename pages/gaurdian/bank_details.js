@@ -62,7 +62,7 @@ export default function Bank_details(){
         }
         if(update){
             data.id=bank_id
-            console.log("in update",bank_id)
+            // console.log("in update",bank_id)
             result=await(postData('https://test-api.brightlife.org/brightlife/update/bank/details',data,1))
         }
         else{

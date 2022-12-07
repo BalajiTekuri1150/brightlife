@@ -10,7 +10,7 @@ export default function Kids_details(props){
     const [message,setMessage]=useState("")
     const [status,setStatus]=useState(true)
     const [new_application,setNew_application]=useState(true)
-    const application_number=router.query.application_id
+    const application_number=router.query.application_id 
     const guardian_id=getLocalData("guardian_id")
     const [formValues,setFormValues]=useState({
         profile:{value,isvalid},
@@ -53,8 +53,16 @@ export default function Kids_details(props){
         if(new_application){
             formData.append(" guardian_id",guardian_id); 
             result=await(postData('https://test-api.brightlife.org/brightlife/add/application/profile',formData,1,1))
+            // await fetch("https://test-api.brightlife.org/brightlife/update/sponsor/profile",{
+            //     method:'POST',
+            //     headers:{
+            //         // 'Content-Type': 'multipart/form-data;boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW',
+            //         'Authorization':'token 2d21e847092508ace5f534ac492bf03cd742145a',
+            //     },
+            //     body:formData,
+            // })
             application_number=result?.data?.response?.data?.id
-            setLocalData("appicatio_id",result?.data?.response?.data?.id)
+            setLocalData("appication_id",result?.data?.response?.data?.id)
         }
         else{
             formData.append("id",application_number)
@@ -81,6 +89,17 @@ export default function Kids_details(props){
     })
     return(
         <>
+            <div class="myaccount-content-block">
+              <div class="myaccount-content-inner pad-div">
+                    <div class="steps-wizard">
+                       <a href=""> <div class="step1-wizard">
+                            <div class="step1">1</div>
+                            <p>Kids details</p>
+                        </div>
+                    </a>
+                    </div>
+              </div>
+            </div>
             <section className="form">
                 <form className="bg-light px-5 pt-5" onSubmit={handleSubmit}>
                 <input type="file"  name="profile" className="form-control" onChange={handleRadio}/>

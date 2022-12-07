@@ -10,7 +10,9 @@ import { setLocalData } from "../../utils/storage_service";
 import { getLocalData } from "../../utils/storage_service";
 import { postData2 } from "../../utils/data_manage_service";
 import Sponser_list from "./sponser_list";
-import Validate from "./validate";
+// import Validate from "./validate";
+import { postformdata } from "../../utils/data_manage_service";
+import profile from '../../public/profile.png';
 const My_Profile=()=>
 {
     const router = useRouter()
@@ -27,7 +29,7 @@ const My_Profile=()=>
     const [message,setMessage]=useState("")
     const [message1,setMessage1]=useState("")
     const [selectedFile, setSelectedFile] = useState(null);
-    const [selectedImage, setSelectedImage] = useState(null);
+    const [selectedImage, setSelectedImage] = useState({profile});
     const [count,setCount]=useState(0);
 
     //Error validation After click Save button only
@@ -85,85 +87,111 @@ const My_Profile=()=>
                 country:{value:getpofiledata.response?.sponsor?.country},
                 pin:{value:getpofiledata.response?.sponsor?.postal_code},
             })
-            // setSelectedFile(getpofiledata.response?.sponsor?.profile);
+            // console.log(getpofiledata.response?.sponsor?.profile)
+            setSelectedImage(getpofiledata.response?.sponsor?.profile);
             setUname(getpofiledata.response?.sponsor?.user?.name);
             setLocalData("sponser_id",getpofiledata.response?.sponsor?.id);
         }
         getprofile();
     },[]);
+    // console.log(data.fname.value);
+    // console.log(data.organization.value);
+
     //ReVerification Of Details
-    if(reg_name.test(data.fname.value))
-    {
+    if(typeof data.fname.value==='undefined'){
+        data.fname.isVal=false;
+    }
+    else if(reg_name.test(data.fname.value)){
         data.fname.isVal=true;
     }
     else
         data.fname.isVal=false;
     //Second Name
-    if(reg_name.test(data.sname.value))
-    {
+    if(typeof data.sname.value==="undefined"){
+        data.sname.isVal=false;
+    }
+    else if(reg_name.test(data.sname.value)){
         data.sname.isVal=true;
     }
     else
         data.sname.isVal=false;
-    //Orgnisation
-    if(reg_name.test(data.organization.value))
-    {
+    //Organisation
+    if(typeof data.organization.value==="undefined"){
+        data.organization.isVal=false;
+    }
+    else if(reg_name.test(data.organization.value)){
         data.organization.isVal=true;
     }
-    else
+    else 
         data.organization.isVal=false;
     //address
-    if(reg_name.test(data.address.value))
-    {
+    if(typeof data.address.value==='undefined'){
+        data.address.isVal=false;
+    }
+    else if(reg_name.test(data.address.value)){
         data.address.isVal=true;
     }
     else    
         data.address.isVal=false;
     //city
-    if(reg_name.test(data.city.value))
-    {
+    if(typeof(data.city.value)==='undefined'){
+        data.city.isVal=false;
+    }
+    else if(reg_name.test(data.city.value)){
         data.city.isVal=true;
     }
     else    
         data.city.isVal=false;
     //How
-    if(reg_name.test(data.source.value))
-    {
+    if(typeof data.source.value==='undefined'){
+        data.source.isVal=false;
+    }
+    else if(reg_name.test(data.source.value)){
         data.source.isVal=true;
     }
     else    
         data.source.isVal=false;
     //State
-    if(reg_name.test(data.state.value))
-    {
+    if(typeof data.state.value==='undefined'){
+        data.state.isVal=false;
+    }
+    else if(reg_name.test(data.state.value)){
         data.state.isVal=true;
     }
     else    
         data.state.isVal=false;
     //country
-    if(reg_name.test(data.country.value))
-    {
+    if(typeof data.country.value==='undefined'){
+        data.country.isVal=false;
+    }
+    else if(reg_name.test(data.country.value)){
         data.country.isVal=true;
     }
     else    
         data.country.isVal=false;
     //Postal
-    if(reg_name.test(data.pin.value))
-    {
+    if(typeof data.pin.value==='undefined'){
+        data.pin.isVal=false;
+    }
+    else if(reg_name.test(data.pin.value)){
         data.pin.isVal=true;
     }
     else    
         data.pin.isVal=false;
     //gmail
-    if(reg_email.test(data.gmail.value))
-    {
+    if(typeof data.gmail.value==='undefined'){
+        data.gmail.isVal=false;
+    }
+    else if(reg_email.test(data.gmail.value)){
         data.gmail.isVal=true;
     }
     else
         data.gmail.isVal=false;
     //Mobile
-    if(reg_phone.test(data.mobile.value))
-    {
+    if(typeof data.mobile.value==='undefined'){
+        data.mobile.isVal=false;
+    }
+    else if(reg_phone.test(data.mobile.value)){
         data.mobile.isVal=true;
     }
     else
@@ -282,7 +310,7 @@ const My_Profile=()=>
         setMessage("");
     }
     const arr=new Array(data.fname.isVal,data.sname.isVal,data.organization.isVal,data.gmail.isVal,data.mobile.isVal,data.source.isVal,data.address.isVal,data.city.isVal,data.state.isVal,data.country.isVal,data.pin.isVal);
-    // console.log(arr)
+    console.log(arr)
     const check=(item)=>
     {
         return item===true;
@@ -293,7 +321,7 @@ const My_Profile=()=>
         if(arr.every(check))
         {
             const formData=new FormData();
-            console.log(info.id);
+            // console.log(info.id);
             formData.append('id',info.id);
             formData.append('user',JSON.stringify({
                 'id':id,
@@ -311,14 +339,32 @@ const My_Profile=()=>
             formData.append('country',data.country.value)
             formData.append('postal_code',data.pin.value)
             // const JSONdata=JSON.stringify(formData);
-            await fetch("https://test-api.brightlife.org/brightlife/update/sponsor/profile",{
+            fetch("https://test-api.brightlife.org/brightlife/update/sponsor/profile",{
                 method:'POST',
                 headers:{
-                    // 'Content-Type': 'multipart/form-data;boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW',
                     'Authorization':'token 2d21e847092508ace5f534ac492bf03cd742145a',
                 },
                 body:formData,
             })
+            .then((response)=>{
+                console.log(response)
+                response.json()
+                .then((response)=>{
+                    console.log(response.status);
+                    if(response.status==true){
+                        setMessage1("Details Updated Successfully")
+                    }
+                    else
+                        setMessage("Mobile Already Exists");
+                })
+            })
+            // const res=await(postformdata("https://test-api.brightlife.org/brightlife/update/sponsor/profile",formData));
+            // if(res?.data?.status==true){
+            //     setMessage1("Details Updated Successfully");
+            // }
+            // if(res?.data?.status==false){
+            //     setMessage(res?.data?.error?.message?.mobile);
+            // }
             // const datafinal={
             //     id:info.id,
             //     user: {
@@ -350,9 +396,12 @@ const My_Profile=()=>
         else
         {
             // console.log(one);
-            if(data.fname.value==="" || data.sname.value==="" || data.organization.value==="" || data.mobile.value==="" || data.source.value==="" || data.address.value==="" || data.city.value==="" || data.state.value==="" || data.country.value==="" || data.pin.value==="")
+            if(data.fname.value==="" || data.sname.value==="" || data.organization.value==="" || data.mobile.value==="" || data.source.value==="" || data.address.value==="" || data.city.value==="" || data.state.value==="" || data.country.value==="" || data.pin.value===""
+            || typeof data.fname.value==="undefinded"|| typeof data.sname.value==="undefined" || typeof data.organization.value==="undefined" || typeof data.mobile.value==="undefined" || typeof data.source.value==="undefined" || typeof data.address.value==="undefined" || typeof data.city.value==="undefined" || typeof data.state.value==="undefined" || typeof data.country.value==="undefined" || typeof data.pin.value==="undefined" 
+            )
             {
-                setMessage("Some Blanks Are empty")
+                setSelectedFile(null);
+                setMessage("Some Blanks Are empty,Please enter the datails again and choose the image again")
                 setMessage1("");
             }
             else{
@@ -383,179 +432,546 @@ const My_Profile=()=>
     }
     return(
         <div>
-            <div className="container">
-                <div className="row bg-black">
-                    <div className="col-sm text-light"></div>
-                    <div className="col-md-auto text-light">how it works</div>
-                    <div className="col-md-auto text-light">donate</div>
-                    <button className="col-md-auto btn btn-secondary">My Profile</button>
-                </div>
+            <div>
+        <header>
+          <nav className="navbar navbar-expand-lg navbar-light d-flex justify-content-between solid">
+            <div className="custom-container border_bottom">
+              <div>
+                <a className="navbar-toggler" type="button" onclick="toggleSidebar()">
+                  <i className="fa fa-bars" aria-hidden="true" />
+                </a>
+                <a className="navbar-brand" href="index.html">
+                  <img className="logo" src="img/logo.png" alt="Brightlife" />
+                </a>
+              </div>
+              <div className=" navbar-collapse " id="mobilesidemenu">
+                <ul className="navbar-nav mr-auto ">
+                  <li className="nav-item ">
+                    <a className="nav-link" href="ourteam.html"> Our Team</a>
+                  </li>
+                  <li className="nav-item">
+                    <a className="nav-link" href="howitworks.html"> How it works </a>
+                  </li>
+                  <li className="nav-item">
+                    <a className="nav-link " href="sponsor.html">
+                      <button className="btn signin-button" type="submit">
+                        <span className="Donate"> Donate </span>
+                      </button>
+                    </a>
+                  </li>
+                  <li className="nav-item user-image dropdown">
+                    <a className="nav-link " href>
+                      <img className="user-image-header" src="/img/user.png" />Andrew <i className="fa fa-angle-down" aria-hidden="true" />
+                    </a>
+                    <ul className="dropdown-nav">
+                      <div onClick={profileClick} style={{color:'black'}}>
+                        <li>
+                          <img src="/img/user.svg" />My profile
+                        </li>
+                      </div>
+                      <div onClick={sponserChild} style={{color:'black'}}>
+                        <li>
+                          <img src="/img/sponsored.svg" />Sponsored children
+                        </li>
+                      </div>
+                      <a href="#">
+                        <li>
+                          <img src="/img/signout.svg" />Sign out
+                        </li>
+                      </a>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
             </div>
-            <div style={{display:'flex'}}>
-                <div className={style.side}>
-                    <div className={style.card}>
-                        <div style={{width:'30px'}}>
-                            <input type="file" onChange={fileChange}/>
-                            {selectedFile && (
+          </nav>
+        </header>
+        <div id="sidebaroverlay-id" onclick="outsideclick()" />     
+        <div className="profile-content page_start_warpper">
+          <div className="row nomar">
+            <div className="col-lg-2 col-sm-12">
+              <div className="left-profilemenu-block">
+                <div className="left-profilemenu-block">
+                  <div className="left-profileimage">
+                    <img src="img/childsays.png" alt="My Profile Icon" className="left-pro-icon" />
+                    <div className="image-upload">
+                      <label htmlFor="file-input">
+                        <img src="/img/camera.png" />
+                      </label>
+                      {/* <input id="file-input" type="file" onChange={fileChange} />
+                      {selectedFile && (
                                 <div>
-                                <img alt="not fount" src={URL.createObjectURL(selectedFile)} width="100px" height="70px" style={{borderRadius:'100px',marginLeft:'30px'}}/>
-                                <br />
-                                <button onClick={()=>setSelectedFile(null)} style={{marginLeft:'50px',marginTop:'10px'}}>Remove</button>
-                                </div>
-                            )}
-                            <br /> 
-                        </div>
-                    </div><br/><br/> 
-                <div style={{marginLeft:'120px',color:'blue'}}>
-                    <button className="btn btn-light" onClick={profileClick}>My Profile</button>
-                </div><br/><br/>
-                    <div style={{marginLeft:'110px',color:'blue'}}>
-                            <button className="btn btn-lg btn-light" onClick={sponserChild}>Sponsered Child</button>
+                                 <img alt="not fount" src={URL.createObjectURL(selectedFile)} width="100px" height="70px" style={{borderRadius:'100px',marginLeft:'30px'}}/>
+                                 <br />
+                                 <button onClick={()=>setSelectedFile(null)} style={{marginLeft:'50px',marginTop:'10px'}}>Remove</button>
+                                 </div>
+                             )}
+                             {selectedImage && 
+                                 <img src={selectedImage}></img>
+                             } */}
+
+                            <input id="file-input" type="file" onChange={fileChange}/>
+                             {selectedFile && (
+                                 <div>
+                                 <img alt="not fount" src={URL.createObjectURL(selectedFile)} width="100px" height="70px" style={{borderRadius:'100px',marginLeft:'30px'}}/>
+                                 <br />
+                                 {/* <button onClick={()=>setSelectedFile(null)} style={{marginLeft:'50px',marginTop:'10px'}}>Remove</button> */}
+                                 </div>
+                              )}
+                             {/* {selectedImage && 
+                                 <img src={selectedImage}></img>
+                             } */}
                     </div>
+                    <p>{data?.fname?.value}</p>
+                  </div>
+                  <div className="myaccount">
+                    <ul>
+                      <li><div onClick={profileClick}>MY PROFILE</div></li>
+                      <li><div className="active" onClick={sponserChild}>SPONSORED CHILDREN</div></li>
+                    </ul>
+                  </div>
                 </div>
-                {count==0 &&
-                <div style={{marginTop:"70px",width:'1000px',height:'100%',backgroundColor:'white',borderRadius:'10px',boxShadow:'0 8px 6px 3px rgba(0,0,0,0.5)',transition:'3s'}}>
-                    <form style={{border:'2px solid gray',marginTop:'20px',marginLeft:'20px',marginRight:'20px',height:'100%'}}>
-                        <br/>
-                        <div className="form-group row">
-                            <div className="col-sm-5" style={{marginLeft:'30px',marginRight:'30px'}}>
-                                <label>First Name</label><br/>
+              </div>
+            </div>
+            <div className="col-lg-10 col-sm-12">
+              <div className="myaccount-right-block">
+                <h4 className="sponsor-headding">My Profile</h4>
+                <div className="myaccount-content-block">
+                  <div className="myaccount-content-inner">   
+                    {count==0 &&
+                        <form> 
+                        <div className="row sponsor-block bg-white">
+                            <div className="col-lg-6">
+                            <div className="form-group">
+                                <label>First Name</label>
                                 <My_Profile_Child type="text"
-                                                    name="fname"
-                                                    placeholder="enter first name"
-                                                    value={data.fname.value}
-                                                    reg={reg_name}
-                                                    handleChange={handleData}
+                                                name="fname"
+                                                placeholder="enter first name"
+                                                value={data.fname.value}
+                                                reg={reg_name}
+                                                handleChange={handleData}
                                 />
                                 {err1 ? <div></div> : <div style={{color:'red'}}>First name should contain minimum 4 characters</div>}
                             </div>
-                            <div className="col-sm-5">
-                                <label>Second Name</label><br/>
+                            </div>
+                            <div className="col-lg-6">
+                            <div className="form-group">
+                                <label>Last Name</label>
+                                {/* <input type="text" className="form-control" />             */}
                                 <My_Profile_Child type="text"
                                                     name="sname"
-                                                    value={data.sname.value}
-                                                    reg={reg_name}
-                                                    handleChange={handleData}
-                                />
-                                {err2 ? <div></div> : <div style={{color:'red'}}>Second name should contain minimum 4 characters</div>}
+                                                     value={data.sname.value}
+                                                     reg={reg_name}
+                                                     handleChange={handleData}
+                                 />
+                                 {err2 ? <div></div> : <div style={{color:'red'}}>Second name should contain minimum 4 characters</div>}
                             </div>
-                        </div><br/>
-                        <div className="form-group row">
-                            <div className="col-sm-5" style={{marginLeft:'30px',marginRight:'30px'}}>
-                                <label>Organization</label><br/>
+                            </div>
+                            <div className="col-lg-6">
+                            <div className="form-group">
+                                <label>Organisation</label>
+                                {/* <input type="text" className="form-control" />             */}
                                 <My_Profile_Child type="text"
-                                                    name="organization"
-                                                    value={data.organization.value}
-                                                    reg={reg_name}
-                                                    handleChange={handleData}
+                                                name="organization"
+                                                value={data.organization.value}
+                                                reg={reg_name}
+                                                handleChange={handleData}
                                 />
                                 {err3 ? <div></div> : <div style={{color:'red'}}>Organization should contain minimum 4 characters</div>}
                             </div>
-                            <div className="col-sm-5">
-                                <label>Email Address</label><br/>
+                            </div>
+                            <div className="col-lg-6">
+                            <div className="form-group">
+                                <label>Email Address</label>
+                                {/* <input type="text" className="form-control" />             */}
                                 <My_Profile_Child type="text"
-                                                    name="gmail"
-                                                    value={data.gmail.value}
-                                                    reg={reg_email}
-                                                    handleChange={handleData}
+                                                name="gmail"
+                                                value={data.gmail.value}
+                                                reg={reg_email}
+                                                handleChange={handleData}
                                 />
                                 {err4 ? <div></div> : <div style={{color:'red'}}>gmail should be like ***@gmail.com</div>}
                             </div>
-                        </div><br/>
-                        <div className="form-group row">
-                            <div className="col-sm-5" style={{marginLeft:'30px',marginRight:'30px'}}>
-                                <label>Mobile Number</label><br/>
-                                <My_Profile_Child type="text"
-                                                    name="mobile"
-                                                    value={data.mobile.value}
-                                                    reg={reg_phone}
-                                                    handleChange={handleData}
-                                />
-                                {err5 ? <div></div> : <div style={{color:'red'}}>Mobile Number should start with +91 and contain 10 numbers only</div>}
                             </div>
-                            <div className="col-sm-5">
-                                <label>How did you head about Us?</label><br/>
+                            <div className="col-lg-6">
+                            <div className="form-group">
+                                <label>Mobile number</label>
+                                {/* <input type="text" className="form-control" />             */}
                                 <My_Profile_Child type="text"
-                                                    name="source"
-                                                    value={data.source.value}
-                                                    reg={reg_name}
-                                                    handleChange={handleData}
-                                />
-                                {err6 ? <div></div> : <div style={{color:'red'}}>Source should contain minimum 4 characters</div>}
+                                                     name="mobile"
+                                                     value={data.mobile.value}
+                                                     reg={reg_phone}
+                                                     handleChange={handleData}
+                                 />
+                                 {err5 ? <div></div> : <div style={{color:'red'}}>Mobile Number should start with +91 and contain 10 numbers only</div>}
+                                
                             </div>
-                        </div><br/>
-                        <div className="form-group row">
-                            <div className="col-sm-5" style={{marginLeft:'30px',marginRight:'30px'}}>
-                                <label>Address</label><br/>
+                            </div>
+                            <div className="col-lg-6">
+                            <div className="form-group">
+                                <label>How did you hear about brightlife</label>
+                                {/* <input type="text" className="form-control" />             */}
                                 <My_Profile_Child type="text"
-                                                    name="address"
-                                                    value={data.address.value}
-                                                    reg={reg_name}
-                                                    handleChange={handleData}
-                                />
-                                {err7 ? <div></div> : <div style={{color:'red'}}>Address should contain minimum 4 characters</div>}
+                                                     name="source"
+                                                     value={data.source.value}
+                                                     reg={reg_name}
+                                                     handleChange={handleData}
+                                 />
+                                 {err6 ? <div></div> : <div style={{color:'red'}}>Source should contain minimum 4 characters</div>}
                             </div>
-                            <div className="col-sm-5">
-                                <label>city</label><br/>
+                            </div>
+                            <div className="col-lg-6">
+                            <div className="form-group">
+                                <label>Address</label>
+                                {/* <input type="text" className="form-control" />             */}
+                                <My_Profile_Child type="text"
+                                                     name="address"
+                                                     value={data.address.value}
+                                                     reg={reg_name}
+                                                     handleChange={handleData}
+                                 />
+                                 {err7 ? <div></div> : <div style={{color:'red'}}>Address should contain minimum 4 characters</div>}
+                                
+                            </div>
+                            </div>
+                            <div className="col-lg-6">
+                            <div className="form-group">
+                                <label>City</label>
+                                {/* <input type="text" className="form-control" />             */}
                                 <My_Profile_Child type="text"
                                                     name="city"
-                                                    value={data.city.value}
-                                                    reg={reg_name}
-                                                    handleChange={handleData}
-                                />
-                                {err8 ? <div></div> : <div style={{color:'red'}}>City should contain minimum 4 characters</div>}
+                                                     value={data.city.value}
+                                                     reg={reg_name}
+                                                     handleChange={handleData}
+                                 />
+                                 {err8 ? <div></div> : <div style={{color:'red'}}>City should contain minimum 4 characters</div>}
                             </div>
-                        </div><br/>
-                        <div className="form-group row">
-                            <div className="col-sm-5" style={{marginLeft:'30px',marginRight:'30px'}}>
-                                <label>state</label><br/>
+                            </div>
+                            <div className="col-lg-6">
+                            <div className="form-group">
+                                <label>State</label>
+                                {/* <input type="text" className="form-control" />             */}
                                 <My_Profile_Child type="text"
-                                                    name="state"
-                                                    value={data.state.value}
-                                                    reg={reg_name}
-                                                    handleChange={handleData}
-                                />
-                                {err9 ? <div></div> : <div style={{color:'red'}}>State should contain minimum 4 characters</div>}
+                                                     name="state"
+                                                     value={data.state.value}
+                                                     reg={reg_name}
+                                                     handleChange={handleData}
+                                 />
+                                 {err9 ? <div></div> : <div style={{color:'red'}}>State should contain minimum 4 characters</div>}
                             </div>
-                            <div className="col-sm-5">
-                                <label>Country</label><br/>
+                            </div>
+                            <div className="col-lg-6">
+                            <div className="form-group">
+                                <label>Country</label>
+                                {/* <input type="text" className="form-control" />             */}
                                 <My_Profile_Child type="text"
-                                                    name="country"
-                                                    value={data.country.value}
-                                                    reg={reg_name}
-                                                    handleChange={handleData}
-                                />
-                                {err10 ? <div></div> : <div style={{color:'red'}}>Country should contain minimum 4 characters</div>}
+                                                     name="country"
+                                                     value={data.country.value}
+                                                     reg={reg_name}
+                                                     handleChange={handleData}
+                                 />
+                                 {err10 ? <div></div> : <div style={{color:'red'}}>Country should contain minimum 4 characters</div>}
                             </div>
-                        </div><br/>
-                        <div className="form-group row">
-                            <div className="col-sm-5" style={{marginLeft:'30px',marginRight:'30px'}}>
-                                <label>Postal Code</label><br/>
+                            </div>
+                            <div className="col-lg-6">
+                            <div className="form-group">
+                                <label>Postal Code</label>
+                                {/* <input type="text" className="form-control" />             */}
                                 <My_Profile_Child type="text"
-                                                    name="pin"
-                                                    value={data.pin.value}
-                                                    reg={reg_name}
-                                                    handleChange={handleData}
-                                />
-                                {err11 ? <div></div> : <div style={{color:'red'}}>Pin should contain minimum 4 characters</div>}
+                                                     name="pin"
+                                                     value={data.pin.value}
+                                                     reg={reg_name}
+                                                     handleChange={handleData}
+                                 />
+                                 {err11 ? <div></div> : <div style={{color:'red'}}>Pin should contain minimum 4 characters</div>}
                             </div>
-                        </div><br/>
-                        <div style={{color:'red',marginLeft:'150px'}}>{message}</div><br/>
-                        <div style={{color:'green',marginLeft:'150px'}}>{message1}</div><br/>
-                        <div className="form-group row">
-                            
-                            <div className="col-sm-11" style={{marginLeft:'30px',marginRight:'30px'}}>
-                                <input type="button" className="form-control btn btn-primary" value="save" onClick={updateProfile}/>
                             </div>
-                        </div><br/>
-                    </form>
+                            <div style={{color:'red',marginLeft:'150px'}}>{message}</div><br/>
+                            <div style={{color:'green',marginLeft:'150px'}}>{message1}</div><br/>
+                            <div className="col-lg-12">
+                                <div className="sponsor-save-btn" onClick={updateProfile}>Save</div>
+                            </div>
+                        </div>
+                        </form>
+                    }
+                    {count==1 && 
+                        <Sponser_list/>
+                    }
+                  </div>
                 </div>
-            }
-            {count==1 && 
-                <Sponser_list/>
-            }
+              </div>
+            </div>
+          </div>
         </div>
+        <footer id="footer">
+          <div className="footer-top">
+            <div className="custom-container">
+              <div className="row">
+                <div className="col-lg-3 col-md-6 footer-contact">
+                  <a href="/"><img className="logo" src="/img/logo.png" alt="Brightlife" /></a>
+                  <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+                </div>
+                <div className="col-lg-3 col-md-6 footer-links">
+                  <h4>OUR SERVICES</h4>
+                  <ul>
+                    <li>
+                      <i className="bx bx-chevron-right" />
+                      <a href="#">Home</a>
+                    </li>
+                    <li>
+                      <i className="bx bx-chevron-right" />
+                      <a href="#">About us</a>
+                    </li>
+                    <li>
+                      <i className="bx bx-chevron-right" />
+                      <a href="#">Services</a>
+                    </li>
+                    <li>
+                      <i className="bx bx-chevron-right" />
+                      <a href="#">Terms of service</a>
+                    </li>
+                    <li>
+                      <i className="bx bx-chevron-right" />
+                      <a href="#">Privacy policy</a>
+                    </li>
+                  </ul>
+                </div>
+                <div className="col-lg-3 col-md-6 footer-links">
+                  <h4>QUICK LINKS</h4>
+                  <ul>
+                    <li>
+                      <i className="bx bx-chevron-right" />
+                      <a href="#">Web Design</a>
+                    </li>
+                    <li>
+                      <i className="bx bx-chevron-right" />
+                      <a href="#">Web Development</a>
+                    </li>
+                    <li>
+                      <i className="bx bx-chevron-right" />
+                      <a href="#">Product Management</a>
+                    </li>
+                    <li>
+                      <i className="bx bx-chevron-right" />
+                      <a href="#">Marketing</a>
+                    </li>
+                    <li>
+                      <i className="bx bx-chevron-right" />
+                      <a href="#">Graphic Design</a>
+                    </li>
+                  </ul>
+                </div>
+                <div className="col-lg-3 col-md-6 footer-links">
+                  <h4>GET IN TOUCH</h4>
+                  <div>Lorem ipsum
+                    Lorem ipsum Lorem ipsum 19801</div>            
+                  <div>Email: Lorem ipsum@gmail.com</div>
+                  <div>Phone: +00 000 000 1234</div>
+                  <div className="social-links mt-3">
+                    <a href="#" className>
+                      <i className="fa fa-skype" aria-hidden="true" />
+                    </a>
+                    <a href="#" className>
+                      <i className="fa fa-twitter" aria-hidden="true" />
+                    </a>
+                    <a href="#" className>
+                      <i className="fa fa-whatsapp" aria-hidden="true" />
+                    </a>
+                    <a href="#" className>
+                      <i className="fa fa-vimeo" aria-hidden="true" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="custom-container footer-bottom clearfix">
+            <div className="copyright">© 2019  
+              brightlife.com
+            </div>
+            <div className="credits"> <a href>FAQ’s</a> <a href>Deposit</a>
+            </div>
+          </div>
+        </footer>
+      </div>
         </div>
+        // <div>
+        //     <div className="container">
+        //         <div className="row bg-black">
+        //             <div className="col-sm text-light"></div>
+        //             <div className="col-md-auto text-light">how it works</div>
+        //             <div className="col-md-auto text-light">donate</div>
+        //             <button className="col-md-auto btn btn-secondary">My Profile</button>
+        //         </div>
+        //     </div>
+        //     <div style={{display:'flex'}}>
+        //         <div className={style.side}>
+        //             <div className={style.card}>
+        //                 <div style={{width:'30px'}}>
+        //                     <input type="file" onChange={fileChange}/>
+        //                     {selectedFile && (
+        //                         <div>
+        //                         <img alt="not fount" src={URL.createObjectURL(selectedFile)} width="100px" height="70px" style={{borderRadius:'100px',marginLeft:'30px'}}/>
+        //                         <br />
+        //                         <button onClick={()=>setSelectedFile(null)} style={{marginLeft:'50px',marginTop:'10px'}}>Remove</button>
+        //                         </div>
+        //                     )}
+        //                     {selectedImage && 
+        //                         <img src={selectedImage}></img>
+        //                     }
+        //                     <br /> 
+        //                 </div>
+        //             </div><br/><br/> 
+        //         <div style={{marginLeft:'120px',color:'blue'}}>
+        //             <button className="btn btn-light" onClick={profileClick}>My Profile</button>
+        //         </div><br/><br/>
+        //             <div style={{marginLeft:'110px',color:'blue'}}>
+        //                     <button className="btn btn-lg btn-light" onClick={sponserChild}>Sponsered Child</button>
+        //             </div>
+        //         </div>
+        //         {count==0 &&
+        //         <div style={{marginTop:"70px",width:'1000px',height:'100%',backgroundColor:'white',borderRadius:'10px',boxShadow:'0 8px 6px 3px rgba(0,0,0,0.5)',transition:'3s'}}>
+        //             <form style={{border:'2px solid gray',marginTop:'20px',marginLeft:'20px',marginRight:'20px',height:'100%'}}>
+        //                 <br/>
+        //                 <div className="form-group row">
+        //                     <div className="col-sm-5" style={{marginLeft:'30px',marginRight:'30px'}}>
+        //                         <label>First Name</label><br/>
+        //                         <My_Profile_Child type="text"
+        //                                             name="fname"
+        //                                             placeholder="enter first name"
+        //                                             value={data.fname.value}
+        //                                             reg={reg_name}
+        //                                             handleChange={handleData}
+        //                         />
+        //                         {err1 ? <div></div> : <div style={{color:'red'}}>First name should contain minimum 4 characters</div>}
+        //                     </div>
+        //                     <div className="col-sm-5">
+        //                         <label>Second Name</label><br/>
+        //                         <My_Profile_Child type="text"
+        //                                             name="sname"
+        //                                             value={data.sname.value}
+        //                                             reg={reg_name}
+        //                                             handleChange={handleData}
+        //                         />
+        //                         {err2 ? <div></div> : <div style={{color:'red'}}>Second name should contain minimum 4 characters</div>}
+        //                     </div>
+        //                 </div><br/>
+        //                 <div className="form-group row">
+        //                     <div className="col-sm-5" style={{marginLeft:'30px',marginRight:'30px'}}>
+        //                         <label>Organization</label><br/>
+        //                         <My_Profile_Child type="text"
+        //                                             name="organization"
+        //                                             value={data.organization.value}
+        //                                             reg={reg_name}
+        //                                             handleChange={handleData}
+        //                         />
+        //                         {err3 ? <div></div> : <div style={{color:'red'}}>Organization should contain minimum 4 characters</div>}
+        //                     </div>
+        //                     <div className="col-sm-5">
+        //                         <label>Email Address</label><br/>
+        //                         <My_Profile_Child type="text"
+        //                                             name="gmail"
+        //                                             value={data.gmail.value}
+        //                                             reg={reg_email}
+        //                                             handleChange={handleData}
+        //                         />
+        //                         {err4 ? <div></div> : <div style={{color:'red'}}>gmail should be like ***@gmail.com</div>}
+        //                     </div>
+        //                 </div><br/>
+        //                 <div className="form-group row">
+        //                     <div className="col-sm-5" style={{marginLeft:'30px',marginRight:'30px'}}>
+        //                         <label>Mobile Number</label><br/>
+        //                         <My_Profile_Child type="text"
+        //                                             name="mobile"
+        //                                             value={data.mobile.value}
+        //                                             reg={reg_phone}
+        //                                             handleChange={handleData}
+        //                         />
+        //                         {err5 ? <div></div> : <div style={{color:'red'}}>Mobile Number should start with +91 and contain 10 numbers only</div>}
+        //                     </div>
+        //                     <div className="col-sm-5">
+        //                         <label>How did you head about Us?</label><br/>
+        //                         <My_Profile_Child type="text"
+        //                                             name="source"
+        //                                             value={data.source.value}
+        //                                             reg={reg_name}
+        //                                             handleChange={handleData}
+        //                         />
+        //                         {err6 ? <div></div> : <div style={{color:'red'}}>Source should contain minimum 4 characters</div>}
+        //                     </div>
+        //                 </div><br/>
+        //                 <div className="form-group row">
+        //                     <div className="col-sm-5" style={{marginLeft:'30px',marginRight:'30px'}}>
+        //                         <label>Address</label><br/>
+        //                         <My_Profile_Child type="text"
+        //                                             name="address"
+        //                                             value={data.address.value}
+        //                                             reg={reg_name}
+        //                                             handleChange={handleData}
+        //                         />
+        //                         {err7 ? <div></div> : <div style={{color:'red'}}>Address should contain minimum 4 characters</div>}
+        //                     </div>
+        //                     <div className="col-sm-5">
+        //                         <label>city</label><br/>
+        //                         <My_Profile_Child type="text"
+        //                                             name="city"
+        //                                             value={data.city.value}
+        //                                             reg={reg_name}
+        //                                             handleChange={handleData}
+        //                         />
+        //                         {err8 ? <div></div> : <div style={{color:'red'}}>City should contain minimum 4 characters</div>}
+        //                     </div>
+        //                 </div><br/>
+        //                 <div className="form-group row">
+        //                     <div className="col-sm-5" style={{marginLeft:'30px',marginRight:'30px'}}>
+        //                         <label>state</label><br/>
+        //                         <My_Profile_Child type="text"
+        //                                             name="state"
+        //                                             value={data.state.value}
+        //                                             reg={reg_name}
+        //                                             handleChange={handleData}
+        //                         />
+        //                         {err9 ? <div></div> : <div style={{color:'red'}}>State should contain minimum 4 characters</div>}
+        //                     </div>
+        //                     <div className="col-sm-5">
+        //                         <label>Country</label><br/>
+        //                         <My_Profile_Child type="text"
+        //                                             name="country"
+        //                                             value={data.country.value}
+        //                                             reg={reg_name}
+        //                                             handleChange={handleData}
+        //                         />
+        //                         {err10 ? <div></div> : <div style={{color:'red'}}>Country should contain minimum 4 characters</div>}
+        //                     </div>
+        //                 </div><br/>
+        //                 <div className="form-group row">
+        //                     <div className="col-sm-5" style={{marginLeft:'30px',marginRight:'30px'}}>
+        //                         <label>Postal Code</label><br/>
+        //                         <My_Profile_Child type="text"
+        //                                             name="pin"
+        //                                             value={data.pin.value}
+        //                                             reg={reg_name}
+        //                                             handleChange={handleData}
+        //                         />
+        //                         {err11 ? <div></div> : <div style={{color:'red'}}>Pin should contain minimum 4 characters</div>}
+        //                     </div>
+        //                 </div><br/>
+        //                 <div style={{color:'red',marginLeft:'150px'}}>{message}</div><br/>
+        //                 <div style={{color:'green',marginLeft:'150px'}}>{message1}</div><br/>
+        //                 <div className="form-group row">
+                            
+        //                     <div className="col-sm-11" style={{marginLeft:'30px',marginRight:'30px'}}>
+        //                         <input type="button" className="form-control btn btn-primary" value="save" onClick={updateProfile}/>
+        //                     </div>
+        //                 </div><br/>
+        //             </form>
+        //         </div>
+        //     }
+        //     {count==1 && 
+        //         <Sponser_list/>
+        //     }
+        // </div>
+        // </div>
     )
 }
 
