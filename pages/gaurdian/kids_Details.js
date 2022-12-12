@@ -10,7 +10,7 @@ export default function Kids_details(props){
     const [message,setMessage]=useState("")
     const [status,setStatus]=useState(true)
     const [new_application,setNew_application]=useState(true)
-    const application_number=router.query.application_id 
+    const application_number=router.query.application_id || getLocalData("application_id")
     const guardian_id=getLocalData("guardian_id")
     const [formValues,setFormValues]=useState({
         profile:{value,isvalid},
@@ -21,8 +21,10 @@ export default function Kids_details(props){
         child:{value,isvalid},
         gender:{value,isvalid}
     })
+    const [selectedFile1,setSelectedFile1]=useState(null);
     console.log(application_number)
     useEffect(()=>{
+      if(application_number!==null){
         if(!isNaN(application_number)){
             setNew_application(false)
             const getprofile=async()=>{
@@ -39,6 +41,7 @@ export default function Kids_details(props){
             }
             getprofile();
         }
+      }
     },[]);
     const handleSubmit=async(e)=>
     {
@@ -88,25 +91,33 @@ export default function Kids_details(props){
     const isFormValid=Object.keys(formValues).every((key)=>{
         return formValues[key].isvalid
     })
+    let handleExit=()=>
+    {
+      props.handleExitButton();
+    }
+    const fileChange1=async(e)=>{
+      setSelectedFile1(e.target.files[0]);
+  }
     return(
         <div style={{width:'1200px'}}>
         <div className="steps-wizard">
             <div className="step1-wizard">
-            <a href>
-                <div className="step">1</div>
-                <p style={{color: '#2a2a2a'}}>Kids details</p></a>
-            </div>  
-            <div>
-            <div>
-                <div className="step1">2</div>
-                <p>Guardian details</p>
-            </div>
+              <a>
+                  <div className="step">1</div>
+                  <p style={{color: '#2a2a2a'}}>Kids details</p>
+              </a>
             </div>  
             <div className="step1-wizard">
-            <a>
+              <a>
+                <div className="step1">2</div>
+                <p>Gaurdian_details</p>
+              </a>
+            </div>   
+            <div className="step1-wizard">
+              <a>
                 <div className="step1">3</div>
                 <p>Education details</p>
-            </a>
+             </a>
             </div>  
             <div className="step1-wizard">
             <a>
@@ -123,20 +134,28 @@ export default function Kids_details(props){
       </div>
         <form onSubmit={handleSubmit}> 
         <div className="row sponsor-block bg-white">
-        <div className="application-form-card">
-            {/* <div className="image-upload-sec">
+        {/* <div className="application-form-card">
+            <div className="image-upload-sec">
             <div className="image-upload">
                 <label htmlFor="file-input">
-                <img src="/img/browse-thumbnail.svg" />
+                {!selectedFile1 && 
+                  <img src="/img/browse-thumbnail.svg" />
+                }
+                {selectedFile1 && (
+                          <div>
+                          <img alt="not fount" src={URL.createObjectURL(selectedFile1)} className="left-pro-icon"/>
+                          <br />
+                          </div>
+                      )}
                 </label>
-                <input type="file" name="profile" className="form-control" onChange={handleRadio}/>
+                <input type="file" name="profile1" className="form-control" onChange={fileChange1}/>
             </div>
             <div>
                 <h4>Upload Kid’s Picture</h4>
                 <p>100KB - 200KB</p>
             </div>
-            </div> */}
-        </div>
+            </div>
+        </div> */}
         <input type="file"  name="profile" className="form-control" onChange={handleRadio}/>
           <div className="col-lg-6">
             <div className="form-group">
@@ -188,14 +207,14 @@ export default function Kids_details(props){
             </div>
           </div>
           <label>Gender</label>
-                            <div className="form-check">
-                                <label><input className="form-check-input" type="radio" name="gender" value="2" onChange={handleRadio}/>female</label>
-                                <label><input className="form-check-input m-1" type="radio" name="gender" value="1" onChange={handleRadio}/>male</label>
-                            </div>
+          <div className="form-check">
+              <label><input className="form-check-input" type="radio" name="gender" value="2" onChange={handleRadio} style={{marginLeft:'-11px'}}/>female</label>
+              <label><input className="form-check-input m-1" type="radio" name="gender" value="1" onChange={handleRadio}/>male</label>
+          </div>
           <span className="m-2">{status?<p className="text-sucess">{message}</p>:<p className="text-danger">{message}</p>}</span>
           <div className="col-lg-12 application-btns">
           <button type="submit" className="btn btn-primary mx-5 col-2 " disabled={!isFormValid}>Save&Continue</button>
-            <Link href={{pathname:"/gaurdian/gaurdian_dashboard"}}><div className="sponsor-exit-btn">Exit</div></Link>
+            <div><button className="sponsor-exit-btn" onClick={handleExit}>Exit</button></div>
           </div>
         </div>
       </form>

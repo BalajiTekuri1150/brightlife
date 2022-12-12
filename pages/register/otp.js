@@ -6,8 +6,8 @@ import Router from 'next/router';
 import { setLocalData } from "../../utils/storage_service";
 import { getLocalData } from "../../utils/storage_service";
 import { postData1 } from "../../utils/data_manage_service";
-import {AiOutlineMail} from "react-icons/ai";
-import { postData } from "../../utils/data_manage_service";
+import Script from "next/script";
+import Head from "next/head";
 const Otp=()=>
 {
     const router = useRouter();
@@ -170,7 +170,43 @@ const Otp=()=>
     }
     return(
         <>
-            <div>
+            <Head>
+                <title>Brightlife</title>
+                <meta charSet="utf-8" />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+                <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+            </Head>
+            <div className="sign-bg">
+            <img src="/img/signin-bg.jpg" alt="" className="bg" />
+            </div>
+            <div className="sign-container otp-enter otp-container">
+            <a href="/"> <div className="sign-logo"> <img src="/img/logo.png" alt="Bright Life" /></div></a>
+            <div className="sign-in-block correct-valid-con">
+                <h3>Enter OTP</h3>
+                <p><img src="/img/email-icon.svg" className="lab-icon" /><span>Enter OTP sent to {email}</span></p>
+                <form onSubmit={handleSubmit}>
+                <div className="verification-code-inputs correct-valid">
+                    <input type="number" name="otp1" onKeyDown={onHandleKeydown} ref={otp1Ref} value={formValues.otp1} style={color}  maxLength={1} />
+                    <input type="number" name="otp2" onKeyDown={onHandleKeydown} ref={otp2Ref} value={formValues.otp2} style={color}  maxLength={1} />
+                    <input type="number" name="otp3" onKeyDown={onHandleKeydown} ref={otp3Ref} value={formValues.otp3} style={color}  maxLength={1} />
+                    <input type="number" name="otp4" onKeyDown={onHandleKeydown} ref={otp4Ref} value={formValues.otp4} style={color}  maxLength={1} />              
+                </div>
+                {status? <p class="error-msg-incorrect"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>{message}</p>:<p class="error-msg-incorrect"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>{message}</p>}
+                {/* <p className="resend-otp ">Didn't received OTP? <a href><strong>Resend OTP</strong></a></p> */}
+                {timeLeft==0?<p className="resend-otp" onClick={resendOTP}>Didn't received OTP?<a href="#"><strong>Resend OTP</strong></a></p>:<p className="text-decoration-underline pe-none"> Resend OTP in {timeLeft}</p>} 
+                <div className="continue-btn">
+                    <button type="submit" className="btn sign-btn" >Continue</button>
+                </div>
+                </form>
+            </div>
+            </div>
+
+            <Script src="js/jquery.slim.min.js"></Script>
+            <Script src="js/popper.min.js"></Script>
+            <Script src="js/bootstrap.bundle.min.js"></Script>
+            <Script src="js/custom.js"></Script>
+            {/* <div>
                 <h3 className="mb-4 pt-5 font-monospace text-center" style={{marginTop:'100px'}}>bright life</h3>
                 <div className="d-flex justify-content-center ">
                     <form className="bg-light col-4 pt-2 text-center" onSubmit={handleSubmit} style={{marginTop:'20px',borderRadius:'10px'}}>
@@ -193,7 +229,7 @@ const Otp=()=>
                         </div>
                     </form>
                 </div>
-            </div>
+            </div> */}
         </>
     )
 }

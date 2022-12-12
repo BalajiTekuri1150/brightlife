@@ -2,7 +2,16 @@ import React from 'react';
 import Head from 'next/head';
 import Script from 'next/script';
 import Link from 'next/link'
+import { useContext ,useEffect,useState} from 'react';
+import { store } from '../_app';
 const Apply_Sponsorship=()=>{
+    const {datas,setDatas}=useContext(store);
+    const [name,setName]=useState("");
+    useEffect(()=>{
+        if(typeof window!=='undefined'){
+            setName(localStorage.getItem('name'));
+         }
+      },[])
     return(
         <>
             <Head>
@@ -32,29 +41,32 @@ const Apply_Sponsorship=()=>{
                     </li>
                     <li className="nav-item">
                         <Link className="nav-link" href="/home_files/how_works"> How it works </Link>
-                    </li>            
-                    <li className="nav-item user-image dropdown">
-                        <a className="nav-link " href>
-                        <img className="user-image-header" src="/img/user.png" />Andrew <i className="fa fa-angle-down" aria-hidden="true" />
-                        </a>
-                        <ul className="dropdown-nav">
-                        <a href="#">
-                            <li>
-                            <img src="/img/user.svg" />My profile
-                            </li>
-                        </a>
-                        <a href="#">
-                            <li>
-                            <img src="/img/sponsored.svg" />Sponsored children
-                            </li>
-                        </a>
-                        <a href="#">
-                            <li>
-                            <img src="/img/signout.svg" />Sign out
-                            </li>
-                        </a>
-                        </ul>
                     </li>
+                    { datas!==null ? <>         
+                        <li className="nav-item user-image dropdown">
+                            <a className="nav-link " href>
+                            <img className="user-image-header" src={datas} />{name}<i className="fa fa-angle-down" aria-hidden="true" />
+                            </a>
+                            <ul className="dropdown-nav">
+                            <a href="#">
+                                <li>
+                                <img src="/img/user.svg" />My profile
+                                </li>
+                            </a>
+                            <a href="#">
+                                <li>
+                                <img src="/img/sponsored.svg" />Sponsored children
+                                </li>
+                            </a>
+                            <a href="#">
+                                <li>
+                                <img src="/img/signout.svg" />Sign out
+                                </li>
+                            </a>
+                            </ul>
+                        </li>
+                        </>:null
+                    }
                     </ul>
                 </div>
                 </div>

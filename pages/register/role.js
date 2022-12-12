@@ -54,6 +54,9 @@ const Role=()=>
                         query: {name:name,email:gmail,role:role},
                     });
                 }
+                else{
+                  setMessage(result?.data?.error?.message);
+                }
                 
            
             // const JSONdata=JSON.stringify(data);
@@ -96,7 +99,7 @@ const Role=()=>
               <div className="radio-wrapper">
                 <input type="radio" name="select" value={post[1]?.role} onChange={handleRadio} id="option-1" />
                 <input type="radio" name="select" value={post[2]?.role} onChange={handleRadio} id="option-2" />
-                <input type="radio" name="select" value={post[3]?.role} onChange={handleRadio} id="option-3" />
+                {/* <input type="radio" name="select" value={post[3]?.role} onChange={handleRadio} id="option-3" /> */}
                 <label htmlFor="option-1" className="option option-1">
                   <div className="dot" />
                   <span>Sponsor</span>
@@ -105,11 +108,12 @@ const Role=()=>
                   <div className="dot" />
                   <span>Guardian, Volunteer applying for scholarships</span>
                 </label>
-                <label htmlFor="option-3" className="option option-3">
+                {/* <label htmlFor="option-3" className="option option-3">
                   <div className="dot" />
                   <span>Kid applying for a scholarship</span>
-                </label>
+                </label> */}
               </div>
+              <div style={{color:'red'}}>{message}</div>
               <p><button type="submit" className="btn sign-btn btn-success" onClick={handleSubmit} disabled={disable}>Continue</button></p>
             </form>
           </div>

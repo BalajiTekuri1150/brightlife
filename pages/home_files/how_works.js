@@ -1,7 +1,19 @@
 import React from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
+import Script from 'next/script';
+import { useEffect,useState } from 'react';
+import { useContext } from 'react';
+import { store } from '../_app';
+
 const How_Works=()=>{
+  const {datas,setDatas}=useContext(store);
+  const [name,setName]=useState("");
+    useEffect(()=>{
+        if(typeof window!=='undefined'){
+            setName(localStorage.getItem('name'));
+         }
+      },[])
     return(
         <>
         <Head>
@@ -39,9 +51,11 @@ const How_Works=()=>{
                       </button>
                     </Link>
                   </li>
-                  <li className="nav-item user-image dropdown">
+                  {
+                    datas!==null? <>
+                      <li className="nav-item user-image dropdown">
                     <a className="nav-link " href>
-                      <img className="user-image-header" src="/img/user.png" />Andrew <i className="fa fa-angle-down" aria-hidden="true" />
+                      <img className="user-image-header" src={datas?.slice(1,-1)} />{name}<i className="fa fa-angle-down" aria-hidden="true" />
                     </a>
                     <ul className="dropdown-nav">
                       <a href="#">
@@ -61,6 +75,9 @@ const How_Works=()=>{
                       </a>
                     </ul>
                   </li>
+                    </>:null
+                  }
+                  
                 </ul>
               </div>
             </div>
@@ -227,6 +244,11 @@ const How_Works=()=>{
             </div>
           </div>
         </footer>
+        <Script type="module" src="js/jquery.slim.min.js"></Script>
+        <Script type="module" src="js/popper.min.js"></Script>
+        <Script type="module" src="js/bootstrap.bundle.min.js"></Script>
+        <Script stype="module" rc="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.8/slick.min.js"></Script>
+        <Script type="module" src="js/custom.js"></Script>
         </>
     )
 }

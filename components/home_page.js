@@ -1,9 +1,14 @@
-import React from 'react';
+
 import Head from 'next/head';
 import Script from 'next/script';
 import Link from 'next/link';
 import Router from 'next/router';
+import { setLocalData } from '../utils/storage_service';
+import { useState,useEffect } from 'react';
+import { useContext } from 'react';
+import { store } from '../pages/_app';
 const Home_page=()=>{
+    const {datas}=useContext(store);
     const handleSignIn=()=>{
         Router.push({
             pathname:"/login/logins"
@@ -14,6 +19,12 @@ const Home_page=()=>{
             pathname:"/register/Register_Page"
         })
     }
+    // console.log(datas);
+    useEffect(()=>{
+      if(typeof window!=='undefined'){
+          localStorage.removeItem('profile');
+       }
+    },[])
     return(
         <>
         <Head>
@@ -41,7 +52,7 @@ const Home_page=()=>{
                     <Link className="nav-link" href="/home_files/how_works">How it works</Link>
                     </li>         
                     <li className="nav-item">
-                    <button className="btn signin-button btn-success" type="submit" onClick={handleSignIn}>Sign in</button>
+                    <button className="btn signin-button" type="submit" onClick={handleSignIn}>Sign in</button>
                     </li>
                     <li className="nav-item">
                     <button className="btn Signup-button" type="submit" onClick={handleSignUp}> Sign up</button>

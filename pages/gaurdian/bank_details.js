@@ -4,7 +4,7 @@ import { getLocalData } from "../../utils/storage_service"
 import Input from "./input_compent"
 import { useRouter } from "next/router"
 import Link from "next/link"
-export default function Bank_details(){
+export default function Bank_details(props){
     let value="",isvalid=false,result
     const [bank_id,setBank_id]=useState(0)
     const [message,setMessage]=useState("")
@@ -83,6 +83,10 @@ export default function Bank_details(){
     const isFormValid=Object.keys(formValues).every((key)=>{
         return formValues[key].isvalid
     })
+    let handleExit=()=>
+    {
+      props.handleExitButton();
+    }
     return(
         <div style={{width:'1200px'}}>
             <div className="steps-wizard">
@@ -172,7 +176,7 @@ export default function Bank_details(){
                         <div className="col-lg-12 application-btns">
                         {/* <button type="submit" className="sponsor-save-btn">Submit for verification</button> */}
                         <button type="submit" className="sponsor-save-btn" disabled={!isFormValid}>Submit for verification</button>
-                        <a href><div className="sponsor-exit-btn">Exit</div></a>
+                        <div className="sponsor-exit-btn" onClick={handleExit}>Exit</div>
                         </div>
                     </div>
                 </form>

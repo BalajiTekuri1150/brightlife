@@ -824,7 +824,19 @@ header .navbar-nav li:nth-child(2){
     .fb_btn:hover, .g_btn:hover{cursor: pointer;}
     .btn-block + p{text-align: center;}
     .btn-txt{padding-left: 10px;font-size: 16px;}
-
+    .continue-btn{
+      text-align: center;
+    }
+    .continue-btn .sign-btn{
+      background: #2aaca8;
+    color: #fff;
+    width: 250px;
+    height: 60px;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 48px;
+    font-size: 22px;
+    }
     .radio-wrapper{
       border-radius: 5px;
  }
@@ -1382,6 +1394,8 @@ header .navbar-nav li:nth-child(2){
 .myaccount ul li a::before{background-image:url("/img/profile-normal.svg");width: 28px;height: 28px;content: '';display: inline-block;position: absolute;background-repeat: no-repeat;left: 20px;margin-top: -5px;}
 .myaccount ul li a:hover,.myaccount ul li a.active{color: #6c5eff;}
 .myaccount ul li a:hover::before, .myaccount ul li a.active::before{background-image:url("/img/profile-hover.svg");margin-top: -5px;}
+ .myaccount ul li:last-child .active::before{background-image:url("/img/update-profile.svg");margin-top: -2px;}
+
 .myaccount-right-block{padding: 70px 70px ;}
 .sponsor-headding{font-size: 16px;font-weight: normal;color: #00000b;}
 .myaccount-content-block{background:#fff;box-shadow: 0 0 30px 0 rgba(145, 145, 145, 0.15);}
@@ -1918,7 +1932,7 @@ cursor: pointer;
 /* new application wizard start */
 .steps-wizard{
   display: flex;
-  max-width: 100%;
+ max-width: 100%;
 }
 .step1-wizard{
   width:20%;
@@ -2310,13 +2324,178 @@ transform: translateX(-50%)
   top: 110px
 }
 /* payment end */
+.verification-code-inputs  {
+ display: flex;
+ justify-content: space-between;
+}
+.verification-code-inputs input[type=number] {
+  border: 2px solid #e1e1e1;
+  width: 80px;
+  height: 80px;
+  padding: 10px;
+  text-align: center;
+box-sizing:border-box;
+border-radius: 6px;
+-moz-appearance: textfield;
+font-size:40px;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.incorrect input[type=number] {
+  border: 2px solid #ed1b36;
+}
+.otp-enter .sign-in-block h3~p {
+  text-align: left;
+}
+.error-msg-incorrect{
+  color:#ed1b36;
+  margin-top:16px;
+  margin-bottom:16px;
+  font-size:16px;
+}
+.correct-valid input[type=number] {
+  border: 2px solid #87d250;
+}
+.resend-otp {
+  color:#aeaeae;
+  font-size:16px;
+  margin-bottom:56px;
+}
+.resend-otp a {
+  color:#55555c;
+  margin-left:5px;
+  font-size:16px;
+}
+.password-changed {
+ text-align: center;
+  }
+.password-changed i{
+font-size: 100px;
+color:#55bf07;
+}
+.update-password .form-group{
+  position: relative !important;
+}
+.update-password-content h4{
+  font-size: 16px;
+  font-weight: 600; 
+  text-align: left;
+  color: #65717b;
 
-/*Responsive Design*/
+}
+.update-password-content li:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 1em;
+  height: 1em;
+  background: url(/img/tick.svg) no-repeat;
+  margin-top: 7px;
+}
+.update-password-content .update-con li:before {
+  content: '';
+  position: absolute;
+  left: 15px;
+  width: 1em;
+  height: 1em;
+  background: url(/img/content-tick.svg) no-repeat;
+  margin-top: 7px;
+}
+.update-password-content .update-con li {
+ margin-top:16px;
+  margin-left:20px;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+  color: #65717b;
+}
+.update-password-content{
+  margin-left:105px;
+  padding-top:30px;
+}
+.wrong-val{
+  border: 1px solid #ee2740;
+}
+.right-val{
+  border: 1px solid #5ec214;
+}
+.updated-succss-content{
+  text-align: center;
+}
+.updated-succss-content img{
+  margin-bottom:20px;
+}
+.updated-succss-content .continue-btn .sign-btn{
+  background: #6c5eff;
+  font-size:18px;
+  margin-top:20px;
+}
+.timer{
+  font-size: 16px;
+  text-align: left;
+  color: #aeaeae;
+  margin-top:18px;
+  margin-bottom:36px;
+}
+.correct-valid-con .resend-otp{
+  margin-top:16px;
+}
+.password-changed h4{
+  font-size: 32px;
+  font-weight: 500;
+  font-style: normal;
+  color: #00000b;
+  margin-top:36px;
+  margin-bottom:8px;
+}
+.password-changed p{
+  font-size: 18px;
+  font-style: normal;
+  color: #808082;
+  margin-bottom: 36px;
+}
+.myaccount-right-block .form-control{
+  height:50px;
+}
+.update-password-content .application-btns{
+  justify-content: start;
+}
+.password-update-succ img{
+  width: 64px;
+}
+.password-update-succ .modal-content {
+ padding:30px 40px;
+}
+.password-update-succ .updated-succss-content h4{
+  font-size: 22px;
+  font-weight: 500;
+  font-style: normal;
+  color: #00000b;
+  margin-bottom: 15px;
+}
+.password-update-succ .updated-succss-content p{
+  font-size: 16px;
+font-weight: normal;
+color: #808082;
+}
+
+
+// Responsive Design
 
 
 @media screen and (max-width: 1856px){
   .sponsor-row .spons-leftcard {       
       padding-left: 16.3%;
+  }
+  .update-password-content {
+      margin-left: 50px;
+      padding-top: 30px;
+  }
+  .sponsor-save-btn {
+      width: 180px;
   }
 }
 
@@ -2794,6 +2973,73 @@ transform: translateX(-50%)
           font-size: 17px;
           padding: 16px 38px;
       }
+      .sign-in-block h3 {
+          font-size: 28px;
+          margin-bottom: 10px;
+      }
+      .sign-container .sign-logo img {
+          width: 150px;
+          text-align: center;
+      }
+      .sign-in-block {
+        
+          padding: 22px 50px;
+          margin-top: 30px;
+      }
+      .sign-in-block h3~p {
+          text-align: center;
+          margin-bottom: 20px;
+          font-size: 14px;
+          color: #808082;
+      }
+      .sign-in-block .form-control {
+          height: 45px;
+      }
+      .eye-icon {
+          right: 20px;
+          top: 42px;
+      }
+      .sign-in-block .form-group {
+          margin-bottom: 20px;
+      }
+      .sign-in-block .form-group~p {
+          text-align: center;
+          margin-bottom: 15px;
+      }
+      .forgot-txt {
+          color: #27343e;
+          font-weight: bold;
+          margin-bottom: 15px;
+      }
+      .sign-btn {
+          height: 50px;
+      }
+      .continue-btn .sign-btn{
+          height: 50px;
+        line-height: 36px;
+        }
+        .update-password-content {
+          margin-left: 50px;
+          padding-top: 30px;
+      }
+      .verification-code-inputs {
+          display: flex;
+          justify-content: center;
+      }
+      .verification-code-inputs input{
+          margin-right:30px;
+      }
+      .verification-code-inputs input:last-child{
+          margin-right:0px;
+      }
+      .timer {
+          font-size: 16px;
+          text-align: center;
+      }
+      .password-changed h4 {
+          font-size: 25px;
+      }
+      
 }
 @media screen and (max-width: 1400px){
 
@@ -2809,6 +3055,10 @@ transform: translateX(-50%)
   }
 }
 @media screen and (max-width: 1366px){
+  .update-password-content {
+      margin-left: 40px;
+      padding-top: 30px;
+  }
   .custom-container {
       width: 1040px;
       margin: 0 auto;
@@ -2915,6 +3165,14 @@ transform: translateX(-50%)
       .payment-succuss-main .payment-ban-content {
           top: 80px;
       }
+      .otp-container{
+          width: 532px;
+      }
+      .verification-code-inputs input[type=number] {
+          width: 65px;
+          height: 65px;           
+          font-size: 30px;
+      }
 }
 @media screen and (max-width: 1280px){
   .custom-container {
@@ -3009,6 +3267,10 @@ transform: translateX(-50%)
           font-size: 15px;
           padding: 14px 30px;
       }
+      .sponsor-save-btn {
+          width: 180px;
+      }
+      
 }
 @media screen and (max-width: 1200px){
   .custom-container {
@@ -3311,6 +3573,9 @@ transform: translateX(-50%)
       }
       .payment-succuss-main .payment-ban-content {
           top: 50px;
+      }
+      .sponsor-save-btn {
+          width: 140px;
       }
    
 }
@@ -3665,6 +3930,9 @@ transform: translateX(-50%)
       margin: 0 auto;
       text-align: center;
   }
+  .continue-btn .sign-btn{
+      width: 100%;
+  }
   .sign-in-block {
       background: #fff;
       border-radius: 4px;
@@ -3885,6 +4153,32 @@ transform: translateX(-50%)
       font-size: 14px;    
       padding: 10px 20px;
       }
+      .update-password-content {
+          margin-left: 0;
+      }
+      .password-update-succ .modal-content {
+          padding: 30px 10px;
+      }
+      .verification-code-inputs {
+          display: flex;
+          justify-content: center;
+          
+      }
+      .verification-code-inputs input {
+          margin-right:20px;
+      }
+      .verification-code-inputs input:last-child {
+          margin-right:0px;
+      }
+      .otp-enter .sign-in-block h3~p {
+          text-align: center;
+      }
+      .timer {
+          text-align: center;
+      }
+      .continue-btn .sign-btn {        
+          font-size: 18px;
+      }
 }
 @media screen and (max-width: 768px) { 
   .apply-spons-row {
@@ -3992,6 +4286,13 @@ transform: translateX(-50%)
   .child-detail-start {
       margin-top: 30px;
   }
+  .sign-btn {
+      height: 40px;
+  }
+  .continue-btn .sign-btn{
+      height: 40px;
+    line-height: 26px;
+    }
 }
 @media screen and (max-width: 600px) {  
   .section-title {
@@ -4313,7 +4614,41 @@ transform: translateX(-50%)
           -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
       }
-      
+      .sign-in-block h3 {
+          font-size: 20px;
+      }
+      .sign-in-block h3~p {           
+          font-size: 15px;
+      }
+      .password-update-succ .updated-succss-content h4 {
+          font-size: 18px;
+          margin-bottom: 8px;
+      }
+      .password-update-succ .updated-succss-content p {
+          font-size: 14px;
+      }
+      .resend-otp {
+          font-size: 14px;
+          margin-bottom: 30px;
+      }
+      .error-msg-incorrect {
+          font-size: 14px;
+      }
+      .password-changed img{
+          width: 80px;
+      }
+      .password-changed h4 {
+          font-size: 22px;
+          margin-top: 20px;
+          margin-bottom: 8px;
+      }
+      .password-changed p {
+          font-size: 14px;
+          margin-bottom: 20px;
+      }
+      .forgot-txt {
+        font-size: 14px;
+      }
 }
 @media screen and (max-width: 550px) {  
  
@@ -4349,7 +4684,11 @@ transform: translateX(-50%)
           justify-content: center;           
           margin-top: 30px;
       }
-  
+      .verification-code-inputs input[type=number] {          
+          width: 60px;
+          height: 60px;      
+          font-size: 30px;
+      }
 }
 @media screen and (max-width: 475px) {  
   .banner-content h1 {
@@ -4740,6 +5079,17 @@ transform: translateX(-50%)
       width: 128px;
       font-size: 13px;
   }
+  .sign-in-block h3~p {           
+      font-size: 14px;
+  }
+  .password-update-succ .updated-succss-content p {
+      font-size: 12px;
+  }
+  .verification-code-inputs input[type=number] {
+      width: 50px;
+      height: 50px;      
+      font-size: 25px;
+  }
 }
 
 @media screen and (max-width: 360px) { 
@@ -4765,6 +5115,24 @@ transform: translateX(-50%)
 .new-appli-btn {
   font-size: 11px;
   padding: 11px 10px;
+}
+.verification-code-inputs input[type=number] {
+  width: 40px;
+  height: 40px;      
+  font-size: 20px;
+}
+
+.password-changed img{
+  width: 70px;
+}
+.password-changed h4 {
+  font-size: 20px;
+  margin-top: 20px;
+  margin-bottom: 8px;
+}
+.password-changed p {
+  font-size: 13px;
+  margin-bottom: 20px;
 }
 }
 @media screen and (max-width: 320px) { 
@@ -4795,5 +5163,14 @@ transform: translateX(-50%)
   .new-appli-btn {
       font-size: 11px;
       padding: 11px 10px;
+  }
+  .sign-in-block h3~p {           
+      font-size: 12px;
+  }
+  .sign-in-block h3 {
+      font-size: 18px;
+  }
+  .password-update-succ .updated-succss-content p {
+      font-size: 10px;
   }
   }

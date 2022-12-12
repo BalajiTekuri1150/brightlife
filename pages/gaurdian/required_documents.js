@@ -85,6 +85,10 @@ export default function Required_documents(props){
         e.preventDefault()
         props.screenvalue()       
     }
+    let handleExit=()=>
+    {
+      props.handleExitButton();
+    }
     return(
         <div style={{width:'1200px',height:'100%'}}>
             <div className="steps-wizard">
@@ -199,7 +203,7 @@ export default function Required_documents(props){
                         </div>
                         <div className="col-lg-12 application-btns">
                             <button type="submit" className="sponsor-save-btn" disabled={disable} >Save&Continue</button>
-                            <Link href="/gaurdian/gaurdian_dashboard"><button type="button" className="sponsor-exit-btn" >Exit</button></Link>
+                            <button className="sponsor-exit-btn" onClick={handleExit}>Exit</button>
                         </div>
                         {/* <div className="col-lg-12 application-btns">
                         <a href="bank-details.html"><div className="sponsor-save-btn">Save &amp; continue</div></a>

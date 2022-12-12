@@ -4,9 +4,12 @@ import { useState } from "react"
 import { useRouter } from "next/router";
 import { setLocalData } from "../../utils/storage_service";
 import { postData } from "../../utils/data_manage_service";
+import { store } from "../_app";
 import Head from 'next/head';
+import { useContext } from 'react';
 export default function Login()
 {
+    const {datas,setDatas}=useContext(store);
     const router = useRouter();
     const [passwordShown, setPasswordShown] = useState(false)
     const [status,setStatus]=useState("")
@@ -28,8 +31,11 @@ export default function Login()
                 setLocalData("token",result.data.token)
                 setLocalData("user_id",result?.data?.response?.user?.id)
                 setLocalData("id",result?.data?.response?.user?.id)
+                // setLocalData("profile",result?.data?.response?.sponsor?.profile);
+                setDatas(localStorage.setItem('profile',result?.data?.response?.sponsor?.profile))
                 if(result?.data?.response?.user?.role==="sponsor")
                 {
+                    setLocalData("name",result?.data?.response?.user?.name)
                     router.push({ 
                         pathname: '/sponser/sponser',
                     })

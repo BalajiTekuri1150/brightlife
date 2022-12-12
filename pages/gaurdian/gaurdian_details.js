@@ -36,7 +36,7 @@ export default function Gaurdian_details(props){
             getprofile();
         }
     },[]);
-    console.log(application_number)
+    // console.log(application_number)
     const handleSubmit=async(e)=>
     {
         e.preventDefault()  
@@ -65,6 +65,10 @@ export default function Gaurdian_details(props){
     const isFormValid=Object.keys(formValues).every((key)=>{
         return formValues[key].isvalid
     })
+    let handleExit=()=>
+    {
+      props.handleExitButton();
+    }
     return(
         <div style={{width:'1200px'}}>
             <Head>
@@ -147,7 +151,7 @@ export default function Gaurdian_details(props){
                         <span className="m-2">{status?<p className="text-sucess">{message}</p>:<p className="text-danger">{message}</p>}</span>
                         <div className="col-lg-12 application-btns">
                         <button type="submit" className="sponsor-save-btn " disabled={!isFormValid}>Save&Continue</button>
-                        <Link href="/gaurdian/gaurdian_dashboard"><div className="sponsor-exit-btn">Exit</div></Link>
+                        <button className="sponsor-exit-btn" onClick={handleExit}>Exit</button>
                         </div>
                     </div>
                 </form>

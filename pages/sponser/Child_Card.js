@@ -7,6 +7,7 @@ import { getLocalData } from '../../utils/storage_service';
 import Link from 'next/link';
 import Pagination from './pagination';
 import { getData1 } from '../../utils/data_manage_service';
+import Head from 'next/head';
 const Child_Card=(props)=>
 {
     const [posts,setPosts]=useState([]);
@@ -30,8 +31,6 @@ const Child_Card=(props)=>
             // console.log(data1)
             const sorted=[...posts].sort((a,b)=>a["id"] > b["id"] ? 1 : -1);
             setData1(sorted)
-            // console.log(data1)
-            // setPerpage(getdet.response.data.slice(0,9));
         }
         getDetails();
     },[]);
@@ -52,7 +51,7 @@ const Child_Card=(props)=>
     {
         console.log("page number is:"+pageNumber);
         setPage(pageNumber);
-        const result=await(getData1(`https://test-api.brightlife.org/brightlife/get/application/details?page=${pageNumber}&page_size=10`));
+        const result=await(getData1(`https://test-api.brightlife.org/brightlife/get/application/details?page=${pageNumber}&page_size=6`));
         if(result.data?.status)
         {
             console.log("posts is:")
@@ -62,14 +61,6 @@ const Child_Card=(props)=>
             setPosts(result.data?.response?.data)
             // console.log(posts)
             setData1(result.data?.response?.data)
-            // functionPage(result.data?.response?.data);
-            // setData1("");
-            // setData1(result.data?.response?.data);
-            // console.log(data1);
-            // const sorted=[...data1].sort((a,b)=>a["id"] > b["id"] ? 1 : -1);
-            // functionPage();
-            // setData1(sorted)
-            // console.log(data1);
             setDisable1(false);
         }
         else{
@@ -78,175 +69,105 @@ const Child_Card=(props)=>
             setDisable1(true);
         }
     }
-    //console.log("data2 is:")
-    //console.log(data1);
-    // const functionPage=()=>{
-    //    const sorted=[...data1].sort((a,b)=>a["id"] > b["id"] ? 1 : -1);
-    //    console.log("data1 is:")
-    //    console.log(sorted);
-    // }
+
     const handleSort=()=>{
         const sorted=[...data1].sort((a,b)=>a["id"] > b["id"] ? 1 : -1);
         console.log("Sorting data is:")
         console.log(sorted);
         setData1(sorted);
-        props.HandleSort(1);
+        props.HandleSort();
     }
-    // console.log("sorted data is;");
-    // console.log(data1)
-    // useEffect(()=>{ 
-    //     const getDetails1=async()=>{
-    //         const res1=await fetch("https://test-api.brightlife.org/brightlife/get/application/details?page_size=100",{headers:{"Authorization":"token 2d21e847092508ace5f534ac492bf03cd742145a"}});
-    //         const getdet=await res1.json();
-    //         setPosts1(getdet?.response?.data);
-    //         console.log(posts1);
-    //         setData1(getdet?.response?.data);
-    //         console.log(data1);
-    //         const sorted=[...posts1].sort((a,b)=>a["id"] > b["id"] ? 1 : -1);
-    //         setData1(sorted)
-    //     }
-    //     getDetails1();
-    // },[]);
     return( 
+        <>
+        <Head>
+            <title>Brightlife</title>
+            <meta charSet="utf-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" />
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.8/slick-theme.min.css" />
+        </Head>
         <div>
-        <button className="btn btn-success" onClick={handleSort}>Sort By Oldest</button>
-            {/* <div className="col-lg-4  col-sm-12 col-md-6">
-                
-                <div className="block-shadow">
-                    {props.count==0 && posts.length>0 && posts.map((item)=>(
-                        <div >
-                            <div>
-                                <img src="/img/sponsor-child1.jpg" className="img-fluid" />
-                            </div>
-                            <div className='sponsor-block-content'>
-                                <p>20$/Monthly since Jan 2016</p>
-                                <h4>Shalini kumari</h4>
-                                <div>
-                                    <div className="sponsor-justify"><span><img src="/img/fem-clock.png" />female</span><span><img src="/img/time.png" />12 Years Old</span></div>
-                                    <div className="sponsor-justify"><span><img src="/img/date-icon.png" />2/2/2009</span> <span><img src="/img/lang.png" />Telugu</span></div>
-                                </div>
-                                <p>Vishwa Prasad is from India lives with parents, Enjoys Playing with dolls, Playing with friends, Running</p>
-                            </div>
-                            <div className="d-flex">
-                                <a href={`/children/${item.id}`} className="Sponsor-now-btn">Sponsor now</a>
-                                <a href={`/children/${item.id}`} className="more-details-btn">More details</a>                               
-                            </div>
-                        </div>
-                    ))
-                    }
-
-                </div>
-            </div> */}
-        <main className={homestyle.main}>
-            <div className={homestyle.grid}>
-                {props.count==0 && posts.length>0 && posts.map((item)=>(
-                        <div className={homestyle.card}>
-                            <Image src={logo} style={{width:'100%',height:'200px'}}/>
-                            <p style={{marginLeft:'30px'}}>{item.name}</p><br/>
-                            <div className="row">
-                                < div className="col-sm">
-                                    {item.gender.name}
-                                </div>  
-                                <div className="col-sm"> </div>
-                                < div className="col-sm">
-                                    <label>Age</label>
-                                </div>
-                            </div>
-                            <div className="row">
-                                < div className="col-sm">
-                                    {item.birthday}
-                                </div>  
-                                < div className="col-sm" style={{marginLeft:'60px'}}>
-                                   <label>Telugu</label> 
-                                </div>
-                            </div><br/>
-                            <p style={{fontSize:'16px'}}>Vishwa Prasad is from India lives with parents,Enjoys playing with dolls ,playing with friends,Running</p><br/>
-                            <div style={{display:'flex'}}>
-                                <button className="btn btn-primary btn-sm"><Link href={`/children/${item.id}`}><label style={{color:'white'}}>SPONSER CHILDREN</label></Link></button>&nbsp;
-                                <button className="btn btn-secondary btn-sm"><Link href={`/children/${item.id}`}><label style={{color:'white'}}>More Details</label></Link></button>
-                            </div>
-                        </div>
-                    ))
-                }<br/>
-                {props.count>1 && posts.length>0 && posts.filter(item1=>item1?.gender?.name.toString().includes(gen) || item1?.annual_income?.toString().includes(income) || item1?.state?.toString().includes(state))
-                        .map((item)=>(
-                        <div className={homestyle.card}>
-                            <Image src={logo} style={{width:'100%',height:'200px'}}/>
-                            <p style={{marginLeft:'30px'}}>{item.name}</p><br/>
-                            <div className="row">
-                                < div className="col-sm">
-                                    {item.gender.name}
-                                </div>  
-                                <div className="col-sm"> </div>
-                                < div className="col-sm">
-                                    <label>Age</label>
-                                </div>
-                            </div>
-                            <div className="row">
-                                < div className="col-sm">
-                                    {item.birthday}
-                                </div>  
-                                < div className="col-sm" style={{marginLeft:'60px'}}>
-                                   <label>Telugu</label> 
-                                </div>
-                            </div><br/>
-                            <p style={{fontSize:'16px'}}>Vishwa Prasad is from India lives with parents,Enjoys playing with dolls ,playing with friends,Running</p><br/>
-                            <div style={{display:'flex'}}>
-                                <button className="btn btn-success btn-sm"><Link href={`/children/${item.id}`}><label style={{color:'white'}}>SPONSER CHILDREN</label></Link></button>&nbsp;
-                                <button className="btn btn-secondary btn-sm"><Link href={`/children/${item.id}`}><label style={{color:'white'}}>More Details</label></Link></button>
-                            </div>
-                        </div>
-                    ))
-                } <br/>
-                 {props.count==1 && data1.length>0 && data1.map((item)=>(
-                        <div className={homestyle.card}>
-                            <Image src={logo} style={{width:'100%',height:'200px'}}/>
-                            <p style={{marginLeft:'30px'}}>{item.name}</p><br/>
-                            <div className="row">
-                                < div className="col-sm">
-                                    {item.gender.name}
-                                </div>  
-                                <div className="col-sm"> </div>
-                                < div className="col-sm">
-                                    <label>Age</label>
-                                </div>
-                            </div>
-                            <div className="row">
-                                < div className="col-sm">
-                                    {item.birthday}
-                                </div>  
-                                < div className="col-sm" style={{marginLeft:'60px'}}>
-                                   <label>Telugu</label> 
-                                </div>
-                            </div><br/>
-                            <p style={{fontSize:'16px'}}>Vishwa Prasad is from India lives with parents,Enjoys playing with dolls ,playing with friends,Running</p><br/>
-                            <div style={{display:'flex'}}>
-                                <a href={`/children/${item.id}`} className="btn btn-primary btn-sm" onClick={handleCard}>SPONSER CHILDREN</a>&nbsp;
-                                <a href={`/children/${item.id}`} className="btn btn-secondary btn-sm" onClick={handleCard}>More Details</a>
-                            </div>
-                        </div>
-                    ))
-                }
-            </div>
-           <div style={{display:'flex'}}>
-                {/* {props.count!=1 &&<label style={{marginRight:'10px'}}>Enter Number of children per page here[1-20](optional):</label>}
-                {props.count!=1 && <input type="number" onChange={handlePageSize} min="0" max="20"/>} */}
-            </div><br/>
-             <Pagination pageHandler={pageHandler} disable1={disable1}/>
-        </main>
+            <button className="btn btn-success" onClick={handleSort} style={{marginBottom:'10px'}}>Sort By Oldest</button>
         </div>
+        <div className='row'>
+                {props.count==0 && posts.length>0 && posts.map((item)=>(
+                        <div className="col-lg-4 col-sm-12 col-md-6">
+                            <div className="block-shadow">
+                                <div><img src="/img/sponsor-child1.jpg" className="img-fluid"/></div>
+                                    <div className="sponsor-block-content">
+                                    <p>20$/Monthly since Jan 2016</p>
+                                    <h4>{item.name}</h4>
+                                    <div>
+                                        <div className="sponsor-justify"><span><img src="/img/fem-clock.png"/>{item.gender.name}</span><span><img src="/img/time.png"/>12 Years Old</span></div>
+                                        <div className="sponsor-justify"><span><img src="/img/date-icon.png"/>{item.birthday}</span> <span><img src="/img/lang.png"/>Telugu</span></div>
+                                    </div>
+                        
+                                    <p>Vishwa Prasad is from India lives with parents, Enjoys Playing with dolls, Playing with friends, Running</p>
+                                </div>
+                                <div className="d-flex">
+                                    <a href={`/children/${item.id}`} class="Sponsor-now-btn">Sponsor now</a>
+                                    <a href={`/children/${item.id}`}  class="more-details-btn">More details</a>                               
+                                </div>
+                          </div>      
+                        </div>
+                    ))}
+
+                    {/* Search Filter */}
+                    {props.count>1 && posts.length>0 && posts.filter(item1=>item1?.gender?.name.toString().includes(gen) || item1?.annual_income?.toString().includes(income) || item1?.state?.toString().includes(state))
+                    .map((item)=>(
+                        <div className="col-lg-4 col-sm-12 col-md-6">
+                            <div className="block-shadow">
+                                <div>
+                                    <img src="/img/sponsor-child1.jpg" className="img-fluid"/>
+                                </div>
+                                <div className="sponsor-block-content">
+                                    <p>20$/Monthly since Jan 2016</p>
+                                    <h4>{item.name}</h4>
+                                    <div>
+                                        <div className="sponsor-justify"><span><img src="/img/fem-clock.png"/>{item.gender.name}</span><span><img src="/img/time.png"/>12 Years Old</span></div>
+                                        <div className="sponsor-justify"><span><img src="/img/date-icon.png"/>{item.birthday}</span> <span><img src="/img/lang.png"/>Telugu</span></div>
+                                    </div>
+                        
+                                    <p>Vishwa Prasad is from India lives with parents, Enjoys Playing with dolls, Playing with friends, Running</p>
+                                </div>
+                                <div className="d-flex">
+                                    <a href={`/children/${item.id}`} class="Sponsor-now-btn">Sponsor now</a>
+                                    <a href={`/children/${item.id}`}  class="more-details-btn">More details</a>                               
+                                </div>
+                            </div>
+                        </div>
+                    ))} 
+
+                    {/* Sort By Oldest */}
+                    {props.count==1 && data1.length>0 && data1.map((item)=>(
+                        <div className="col-lg-4 col-sm-12 col-md-6">
+                            <div className="block-shadow">
+                                <div>
+                                    <img src="/img/sponsor-child1.jpg" className="img-fluid"/>
+                                </div>
+                                <div className="sponsor-block-content">
+                                    <p>20$/Monthly since Jan 2016</p>
+                                    <h4>{item.name}</h4>
+                                    <div>
+                                        <div className="sponsor-justify"><span><img src="/img/fem-clock.png"/>{item.gender.name}</span><span><img src="/img/time.png"/>12 Years Old</span></div>
+                                        <div className="sponsor-justify"><span><img src="/img/date-icon.png"/>{item.birthday}</span> <span><img src="/img/lang.png"/>Telugu</span></div>
+                                    </div>
+                        
+                                    <p>Vishwa Prasad is from India lives with parents, Enjoys Playing with dolls, Playing with friends, Running</p>
+                                </div>
+                                <div className="d-flex">
+                                    <a href={`/children/${item.id}`} class="Sponsor-now-btn">Sponsor now</a>
+                                    <a href={`/children/${item.id}`}  class="more-details-btn">More details</a>                               
+                                </div>
+                            </div>  
+                        </div>
+                ))}
+               
+        </div>
+        <div style={{marginLeft:'400px'}}><Pagination pageHandler={pageHandler} disable1={disable1}/></div><br/><br/>
+        </>
     )
 }
-
-// export async function getServerSideProps(context){
-//     const res=await fetch("https://test-api.brightlife.org/brightlife/get/application/details?page_size=6",{headers:{"Authorization":"token 2d21e847092508ace5f534ac492bf03cd742145a"}});
-//     const users=await res.json();
-    
-//     return{
-//         props:{
-//             user:users,
-//         },
-//     }
-// }
 
 export default Child_Card;

@@ -61,11 +61,11 @@ const Pagination=(props)=>
                 onClick={()=>pageHandler(page)}>{page}</div>)}
             </center> */}
             <div>
-                <button className='btn btn-outline-dark btn btn-success' onClick={HandlePrevious} disabled={disable}>PREVIOUS</button>
-                <button className='btn btn-outline-dark' onClick={HandlePage} value={1}>1</button>
-                <button className='btn btn-outline-dark' onClick={HandlePage} value={2}>2</button>
-                <button className='btn btn-outline-dark' onClick={HandlePage} value={3}>3</button>
-                <button className='btn btn-outline-dark' onClick={HandlePage} value={4}>4</button>
+                <button className='btn btn-outline-dark btn btn-success' onClick={HandlePrevious} disabled={disable}>PREVIOUS</button>&nbsp;
+                <button className='btn btn-outline-dark' onClick={HandlePage} value={1}>1</button>&nbsp;
+                <button className='btn btn-outline-dark' onClick={HandlePage} value={2}>2</button>&nbsp;
+                <button className='btn btn-outline-dark' onClick={HandlePage} value={3}>3</button>&nbsp;
+                <button className='btn btn-outline-dark' onClick={HandlePage} value={4}>4</button>&nbsp;
                 <button className='btn btn-outline-dark btn btn-success' onClick={HandleNext} disabled={props.disable1}>NEXT</button>
             </div>
         </div>

@@ -1,22 +1,21 @@
 import Router from "next/router";
 import React, { useEffect } from "react";
-import style from '../../styles/register.module.css';
 import My_Profile_Child from "./My_Profile_Child";
-import Image from 'next/image';
-import logo from "../../public/kid.jpeg"
 import { useState } from "react";
 import { useRouter } from 'next/router';
 import { setLocalData } from "../../utils/storage_service";
 import { getLocalData } from "../../utils/storage_service";
-import { postData2 } from "../../utils/data_manage_service";
 import Sponser_list from "./sponser_list";
-// import Validate from "./validate";
-import { postformdata } from "../../utils/data_manage_service";
+import Sponsor_child_details from "./sponsor_child_details";
 import profile from '../../public/profile.png';
+import Script from "next/script";
+import Link from 'next/link';
+import { useContext } from 'react';
+import { store } from '../_app';
 const My_Profile=()=>
 {
+    const {datas,setDatas}=useContext(store)
     const router = useRouter()
-    // const{name,email,pass,role}=router.query;
     let reg_name=new RegExp('^.{4,20}$');
     let reg_phone=new RegExp('^[+]91');
     let reg_email=new RegExp('^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$');
@@ -88,7 +87,9 @@ const My_Profile=()=>
                 pin:{value:getpofiledata.response?.sponsor?.postal_code},
             })
             // console.log(getpofiledata.response?.sponsor?.profile)
-            setSelectedFile(getpofiledata.response?.sponsor?.profile);
+            // setSelectedFile(getpofiledata.response?.sponsor?.profile);
+            // setLocalData("profile",getpofiledata.response?.sponsor?.profile)
+            setDatas(localStorage.setItem('profile',getpofiledata.response?.sponsor?.profile))
             setUname(getpofiledata.response?.sponsor?.user?.name);
             setLocalData("sponser_id",getpofiledata.response?.sponsor?.id);
         }
@@ -430,6 +431,9 @@ const My_Profile=()=>
     const fileChange=async(e)=>{
         setSelectedFile(e.target.files[0]);
     }
+    const handleChildlist=()=>{
+      setCount(2);
+    }
     return(
         <div>
             <div>
@@ -440,47 +444,75 @@ const My_Profile=()=>
                 <a className="navbar-toggler" type="button" onclick="toggleSidebar()">
                   <i className="fa fa-bars" aria-hidden="true" />
                 </a>
-                <a className="navbar-brand" href="index.html">
+                <a className="navbar-brand" href="/">
                   <img className="logo" src="/img/logo.png" alt="Brightlife" />
                 </a>
               </div>
               <div className=" navbar-collapse " id="mobilesidemenu">
                 <ul className="navbar-nav mr-auto ">
                   <li className="nav-item ">
-                    <a className="nav-link" href="ourteam.html"> Our Team</a>
+                    <Link className="nav-link" href="/home_files/our_team"> Our Team</Link>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="howitworks.html"> How it works </a>
+                    <Link className="nav-link" href="/home_files/how_works"> How it works </Link>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link " href="sponsor.html">
-                      <button className="btn signin-button" type="submit">
-                        <span className="Donate"> Donate </span>
+                    <Link className="nav-link " href="/home_files/donate">
+                      <button className="btn signin-button Donate" type="submit">Donate
+                        {/* <span className="Donate"> Donate </span> */}
                       </button>
-                    </a>
+                    </Link>
                   </li>
-                  <li className="nav-item user-image dropdown">
-                    <a className="nav-link " href>
-                      <img className="user-image-header" src="/img/user.png" />Andrew <i className="fa fa-angle-down" aria-hidden="true" />
-                    </a>
-                    <ul className="dropdown-nav">
-                      <div onClick={profileClick} style={{color:'black'}}>
-                        <li>
-                          <img src="/img/user.svg" />My profile
-                        </li>
-                      </div>
-                      <div onClick={sponserChild} style={{color:'black'}}>
-                        <li>
-                          <img src="/img/sponsored.svg" />Sponsored children
-                        </li>
-                      </div>
-                      <a href="#">
-                        <li>
-                          <img src="/img/signout.svg" />Sign out
-                        </li>
-                      </a>
-                    </ul>
-                  </li>
+                  { datas!=="undefined" ? 
+                    <>
+                      <li className="nav-item user-image dropdown">
+                        <a className="nav-link " href>
+                          <img className="user-image-header" src={datas} />{data?.fname?.value}<i className="fa fa-angle-down" aria-hidden="true" />
+                        </a>
+                        <ul className="dropdown-nav">
+                          <div onClick={profileClick} style={{color:'black'}}>
+                            <li>
+                              <img src="/img/user.svg" />My profile
+                            </li>
+                          </div>
+                          <div onClick={sponserChild} style={{color:'black'}}>
+                            <li>
+                              <img src="/img/sponsored.svg" />Sponsored children
+                            </li>
+                          </div>
+                          <Link href="/">
+                            <li style={{color:'black'}}>
+                              <img src="/img/signout.svg" />Sign out
+                            </li>
+                          </Link>
+                        </ul>
+                      </li>
+                    </>:
+                    <>
+                      <li className="nav-item user-image dropdown">
+                        <a className="nav-link " href>
+                          <img className="user-image-header" src="/img/profile.png" />{data?.fname?.value}<i className="fa fa-angle-down" aria-hidden="true" />
+                        </a>
+                        <ul className="dropdown-nav">
+                          <div onClick={profileClick} style={{color:'black'}}>
+                            <li>
+                              <img src="/img/user.svg" />My profile
+                            </li>
+                          </div>
+                          <div onClick={sponserChild} style={{color:'black'}}>
+                            <li>
+                              <img src="/img/sponsored.svg" />Sponsored children
+                            </li>
+                          </div>
+                          <Link href="/">
+                            <li style={{color:'black'}}>
+                              <img src="/img/signout.svg" />Sign out
+                            </li>
+                          </Link>
+                        </ul>
+                      </li>
+                  </>
+                  }
                 </ul>
               </div>
             </div>
@@ -493,29 +525,49 @@ const My_Profile=()=>
               <div className="left-profilemenu-block">
                 <div className="left-profilemenu-block">
                   <div className="left-profileimage">
-                    { !selectedFile && (
-                    <img src="/img/childsays.png" alt="My Profile Icon" className="left-pro-icon" />
-                    // <div className="image-upload">
-                    //   <label htmlFor="file-input">
-                    //     <img src="/img/camera.png" />
-                    //   </label>
-                    // </div>
-                   )}
-                      {selectedFile && (
-                          <div>
-                          <img alt="not fount" src={URL.createObjectURL(selectedFile)} className="left-pro-icon"/>
-                          <br />
-                          {/* <button onClick={()=>setSelectedFile(null)} style={{marginLeft:'50px',marginTop:'10px'}}>Remove</button> */}
-                          </div>
-                      )}
-                      <input id="file-input" type="file" onChange={fileChange}/>
-                    {/* </div> */}
-                    <p>{data?.fname?.value}</p>
+                    {datas!=="undefined" ?
+                        <>
+                          { !selectedFile && (
+                            <div>
+                              <img src={datas} alt="My Profile Icon" className="left-pro-icon" />
+                              <p>{data?.fname?.value}</p>
+                            </div>
+                          )}
+                          {selectedFile && (
+                                <div>
+                                <img alt="not fount" src={URL.createObjectURL(selectedFile)} className="left-pro-icon"/>
+                                <p>{data?.fname?.value}</p>
+                                <br />
+                                </div>
+                          )}
+                            <input id="file-input" type="file" onChange={fileChange}/>
+                        </>:
+                        <>
+                            { !selectedFile && (
+                              <div>
+                                <img src="/img/profile.png" alt="My Profile Icon" className="left-pro-icon" />
+                                <p>{data?.fname?.value}</p>
+                              </div>
+                              // <div className="image-upload">
+                              //   <label htmlFor="file-input">
+                              //     <img src="/img/camera.png" />
+                              //   </label>
+                              // </div>
+                            )}
+                            {selectedFile && (
+                                <div>
+                                  <img alt="not fount" src={URL.createObjectURL(selectedFile)} className="left-pro-icon"/>
+                                  <p>{data?.fname?.value}</p>
+                                </div>
+                            )}
+                            <input id="file-input" type="file" onChange={fileChange}/>
+                              </>
+                    }
                   </div>
                   <div className="myaccount">
                     <ul>
-                      <li><div onClick={profileClick}>MY PROFILE</div></li>
-                      <li><div className="active" onClick={sponserChild}>SPONSORED CHILDREN</div></li>
+                      <li><div onClick={profileClick}><img src="/img/user.svg" />MY PROFILE</div></li>
+                      <li><div className="active" onClick={sponserChild}><img src="/img/sponsored.svg" />SPONSORED CHILDREN</div></li>
                     </ul>
                   </div>
                 </div>
@@ -523,37 +575,53 @@ const My_Profile=()=>
             </div>
             <div className="col-lg-10 col-sm-12">
               <div className="myaccount-right-block">
-                <h4 className="sponsor-headding">My Profile</h4>
+                {count==0 &&
+                  <h4 className="sponsor-headding">My Profile</h4>
+                }
+                { count==1 &&
+                  <div>SPONSORED CHILDREN LIST</div>
+                }
+                { count==2 &&
+                  <>                         
+                    <div class="sponsor-breadcums">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><div onClick={sponserChild}>Sponsored children</div></li>        
+                        <li class="breadcrumb-item active">Child’s Profile</li>
+                      </ol>
+                  </div>
+                  </>
+
+                }
                 <div className="myaccount-content-block">
                   <div className="myaccount-content-inner">   
                     {count==0 &&
                         <form> 
                         <div className="row sponsor-block bg-white">
                             <div className="col-lg-6">
-                            <div className="form-group">
-                                <label>First Name</label>
-                                <My_Profile_Child type="text"
-                                                name="fname"
-                                                placeholder="enter first name"
-                                                value={data.fname.value}
-                                                reg={reg_name}
-                                                handleChange={handleData}
-                                />
-                                {err1 ? <div></div> : <div style={{color:'red'}}>First name should contain minimum 4 characters</div>}
-                            </div>
+                              <div className="form-group">
+                                  <label>First Name</label>
+                                  <My_Profile_Child type="text"
+                                                  name="fname"
+                                                  placeholder="enter first name"
+                                                  value={data.fname.value}
+                                                  reg={reg_name}
+                                                  handleChange={handleData}
+                                  />
+                                  {err1 ? <div></div> : <div style={{color:'red'}}>First name should contain minimum 4 characters</div>}
+                              </div>  
                             </div>
                             <div className="col-lg-6">
-                            <div className="form-group">
-                                <label>Last Name</label>
-                                {/* <input type="text" className="form-control" />             */}
-                                <My_Profile_Child type="text"
-                                                    name="sname"
-                                                     value={data.sname.value}
-                                                     reg={reg_name}
-                                                     handleChange={handleData}
-                                 />
-                                 {err2 ? <div></div> : <div style={{color:'red'}}>Second name should contain minimum 4 characters</div>}
-                            </div>
+                              <div className="form-group">
+                                  <label>Last Name</label>
+                                  {/* <input type="text" className="form-control" />             */}
+                                  <My_Profile_Child type="text"
+                                                      name="sname"
+                                                      value={data.sname.value}
+                                                      reg={reg_name}
+                                                      handleChange={handleData}
+                                  />
+                                  {err2 ? <div></div> : <div style={{color:'red'}}>Second name should contain minimum 4 characters</div>}
+                              </div>
                             </div>
                             <div className="col-lg-6">
                             <div className="form-group">
@@ -564,6 +632,7 @@ const My_Profile=()=>
                                                 value={data.organization.value}
                                                 reg={reg_name}
                                                 handleChange={handleData}
+                                                
                                 />
                                 {err3 ? <div></div> : <div style={{color:'red'}}>Organization should contain minimum 4 characters</div>}
                             </div>
@@ -577,6 +646,7 @@ const My_Profile=()=>
                                                 value={data.gmail.value}
                                                 reg={reg_email}
                                                 handleChange={handleData}
+                                               
                                 />
                                 {err4 ? <div></div> : <div style={{color:'red'}}>gmail should be like ***@gmail.com</div>}
                             </div>
@@ -590,6 +660,7 @@ const My_Profile=()=>
                                                      value={data.mobile.value}
                                                      reg={reg_phone}
                                                      handleChange={handleData}
+                                                     
                                  />
                                  {err5 ? <div></div> : <div style={{color:'red'}}>Mobile Number should start with +91 and contain 10 numbers only</div>}
                                 
@@ -604,6 +675,7 @@ const My_Profile=()=>
                                                      value={data.source.value}
                                                      reg={reg_name}
                                                      handleChange={handleData}
+                                                     
                                  />
                                  {err6 ? <div></div> : <div style={{color:'red'}}>Source should contain minimum 4 characters</div>}
                             </div>
@@ -617,6 +689,7 @@ const My_Profile=()=>
                                                      value={data.address.value}
                                                      reg={reg_name}
                                                      handleChange={handleData}
+                                                     
                                  />
                                  {err7 ? <div></div> : <div style={{color:'red'}}>Address should contain minimum 4 characters</div>}
                                 
@@ -631,6 +704,7 @@ const My_Profile=()=>
                                                      value={data.city.value}
                                                      reg={reg_name}
                                                      handleChange={handleData}
+                                                     
                                  />
                                  {err8 ? <div></div> : <div style={{color:'red'}}>City should contain minimum 4 characters</div>}
                             </div>
@@ -644,6 +718,7 @@ const My_Profile=()=>
                                                      value={data.state.value}
                                                      reg={reg_name}
                                                      handleChange={handleData}
+                                                     
                                  />
                                  {err9 ? <div></div> : <div style={{color:'red'}}>State should contain minimum 4 characters</div>}
                             </div>
@@ -657,33 +732,40 @@ const My_Profile=()=>
                                                      value={data.country.value}
                                                      reg={reg_name}
                                                      handleChange={handleData}
+                                                     
                                  />
                                  {err10 ? <div></div> : <div style={{color:'red'}}>Country should contain minimum 4 characters</div>}
                             </div>
                             </div>
                             <div className="col-lg-6">
-                            <div className="form-group">
-                                <label>Postal Code</label>
-                                {/* <input type="text" className="form-control" />             */}
-                                <My_Profile_Child type="text"
-                                                     name="pin"
-                                                     value={data.pin.value}
-                                                     reg={reg_name}
-                                                     handleChange={handleData}
-                                 />
-                                 {err11 ? <div></div> : <div style={{color:'red'}}>Pin should contain minimum 4 characters</div>}
-                            </div>
+                              <div className="form-group">
+                                  <label>Postal Code</label>
+                                  {/* <input type="text" className="form-control" />             */}
+                                  <My_Profile_Child type="text"
+                                                      name="pin"
+                                                      value={data.pin.value}
+                                                      reg={reg_name}
+                                                      handleChange={handleData}
+                                                      
+                                  />
+                                  {err11 ? <div></div> : <div style={{color:'red'}}>Pin should contain minimum 4 characters</div>}
+                              </div>
                             </div>
                             <div style={{color:'red',marginLeft:'150px'}}>{message}</div><br/>
                             <div style={{color:'green',marginLeft:'150px'}}>{message1}</div><br/>
-                            <div className="col-lg-12">
+                            <div className="col-lg-12 d-flex justify-content-end">
                                 <div className="sponsor-save-btn" onClick={updateProfile}>Save</div>
                             </div>
                         </div>
                         </form>
                     }
                     {count==1 && 
-                        <Sponser_list/>
+                        <Sponser_list handleView1={handleChildlist}/>
+                    }
+                    {count==2 && 
+                      
+                        <Sponsor_child_details handleSC1={sponserChild}/>
+
                     }
                   </div>
                 </div>
@@ -781,6 +863,12 @@ const My_Profile=()=>
             </div>
           </div>
         </footer>
+
+        <Script src="js/jquery.slim.min.js"></Script>
+        <Script src="js/popper.min.js"></Script>
+        <Script src="js/bootstrap.bundle.min.js"></Script>
+        <Script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.8/slick.min.js"></Script>
+        <Script src="js/custom.js"></Script>
       </div>
         </div>
         // <div>

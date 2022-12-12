@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Script from 'next/script';
 import Head from 'next/head';
 import Link from 'next/link';
+import { useContext,useEffect } from 'react';
+import { store } from '../_app';
 const Donate=()=>{
+    const {datas,setDatas}=useContext(store)
+    const [name,setName]=useState("");
+    useEffect(()=>{
+      if(typeof window!=='undefined'){
+          setName(localStorage.getItem('name'));
+       }
+    },[])
+    
     return(
         <>
             <div>
@@ -40,28 +50,31 @@ const Donate=()=>{
                       </button>
                     </Link>
                   </li>
-                  <li className="nav-item user-image dropdown">
-                    <a className="nav-link " href>
-                      <img className="user-image-header" src="/img/user.png" />Andrew <i className="fa fa-angle-down" aria-hidden="true" />
-                    </a>
-                    <ul className="dropdown-nav">
-                      <a href="#">
-                        <li>
-                          <img src="/img/user.svg" />My profile
-                        </li>
+                  {datas!==null ?<>
+                    <li className="nav-item user-image dropdown">
+                      <a className="nav-link " href>
+                        <img className="user-image-header" src={datas} />{name}<i className="fa fa-angle-down" aria-hidden="true" />
                       </a>
-                      <a href="#">
-                        <li>
-                          <img src="/img/sponsored.svg" />Sponsored children
-                        </li>
-                      </a>
-                      <a href="#">
-                        <li>
-                          <img src="/img/signout.svg" />Sign out
-                        </li>
-                      </a>
-                    </ul>
-                  </li>
+                      <ul className="dropdown-nav">
+                        <a href="#">
+                          <li>
+                            <img src="/img/user.svg" />My profile
+                          </li>
+                        </a>
+                        <a href="#">
+                          <li>
+                            <img src="/img/sponsored.svg" />Sponsored children
+                          </li>
+                        </a>
+                        <a href="#">
+                          <li>
+                            <img src="/img/signout.svg" />Sign out
+                          </li>
+                        </a>
+                      </ul>
+                    </li>
+                  </>:null
+                  }
                 </ul>
               </div>
             </div>

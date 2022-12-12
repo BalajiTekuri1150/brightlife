@@ -12,10 +12,12 @@ import logo from '../../public/fb.png';
 import { getLocalData } from "../../utils/storage_service";
 import { setLocalData } from "../../utils/storage_service";
 import { getData1 } from "../../utils/data_manage_service";
+import { store } from "../_app";
+import { useContext } from 'react';
 import Link from 'next/link'
 const Final=()=>
 {
-    
+    const {datas,setDatas}=useContext(store)
     const router = useRouter()
     // const{name,email,pass,role,id}=router.query;
     const [coun,setCoun]=useState([]);
@@ -114,6 +116,7 @@ const Final=()=>
     const handleSubmit=(e)=>
     {
         e.preventDefault();
+        // setCount(2)
         if(count==0)
         {
             setCount(count+2);
@@ -126,16 +129,26 @@ const Final=()=>
         setLocalData("gen",gen);
         setLocalData("income",income);
     }
-    const handleCount=(c)=>
+    const handleCount=()=>
     {
-        console.log(c);
-        setCount(c);
+        console.log(1);
+        setCount(1);
         setState(" ");
         setGen(" ");
         setAge(" ");
         setIncome(" ");
         setMon(" ");
     }
+    const handleLogout=()=>
+    {
+      console.log("Hello")
+      localStorage.removeItem("profile");
+      Router.push({
+        pathname:'/',
+      })
+    }
+    // console.log(datas)
+    const name=getLocalData("name");
     return( 
         <div>
         {/* header start */}
@@ -161,32 +174,60 @@ const Final=()=>
                   <li className="nav-item">
                     <a className="nav-link " href="sponsor.html">
                       <button className="btn signin-button" type="submit">
-                        <span className="Donate"> Donate </span>
+                        <span className="Donate" style={{color:'white'}}> Donate </span>
                       </button>
                     </a>
                   </li>
-                  <li className="nav-item user-image dropdown">
-                    <a className="nav-link " href>
-                      <img className="user-image-header" src="/img/user.png" />Andrew <i className="fa fa-angle-down" aria-hidden="true" />
-                    </a>
-                    <ul className="dropdown-nav">
-                      <Link href="/sponser/My_Profile">
-                        <li>
-                          <img src="/img/user.svg" /><span style={{color:'black'}}>My profile</span>
-                        </li>
-                      </Link>
-                      <Link href="/sponser/My_Profile">
-                        <li>
-                          <img src="/img/sponsored.svg" /><span style={{color:'black'}}>Sponsored children</span>
-                        </li>
-                      </Link>
-                      <a href="#">
-                        <li>
-                          <img src="/img/signout.svg" />Sign out
-                        </li>
-                      </a>
-                    </ul>
-                  </li>
+                  {datas!==null ?
+                    <>
+                      <li className="nav-item user-image dropdown">
+                          <a className="nav-link " href>
+                            <img className="user-image-header" src={datas} />{name}<i className="fa fa-angle-down" aria-hidden="true" />
+                          </a>
+                          <ul className="dropdown-nav">
+                            <Link href="/sponser/My_Profile">
+                              <li>
+                                <img src="/img/user.svg" /><span style={{color:'black'}}>My profile</span>
+                              </li>
+                            </Link>
+                            <Link href="/sponser/My_Profile">
+                              <li>
+                                <img src="/img/sponsored.svg" /><span style={{color:'black'}}>Sponsored children</span>
+                              </li>
+                            </Link>
+                            <a onClick={handleLogout}>
+                              <li>
+                                <img src="/img/signout.svg"/>Sign out
+                              </li>
+                            </a>
+                          </ul>
+                      </li>
+                    </>:
+                    <>
+                      <li className="nav-item user-image dropdown">
+                          <a className="nav-link " href>
+                            <img className="user-image-header" src="/img/profile.png" />{name}<i className="fa fa-angle-down" aria-hidden="true" />
+                          </a>
+                          <ul className="dropdown-nav">
+                            <Link href="/sponser/My_Profile">
+                              <li>
+                                <img src="/img/user.svg" /><span style={{color:'black'}}>My profile</span>
+                              </li>
+                            </Link>
+                            <Link href="/sponser/My_Profile">
+                              <li>
+                                <img src="/img/sponsored.svg" /><span style={{color:'black'}}>Sponsored children</span>
+                              </li>
+                            </Link>
+                            <a onClick={handleLogout}>
+                              <li>
+                                <img src="/img/signout.svg"/>Sign out
+                              </li>
+                            </a>
+                          </ul>
+                      </li>
+                    </>
+                  }
                 </ul>
               </div>
             </div>
@@ -301,12 +342,13 @@ const Final=()=>
                     </div>  */}
                     <div className="col-lg-3">
                       <div className="form-group">
-                        <select className="form-control">
+                        {/* <select className="form-control">
                           <option>Family income</option>
                           <option>Below 50,000</option> 
                           <option>Below 10,000</option>
                           <option>Below 5,000</option>                                    
-                        </select>
+                        </select> */}
+                       <Form.Control as="input" className={style.sponser_input} placeholder="FAMILY INCOME" value={income} onChange={handleIncome}/>
                       </div>                           
                     </div> 
                     <div className="col-lg-3">
@@ -331,7 +373,12 @@ const Final=()=>
             </div>       
           </section>  
           </div>
-            <Child_Card count={count} HandleSort={handleCount}/>
+          <section className="search-content">
+            <div className="search-headline">Children in need of a sponsorship</div>
+            <div className="custom-container">
+              <Child_Card count={count} HandleSort={handleCount}/>
+            </div>
+          </section>
         <footer id="footer">
           <div className="footer-top">
             <div className="custom-container">
@@ -398,19 +445,19 @@ const Final=()=>
                   <div>Email: Lorem ipsum@gmail.com</div>
                   <div>Phone: +00 000 000 1234</div>
                   <div className="social-links mt-3">
-                    <a href="#" className>
-                      <i className="fa fa-skype" aria-hidden="true" />
-                    </a>
-                    <a href="#" className>
-                      <i className="fa fa-twitter" aria-hidden="true" />
-                    </a>
-                    <a href="#" className>
-                      <i className="fa fa-whatsapp" aria-hidden="true" />
-                    </a>
-                    <a href="#" className>
-                      <i className="fa fa-vimeo" aria-hidden="true" />
-                    </a>
-                  </div>
+                  <a href="#" className>
+                    <i className="fa fa-skype" aria-hidden="true" />
+                  </a>
+                  <a href="#" className>
+                    <i className="fa fa-twitter" aria-hidden="true" />
+                  </a>
+                  <a href="#" className>
+                    <i className="fa fa-whatsapp" aria-hidden="true" />
+                  </a>
+                  <a href="#" className>
+                    <i className="fa fa-vimeo" aria-hidden="true" />
+                  </a>
+                </div>
                 </div>
               </div>
             </div>

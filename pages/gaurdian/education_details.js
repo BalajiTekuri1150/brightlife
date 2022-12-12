@@ -67,6 +67,10 @@ export default function Education_details(props){
     const isFormValid=Object.keys(formValues).every((key)=>{
         return formValues[key].isvalid
     })
+    let handleExit=()=>
+    {
+      props.handleExitButton();
+    }
     return(
         <div style={{width:'1200px'}}>
             <Head>
@@ -154,29 +158,36 @@ export default function Education_details(props){
                     </div>
                     </div>
                     <div >
-                        <input className="form-check" type="checkbox"/>
-                        <label>Improve kids physical health</label>
-                        <input className="form-check" type="checkbox" />
-                        <label >Cover basic school needs</label>
-                        <input className="form-check" type="checkbox"/>
-                        <label >Increase Kids confidence/social acceptance</label>
+                        <div style={{display:'flex'}}>
+                            <input className="form-check" type="checkbox"/>
+                            <label style={{marginTop:'12px'}}>Improve kids physical health</label>
+                        </div>
+                        <div style={{display:'flex'}}>
+                            <input className="form-check" type="checkbox" />
+                            <label style={{marginTop:'12px'}}>Cover basic school needs</label>
+                        </div>
+                        <div style={{display:'flex'}}>
+                            <input className="form-check" type="checkbox"/>
+                            <label style={{marginTop:'12px'}}>Increase Kids confidence/social acceptance</label>
+                        </div>
                     </div>
+                    
                     {/* <div className="col-lg-6">
                     <div className="form-group dream-checkbox">
                         <label>What are the child’s aspirations/dream?</label>
-                        <div className="form-check">
-                            <Input className="form-check-input" type="checkbox" defaultValue id="defaultCheck1" />
+                        <div className="form-check" style={{display:'flex'}}>
+                            <Input className="form-check-input" type="checkbox"/>
                             <label className="form-check-label" htmlFor="defaultCheck1">
                                 Improve kids physical health.
                             </label>
                         </div>
-                        <div className="form-check">
+                        <div className="form-check" style={{display:'flex'}}>
                             <Input className="form-check-input" type="checkbox" defaultValue id="defaultCheck2" />
                             <label className="form-check-label" htmlFor="defaultCheck2">
                                 cover basic school needs
                             </label>
                         </div>
-                        <div className="form-check">
+                        <div className="form-check" style={{display:'flex'}}>
                             <Input className="form-check-input" type="checkbox" defaultValue id="defaultCheck2" />
                             <label className="form-check-label" htmlFor="defaultCheck2">
                                 increase kids confidence/ social acceptance
@@ -188,7 +199,7 @@ export default function Education_details(props){
                     <span className="m-2">{status?<p className="text-sucess">{message}</p>:<p className="text-danger">{message}</p>}</span>
                     <div className="col-lg-12 application-btns">
                     <button type="submit" className="btn btn-primary mx-5 col-2 " disabled={!isFormValid}>Save&Continue</button>
-                    <a><div className="sponsor-exit-btn">Exit</div></a>
+                    <a><div className="sponsor-exit-btn" onClick={handleExit}>Exit</div></a>
                     </div>
                 </div>
                 </form>
