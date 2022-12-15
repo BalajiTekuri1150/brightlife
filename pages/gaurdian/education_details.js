@@ -11,7 +11,7 @@ export default function Education_details(props){
     const [message,setMessage]=useState("")
     const [status,setStatus]=useState(true)
     const router=useRouter()
-    const application_number=router.query.appication_id || getLocalData("appication_id")
+    const application_number=router.query.appication_id || getLocalData("application_id")
     const [formValues,setFormValues]=useState({
         grade:{value,isvalid},
         school:{value,isvalid},
@@ -157,7 +157,7 @@ export default function Education_details(props){
                         <Input type="text-area" name="achievements" className="form-control" value={formValues.achievements.value} onChange={handleChange}/>
                     </div>
                     </div>
-                    <div >
+                    {/* <div >
                         <div style={{display:'flex'}}>
                             <input className="form-check" type="checkbox"/>
                             <label style={{marginTop:'12px'}}>Improve kids physical health</label>
@@ -170,7 +170,7 @@ export default function Education_details(props){
                             <input className="form-check" type="checkbox"/>
                             <label style={{marginTop:'12px'}}>Increase Kids confidence/social acceptance</label>
                         </div>
-                    </div>
+                    </div> */}
                     
                     {/* <div className="col-lg-6">
                     <div className="form-group dream-checkbox">

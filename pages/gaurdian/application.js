@@ -5,7 +5,6 @@ import Required_documents from "./required_documents"
 import Bank_details from "./bank_details"
 import { useState} from "react"
 import Link from "next/link";
-import { propTypes } from "react-bootstrap/esm/Image";
 export default function Application(props){
     const [screen, setscreen] = useState(1);
     const toggleChecked = () => {setscreen(screen+1)};
@@ -26,7 +25,7 @@ export default function Application(props){
                         {screen==2 && <Gaurdian_details screenvalue={toggleChecked} handleExitButton={handleProfile}/> }
                         {screen==3 && <Education_details screenvalue={toggleChecked} handleExitButton={handleProfile}/> }
                         {screen==4 && <Required_documents screenvalue={toggleChecked} handleExitButton={handleProfile}/> }
-                        {screen==5 && <Bank_details screenvalue={toggleChecked} handleExitButton={handleProfile}/> }
+                        {screen==5 && <Bank_details screenvalue={toggleChecked} handleExitButton={handleProfile} handleBank={handleProfile}/> }
                     {/* </div> */}
                   </div>
           

@@ -7,6 +7,12 @@ import { getLocalData } from '../../utils/storage_service';
 import Link from 'next/link';
 import Pagination from './pagination';
 import { getData1 } from '../../utils/data_manage_service';
+import img1 from '/public/img/sponsor-child1.jpg';
+import img2 from '/public/img/sponsor-child2.jpg'
+import img3 from '/public/img/sponsor-child3.jpg'
+import img4 from '/public/img/sponsor-child4.jpg'
+import img5 from '/public/img/sponsor-child5.jpg'
+import img6 from '/public/img/sponsor-child6.jpg'
 import Head from 'next/head';
 const Child_Card=(props)=>
 {
@@ -21,6 +27,32 @@ const Child_Card=(props)=>
     const [pageSize,setPageSize]=useState(6);
     const [message,setMessage]=useState("")
     // console.log("page for starting:"+page);
+    const images=[
+        {
+            id:1,
+            img:img1,
+        },
+        {
+            id:2,
+            img:img2,
+        },
+        {
+            id:3,
+            img:img3,
+        },
+        {
+            id:4,
+            img:img4,
+        },
+        {
+            id:5,
+            img:img5,
+        },
+        {
+            id:6,
+            img:img6,
+        }
+    ]
     useEffect(()=>{
         const getDetails=async()=>{
             const res1=await fetch(`https://test-api.brightlife.org/brightlife/get/application/details?page=${page}&page_size=6`,{headers:{"Authorization":"token 2d21e847092508ace5f534ac492bf03cd742145a"}});
@@ -33,7 +65,7 @@ const Child_Card=(props)=>
             setData1(sorted)
         }
         getDetails();
-    },[]);
+    },[posts]);
     
     const gen=getLocalData("gen");
     const income=getLocalData("income");
@@ -50,6 +82,7 @@ const Child_Card=(props)=>
     const pageHandler=async(pageNumber)=>
     {
         console.log("page number is:"+pageNumber);
+        props.handlePageNumber(pageNumber);
         setPage(pageNumber);
         const result=await(getData1(`https://test-api.brightlife.org/brightlife/get/application/details?page=${pageNumber}&page_size=6`));
         if(result.data?.status)
@@ -60,7 +93,7 @@ const Child_Card=(props)=>
             // console.log("empty:"+posts);
             setPosts(result.data?.response?.data)
             // console.log(posts)
-            setData1(result.data?.response?.data)
+            // setData1(result.data?.response?.data)
             setDisable1(false);
         }
         else{
@@ -88,13 +121,17 @@ const Child_Card=(props)=>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.8/slick-theme.min.css" />
         </Head>
         <div>
-            <button className="btn btn-success" onClick={handleSort} style={{marginBottom:'10px'}}>Sort By Oldest</button>
+            {/* <button className="btn btn-success" onClick={handleSort} style={{marginBottom:'10px'}}>Sort By Oldest</button> */}
         </div>
         <div className='row'>
                 {props.count==0 && posts.length>0 && posts.map((item)=>(
                         <div className="col-lg-4 col-sm-12 col-md-6">
+                            {/* {images.map((item1)=>( */}
                             <div className="block-shadow">
-                                <div><img src="/img/sponsor-child1.jpg" className="img-fluid"/></div>
+                                <div>
+                                    {/* <Image src={item1.img} className="img-fluid"/> */}
+                                    <img src="/img/sponsor-child1.jpg" className="img-fluid"/>
+                                </div>
                                     <div className="sponsor-block-content">
                                     <p>20$/Monthly since Jan 2016</p>
                                     <h4>{item.name}</h4>
@@ -109,13 +146,13 @@ const Child_Card=(props)=>
                                     <a href={`/children/${item.id}`} class="Sponsor-now-btn">Sponsor now</a>
                                     <a href={`/children/${item.id}`}  class="more-details-btn">More details</a>                               
                                 </div>
-                          </div>      
+                          </div> 
+                            {/* //  ))}    */}
                         </div>
                     ))}
 
                     {/* Search Filter */}
-                    {props.count>1 && posts.length>0 && posts.filter(item1=>item1?.gender?.name.toString().includes(gen) || item1?.annual_income?.toString().includes(income) || item1?.state?.toString().includes(state))
-                    .map((item)=>(
+                    {props.count>1 && props.set_search.length>0 && props.set_search.map((item)=>(
                         <div className="col-lg-4 col-sm-12 col-md-6">
                             <div className="block-shadow">
                                 <div>

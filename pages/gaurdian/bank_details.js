@@ -11,7 +11,7 @@ export default function Bank_details(props){
     const [update,setUpdate]=useState(false)
     const [status,setStatus]=useState(true)
     const router=useRouter()
-    const application_number=router.query.appication_id || getLocalData("appication_id")
+    const application_number=router.query.appication_id || getLocalData("application_id")
     const [formValues,setFormValues]=useState({
         bank_name:{value,isvalid},
         state:{value,isvalid},
@@ -55,7 +55,7 @@ export default function Bank_details(props){
             application_id:application_number,
             bank_name:e.target.bank_name.value,
             state:e.target.state.value,
-            postal_code:Number(e.target.postal_code.value),
+            postal_code:e.target.postal_code.value,
             account_holder:e.target.account_holder.value,
             account_number:parseInt(e.target.account_number.value),
             branch:e.target.branch.value,
@@ -72,12 +72,13 @@ export default function Bank_details(props){
         setStatus(result?.data?.status)
         if(result?.data?.status){
             setMessage("Application submitted for verification")
-            router.push({
-                pathname:"/gaurdian/gaurdian_dashboard"
-            })
+            props.handleBank();
+            // router.push({
+            //     pathname:"/gaurdian/gaurdian_dashboard"
+            // })
         }
         else{
-            setMessage(result?.data?.error?.message)
+            setMessage(result?.error?.message)
         }          
     }
     const isFormValid=Object.keys(formValues).every((key)=>{
@@ -172,6 +173,7 @@ export default function Bank_details(props){
                             <label>IFSC Code</label>
                             <Input type="text" name="ifsc" className="form-control" value={formValues.ifsc.value} onChange={handleChange}/>
                         </div>
+                        <span className="m-2">{status?<div className="text-sucess">{message}</div>:<div className="text-danger">{message}</div>}</span>
                         </div>                
                         <div className="col-lg-12 application-btns">
                         {/* <button type="submit" className="sponsor-save-btn">Submit for verification</button> */}

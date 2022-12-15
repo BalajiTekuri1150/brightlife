@@ -35,6 +35,7 @@ export default function Login()
                 setDatas(localStorage.setItem('profile',result?.data?.response?.sponsor?.profile))
                 if(result?.data?.response?.user?.role==="sponsor")
                 {
+                    setLocalData("role_check",result.data?.response?.sponsor?.user?.role)
                     setLocalData("name",result?.data?.response?.user?.name)
                     router.push({ 
                         pathname: '/sponser/sponser',
@@ -49,6 +50,10 @@ export default function Login()
                 else if(result?.data?.response?.user?.role==="guardian")
                 {
                     setLocalData("guardian_id",result.data.response.guardian.id)
+                    setLocalData("name",result.data?.response?.guardian?.user?.name)
+                    setLocalData("email",result.data?.response?.guardian?.user?.email)
+                    setLocalData("role",result.data?.response?.guardian?.user?.role)
+                    setLocalData("role_check",result.data?.response?.guardian?.user?.role)
                     router.push({ 
                         pathname: '/gaurdian/gaurdian_dashboard',
                     })   

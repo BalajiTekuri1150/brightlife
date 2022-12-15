@@ -1,14 +1,15 @@
 import React from "react";
 import { useState,useEffect } from 'react';
 import { useRouter } from 'next/router';
-import 'bootstrap/dist/css/bootstrap.css';
 import Form from 'react-bootstrap/Form';
 import style from '../../styles/register.module.css';
-import Button from 'react-bootstrap/Button';
 import Child_Card from "./Child_Card";
+import Child_Card1 from "./Child_Card1";
+// import dynamic from 'next/dynamic'
+// const Child_Card1 = dynamic(() => import("./Child_Card"), {
+// ssr: false,
+// });
 import Router from "next/router";
-// import Avatar from 'react-avatar';
-import logo from '../../public/fb.png';
 import { getLocalData } from "../../utils/storage_service";
 import { setLocalData } from "../../utils/storage_service";
 import { getData1 } from "../../utils/data_manage_service";
@@ -21,6 +22,7 @@ const Final=()=>
     const router = useRouter()
     // const{name,email,pass,role,id}=router.query;
     const [coun,setCoun]=useState([]);
+    const [country,setCountry]=useState("")
     const [conid,setconId]=useState(' ');
     const [st,setSt]=useState([]);
     const [mon,setMon]=useState(" ");
@@ -28,10 +30,13 @@ const Final=()=>
     const [state,setState]=useState(" ");
     const [age,setAge]=useState();
     const [region,setRegion]=useState(" ");
-    const [income,setIncome]=useState('');
+    const [income,setIncome]=useState("");
     const [posts,setPosts]=useState([]);
     const [count,setCount]=useState(0);
     const [page,setPage]=useState(6);
+    const [set_search,setSearch]=useState([]);
+    const [pageNumber,setPagenumber]=useState(1);
+    const [disable1,setDisable1]=useState(false);
     useEffect(()=>{
         const getCountry=async()=>{
             const res=await fetch("https://test-api.brightlife.org/brightlife/list/countries",{headers:{"Authorization":"token 2d21e847092508ace5f534ac492bf03cd742145a"}});
@@ -53,6 +58,15 @@ const Final=()=>
         }
         getprofile();
     },[]);
+
+    useEffect(()=>{
+      const getprofile1=async()=>{
+          const res1=await fetch("https://test-api.brightlife.org/brightlife/get/application/details?page=1&page_size=6",{headers:{"Authorization":"token 2d21e847092508ace5f534ac492bf03cd742145a"}});
+          const getpofiledata=await res1.json();
+          setSearch(getpofiledata.response.data);
+      }
+      getprofile1();
+   },[]);
 
     const handleCountry=(e)=>
     {
@@ -79,7 +93,14 @@ const Final=()=>
     }
     const handleGender=(e)=>
     {
-        setGen(e.target.value);
+        console.log(gen)
+        if(e.target.value==="1"){
+          setGen(1);
+        }
+        if(e.target.value==="2"){
+          setGen(2);
+        }
+        // setGen(e.target.value);
     }
     const handleAge=(e)=>
     {
@@ -103,9 +124,17 @@ const Final=()=>
             pathname:'/sponser/My_Profile',
         })
     }
-    const handleClear=(e)=>
+    const handleClear=async(e)=>
     {
         e.preventDefault()
+        const result=await(getData1(`https://test-api.brightlife.org/brightlife/get/application/details?page=${pageNumber}&page_size=6`));
+        if(result.data?.status)
+        {
+            console.log("posts is:")
+            console.log(result.data?.response?.data);
+            setPosts([])
+            setSearch(result?.data?.response?.data);
+        }
         setCount(0);
         setState(" ");
         setGen("");
@@ -113,9 +142,15 @@ const Final=()=>
         setIncome(" ");
         setMon(" ");
     }
-    const handleSubmit=(e)=>
+    const handleSubmit=async(e)=>
     {
         e.preventDefault();
+        const result=await(getData1(`https://test-api.brightlife.org/brightlife/get/application/details?page=${pageNumber}&page_size=6&gender=${gen}&family_income=${income}`));
+        if(result.data?.status)
+        {
+            // setPosts([])
+            setSearch(result.data?.response?.data)
+        }
         // setCount(2)
         if(count==0)
         {
@@ -124,10 +159,6 @@ const Final=()=>
         else{
             setCount(count+1);
         }
-        setLocalData("state",state);
-        setLocalData("mon",mon);
-        setLocalData("gen",gen);
-        setLocalData("income",income);
     }
     const handleCount=()=>
     {
@@ -142,10 +173,29 @@ const Final=()=>
     const handleLogout=()=>
     {
       console.log("Hello")
+      localStorage.clear();
       localStorage.removeItem("profile");
       Router.push({
         pathname:'/',
       })
+    }
+    const handlePageNumber=async(pageNumber)=>
+    {
+      setPagenumber(pageNumber);
+      console.log("hello",pageNumber);
+      const result=await(getData1(`https://test-api.brightlife.org/brightlife/get/application/details?page=${pageNumber}&page_size=6`));
+      if(result.data?.status)
+      {
+          console.log("posts is:")
+          console.log(result.data?.response?.data);
+          // setPosts([])
+          setSearch(result?.data?.response?.data);
+      }
+      else{
+        alert("Student List Ended");
+        // setMessage("No student Data");
+        setDisable1(true);
+      }
     }
     // console.log(datas)
     const name=getLocalData("name");
@@ -166,24 +216,24 @@ const Final=()=>
               <div className=" navbar-collapse " id="mobilesidemenu">
                 <ul className="navbar-nav mr-auto ">
                   <li className="nav-item ">
-                    <a className="nav-link" href="/home_files/our_team"> Our Team</a>
+                    <Link className="nav-link" href="/home_files/our_team"> Our Team</Link>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="/home_files/how_works"> How it works </a>
+                    <Link className="nav-link" href="/home_files/how_works"> How it works </Link>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link " href="sponsor.html">
+                    <Link className="nav-link " href="/home_files/donate">
                       <button className="btn signin-button" type="submit">
                         <span className="Donate" style={{color:'white'}}> Donate </span>
                       </button>
-                    </a>
+                    </Link>
                   </li>
-                  {datas!==null ?
+                  {datas!=="undefined" ?
                     <>
                       <li className="nav-item user-image dropdown">
-                          <a className="nav-link " href>
+                          <div className="nav-link">
                             <img className="user-image-header" src={datas} />{name}<i className="fa fa-angle-down" aria-hidden="true" />
-                          </a>
+                          </div>
                           <ul className="dropdown-nav">
                             <Link href="/sponser/My_Profile">
                               <li>
@@ -196,7 +246,7 @@ const Final=()=>
                               </li>
                             </Link>
                             <a onClick={handleLogout}>
-                              <li>
+                              <li style={{color:'black'}}>
                                 <img src="/img/signout.svg"/>Sign out
                               </li>
                             </a>
@@ -219,9 +269,9 @@ const Final=()=>
                                 <img src="/img/sponsored.svg" /><span style={{color:'black'}}>Sponsored children</span>
                               </li>
                             </Link>
-                            <a onClick={handleLogout}>
+                            <a onClick={handleLogout} >
                               <li>
-                                <img src="/img/signout.svg"/>Sign out
+                                <img src="/img/signout.svg"/><span style={{color:'black'}}>Sign out</span>
                               </li>
                             </a>
                           </ul>
@@ -261,7 +311,7 @@ const Final=()=>
                         }
 
                         </select> */}
-                        <Form.Control as="select" className="form-control" onChange={(e)=>handleCountry(e)}>
+                        <Form.Control as="select" className="form-control"  onChange={(e)=>handleCountry(e)}>
                              <option value=" ">-----Select Country-----</option>
 
                             {
@@ -302,10 +352,10 @@ const Final=()=>
                           <option>transgender</option>   
                         </select> */}
                         <Form.Control as="select" value={gen} className={style.sponser_input} onChange={handleGender}>
-                             <option value=' '>SELECT GENDER</option>
-                             <option value="Male">MALE</option>
-                             <option value="Female">FEMALE</option>
-                             <option>transgender</option>   
+                             <option value="0">SELECT GENDER</option>
+                             <option value="1">MALE</option>
+                             <option value="2">FEMALE</option>
+                             {/* <option>transgender</option>    */}
                          </Form.Control>
                       </div>                           
                     </div>  
@@ -376,7 +426,8 @@ const Final=()=>
           <section className="search-content">
             <div className="search-headline">Children in need of a sponsorship</div>
             <div className="custom-container">
-              <Child_Card count={count} HandleSort={handleCount}/>
+              {/* <Child_Card count={count} HandleSort={handleCount} posts={posts} gen={gen} income={income} mon={mon} state={state} handlePageNumber={handlePageNumber} set_search={set_search}/> */}
+              <Child_Card1 handlePageNumber={handlePageNumber} set_search={set_search} disable1={disable1}/>
             </div>
           </section>
         <footer id="footer">

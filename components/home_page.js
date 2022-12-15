@@ -23,6 +23,7 @@ const Home_page=()=>{
     useEffect(()=>{
       if(typeof window!=='undefined'){
           localStorage.removeItem('profile');
+          localStorage.clear()
        }
     },[])
     return(

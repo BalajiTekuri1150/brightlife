@@ -4,6 +4,7 @@ import Script from 'next/script';
 import Link from 'next/link'
 import { useContext ,useEffect,useState} from 'react';
 import { store } from '../_app';
+import { getLocalData } from '../../utils/storage_service';
 const Apply_Sponsorship=()=>{
     const {datas,setDatas}=useContext(store);
     const [name,setName]=useState("");
@@ -12,6 +13,17 @@ const Apply_Sponsorship=()=>{
             setName(localStorage.getItem('name'));
          }
       },[])
+    let role_check=getLocalData("role_check");
+    console.log(role_check)
+    const handleLogout=()=>
+    {
+      console.log("Hello")
+      localStorage.clear();
+      localStorage.removeItem("profile");
+      Router.push({
+        pathname:'/',
+      })
+    }
     return(
         <>
             <Head>
@@ -42,31 +54,61 @@ const Apply_Sponsorship=()=>{
                     <li className="nav-item">
                         <Link className="nav-link" href="/home_files/how_works"> How it works </Link>
                     </li>
-                    { datas!==null ? <>         
-                        <li className="nav-item user-image dropdown">
-                            <a className="nav-link " href>
-                            <img className="user-image-header" src={datas} />{name}<i className="fa fa-angle-down" aria-hidden="true" />
-                            </a>
-                            <ul className="dropdown-nav">
-                            <a href="#">
-                                <li>
-                                <img src="/img/user.svg" />My profile
-                                </li>
-                            </a>
-                            <a href="#">
-                                <li>
-                                <img src="/img/sponsored.svg" />Sponsored children
-                                </li>
-                            </a>
-                            <a href="#">
-                                <li>
-                                <img src="/img/signout.svg" />Sign out
-                                </li>
-                            </a>
-                            </ul>
-                        </li>
-                        </>:null
-                    }
+                    {role_check==="guardian" && <>
+                        {datas!==null ?<>
+                            <li className="nav-item user-image dropdown">
+                                <a className="nav-link " href>
+                                <img className="user-image-header" src={datas} />{name}<i className="fa fa-angle-down" aria-hidden="true" />
+                                </a>
+                                <ul className="dropdown-nav">
+                                <a href="/gaurdian/gaurdian_dashboard">
+                                    <li>
+                                    <img src="/img/user.svg" />My profile
+                                    </li>
+                                </a>
+                                <a href="#">
+                                    <li>
+                                    <img src="/img/sponsored.svg" />Sponsored children
+                                    </li>
+                                </a>
+                                <a onClick={handleLogout}>
+                                    <li style={{color:'black'}}>
+                                    <img src="/img/signout.svg" />Sign out
+                                    </li>
+                                </a>
+                                </ul>
+                            </li>
+                            </>:null
+                        }
+                        </>
+                   }
+                  {role_check==="sponsor" && <>
+                    {datas!==null ?<>
+                      <li className="nav-item user-image dropdown">
+                        <a className="nav-link " href>
+                          <img className="user-image-header" src={datas} />{name}<i className="fa fa-angle-down" aria-hidden="true" />
+                        </a>
+                        <ul className="dropdown-nav">
+                          <a href="/sponser/My_Profile">
+                            <li>
+                              <img src="/img/user.svg" />My profile
+                            </li>
+                          </a>
+                          <a href="/sponser/My_Profile">
+                            <li>
+                              <img src="/img/sponsored.svg" />Sponsored children
+                            </li>
+                          </a>
+                          <a onClick={handleLogout}>
+                            <li style={{color:'black'}}>
+                              <img src="/img/signout.svg" />Sign out
+                            </li>
+                          </a>
+                        </ul>
+                      </li>
+                    </>:null
+                  }
+                  </>}
                     </ul>
                 </div>
                 </div>
@@ -118,9 +160,33 @@ const Apply_Sponsorship=()=>{
                             <div className="spon-step-des">Regular updates about the child’s progress will be sent</div>
                         </div>                                                       
                         </div>
-                        <div className="sposor-btn">
-                        <a href>Sponsor a child now</a>
-                        </div>
+                        {role_check==="sponsor" && <>
+                            {datas!==null ?
+                                <div className="sposor-btn">
+                                    <Link href="/sponser/My_Profile">Sponsor a child now</Link>
+                                </div>:
+
+                                <div className="sposor-btn">
+                                <Link href="/register/Register_Page">Sponsor a child now</Link>
+                                </div>
+                            }
+                            </>
+                        }
+                        {role_check==="guardian" && <>
+                            {datas!==null ?
+                                <div className="sposor-btn">
+                                    <Link href="/gaurdian/gaurdian_dashboard">Sponsor a child now</Link>
+                                </div>:
+
+                                <div className="sposor-btn">
+                                <Link href="/register/Register_Page">Sponsor a child now</Link>
+                                </div>
+                            }
+                            </>
+                        }
+                        {/* {datas!==null &&
+                        
+                        } */}
                     </div>                            
                     </div>
                     <div className="col-lg-6">
@@ -140,7 +206,7 @@ const Apply_Sponsorship=()=>{
                         <div className="spon-step-des">80% of the amount will use for Childs education and 20% is use for fundraising, administration, monitoring &amp; evaluation etc.</div>
                         </div>  
                         <div className="sposor-btn">
-                        <a href>Donate now</a>
+                        <Link href="/home_files/donate">Donate now</Link>
                         </div>
                     </div>                            
                     </div>

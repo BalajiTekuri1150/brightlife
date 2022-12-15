@@ -4,6 +4,7 @@ import { useState } from "react";
 import { postData } from "../../utils/data_manage_service";
 import { setLocalData } from "../../utils/storage_service";
 import Head from "next/head";
+import Script from "next/script";
 export default function Forgotpsw()
 {
     const router = useRouter();

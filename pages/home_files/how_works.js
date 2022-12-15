@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Script from 'next/script';
 import { useEffect,useState } from 'react';
+import { getLocalData } from '../../utils/storage_service';
 import { useContext } from 'react';
 import { store } from '../_app';
 
@@ -14,6 +15,17 @@ const How_Works=()=>{
             setName(localStorage.getItem('name'));
          }
       },[])
+    let role_check=getLocalData("role_check");
+    console.log(role_check)
+    const handleLogout=()=>
+    {
+      console.log("Hello")
+      localStorage.clear();
+      localStorage.removeItem("profile");
+      Router.push({
+        pathname:'/',
+      })
+    }
     return(
         <>
         <Head>
@@ -51,7 +63,62 @@ const How_Works=()=>{
                       </button>
                     </Link>
                   </li>
-                  {
+                  {role_check==="guardian" && <>
+                        {datas!==null ?<>
+                            <li className="nav-item user-image dropdown">
+                                <a className="nav-link " href>
+                                <img className="user-image-header" src={datas} />{name}<i className="fa fa-angle-down" aria-hidden="true" />
+                                </a>
+                                <ul className="dropdown-nav">
+                                <a href="/gaurdian/gaurdian_dashboard">
+                                    <li>
+                                    <img src="/img/user.svg" />My profile
+                                    </li>
+                                </a>
+                                <a href="#">
+                                    <li>
+                                    <img src="/img/sponsored.svg" />Sponsored children
+                                    </li>
+                                </a>
+                                <a onClick={handleLogout}>
+                                    <li style={{color:'black'}}>
+                                    <img src="/img/signout.svg" />Sign out
+                                    </li>
+                                </a>
+                                </ul>
+                            </li>
+                            </>:null
+                        }
+                        </>
+                   }
+                  {role_check==="sponsor" && <>
+                    {datas!==null ?<>
+                      <li className="nav-item user-image dropdown">
+                        <a className="nav-link " href>
+                          <img className="user-image-header" src={datas} />{name}<i className="fa fa-angle-down" aria-hidden="true" />
+                        </a>
+                        <ul className="dropdown-nav">
+                          <a href="/sponser/My_Profile">
+                            <li>
+                              <img src="/img/user.svg" />My profile
+                            </li>
+                          </a>
+                          <a href="/sponser/My_Profile">
+                            <li>
+                              <img src="/img/sponsored.svg" />Sponsored children
+                            </li>
+                          </a>
+                          <a onClick={handleLogout}>
+                            <li style={{color:'black'}}>
+                              <img src="/img/signout.svg" />Sign out
+                            </li>
+                          </a>
+                        </ul>
+                      </li>
+                    </>:null
+                  }
+                  </>}
+                  {/* {
                     datas!==null? <>
                       <li className="nav-item user-image dropdown">
                     <a className="nav-link " href>
@@ -77,7 +144,7 @@ const How_Works=()=>{
                   </li>
                     </>:null
                   }
-                  
+                   */}
                 </ul>
               </div>
             </div>

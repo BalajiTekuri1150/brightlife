@@ -13,7 +13,7 @@ export default function Kids_details(props){
     const application_number=router.query.application_id || getLocalData("application_id")
     const guardian_id=getLocalData("guardian_id")
     const [formValues,setFormValues]=useState({
-        profile:{value,isvalid},
+        // profile:{value,isvalid},
         username:{value,isvalid},
         birthday:{value,isvalid},
         mobile:{value,isvalid},
@@ -22,7 +22,10 @@ export default function Kids_details(props){
         gender:{value,isvalid}
     })
     const [selectedFile1,setSelectedFile1]=useState(null);
-    console.log(application_number)
+    const [selectedImage,setSelectedImage]=useState(null);
+    let genderStatus=false;
+    let childStatus=false;
+    // console.log(application_number)
     useEffect(()=>{
       if(application_number!==null){
         if(!isNaN(application_number)){
@@ -30,7 +33,7 @@ export default function Kids_details(props){
             const getprofile=async()=>{
                 const result=await getData(`https://test-api.brightlife.org/brightlife/get/application/details?page=1&page_size=5&application_id=${application_number}`);
                 setFormValues({
-                    profile:{value:result?.data?.response?.data[0].profile,isvalid:true},
+                    // profile:{value:result?.data?.response?.data[0].profile,isvalid:true},
                     username:{value:result?.data?.response?.data[0].name,isvalid:true},
                     birthday:{value:result?.data?.response?.data[0].birthday,isvalid:true},
                     mobile:{value:result?.data?.response?.data[0].mobile,isvalid:true},
@@ -38,35 +41,29 @@ export default function Kids_details(props){
                     gender:{value:result?.data?.response?.data[0].gender.id,isvalid:true},
                     child:{value:result?.data?.response?.data[0].child_type.id,isvalid:true}
                 })
+                setSelectedImage(result?.data?.response?.data[0].profile)
             }
             getprofile();
         }
       }
     },[]);
+    console.log(selectedImage)
     const handleSubmit=async(e)=>
     {
         e.preventDefault()  
         const formData = new FormData()
-        formData.append("profile",e.target[0].files[0]);
+        formData.append("profile",selectedFile1);
         formData.append("name", formValues.username.value);
         formData.append("birthday",formValues.birthday.value);
-        formData.append("gender_id", formValues.gender.value);
+        formData.append("gender_id",formValues.gender.value);
         formData.append("email",formValues.email.value); 
         formData.append("mobile",formValues.mobile.value); 
         formData.append("child_type_id", formValues.child.value); 
         if(new_application){
             formData.append(" guardian_id",guardian_id); 
             result=await(postData('https://test-api.brightlife.org/brightlife/add/application/profile',formData,1,1))
-            // await fetch("https://test-api.brightlife.org/brightlife/update/sponsor/profile",{
-            //     method:'POST',
-            //     headers:{
-            //         // 'Content-Type': 'multipart/form-data;boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW',
-            //         'Authorization':'token 2d21e847092508ace5f534ac492bf03cd742145a',
-            //     },
-            //     body:formData,
-            // })
             application_number=result?.data?.response?.data?.id
-            setLocalData("appication_id",result?.data?.response?.data?.id)
+            setLocalData("application_id",result?.data?.response?.data?.id)
         }
         else{
             formData.append("id",application_number)
@@ -76,6 +73,7 @@ export default function Kids_details(props){
             props.screenvalue()
         }
         else{
+            setLocalData("application_id",null)
             setStatus(result?.data?.status)
             setMessage(result?.data?.error?.message)
         }           
@@ -85,7 +83,10 @@ export default function Kids_details(props){
         setMessage("")
         setFormValues({...formValues,[name]:{value:values,isvalid:valid}})
     }
+    console.log(formValues.gender.value)
+    console.log(formValues.child.value)
     const handleRadio=(e)=>{
+      
         setFormValues({...formValues,[e.target.name]:{value:e.target.value,isvalid:true}})
     }
     const isFormValid=Object.keys(formValues).every((key)=>{
@@ -156,7 +157,28 @@ export default function Kids_details(props){
             </div>
             </div>
         </div> */}
-        <input type="file"  name="profile" className="form-control" onChange={handleRadio}/>
+        {/* <input type="file"  name="profile" className="form-control" onChange={handleRadio}/> */}
+          {!selectedFile1 && 
+              <>
+                { !selectedImage && (<>
+                    <img src="/img/browse-thumbnail.svg" className="left-pro-icon"/>
+                    </>
+                )} 
+                { selectedImage && (<>
+                    <img src={selectedImage} alt="child image"/>
+                    </>
+                )}
+              </>
+          }
+          {selectedFile1 && (
+                    <div>
+                    <img alt="not fount" src={URL.createObjectURL(selectedFile1)} className="left-pro-icon"/>
+                    <br />
+                    </div>
+                )}
+          {/* </label> */}
+          <input type="file" name="profile1" className="form-control" onChange={fileChange1}/>
+        
           <div className="col-lg-6">
             <div className="form-group">
               <label>Name</label>
@@ -189,27 +211,27 @@ export default function Kids_details(props){
           </div>
           <div className="col-lg-6">
             <div className="form-group radio-btn-size">
-              <div>
-                <label>Is the child</label>
-              </div>
-              <div className="form-check form-check-inline">
-                <input className="form-check-input" type="radio" name="child"  value="1" onChange={handleRadio} />
-                <label className="form-check-label" htmlFor="payment1">
-                  Orphan
-                </label>
+                <div>
+                  <label>Is the child</label>
+                </div>
+                <div className="form-check form-check-inline">
+                  <input className="form-check-input" type="radio" name="child"  value="1" onChange={handleRadio} checked={formValues.child.value=="1"}/>
+                  <label className="form-check-label" htmlFor="payment1">
+                    Orphan
+                  </label>
               </div>   
-              <div className="form-check form-check-inline">
-                <input className="form-check-input" type="radio" name="child" value="1" onChange={handleRadio}/>
-                <label className="form-check-label" htmlFor="payment1">
-                  Lives with parents
-                </label>
-              </div>         
+                <div className="form-check form-check-inline">
+                  <input className="form-check-input" type="radio" name="child" value="2" onChange={handleRadio} checked={formValues.child.value=="2"}/>
+                  <label className="form-check-label" htmlFor="payment1">
+                    Lives with parents
+                  </label>
+                </div> 
             </div>
           </div>
           <label>Gender</label>
           <div className="form-check">
-              <label><input className="form-check-input" type="radio" name="gender" value="2" onChange={handleRadio} style={{marginLeft:'-11px'}}/>female</label>
-              <label><input className="form-check-input m-1" type="radio" name="gender" value="1" onChange={handleRadio}/>male</label>
+                <label><input className="form-check-input" type="radio" name="gender" value="2" onChange={handleRadio} style={{marginLeft:'-11px'}} checked={formValues.gender.value=="2"}/>female</label>
+                <label><input className="form-check-input m-1" type="radio" name="gender" value="1" onChange={handleRadio} checked={formValues.gender.value=="1"}/>male</label>
           </div>
           <span className="m-2">{status?<p className="text-sucess">{message}</p>:<p className="text-danger">{message}</p>}</span>
           <div className="col-lg-12 application-btns">

@@ -232,10 +232,10 @@ export default function Gaurdian_Profile(){
                         </div>
                         </form>
                   </div>
-                <Script type="module" src="js/jquery.slim.min.js"></Script>
-                <Script type="module" src="js/popper.min.js"></Script>
-                <Script type="module" src="js/bootstrap.bundle.min.js"></Script>
-                <Script type="module" src="js/custom.js"></Script>
+                <Script src="js/jquery.slim.min.js"></Script>
+                <Script src="js/popper.min.js"></Script>
+                <Script src="js/bootstrap.bundle.min.js"></Script>
+                <Script src="js/custom.js"></Script>
                 </div>
               </div>
             </div>         

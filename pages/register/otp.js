@@ -48,8 +48,8 @@ const Otp=()=>
             // console.log(total)
             // setLength(total.length)
         }
-        console.log(total.length);
-        console.log(count);
+        // console.log(total.length);
+        // console.log(count);
         if(total.length!=4){
             setMessage("Enter correct otp")
             setStatus(false)
@@ -77,7 +77,7 @@ const Otp=()=>
                     console.log(result1?.data?.response?.data?.id)
                     setLocalData("id",result1?.data?.response?.data?.id);
                     setLocalData("user_id",result1?.data?.response?.data?.id);
-                    // setLocalData("guardian_id",result1?.data?.response?.data?.id)
+                    setLocalData("guardian_id",result1?.null)
                     setLocalData("name",name);
                     setLocalData("email",email);
                     setLocalData("role",role);
@@ -192,11 +192,12 @@ const Otp=()=>
                     <input type="number" name="otp3" onKeyDown={onHandleKeydown} ref={otp3Ref} value={formValues.otp3} style={color}  maxLength={1} />
                     <input type="number" name="otp4" onKeyDown={onHandleKeydown} ref={otp4Ref} value={formValues.otp4} style={color}  maxLength={1} />              
                 </div>
-                {status? <p class="error-msg-incorrect"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>{message}</p>:<p class="error-msg-incorrect"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>{message}</p>}
+                {console.log(status)}
+                {status? <p className="error-msg-incorrect">{message}</p>:<p className="error-msg-incorrect">{message}</p>}
                 {/* <p className="resend-otp ">Didn't received OTP? <a href><strong>Resend OTP</strong></a></p> */}
                 {timeLeft==0?<p className="resend-otp" onClick={resendOTP}>Didn't received OTP?<a href="#"><strong>Resend OTP</strong></a></p>:<p className="text-decoration-underline pe-none"> Resend OTP in {timeLeft}</p>} 
                 <div className="continue-btn">
-                    <button type="submit" className="btn sign-btn" >Continue</button>
+                    <button type="submit" className="btn sign-btn" disabled={disable} >Continue</button>
                 </div>
                 </form>
             </div>

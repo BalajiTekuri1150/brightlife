@@ -6,8 +6,13 @@ import Image from 'next/image';
 import { getLocalData } from '../../../utils/storage_service';
 import Head from 'next/head';
 import Script from 'next/script';
+import Link from 'next/link';
+import { store } from '../../_app';
+import { useContext } from 'react';
+
 const index=({user})=>
 {
+    const {datas,setDatas}=useContext(store)
     const [money,setMoney]=useState(0);
     const [span,setSpan]=useState("");
     const [message,setMessage]=useState("")
@@ -56,12 +61,22 @@ const index=({user})=>
             setMessage("Children added to Your Sponser List");
         })
     }
+    const handleLogout=()=>
+    {
+      console.log("Hello")
+      localStorage.clear();
+      localStorage.removeItem("profile");
+      Router.push({
+        pathname:'/',
+      })
+    }
     const profileClick=()=>
     {
         Router.push({
             pathname:'/sponser/My_Profile',
         })
     }
+    const name=getLocalData("name");
     return(
         <div>
             <Head>
@@ -101,26 +116,72 @@ const index=({user})=>
                       </button>
                     </a>
                   </li>
-                  <li className="nav-item user-image dropdown">
-                    <a className="nav-link " href>
+                  {datas!==null ?
+                    <>
+                      <li className="nav-item user-image dropdown">
+                          <div className="nav-link">
+                            <img className="user-image-header" src={datas} />{name}<i className="fa fa-angle-down" aria-hidden="true" />
+                          </div>
+                          <ul className="dropdown-nav">
+                            <Link href="/sponser/My_Profile">
+                              <li>
+                                <img src="/img/user.svg" /><span style={{color:'black'}}>My profile</span>
+                              </li>
+                            </Link>
+                            <Link href="/sponser/My_Profile">
+                              <li>
+                                <img src="/img/sponsored.svg" /><span style={{color:'black'}}>Sponsored children</span>
+                              </li>
+                            </Link>
+                            <a onClick={handleLogout}>
+                              <li style={{color:'black'}}>
+                                <img src="/img/signout.svg"/>Sign out
+                              </li>
+                            </a>
+                          </ul>
+                      </li>
+                    </>:
+                    <>
+                      <li className="nav-item user-image dropdown">
+                          <a className="nav-link " href>
+                            <img className="user-image-header" src="/img/profile.png" />{name}<i className="fa fa-angle-down" aria-hidden="true" />
+                          </a>
+                          <ul className="dropdown-nav">
+                            <Link href="/sponser/My_Profile">
+                              <li>
+                                <img src="/img/user.svg" /><span style={{color:'black'}}>My profile</span>
+                              </li>
+                            </Link>
+                            <Link href="/sponser/My_Profile">
+                              <li>
+                                <img src="/img/sponsored.svg" /><span style={{color:'black'}}>Sponsored children</span>
+                              </li>
+                            </Link>
+                            <a onClick={handleLogout} >
+                              <li>
+                                <img src="/img/signout.svg"/><span style={{color:'black'}}>Sign out</span>
+                              </li>
+                            </a>
+                          </ul>
+                      </li>
+                    </>
+                  }
+                  {/* <li className="nav-item user-image dropdown"> */}
+                    {/* <a className="nav-link " href>
                       <img className="user-image-header" src="/img/user.png" />Andrew <i className="fa fa-angle-down" aria-hidden="true" />
-                    </a>
-                    <ul className="dropdown-nav">
+                    </a> */}
+                    {/* <ul className="dropdown-nav">
                         <li onClick={profileClick} style={{color:'black'}}>
                           <img src="/img/user.svg"/>My profile
                         </li>
-                      {/* <a href="#">
-                        <li>
-                          <img src="/img/sponsored.svg" />Sponsored children
-                        </li>
-                      </a> */}
+                      
                       <a href="#">
                         <li>
                           <img src="/img/signout.svg" />Sign out
                         </li>
                       </a>
-                    </ul>
-                  </li>
+                    </ul> */}
+                  {/* </li> */}
                 </ul>
               </div>
             </div>

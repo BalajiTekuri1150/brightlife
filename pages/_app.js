@@ -18,7 +18,7 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <store.Provider value={{datas,setDatas}}>
-      <Component {...pageProps} />
+      <Component {...pageProps}/>
     </store.Provider>
   )
 }

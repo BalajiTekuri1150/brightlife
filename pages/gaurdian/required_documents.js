@@ -8,11 +8,12 @@ import Link from "next/link";
 let number_of_documents=0,document_type
 export default function Required_documents(props){
     const router=useRouter()
-    const application_number=router.query.application_id
+    const application_number=router.query.application_id || getLocalData("application_id")
     const [message,setMessage]=useState("")
     let value=0,isvalid=false
     const [disable,setDisable]=useState(true)
     const token=getLocalData("token")
+    const [message1,setMessage1]=useState("");
     const [formValues,setFormValues]=useState({
         Aadhar:{value,isvalid},
         Birth_certificate:{value,isvalid},
@@ -25,6 +26,13 @@ export default function Required_documents(props){
                 const result=await getData(`https://test-api.brightlife.org/brightlife/get/application/documents?application_id=${application_number}`);
                 if(result?.data?.response.length!=0){
                     setDisable(false)
+                    setMessage1("You have already submitted 3 documents")
+                    console.log(result.data?.response[0].url)
+                    setFormValues({
+                        Aadhar:{value:result.data?.response[0]?.url,isvalid:true},
+                        Birth_certificate:{value:result.data.response[1].url,isvalid:true},
+                        PAN:{value:result.data.response[2].url,isvalid:true}
+                    });
                 }
             }
             getprofile();
@@ -122,10 +130,11 @@ export default function Required_documents(props){
                 </a>
                 </div>                     
             </div>
-            <div className="application-form-card" style={{height:'870px'}}>
+            <div className="application-form-card">
                 <form onSubmit={handleSubmit}> 
-                    <div className="row sponsor-block bg-white" style={{height:'800px'}}>
+                    <div className="row sponsor-block bg-white">
                         <div className="col-lg-12 upload-note">
+                        <p className="text-danger">{message1}</p>
                         <p>Please upload a minimum of three documents from the below mentioned list</p>
                         <p>(the more supporting documents you submit, the easier it will be to verify your application)</p>
                         </div>
@@ -133,7 +142,7 @@ export default function Required_documents(props){
                         <label>Aadaar Card*</label>
                         <div className="input-group">
                             <div className="custom-file">
-                            <input className="form-control form-control-sm" name="Aadhar" type="file"  onChange={handleChange} d="inputGroupFile02"/>
+                            <input className="form-control form-control-sm" name="Aadhar" type="file"  onChange={handleChange} id="inputGroupFile02"/>
                             <label className="custom-file-label" htmlFor="inputGroupFile02" aria-describedby="inputGroupFileAddon02">100KB - 200KB, PNG, JPEG</label>
                             </div>
                         </div>
@@ -201,6 +210,7 @@ export default function Required_documents(props){
                             </div>                                    
                         </div>
                         </div>
+                        <p className="text-danger">{message}</p>
                         <div className="col-lg-12 application-btns">
                             <button type="submit" className="sponsor-save-btn" disabled={disable} >Save&Continue</button>
                             <button className="sponsor-exit-btn" onClick={handleExit}>Exit</button>

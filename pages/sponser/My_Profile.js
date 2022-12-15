@@ -12,6 +12,7 @@ import Script from "next/script";
 import Link from 'next/link';
 import { useContext } from 'react';
 import { store } from '../_app';
+import { ReactDOM } from "react";
 const My_Profile=()=>
 {
     const {datas,setDatas}=useContext(store)
@@ -88,15 +89,16 @@ const My_Profile=()=>
             })
             // console.log(getpofiledata.response?.sponsor?.profile)
             // setSelectedFile(getpofiledata.response?.sponsor?.profile);
-            // setLocalData("profile",getpofiledata.response?.sponsor?.profile)
+            setLocalData("profile",getpofiledata.response?.sponsor?.profile)
             setDatas(localStorage.setItem('profile',getpofiledata.response?.sponsor?.profile))
             setUname(getpofiledata.response?.sponsor?.user?.name);
             setLocalData("sponser_id",getpofiledata.response?.sponsor?.id);
         }
         getprofile();
     },[]);
-    // console.log(data.fname.value);
-    // console.log(data.organization.value);
+    // var binaryData = [];
+    // binaryData.push(selectedFile);
+    // window.URL.createObjectURL(new Blob(binaryData, {type: "application/zip"}))
 
     //ReVerification Of Details
     if(typeof data.fname.value==='undefined'){
@@ -332,7 +334,14 @@ const My_Profile=()=>
             }))
             formData.append('mobile',data.mobile.value)
             formData.append('organization', data.organization.value)
-            formData.append('profile',selectedFile);
+            if(selectedFile){
+              formData.append('profile',selectedFile);
+            }
+            else{
+              // const Example = ({ datas }) =>  <img src={datas} width={100} />
+              // console.log(Example)
+              formData.append('profile',datas);
+            }
             formData.append('source',"Turito")
             formData.append('address',data.address.value)
             formData.append('city',data.city.value)
@@ -344,6 +353,7 @@ const My_Profile=()=>
                 method:'POST',
                 headers:{
                     'Authorization':'token 2d21e847092508ace5f534ac492bf03cd742145a',
+                    
                 },
                 body:formData,
             })
@@ -356,7 +366,7 @@ const My_Profile=()=>
                         setMessage1("Details Updated Successfully")
                     }
                     else
-                        setMessage("Mobile Already Exists");
+                        setMessage(response.error?.message?.mobile);
                 })
             })
             // const res=await(postformdata("https://test-api.brightlife.org/brightlife/update/sponsor/profile",formData));
@@ -434,6 +444,15 @@ const My_Profile=()=>
     const handleChildlist=()=>{
       setCount(2);
     }
+    const handleLogout=()=>
+    {
+      console.log("Hello")
+      localStorage.clear();
+      localStorage.removeItem("profile");
+      Router.push({
+        pathname:'/',
+      })
+    }
     return(
         <div>
             <div>
@@ -458,7 +477,7 @@ const My_Profile=()=>
                   </li>
                   <li className="nav-item">
                     <Link className="nav-link " href="/home_files/donate">
-                      <button className="btn signin-button Donate" type="submit">Donate
+                      <button className="btn signin-button Donate" style={{color:'white'}}>Donate
                         {/* <span className="Donate"> Donate </span> */}
                       </button>
                     </Link>
@@ -480,11 +499,11 @@ const My_Profile=()=>
                               <img src="/img/sponsored.svg" />Sponsored children
                             </li>
                           </div>
-                          <Link href="/">
+                          <a>
                             <li style={{color:'black'}}>
                               <img src="/img/signout.svg" />Sign out
                             </li>
-                          </Link>
+                          </a>
                         </ul>
                       </li>
                     </>:
@@ -504,11 +523,11 @@ const My_Profile=()=>
                               <img src="/img/sponsored.svg" />Sponsored children
                             </li>
                           </div>
-                          <Link href="/">
+                          <a>
                             <li style={{color:'black'}}>
                               <img src="/img/signout.svg" />Sign out
                             </li>
-                          </Link>
+                          </a>
                         </ul>
                       </li>
                   </>
@@ -529,38 +548,54 @@ const My_Profile=()=>
                         <>
                           { !selectedFile && (
                             <div>
-                              <img src={datas} alt="My Profile Icon" className="left-pro-icon" />
+                              <label htmlFor="file-input">
+                                <img src={datas} alt="My Profile Icon" className="left-pro-icon" />
+                              </label>
                               <p>{data?.fname?.value}</p>
                             </div>
                           )}
                           {selectedFile && (
                                 <div>
+                                  <label htmlFor="file-input">
                                 <img alt="not fount" src={URL.createObjectURL(selectedFile)} className="left-pro-icon"/>
+                                </label>
                                 <p>{data?.fname?.value}</p>
                                 <br />
                                 </div>
                           )}
-                            <input id="file-input" type="file" onChange={fileChange}/>
+                            <div className="image-upload">
+                                <label htmlFor="file-input">
+                                  <img src="/img/camera.png" />
+                                </label>
+                                <input id="file-input" type="file" onChange={fileChange}/>
+                              </div>
+                            {/* <input id="file-input" type="file" onChange={fileChange}/> */}
                         </>:
                         <>
                             { !selectedFile && (
                               <div>
-                                <img src="/img/profile.png" alt="My Profile Icon" className="left-pro-icon" />
+                                <label htmlFor="file-input">
+                                <img src="/img/profile.png" alt="Profile Icon" className="left-pro-icon" />
+                                </label>
                                 <p>{data?.fname?.value}</p>
                               </div>
-                              // <div className="image-upload">
-                              //   <label htmlFor="file-input">
-                              //     <img src="/img/camera.png" />
-                              //   </label>
-                              // </div>
+                              
                             )}
                             {selectedFile && (
                                 <div>
+                                  <label htmlFor="file-input">
                                   <img alt="not fount" src={URL.createObjectURL(selectedFile)} className="left-pro-icon"/>
+                                  </label>
                                   <p>{data?.fname?.value}</p>
                                 </div>
                             )}
-                            <input id="file-input" type="file" onChange={fileChange}/>
+                            <div className="image-upload">
+                                <label htmlFor="file-input">
+                                  <img src="/img/camera.png" />
+                                </label>
+                                <input id="file-input" type="file" onChange={fileChange}/>
+                              </div>
+                            {/* <input id="file-input" type="file" onChange={fileChange}/> */}
                               </>
                     }
                   </div>
@@ -869,6 +904,9 @@ const My_Profile=()=>
         <Script src="js/bootstrap.bundle.min.js"></Script>
         <Script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.8/slick.min.js"></Script>
         <Script src="js/custom.js"></Script>
+        {/* <Script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.min.js"></Script>
+        <Script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react-dom.min.js"></Script> */}
+{/* <div id="container"></div> */}
       </div>
         </div>
         // <div>

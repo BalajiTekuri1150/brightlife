@@ -2,34 +2,31 @@ import React from 'react';
 import { useState } from 'react';
 const Pagination=(props)=>
 {
-    // let pageNumbers=[1,2,3,4,5,6,7,8,9,10];
-    // for(let i=1;i<Math.ceil(data.length/9)+1;i++)
-    // {
-    //     pageNumbers.push(i);
-    // }
     let me=1;
     let next;
     let previous;
     let [page1,setPage1]=useState(1);
     const [disable,setDisable]=useState(true);
+    // let [disable1,setDisable1]=useState(props.disable1);
+    // console.log(disable1)
     const HandlePage=(e)=>{
-        console.log("page1 is:"+e.target.value);
         setPage1(parseInt(e.target.value));
         me=e.target.value;
-        if(e.target.value==="1")
+        // setDisable1(false)
+        if(me==="1")
         {
             setDisable(true);
         }
-        else{
+        if(e.target.value>1){
             setDisable(false);
         }
-        console.log("me is:"+me);
         props.pageHandler(me);
     }
     const HandlePrevious=()=>{
         previous=parseInt(page1)-1;
         console.log(previous);
         setPage1(page1-1);
+        // setDisable1(false);
         if(previous<=1)
         {
             setDisable(true);
@@ -42,13 +39,11 @@ const Pagination=(props)=>
     const HandleNext=()=>
     {
         next=parseInt(page1)+1;
-        console.log("next");
-        console.log(next);
         setPage1(parseInt(page1)+1);
-        // if((page1+1)>1)
-        // {
-        //     setDisable(false);
-        // }
+        if(next>1)
+        {
+            setDisable(false);
+        }
         // else{
         //     setDisable(true);
         // }

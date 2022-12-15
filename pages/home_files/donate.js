@@ -4,6 +4,8 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useContext,useEffect } from 'react';
 import { store } from '../_app';
+import Router from 'next/router';
+import { getLocalData } from '../../utils/storage_service';
 const Donate=()=>{
     const {datas,setDatas}=useContext(store)
     const [name,setName]=useState("");
@@ -12,7 +14,17 @@ const Donate=()=>{
           setName(localStorage.getItem('name'));
        }
     },[])
-    
+    let role_check=getLocalData("role_check");
+    console.log(role_check)
+    const handleLogout=()=>
+    {
+      // console.log("Hello")
+      localStorage.clear();
+      localStorage.removeItem("profile");
+      Router.push({
+        pathname:'/',
+      })
+    }
     return(
         <>
             <div>
@@ -28,9 +40,9 @@ const Donate=()=>{
           <nav className="navbar navbar-expand-lg navbar-light d-flex justify-content-between solid">
             <div className="custom-container border_bottom">
               <div>
-                <a className="navbar-toggler" type="button" onclick="toggleSidebar()">
-                  <i className="fa fa-bars" aria-hidden="true" />
-                </a>
+                {/* <a className="navbar-toggler" type="button" onClick="toggleSidebar()"> */}
+                  {/* <i className="fa fa-bars" aria-hidden="true" />
+                </a> */}
                 <a className="navbar-brand" href="/">
                   <img className="logo" src="/img/logo.png" alt="Brightlife" />
                 </a>
@@ -50,31 +62,61 @@ const Donate=()=>{
                       </button>
                     </Link>
                   </li>
-                  {datas!==null ?<>
-                    <li className="nav-item user-image dropdown">
-                      <a className="nav-link " href>
-                        <img className="user-image-header" src={datas} />{name}<i className="fa fa-angle-down" aria-hidden="true" />
-                      </a>
-                      <ul className="dropdown-nav">
-                        <a href="#">
-                          <li>
-                            <img src="/img/user.svg" />My profile
-                          </li>
+                  {/* {role_check===null && <>null</>} */}
+                  {role_check==="guardian" && <>
+                    {datas!==null ?<>
+                      <li className="nav-item user-image dropdown">
+                        <a className="nav-link " href>
+                          <img className="user-image-header" src={datas} />{name}<i className="fa fa-angle-down" aria-hidden="true" />
                         </a>
-                        <a href="#">
-                          <li>
-                            <img src="/img/sponsored.svg" />Sponsored children
-                          </li>
-                        </a>
-                        <a href="#">
-                          <li>
-                            <img src="/img/signout.svg" />Sign out
-                          </li>
-                        </a>
-                      </ul>
-                    </li>
-                  </>:null
+                        <ul className="dropdown-nav">
+                          <a href="/gaurdian/gaurdian_dashboard">
+                            <li>
+                              <img src="/img/user.svg" />My profile
+                            </li>
+                          </a>
+                          <a href="#">
+                            <li>
+                              <img src="/img/sponsored.svg" />Sponsored children
+                            </li>
+                          </a>
+                          <a onClick={handleLogout}>
+                            <li style={{color:'black'}}>
+                              <img src="/img/signout.svg" />Sign out
+                            </li>
+                          </a>
+                        </ul>
+                      </li>
+                    </>:null
                   }
+                  </>}
+                  {role_check==="sponsor" && <>
+                    {datas!==null ?<>
+                      <li className="nav-item user-image dropdown">
+                        <a className="nav-link " href>
+                          <img className="user-image-header" src={datas} />{name}<i className="fa fa-angle-down" aria-hidden="true" />
+                        </a>
+                        <ul className="dropdown-nav">
+                          <a href="/sponser/My_Profile">
+                            <li>
+                              <img src="/img/user.svg" />My profile
+                            </li>
+                          </a>
+                          <a href="/sponser/My_Profile">
+                            <li>
+                              <img src="/img/sponsored.svg" />Sponsored children
+                            </li>
+                          </a>
+                          <a onClick={handleLogout}>
+                            <li style={{color:'black'}}>
+                              <img src="/img/signout.svg" />Sign out
+                            </li>
+                          </a>
+                        </ul>
+                      </li>
+                    </>:null
+                  }
+                  </>}
                 </ul>
               </div>
             </div>
@@ -221,11 +263,11 @@ const Donate=()=>{
           </div>
         </footer>
 
-        <Script src="js/jquery.slim.min.js"></Script>
-        <Script src="js/popper.min.js"></Script>
-        <Script src="js/bootstrap.bundle.min.js"></Script>
+        <Script src="/js/jquery.slim.min.js"></Script>
+        <Script src="/js/popper.min.js"></Script>
+        <Script src="/js/bootstrap.bundle.min.js"></Script>
         <Script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.8/slick.min.js"></Script>
-        <Script src="js/custom.js"></Script>
+        <Script src="/js/custom.js"></Script>
       </div>
         </>
     );

@@ -1,12 +1,11 @@
 import React from "react";
 import homestyle from '../../styles/Home.module.css';
 import { useState,useEffect } from "react";
-import profile from "../../public/logo.jpeg"
-import Image from "next/image";
+import Router from "next/router";
 import Link from "next/link";
 import { getData, getData1 } from "../../utils/data_manage_service";
 import { getLocalData ,setLocalData} from "../../utils/storage_service";
-import { propTypes } from "react-bootstrap/esm/Image";
+import Gaurdian_Profile1 from "./guardian_profile1";
 import Gaurdian_Profile from "./gaurdian_profile";
 import Application from "./application";
 import Script from "next/script";
@@ -30,10 +29,10 @@ export default function Child_Card(props){
         setSelectedFile(e.target.files[0]);
     }
     const handleProfile=async()=>{
-        const result2=await(getData1(`https://test-api.brightlife.org/brightlife/get/application/details?page=1&page_size=36&guardian_id=${guardian_id}`))
-        if(result2.data?.status){
-            setPosts(result2?.data?.response?.data);
-        }
+        // const result2=await(getData1(`https://test-api.brightlife.org/brightlife/get/application/details?page=1&page_size=36&guardian_id=${guardian_id}`))
+        // if(result2.data?.status){
+        //     setPosts(result2?.data?.response?.data);
+        // }
         setCount(0);
     }
     const handleApplication=()=>{
@@ -45,11 +44,18 @@ export default function Child_Card(props){
         localStorage.setItem("application_id",null)
         setCount(2);
     }
-    const handleView=()=>{
-
+    const handleLogout=()=>
+    {
+      console.log("Hello")
+      localStorage.clear();
+      localStorage.removeItem("profile");
+      Router.push({
+        pathname:'/',
+      })
     }
     // localStorage.removeItem("application_id");
     // let item_id=localStorage.getItem("application_id");
+    // console.log(selectedFile)
     return(
         <>
            <div className="wrapper" >
@@ -73,13 +79,13 @@ export default function Child_Card(props){
                             <a className="nav-link" href="/home_files/how_works"> How it works </a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link " href="sponsor.html">
+                            <a className="nav-link " href="/home_files/donate">
                             <button className="btn signin-button" type="submit">
                                 <span className="Donate"> Donate </span>
                             </button>
                             </a>
                         </li>
-                        { datas!==null ? <>
+                        { datas!=="undefined"? <>
                             <li className="nav-item user-image dropdown">
                                 <a className="nav-link " href>
                                 <img className="user-image-header" src={datas} />{name}<i className="fa fa-angle-down" aria-hidden="true" />
@@ -95,11 +101,11 @@ export default function Child_Card(props){
                                         <img src="/img/sponsored.svg" /><span style={{color:'black'}}>Sponsored Children</span>
                                     </li>
                                 </div>
-                                <div style={{color:'black'}}>
-                                    <li>
+                                <a onClick={handleLogout}>
+                                    <li style={{color:'black'}}>
                                     <img src="/img/signout.svg" />Sign out
                                     </li>
-                                </div>
+                                </a>
                                 </ul>
                             </li>
                             </>:
@@ -119,11 +125,11 @@ export default function Child_Card(props){
                                         <img src="/img/sponsored.svg" /><span style={{color:'black'}}>Sponsored Children</span>
                                     </li>
                                 </div>
-                                <div style={{color:'black'}}>
-                                    <li>
-                                    <img src="/img/signout.svg" />Sign out
+                                <a onClick={handleLogout}>
+                                    <li style={{color:'black'}}>
+                                    <img src="/img/signout.svg"/>Sign out
                                     </li>
-                                </div>
+                                </a>
                                 </ul>
                             </li>
                             </>
@@ -142,51 +148,67 @@ export default function Child_Card(props){
                 <div className="left-profilemenu-block">
                   <div className="left-profileimage">
 
-                  {datas!==null ?
-                        <>
+                  {datas!=="undefined" ?
+                    <>
                           { !selectedFile && (
                             <div>
-                              <img src={datas} alt="My Profile Icon" className="left-pro-icon" />
+                              <label htmlFor="file-input">
+                                <img src={datas} alt="My Profile Icon" className="left-pro-icon" />
+                              </label>
                               <p>{name}</p>
                             </div>
                           )}
                           {selectedFile && (
                                 <div>
+                                  <label htmlFor="file-input">
                                 <img alt="not fount" src={URL.createObjectURL(selectedFile)} className="left-pro-icon"/>
+                                </label>
                                 <p>{name}</p>
                                 <br />
                                 </div>
                           )}
-                            <input id="file-input" type="file" onChange={fileChange}/>
+                            <div className="image-upload">
+                                <label htmlFor="file-input">
+                                  <img src="/img/camera.png" />
+                                </label>
+                                <input id="file-input" type="file" onChange={fileChange}/>
+                              </div>
+                            {/* <input id="file-input" type="file" onChange={fileChange}/> */}
                         </>:
                         <>
                             { !selectedFile && (
                               <div>
-                                <img src="/img/profile.png" alt="My Profile Icon" className="left-pro-icon" />
+                                <label htmlFor="file-input">
+                                <img src="/img/profile.png" alt="Profile Icon" className="left-pro-icon" />
+                                </label>
                                 <p>{name}</p>
                               </div>
-                              // <div className="image-upload">
-                              //   <label htmlFor="file-input">
-                              //     <img src="/img/camera.png" />
-                              //   </label>
-                              // </div>
+                              
                             )}
                             {selectedFile && (
                                 <div>
+                                  <label htmlFor="file-input">
                                   <img alt="not fount" src={URL.createObjectURL(selectedFile)} className="left-pro-icon"/>
+                                  </label>
                                   <p>{name}</p>
                                 </div>
                             )}
-                            <input id="file-input" type="file" onChange={fileChange}/>
+                            <div className="image-upload">
+                                <label htmlFor="file-input">
+                                  <img src="/img/camera.png" />
+                                </label>
+                                <input id="file-input" type="file" onChange={fileChange}/>
+                              </div>
+                            {/* <input id="file-input" type="file" onChange={fileChange}/> */}
                               </>
+
+                              
                     }
 
                   </div>
                  
                   <ul className=" col-2 sidebar-menu">
-                            {/* <Link href="/gaurdian/gaurdian_profile"><p className="text-dark m-5 pe-auto">Myprofile</p></Link> */}
                             <p className="text-dark m-5 pe-auto" onClick={handleProfile}>MyProfile</p>
-                            {/* <Link href="/gaurdian/gaurdian_dashboard"><p className="text-dark m-5">Applications</p></Link> */}
                             <p className="text-dark m-5 pe-auto" onClick={handleApplication}>Applications</p>
                         </ul>
                 </div>
@@ -203,7 +225,7 @@ export default function Child_Card(props){
                         <div><a href="" class="new-appli-btn"><i class="fa fa-plus" aria-hidden="true"></i> New Application</a></div>
                     </div> */}
                         <div class="filter_head" style={{marginTop:'20px',marginBottom:'20px'}}>
-                            <div class="sort-filter">Sort by/ Filters</div>
+                            <div className=""></div>
                             <button className="new-appli-btn" onClick={handleNewApplication}>New Application</button>
                         </div>
                         {posts.length>0 && posts.map((item)=>(
@@ -236,7 +258,7 @@ export default function Child_Card(props){
             </div>
         }
         { count==0 &&
-            <Gaurdian_Profile/>
+            <Gaurdian_Profile1 selectedFile={selectedFile}/>
         }
         {count==2 &&
             <Application handleExit1={handleProfile}/>
@@ -245,10 +267,10 @@ export default function Child_Card(props){
             // {console.log(item_id)}
             <Application/>
         } */}
-         <Script type="module" src="js/jquery.slim.min.js"></Script>
-        <Script type="module" src="js/popper.min.js"></Script>
-        <Script type="module" src="js/bootstrap.bundle.min.js"></Script>
-        <Script type="module" src="js/custom.js"></Script>
+         {/* <Script src="/js/jquery.slim.min.js"></Script>
+         <Script src="/js/popper.min.js"></Script>
+         <Script src="/js/bootstrap.bundle.min.js"></Script>
+         <Script src="/js/custom.js"></Script> */}
           </div>
         </div>
         </div>
