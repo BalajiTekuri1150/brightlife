@@ -258,7 +258,7 @@ export default function Child_Card(props){
             </div>
         }
         { count==0 &&
-            <Gaurdian_Profile1 selectedFile={selectedFile}/>
+            <Gaurdian_Profile selectedFile={selectedFile}/>
         }
         {count==2 &&
             <Application handleExit1={handleProfile}/>

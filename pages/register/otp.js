@@ -77,7 +77,7 @@ const Otp=()=>
                     console.log(result1?.data?.response?.data?.id)
                     setLocalData("id",result1?.data?.response?.data?.id);
                     setLocalData("user_id",result1?.data?.response?.data?.id);
-                    setLocalData("guardian_id",result1?.null)
+                    setLocalData("guardian_id",result1?.data?.response?.data?.id)
                     setLocalData("name",name);
                     setLocalData("email",email);
                     setLocalData("role",role);

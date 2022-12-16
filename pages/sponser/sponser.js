@@ -235,12 +235,12 @@ const Final=()=>
                             <img className="user-image-header" src={datas} />{name}<i className="fa fa-angle-down" aria-hidden="true" />
                           </div>
                           <ul className="dropdown-nav">
-                            <Link href="/sponser/My_Profile">
+                            <Link href="/sponser/my_profile1">
                               <li>
                                 <img src="/img/user.svg" /><span style={{color:'black'}}>My profile</span>
                               </li>
                             </Link>
-                            <Link href="/sponser/My_Profile">
+                            <Link href="/sponser/my_profile1">
                               <li>
                                 <img src="/img/sponsored.svg" /><span style={{color:'black'}}>Sponsored children</span>
                               </li>

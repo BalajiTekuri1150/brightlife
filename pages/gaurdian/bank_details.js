@@ -73,12 +73,11 @@ export default function Bank_details(props){
         if(result?.data?.status){
             setMessage("Application submitted for verification")
             props.handleBank();
-            // router.push({
-            //     pathname:"/gaurdian/gaurdian_dashboard"
-            // })
         }
         else{
-            setMessage(result?.error?.message)
+            if(result?.data?.error?.message?.account_number || result?.data?.error?.message?.postal_code || []){
+                setMessage(result?.data.error?.message.account_number || result?.data?.error?.message?.postal_code || [result?.data?.error?.message])
+            }
         }          
     }
     const isFormValid=Object.keys(formValues).every((key)=>{

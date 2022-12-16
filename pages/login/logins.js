@@ -37,6 +37,7 @@ export default function Login()
                 {
                     setLocalData("role_check",result.data?.response?.sponsor?.user?.role)
                     setLocalData("name",result?.data?.response?.user?.name)
+                    setLocalData("email",result?.data?.response?.user?.email)
                     router.push({ 
                         pathname: '/sponser/sponser',
                     })

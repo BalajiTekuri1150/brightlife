@@ -89,12 +89,12 @@ const Our_Team=()=>{
                           <img className="user-image-header" src={datas} />{name}<i className="fa fa-angle-down" aria-hidden="true" />
                         </a>
                         <ul className="dropdown-nav">
-                          <a href="/sponser/My_Profile">
+                          <a href="/sponser/my_profile1">
                             <li>
                               <img src="/img/user.svg" />My profile
                             </li>
                           </a>
-                          <a href="/sponser/My_Profile">
+                          <a href="/sponser/my_profile1">
                             <li>
                               <img src="/img/sponsored.svg" />Sponsored children
                             </li>
