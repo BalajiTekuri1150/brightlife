@@ -70,7 +70,7 @@ export default function Gaurdian_details(props){
       props.handleExitButton();
     }
     return(
-        <div style={{width:'1200px'}}>
+        <div>
             <Head>
                 <title>Brightlife</title>
                 <meta charSet="utf-8" />

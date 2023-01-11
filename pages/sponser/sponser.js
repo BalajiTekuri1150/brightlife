@@ -196,6 +196,12 @@ const Final=()=>
         // setMessage("No student Data");
         setDisable1(true);
       }
+      setCount(0);
+        setState(" ");
+        setGen("");
+        setAge(" ");
+        setIncome(" ");
+        setMon(" ");
     }
     // console.log(datas)
     const name=getLocalData("name");

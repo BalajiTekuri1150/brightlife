@@ -52,7 +52,7 @@ const Sponser_list=(props)=>
                     <div className="row sponsor-block card-marign" style={{marginTop:'30px'}}>
                     <div style={{marginLeft:'400px'}}>{message}</div>
                     {posts.length>0 && posts.map((item)=>(
-                            <div className="col-lg-4 col-sm-12 col-md-6">
+                            <div className="col-lg-6 col-sm-18 col-md-6">
                                 <div className="block-shadow">
                                 <div><img src="/img/sponsor-child2.jpg" className="img-fluid" /></div>
                                 <div className="sponsor-block-content">

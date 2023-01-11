@@ -26,6 +26,12 @@ const Home_page=()=>{
           localStorage.clear()
        }
     },[])
+    const outsideclick=(ref)=>{
+  
+      document.getElementById("sidebaroverlay-id").classList.remove("sidebar-overlay");
+      document.getElementById("mobilesidemenu").classList.remove("mobilesidebar");
+      
+    }
     return(
         <>
         <Head>
@@ -63,7 +69,7 @@ const Home_page=()=>{
             </div>
             </nav>
         </header>
-        <div id="sidebaroverlay-id" onclick="outsideclick()" />
+        <div id="sidebaroverlay-id" onClick={outsideclick} />
         <div className="page_start">
           {/* header end */}
           <section className="banner-section">

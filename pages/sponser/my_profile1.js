@@ -10,7 +10,9 @@ import { setLocalData } from "../../utils/storage_service";
 import { useContext } from 'react';
 import Input from "../gaurdian/input_compent";
 import { store } from '../_app';
+import Router from "next/router";
 import { postData2 } from "../../utils/data_manage_service";
+import Sponsor_child_details from "./sponsor_child_details";
 export default function MyProfile(props){
     const user_id=getLocalData("user_id")
     // const[id,setId]=useState()
@@ -82,11 +84,17 @@ export default function MyProfile(props){
     if(data.postcode.value==="undefined"){
         data.postcode.value="";
     }
-    const handleData=(name,value)=>{
+    const handleData=(name,value,error)=>{
         setStatus(true)
         setMessage("")
         setMessage1("");
-        setDisable(false)
+        console.log(error)
+        if(error===false){
+          setDisable(true);
+        }
+        if(error===true){
+          setDisable(false);
+        }
         setData({
             ...data,
             [name]:{
@@ -100,6 +108,7 @@ export default function MyProfile(props){
     const sponsor_id=getLocalData("sponser_id")
     const updateProfile=async(e)=>
     {
+            e.preventDefault();
             if(selectedFile==null){
                 const formData=new FormData();
               // console.log(info.id);
@@ -213,6 +222,15 @@ export default function MyProfile(props){
     const handleChildlist=()=>{
       setCount(2);
     }
+    const handleLogout=()=>
+    {
+      console.log("Hello")
+      localStorage.clear();
+      // localStorage.removeItem("profile");
+      Router.push({
+        pathname:'/',
+      })
+    }
     return(
         <>
           <div>
@@ -260,7 +278,7 @@ export default function MyProfile(props){
                               <img src="/img/sponsored.svg" />Sponsored children
                             </li>
                           </div>
-                          <a>
+                          <a onClick={handleLogout}>
                             <li style={{color:'black'}}>
                               <img src="/img/signout.svg" />Sign out
                             </li>
@@ -284,7 +302,7 @@ export default function MyProfile(props){
                               <img src="/img/sponsored.svg" />Sponsored children
                             </li>
                           </div>
-                          <a>
+                          <a onClick={handleLogout}>
                             <li style={{color:'black'}}>
                               <img src="/img/signout.svg" />Sign out
                             </li>
@@ -520,7 +538,7 @@ export default function MyProfile(props){
                             {/* <div style={{color:'green',marginLeft:'150px'}}>{message1}</div><br/> */}
                             {status?<p className="text-success">{message1}</p>:<p className="text-danger">{message}</p>}
                             <div className="col-lg-12 d-flex justify-content-end">
-                                <div className="sponsor-save-btn" onClick={updateProfile}>Save</div>
+                                <button className="sponsor-save-btn" onClick={updateProfile} disabled={disable}>Save</button>
                                 {/* <Link href="/gaurdian/gaurdian_dashboard"><button className="btn btn-secondary mx-5 col-2" >Exit</button></Link> */}
                             </div>
                         </div>

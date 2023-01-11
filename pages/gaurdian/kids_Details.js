@@ -100,7 +100,7 @@ export default function Kids_details(props){
       setSelectedFile1(e.target.files[0]);
   }
     return(
-        <div style={{width:'1200px'}}>
+        <div>
         <div className="steps-wizard">
             <div className="step1-wizard">
               <a>

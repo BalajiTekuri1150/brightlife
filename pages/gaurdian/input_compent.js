@@ -43,7 +43,7 @@ export default function Input(props){
         else{
             if(e.target.value==""){
                 setErr(true)
-                setMsg(e.target.name+" must not be empty")
+                setMsg(e.target.name+" Enter more than 4 characters")
                 props.onChange(e.target.name,e.target.value,false)
             }
             else{

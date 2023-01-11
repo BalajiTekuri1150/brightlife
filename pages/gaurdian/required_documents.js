@@ -98,7 +98,7 @@ export default function Required_documents(props){
       props.handleExitButton();
     }
     return(
-        <div style={{width:'1200px',height:'100%'}}>
+        <div>
             <div className="steps-wizard">
                 <div className="step1-wizard">
                 <a>

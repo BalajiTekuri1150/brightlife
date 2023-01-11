@@ -73,17 +73,17 @@ export default function Child_Card(props){
                     <div className=" navbar-collapse " id="mobilesidemenu">
                         <ul className="navbar-nav mr-auto ">
                         <li className="nav-item ">
-                            <a className="nav-link" href="/home_files/our_team"> Our Team</a>
+                            <Link className="nav-link" href="/home_files/our_team"> Our Team</Link>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="/home_files/how_works"> How it works </a>
+                            <Link className="nav-link" href="/home_files/how_works"> How it works </Link>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link " href="/home_files/donate">
+                            <Link className="nav-link " href="/home_files/donate">
                             <button className="btn signin-button" type="submit">
                                 <span className="Donate"> Donate </span>
                             </button>
-                            </a>
+                            </Link>
                         </li>
                         { datas!=="undefined"? <>
                             <li className="nav-item user-image dropdown">

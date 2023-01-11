@@ -72,7 +72,7 @@ export default function Education_details(props){
       props.handleExitButton();
     }
     return(
-        <div style={{width:'1200px'}}>
+        <div>
             <Head>
                 <title>Brightlife</title>
                 <meta charSet="utf-8" />
@@ -204,10 +204,10 @@ export default function Education_details(props){
                 </div>
                 </form>
             </div>
-            <Script src="js/jquery.slim.min.js"></Script>
-            <Script src="js/popper.min.js"></Script>
-            <Script src="js/bootstrap.bundle.min.js"></Script>
-            <Script src="js/custom.js"></Script>
+            <Script src="/js/jquery.slim.min.js"></Script>
+            <Script src="/js/popper.min.js"></Script>
+            <Script src="/js/bootstrap.bundle.min.js"></Script>
+            <Script src="/js/custom.js"></Script>
             {/* <section className="form">
                 <form className="bg-light px-5 pt-5" onSubmit={handleSubmit}>
                     <div className="row">

@@ -19,15 +19,15 @@ export default function Application(props){
               <h4 className="sponsor-headding"></h4>
               <div className="myaccount-content-block">
                 <div className="myaccount-content-inner">   
-                  <div className="bg-white mt-5" style={{"width":"900px","height":"900px",marginLeft:'30px'}}>
-                    {/* <div className="bg-white mt-5" style={{"width":"900px","height":"auto"}}> */}
+                  {/* <div className="bg-white mt-5" style={{"width":"900px","height":"900px",marginLeft:'30px'}}> */}
+                    <div className="bg-white mt-5">
                         {screen==1 && <Kids_details screenvalue={toggleChecked} handleExitButton={handleProfile}/> }
                         {screen==2 && <Gaurdian_details screenvalue={toggleChecked} handleExitButton={handleProfile}/> }
                         {screen==3 && <Education_details screenvalue={toggleChecked} handleExitButton={handleProfile}/> }
                         {screen==4 && <Required_documents screenvalue={toggleChecked} handleExitButton={handleProfile}/> }
                         {screen==5 && <Bank_details screenvalue={toggleChecked} handleExitButton={handleProfile} handleBank={handleProfile}/> }
-                    {/* </div> */}
-                  </div>
+                    </div>
+                  {/* </div> */}
           
                 </div>
               </div>

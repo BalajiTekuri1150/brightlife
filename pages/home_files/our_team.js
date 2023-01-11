@@ -4,6 +4,7 @@ import { useEffect,useState } from 'react';
 import { useContext } from 'react';
 import { store } from '../_app';
 import { getLocalData } from '../../utils/storage_service';
+import Router from 'next/router';
 const Our_Team=()=>{
   const {datas,setDatas}=useContext(store);
   const [name,setName]=useState("");
