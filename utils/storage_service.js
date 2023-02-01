@@ -8,7 +8,9 @@ export function getLocalData(id) {
     let key =  id.toLowerCase();
     let data
     try {  
-        data=localStorage?.getItem(key);
+        if(typeof window !== "undefined"){
+            data=localStorage?.getItem(key)
+        }
     } catch (error) {
         console.log(error)
     } 

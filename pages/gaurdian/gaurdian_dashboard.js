@@ -5,7 +5,7 @@ import Router from "next/router";
 import Link from "next/link";
 import { getData, getData1 } from "../../utils/data_manage_service";
 import { getLocalData ,setLocalData} from "../../utils/storage_service";
-import Gaurdian_Profile1 from "./guardian_profile1";
+// import Gaurdian_Profile1 from "./guardian_profile1";
 import Gaurdian_Profile from "./gaurdian_profile";
 import Application from "./application";
 import Script from "next/script";

@@ -1,5 +1,5 @@
 import homestyle from '../../styles/Home.module.css';
-import { useState,useEffect } from "react";
+import { useState,useEffect } from 'react';
 import logo from "../../public/orphan-kids-.jpg"
 import {setLocalData} from "../../utils/storage_service"
 import Image from 'next/image'
@@ -23,7 +23,7 @@ const Child_Card1=(props)=>
     // const [message,setMessage]=useState("")
     let disable1=false;
     // console.log(props.set_search.length);
-    if(props.set_search.length<6){
+    if(props.set_search?.length<6){
         // setDisable1(true);
         disable1=true;
     }
@@ -92,8 +92,8 @@ const Child_Card1=(props)=>
         <div className='row'>
 
                     {/* Search Filter */}
-                    {props.set_search.length>0 && props.set_search.map((item)=>(
-                        <div className="col-lg-4 col-sm-12 col-md-6">
+                    {props.set_search?.length>0 && props.set_search.map((item)=>(
+                        <div className="col-lg-4 col-sm-12 col-md-6" key={item.id}>
                             <div className="block-shadow">
                                 <div>
                                     <img src="/img/sponsor-child1.jpg" className="img-fluid"/>
