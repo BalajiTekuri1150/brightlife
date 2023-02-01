@@ -81,6 +81,7 @@ const Otp=()=>
                     setLocalData("name",name);
                     setLocalData("email",email);
                     setLocalData("role",role);
+                    setLocalData("role_check",role);
                     console.log(result1?.data?.response?.data?.token)
                     setLocalData("token",result1?.data?.response?.data?.token);
                     if(role==="sponsor")

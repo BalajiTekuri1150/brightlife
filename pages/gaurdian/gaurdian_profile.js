@@ -94,6 +94,7 @@ export default function Gaurdian_Profile(props){
     const email=getLocalData("email");
     const updateProfile=async(e)=>
     {
+            e.preventDefault();
             if(props.selectedFile==null){
                 const formData=new FormData();
                 // console.log(info.id);
@@ -182,6 +183,7 @@ export default function Gaurdian_Profile(props){
                         console.log(response.status);
                         if(response.status==true){
                             setMessage1("Details Updated Successfully")
+                            
                         }
                         else{
                             // setMessage("Mobile Number Exists");
@@ -336,7 +338,7 @@ export default function Gaurdian_Profile(props){
                             {/* <div style={{color:'green',marginLeft:'150px'}}>{message1}</div><br/> */}
                             {status?<p className="text-success">{message1}</p>:<p className="text-danger">{message}</p>}
                             <div className="col-lg-12 d-flex justify-content-end">
-                                <div className="sponsor-save-btn" onClick={updateProfile}>Save</div>
+                                <button className="sponsor-save-btn" onClick={updateProfile}>Save</button>
                                 {/* <Link href="/gaurdian/gaurdian_dashboard"><button className="btn btn-secondary mx-5 col-2" >Exit</button></Link> */}
                             </div>
                         </div>

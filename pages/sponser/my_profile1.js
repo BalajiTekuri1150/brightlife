@@ -18,7 +18,7 @@ export default function MyProfile(props){
     // const[id,setId]=useState()
     const[role,setRole]=useState("")
     const [status,setStatus]=useState(true)
-    const [disable,setDisable]=useState(true)
+    const [disable,setDisable]=useState(false)
     const [message,setMessage]=useState("")
     const [message1,setMessage1]=useState("")
     const [count,setCount]=useState(0);
@@ -60,6 +60,8 @@ export default function MyProfile(props){
             setDatas(localStorage.setItem('profile',result.data?.response?.sponsor?.profile))
             console.log(result?.data?.response?.sponsor?.id)
             setLocalData("sponser_id",result.data?.response?.sponsor?.id);
+            setMessage("");
+            setMessage1("");
         }
         getprofile();
     },[]);
@@ -89,12 +91,12 @@ export default function MyProfile(props){
         setMessage("")
         setMessage1("");
         console.log(error)
-        if(error===false){
-          setDisable(true);
-        }
-        if(error===true){
-          setDisable(false);
-        }
+        // if(error===false){
+        //   setDisable(true);
+        // }
+        // if(error===true){
+        //   setDisable(false);
+        // }
         setData({
             ...data,
             [name]:{

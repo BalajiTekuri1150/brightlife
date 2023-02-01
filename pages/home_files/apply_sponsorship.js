@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useContext ,useEffect,useState} from 'react';
 import { store } from '../_app';
 import { getLocalData } from '../../utils/storage_service';
+import Router from 'next/router';
 const Apply_Sponsorship=()=>{
     const {datas,setDatas}=useContext(store);
     const [name,setName]=useState("");
@@ -55,7 +56,7 @@ const Apply_Sponsorship=()=>{
                         <Link className="nav-link" href="/home_files/how_works"> How it works </Link>
                     </li>
                     {role_check==="guardian" && <>
-                        {datas!==null ?<>
+                        {datas!=="undefined" ?<>
                             <li className="nav-item user-image dropdown">
                                 <a className="nav-link " href>
                                 <img className="user-image-header" src={datas} />{name}<i className="fa fa-angle-down" aria-hidden="true" />
@@ -78,23 +79,47 @@ const Apply_Sponsorship=()=>{
                                 </a>
                                 </ul>
                             </li>
-                            </>:null
+                            </>:
+                            <>
+                            <li className="nav-item user-image dropdown">
+                                <a className="nav-link " href>
+                                  <img className="user-image-header" src="/img/profile.png" />{name}<i className="fa fa-angle-down" aria-hidden="true" />
+                                </a>
+                                <ul className="dropdown-nav">
+                                  <Link href="/gaurdian/gaurdian_dashboard">
+                                    <li>
+                                      <img src="/img/user.svg" /><span style={{color:'black'}}>My profile</span>
+                                    </li>
+                                  </Link>
+                                  <Link href="/gaurdian/gaurdian_dashboard">
+                                    <li>
+                                      <img src="/img/sponsored.svg" /><span style={{color:'black'}}>Sponsored children</span>
+                                    </li>
+                                  </Link>
+                                  <a onClick={handleLogout} >
+                                    <li>
+                                      <img src="/img/signout.svg"/><span style={{color:'black'}}>Sign out</span>
+                                    </li>
+                                  </a>
+                                </ul>
+                            </li>
+                          </>
                         }
                         </>
                    }
                   {role_check==="sponsor" && <>
-                    {datas!==null ?<>
+                    {datas!=="undefined" ?<>
                       <li className="nav-item user-image dropdown">
                         <a className="nav-link " href>
                           <img className="user-image-header" src={datas} />{name}<i className="fa fa-angle-down" aria-hidden="true" />
                         </a>
                         <ul className="dropdown-nav">
-                          <a href="/sponser/My_Profile">
+                          <a href="/sponser/my_profile1">
                             <li>
                               <img src="/img/user.svg" />My profile
                             </li>
                           </a>
-                          <a href="/sponser/My_Profile">
+                          <a href="/sponser/my_profile1">
                             <li>
                               <img src="/img/sponsored.svg" />Sponsored children
                             </li>
@@ -106,7 +131,31 @@ const Apply_Sponsorship=()=>{
                           </a>
                         </ul>
                       </li>
-                    </>:null
+                    </>:
+                    <>
+                    <li className="nav-item user-image dropdown">
+                        <a className="nav-link " href>
+                          <img className="user-image-header" src="/img/profile.png" />{name}<i className="fa fa-angle-down" aria-hidden="true" />
+                        </a>
+                        <ul className="dropdown-nav">
+                          <Link href="/sponser/my_profile1">
+                            <li>
+                              <img src="/img/user.svg" /><span style={{color:'black'}}>My profile</span>
+                            </li>
+                          </Link>
+                          <Link href="/sponser/my_profile1">
+                            <li>
+                              <img src="/img/sponsored.svg" /><span style={{color:'black'}}>Sponsored children</span>
+                            </li>
+                          </Link>
+                          <a onClick={handleLogout} >
+                            <li>
+                              <img src="/img/signout.svg"/><span style={{color:'black'}}>Sign out</span>
+                            </li>
+                          </a>
+                        </ul>
+                    </li>
+                  </>
                   }
                   </>}
                     </ul>

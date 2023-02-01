@@ -6,6 +6,7 @@ import { useEffect,useState } from 'react';
 import { getLocalData } from '../../utils/storage_service';
 import { useContext } from 'react';
 import { store } from '../_app';
+import Router from 'next/router';
 
 const How_Works=()=>{
   const {datas,setDatas}=useContext(store);
@@ -16,7 +17,7 @@ const How_Works=()=>{
          }
       },[])
     let role_check=getLocalData("role_check");
-    console.log(role_check)
+    // console.log(role_check)
     const handleLogout=()=>
     {
       console.log("Hello")
@@ -26,6 +27,8 @@ const How_Works=()=>{
         pathname:'/',
       })
     }
+    console.log(datas);
+    console.log(role_check)
     return(
         <>
         <Head>
@@ -64,7 +67,7 @@ const How_Works=()=>{
                     </Link>
                   </li>
                   {role_check==="guardian" && <>
-                        {datas!==null ?<>
+                        {datas!=="undefined" ?<>
                             <li className="nav-item user-image dropdown">
                                 <a className="nav-link " href>
                                 <img className="user-image-header" src={datas} />{name}<i className="fa fa-angle-down" aria-hidden="true" />
@@ -87,12 +90,36 @@ const How_Works=()=>{
                                 </a>
                                 </ul>
                             </li>
-                            </>:null
+                            </>:
+                            <>
+                            <li className="nav-item user-image dropdown">
+                                <a className="nav-link " href>
+                                  <img className="user-image-header" src="/img/profile.png" />{name}<i className="fa fa-angle-down" aria-hidden="true" />
+                                </a>
+                                <ul className="dropdown-nav">
+                                  <Link href="/gaurdian/gaurdian_dashboard">
+                                    <li>
+                                      <img src="/img/user.svg" /><span style={{color:'black'}}>My profile</span>
+                                    </li>
+                                  </Link>
+                                  <Link href="/gaurdian/gaurdian_dashboard">
+                                    <li>
+                                      <img src="/img/sponsored.svg" /><span style={{color:'black'}}>Sponsored children</span>
+                                    </li>
+                                  </Link>
+                                  <a onClick={handleLogout} >
+                                    <li>
+                                      <img src="/img/signout.svg"/><span style={{color:'black'}}>Sign out</span>
+                                    </li>
+                                  </a>
+                                </ul>
+                            </li>
+                          </>
                         }
                         </>
                    }
                   {role_check==="sponsor" && <>
-                    {datas!==null ?<>
+                    {datas!=="undefined" ?<>
                       <li className="nav-item user-image dropdown">
                         <a className="nav-link " href>
                           <img className="user-image-header" src={datas} />{name}<i className="fa fa-angle-down" aria-hidden="true" />
@@ -115,7 +142,31 @@ const How_Works=()=>{
                           </a>
                         </ul>
                       </li>
-                    </>:null
+                    </>:
+                    <>
+                    <li className="nav-item user-image dropdown">
+                        <a className="nav-link " href>
+                          <img className="user-image-header" src="/img/profile.png" />{name}<i className="fa fa-angle-down" aria-hidden="true" />
+                        </a>
+                        <ul className="dropdown-nav">
+                          <Link href="/sponser/my_profile1">
+                            <li>
+                              <img src="/img/user.svg" /><span style={{color:'black'}}>My profile</span>
+                            </li>
+                          </Link>
+                          <Link href="/sponser/my_profile1">
+                            <li>
+                              <img src="/img/sponsored.svg" /><span style={{color:'black'}}>Sponsored children</span>
+                            </li>
+                          </Link>
+                          <a onClick={handleLogout} >
+                            <li>
+                              <img src="/img/signout.svg"/><span style={{color:'black'}}>Sign out</span>
+                            </li>
+                          </a>
+                        </ul>
+                    </li>
+                  </>
                   }
                   </>}
                   {/* {
@@ -311,11 +362,11 @@ const How_Works=()=>{
             </div>
           </div>
         </footer>
-        <Script type="module" src="js/jquery.slim.min.js"></Script>
-        <Script type="module" src="js/popper.min.js"></Script>
-        <Script type="module" src="js/bootstrap.bundle.min.js"></Script>
-        <Script stype="module" rc="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.8/slick.min.js"></Script>
-        <Script type="module" src="js/custom.js"></Script>
+        <Script src="/js/jquery.slim.min.js"></Script>
+        <Script src="/js/popper.min.js"></Script>
+        <Script src="/js/bootstrap.bundle.min.js"></Script>
+        <Script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.8/slick.min.js"></Script>
+        <Script src="/js/custom.js"></Script>
         </>
     )
 }

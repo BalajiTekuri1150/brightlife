@@ -47,10 +47,10 @@ const Sponser_list=(props)=>
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" />
             </Head>
             <div className="col-lg-12 col-sm-12">
-            <button className="btn btn-primary" style={{marginLeft:'900px',marginTop:'10px',width:'200px',height:'50px'}} onClick={handleKidsList}>Kids List</button><br/>
+            <button className="btn btn-primary" onClick={handleKidsList}>Kids List</button><br/>
                 <div className="myaccount-right-block" style={{display:'flex'}}>
                     <div className="row sponsor-block card-marign" style={{marginTop:'30px'}}>
-                    <div style={{marginLeft:'400px'}}>{message}</div>
+                    <div style={{marginLeft:'200px'}}>{message}</div>
                     {posts.length>0 && posts.map((item)=>(
                             <div className="col-lg-6 col-sm-18 col-md-6">
                                 <div className="block-shadow">

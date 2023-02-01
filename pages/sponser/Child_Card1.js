@@ -18,9 +18,9 @@ const Child_Card1=(props)=>
 {
     let [page,setPage]=useState(1);
     const [data1,setData1]=useState([]);
-    const [order,setOrder]=useState();
-    const [pageSize,setPageSize]=useState(6);
-    const [message,setMessage]=useState("")
+    // const [order,setOrder]=useState();
+    // const [pageSize,setPageSize]=useState(6);
+    // const [message,setMessage]=useState("")
     let disable1=false;
     // console.log(props.set_search.length);
     if(props.set_search.length<6){

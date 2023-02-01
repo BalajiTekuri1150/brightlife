@@ -184,10 +184,10 @@ const Register_Page=()=>
             </div>
         </div>
 
-        <Script src="js/jquery.slim.min.js"></Script>
-        <Script src="js/bootstrap.bundle.min.js"></Script>
-        <Script src="js/popper.min.js"></Script>
-        <Script src="js/custom.js"></Script>
+        <Script src="/js/jquery.slim.min.js"></Script>
+        <Script src="/js/bootstrap.bundle.min.js"></Script>
+        <Script src="/js/popper.min.js"></Script>
+        <Script src="/js/custom.js"></Script>
             {/* <br/><h1 style={{color:'white',marginLeft:'600px',marginTop:'10px',fontSize:'20px'}}>BRIGHT LIFE</h1>
             <div className={style.register}>
                 <label style={{marginLeft:'150px',fontSize:'20px'}}>Sign Up</label>

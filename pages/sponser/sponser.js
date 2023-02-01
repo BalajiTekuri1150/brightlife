@@ -5,10 +5,6 @@ import Form from 'react-bootstrap/Form';
 import style from '../../styles/register.module.css';
 import Child_Card from "./Child_Card";
 import Child_Card1 from "./Child_Card1";
-// import dynamic from 'next/dynamic'
-// const Child_Card1 = dynamic(() => import("./Child_Card"), {
-// ssr: false,
-// });
 import Router from "next/router";
 import { getLocalData } from "../../utils/storage_service";
 import { setLocalData } from "../../utils/storage_service";
@@ -22,7 +18,7 @@ const Final=()=>
     const router = useRouter()
     // const{name,email,pass,role,id}=router.query;
     const [coun,setCoun]=useState([]);
-    const [country,setCountry]=useState("")
+    // const [country,setCountry]=useState("")
     const [conid,setconId]=useState(' ');
     const [st,setSt]=useState([]);
     const [mon,setMon]=useState(" ");
@@ -30,10 +26,11 @@ const Final=()=>
     const [state,setState]=useState(" ");
     const [age,setAge]=useState();
     const [region,setRegion]=useState(" ");
+    const [message,setMessage]=useState("");
     const [income,setIncome]=useState("");
-    const [posts,setPosts]=useState([]);
+    // const [posts,setPosts]=useState([]);
     const [count,setCount]=useState(0);
-    const [page,setPage]=useState(6);
+    // const [page,setPage]=useState(6);
     const [set_search,setSearch]=useState([]);
     const [pageNumber,setPagenumber]=useState(1);
     const [disable1,setDisable1]=useState(false);
@@ -64,6 +61,7 @@ const Final=()=>
           const res1=await fetch("https://test-api.brightlife.org/brightlife/get/application/details?page=1&page_size=6",{headers:{"Authorization":"token 2d21e847092508ace5f534ac492bf03cd742145a"}});
           const getpofiledata=await res1.json();
           setSearch(getpofiledata.response.data);
+          setMessage("")
       }
       getprofile1();
    },[]);
@@ -132,7 +130,7 @@ const Final=()=>
         {
             console.log("posts is:")
             console.log(result.data?.response?.data);
-            setPosts([])
+            // setPosts([])
             setSearch(result?.data?.response?.data);
         }
         setCount(0);
@@ -146,10 +144,16 @@ const Final=()=>
     {
         e.preventDefault();
         const result=await(getData1(`https://test-api.brightlife.org/brightlife/get/application/details?page=${pageNumber}&page_size=6&gender=${gen}&family_income=${income}`));
+        console.log(result.StatusCode);
+        console.log(result.status);
         if(result.data?.status)
         {
             // setPosts([])
             setSearch(result.data?.response?.data)
+        }
+        if(result.status==404){
+          setMessage("Children list not found for your searches(It may be page number also)");
+          setSearch([])
         }
         // setCount(2)
         if(count==0)
@@ -181,6 +185,7 @@ const Final=()=>
     }
     const handlePageNumber=async(pageNumber)=>
     {
+      setMessage("")
       setPagenumber(pageNumber);
       console.log("hello",pageNumber);
       const result=await(getData1(`https://test-api.brightlife.org/brightlife/get/application/details?page=${pageNumber}&page_size=6`));
@@ -265,12 +270,12 @@ const Final=()=>
                             <img className="user-image-header" src="/img/profile.png" />{name}<i className="fa fa-angle-down" aria-hidden="true" />
                           </a>
                           <ul className="dropdown-nav">
-                            <Link href="/sponser/My_Profile">
+                            <Link href="/sponser/my_profile1">
                               <li>
                                 <img src="/img/user.svg" /><span style={{color:'black'}}>My profile</span>
                               </li>
                             </Link>
-                            <Link href="/sponser/My_Profile">
+                            <Link href="/sponser/my_profile1">
                               <li>
                                 <img src="/img/sponsored.svg" /><span style={{color:'black'}}>Sponsored children</span>
                               </li>
@@ -432,6 +437,7 @@ const Final=()=>
           <section className="search-content">
             <div className="search-headline">Children in need of a sponsorship</div>
             <div className="custom-container">
+              {message}
               {/* <Child_Card count={count} HandleSort={handleCount} posts={posts} gen={gen} income={income} mon={mon} state={state} handlePageNumber={handlePageNumber} set_search={set_search}/> */}
               <Child_Card1 handlePageNumber={handlePageNumber} set_search={set_search} disable1={disable1}/>
             </div>

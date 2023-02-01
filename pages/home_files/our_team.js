@@ -56,7 +56,7 @@ const Our_Team=()=>{
                     </Link>
                   </li>
                   {role_check==="guardian" && <>
-                        {datas!==null ?<>
+                        {datas!=="undefined" ?<>
                             <li className="nav-item user-image dropdown">
                                 <a className="nav-link " href>
                                 <img className="user-image-header" src={datas} />{name}<i className="fa fa-angle-down" aria-hidden="true" />
@@ -79,12 +79,36 @@ const Our_Team=()=>{
                                 </a>
                                 </ul>
                             </li>
-                            </>:null
+                            </>:
+                            <>
+                            <li className="nav-item user-image dropdown">
+                                <a className="nav-link " href>
+                                  <img className="user-image-header" src="/img/profile.png" />{name}<i className="fa fa-angle-down" aria-hidden="true" />
+                                </a>
+                                <ul className="dropdown-nav">
+                                  <Link href="/gaurdian/gaurdian_dashboard">
+                                    <li>
+                                      <img src="/img/user.svg" /><span style={{color:'black'}}>My profile</span>
+                                    </li>
+                                  </Link>
+                                  <Link href="/gaurdian/gaurdian_dashboard">
+                                    <li>
+                                      <img src="/img/sponsored.svg" /><span style={{color:'black'}}>Sponsored children</span>
+                                    </li>
+                                  </Link>
+                                  <a onClick={handleLogout} >
+                                    <li>
+                                      <img src="/img/signout.svg"/><span style={{color:'black'}}>Sign out</span>
+                                    </li>
+                                  </a>
+                                </ul>
+                            </li>
+                          </>
                         }
                         </>
                    }
                   {role_check==="sponsor" && <>
-                    {datas!==null ?<>
+                    {datas!=="undefined" ?<>
                       <li className="nav-item user-image dropdown">
                         <a className="nav-link " href>
                           <img className="user-image-header" src={datas} />{name}<i className="fa fa-angle-down" aria-hidden="true" />
@@ -107,7 +131,31 @@ const Our_Team=()=>{
                           </a>
                         </ul>
                       </li>
-                    </>:null
+                    </>:
+                    <>
+                    <li className="nav-item user-image dropdown">
+                        <a className="nav-link " href>
+                          <img className="user-image-header" src="/img/profile.png" />{name}<i className="fa fa-angle-down" aria-hidden="true" />
+                        </a>
+                        <ul className="dropdown-nav">
+                          <Link href="/sponser/my_profile1">
+                            <li>
+                              <img src="/img/user.svg" /><span style={{color:'black'}}>My profile</span>
+                            </li>
+                          </Link>
+                          <Link href="/sponser/my_profile1">
+                            <li>
+                              <img src="/img/sponsored.svg" /><span style={{color:'black'}}>Sponsored children</span>
+                            </li>
+                          </Link>
+                          <a onClick={handleLogout} >
+                            <li>
+                              <img src="/img/signout.svg"/><span style={{color:'black'}}>Sign out</span>
+                            </li>
+                          </a>
+                        </ul>
+                    </li>
+                  </>
                   }
                   </>}
                   {/* {datas!==null ? <>
